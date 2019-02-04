@@ -1,28 +1,30 @@
 package com.inspire12.homepage.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/board")
+@RestController
+@RequestMapping("/board")
 public class BoardController {
 
     @GetMapping("/list")
-    public void getRestBoardList(){
-
+    public String getRestBoardList(){
+        return "board get";
     }
 
     @PostMapping("/list")
-    public void modifyBoardList(){
-
+    public String modifyBoardList(){
+        return "board post";
     }
 
     @PutMapping("/list")
-    public void addBoardList(){
-
+    public String addBoardList(){
+        return "board put";
     }
 
     @DeleteMapping("/list")
-    public void deleteBoardList(){
-        
+    public String deleteBoardList(){
+        return "board delete";
     }
 
 }
