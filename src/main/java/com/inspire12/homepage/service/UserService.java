@@ -31,6 +31,7 @@ public class UserService {
     // TODO : 추후 계정복구 가능하게 백업 디비 설정필요
     public boolean deleteUser(String userId, String passwd){
         User user = userRepository.findByUserId(userId);
+
         if(user.getPasswd().equals(passwd)){
             userRepository.deleteByUserId(userId);
             return true;

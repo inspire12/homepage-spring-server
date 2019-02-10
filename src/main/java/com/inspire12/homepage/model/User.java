@@ -13,11 +13,12 @@ import java.time.LocalDateTime;
 @Data
 public class User {
 
-    @Id
+
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     Integer id;
 
+    @Id
     @Column(name = "user_id")
     @JsonProperty("user_id")
     String userId;
