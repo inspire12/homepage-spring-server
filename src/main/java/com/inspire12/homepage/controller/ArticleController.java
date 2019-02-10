@@ -1,30 +1,48 @@
 package com.inspire12.homepage.controller;
 
 
+import com.inspire12.homepage.model.Article;
+import com.inspire12.homepage.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
+
+    @Autowired
+    ArticleService articleService;
+
+
+    @GetMapping("/")
+    public Article showArticle(@RequestParam String articleId){
+        return articleService.showArticle(articleId);
+    }
+
+
     @GetMapping("/list")
-    public String showArticle(){
-        return "article get";
+    public List<Article> showArticleList(){
+        return articleService.showArticleList();
     }
 
-    @PostMapping("/list")
-    public String poArticle(){
-        return "article";
+
+
+
+    @PostMapping("/save")
+    public Article saveArticle(@RequestBody Article article){
+        return articleService.saveArticle(article);
     }
 
-    @PutMapping("/list")
-    public String putArticle(){
-        return "article put";
-    }
+
 
     @DeleteMapping("/list")
-    public String deleteArticle(){
-        return "article delete";
+    public boolean deleteArticle(@RequestParam String id, @RequestHeader HttpHeaders headers){
+        // httpheader;
+        return articleService.deleteArticle(id);
     }
 
 }

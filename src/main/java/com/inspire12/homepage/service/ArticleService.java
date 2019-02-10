@@ -24,17 +24,17 @@ public class ArticleService {
         return articleRepository.findAllByBoardId(boardId);
     }
 
-    public boolean saveArticle(Article article){
-        articleRepository.save(article);
-        return true;
+    public Article saveArticle(Article article){
+        return articleRepository.save(article);
+//        return /true;
     }
 
     public boolean modifyArticle(Article article){
         articleRepository.save(article);
         return true;
     }
-    public boolean deleteArticle(Article article){
-        articleRepository.deleteById(article.getUserId());
+    public boolean deleteArticle(String articleId){
+        articleRepository.deleteById(articleId);
         return true;
     }
 }
