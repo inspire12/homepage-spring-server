@@ -2,9 +2,11 @@ package com.inspire12.homepage.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user")
@@ -28,4 +30,12 @@ public class User {
     @JsonProperty("name")
     String name;
 
+    @Column(name = "pwd")
+    @JsonProperty("passwd")
+    String passwd;
+
+    @Column(name="sign_at")
+    @CreationTimestamp
+    @JsonProperty("sign_at")
+    LocalDateTime signAt;
 }
