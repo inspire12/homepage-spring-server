@@ -30,8 +30,6 @@ public class ArticleController {
     }
 
 
-
-
     @PostMapping("/save")
     public Article saveArticle(@RequestBody Article article){
         return articleService.saveArticle(article);
