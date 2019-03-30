@@ -1,0 +1,67 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.2.RELEASE)
+
+2019-03-10 16:15:37.794  INFO 12070 --- [           main] c.i.homepage.HomepageApplication         : Starting HomepageApplication on yeonghakui-MacBook-Pro.local with PID 12070 (/Users/yeonghakseo/Documents/workspace/private-project/Homepage-Spring-Server/build/classes/java/main started by yeonghakseo in /Users/yeonghakseo/Documents/workspace/private-project/Homepage-Spring-Server)
+2019-03-10 16:15:37.797  INFO 12070 --- [           main] c.i.homepage.HomepageApplication         : No active profile set, falling back to default profiles: default
+2019-03-10 16:15:38.893  INFO 12070 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-03-10 16:15:39.009  INFO 12070 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106ms. Found 3 repository interfaces.
+2019-03-10 16:15:39.415  INFO 12070 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4cfab67a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-03-10 16:15:39.868  INFO 12070 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8017 (http)
+2019-03-10 16:15:39.911  INFO 12070 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-03-10 16:15:39.912  INFO 12070 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.14]
+2019-03-10 16:15:39.926  INFO 12070 --- [           main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/yeonghakseo/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-03-10 16:15:40.074  INFO 12070 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-03-10 16:15:40.074  INFO 12070 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2227 ms
+Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+2019-03-10 16:15:40.448  INFO 12070 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-03-10 16:15:40.542  INFO 12070 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-03-10 16:15:40.544  INFO 12070 --- [           main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-03-10 16:15:40.756  INFO 12070 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-03-10 16:15:40.937  INFO 12070 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-03-10 16:15:40.954  INFO 12070 --- [           main] o.h.e.j.e.i.LobCreatorBuilderImpl        : HHH000422: Disabling contextual LOB creation as connection was null
+2019-03-10 16:15:41.656  INFO 12070 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-03-10 16:15:42.480  WARN 12070 --- [           main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-03-10 16:15:42.874  INFO 12070 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-03-10 16:15:43.101  INFO 12070 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-03-10 16:15:43.125  INFO 12070 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-03-10 16:15:43.135  INFO 12070 --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-03-10 16:15:43.386  INFO 12070 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8017 (http) with context path ''
+2019-03-10 16:15:43.389  INFO 12070 --- [           main] c.i.homepage.HomepageApplication         : Started HomepageApplication in 6.193 seconds (JVM running for 6.764)
+2019-03-10 16:15:56.604  INFO 12070 --- [nio-8017-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-03-10 16:15:56.604  INFO 12070 --- [nio-8017-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-03-10 16:15:56.614  INFO 12070 --- [nio-8017-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
+2019-03-10 16:16:32.694  INFO 12070 --- [       Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-03-10 16:16:32.697  INFO 12070 --- [       Thread-3] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+
+> Task :bootRun FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':bootRun'.
+> Process 'command '/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/bin/java'' finished with non-zero exit value 143
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 5.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/4.10.2/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD FAILED in 57s
+3 actionable tasks: 1 executed, 2 up-to-date
