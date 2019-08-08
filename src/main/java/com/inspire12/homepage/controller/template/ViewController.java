@@ -9,8 +9,42 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class ViewController {
 
-    @GetMapping("/")
+    @GetMapping({"/", "/index"})
     public String index(){
         return "index";
     }
+
+    @GetMapping("/introduce")
+    public String introduce() {return "introduce";}
+
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
+
+    @GetMapping("/about")
+    public String about(){
+        return "about";
+    }
+
+    @GetMapping("/blog")
+    public String blog(){
+        return "blog";
+    }
+
+
+    @GetMapping("/gallery")
+    public String gallary(){
+        return "gallery";
+    }
+
+
+    @GetMapping("/single-blog")
+    public String singleBlog(){
+        return "single-blog";
+    }
+
+
+
+
 }
