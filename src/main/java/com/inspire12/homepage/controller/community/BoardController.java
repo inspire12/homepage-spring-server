@@ -1,4 +1,4 @@
-package com.inspire12.homepage.controller;
+package com.inspire12.homepage.controller.community;
 
 import com.inspire12.homepage.model.Board;
 import com.inspire12.homepage.repository.BoardRepository;
