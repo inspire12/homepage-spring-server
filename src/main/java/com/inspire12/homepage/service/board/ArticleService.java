@@ -5,18 +5,25 @@ import com.inspire12.homepage.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Tuple;
+import javax.persistence.TupleElement;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class ArticleService {
+
     @Autowired
-    ArticleRepository articleRepository;
+    private ArticleRepository articleRepository;
 
     public Article showArticle(String id){
+
+
         return articleRepository.findById(id).get();
     }
 
     public List<Article> showArticleList(){
+
         return articleRepository.findAll();
     }
 
@@ -25,6 +32,7 @@ public class ArticleService {
     }
 
     public Article saveArticle(Article article){
+
         return articleRepository.save(article);
 //        return /true;
     }

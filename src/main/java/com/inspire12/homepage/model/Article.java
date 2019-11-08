@@ -3,6 +3,8 @@ package com.inspire12.homepage.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
@@ -20,15 +22,19 @@ public class Article {
     @Column(name = "id")
     Long id;
 
+
+    @Column(name = "title")
+    String title;
+
     @Column(name = "subject")
     String subject;
 
     @Column(name = "content")
-    String cotent;
+    String content;
 
     @Column(name = "user_id")
     @JsonProperty("user_id")
-    String userId;
+    int userId;
 
     @Column(name = "created_at")
     @CreationTimestamp
