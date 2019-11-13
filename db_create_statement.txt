@@ -10,14 +10,12 @@ CREATE TABLE `board` (
 
 
 CREATE TABLE `user` (
-  `user_id` varchar(11) NOT NULL DEFAULT '',
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(11),
   `nick_name` varchar(11) NOT NULL DEFAULT '',
   `name` varchar(11) DEFAULT NULL,
   `pwd` varchar(11) DEFAULT NULL,
-  `sign_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `id` (`id`)
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -27,11 +25,9 @@ CREATE TABLE `article` (
   `content` mediumtext CHARACTER SET utf8mb4,
   `user_id` varchar(11) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `board_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   UNIQUE KEY `board_id` (`board_id`),
-  CONSTRAINT `board` FOREIGN KEY (`board_id`) REFERENCES `board` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `writer` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
