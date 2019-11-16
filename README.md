@@ -1,10 +1,8 @@
 # Homepage Spring Server for private project
-
 어떤 용도로 이 페이지를 쓸것인가?
 
-
-##### 진도 
-1주차 
+#### 진도 
+#####  1주차 
 0) 개발의 방향성 
  - 이해하기 쉬운 코드: 코드가 짧고 단순하고 직관적인 코드
  - 수정하기 쉬운 코드: 변경의 여파가 적은 코드
@@ -26,12 +24,19 @@
  - View: 사용자에게 보여줌 (web front) 
 
 +) 추가 
- 
-2) - intellij 단축키 
-    - 논리적구분, 물리적구분 이해 
+- intellij 단축키 
+- 논리적구분, 물리적구분 이해 
    
-   2주차 
-   1) 개발 / 배포 서버 
+#####  2주차    
+1) 개발 / 배포 서버 
+ - /script/** (nohup ./gradlew bootrun --args='--spring.profiles.active=live' &) 
+ - lsof -i:{port번호} 
+
+2) 데이터 저장, 데이터 불러오기 
+ 
+3) view 와 데이터 연결 
+- template engine (https://www.thymeleaf.org/)
+- js fetch 
 
 ##### 기술
 1. Spring boot 
