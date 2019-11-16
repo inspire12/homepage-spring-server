@@ -46,7 +46,6 @@ public class ViewController {
     public String getBoardView(@RequestParam String type, Model model){
         // board 종류
         model.addAttribute("name", "board");
-
         return "board";
     }
 
