@@ -23,11 +23,10 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/articles/{id}")
     public Article showArticleList(@PathVariable long id){
         return articleService.showArticle(id);
     }
-
 
     @PostMapping("/articles")
     public Article saveArticle(@RequestBody Article article){
@@ -35,12 +34,10 @@ public class ArticleController {
         return articleService.saveArticle(article);
     }
 
-
-
     @DeleteMapping("/articles")
-    public boolean deleteArticle(@RequestParam String id, @RequestHeader HttpHeaders headers){
-        // httpheader;
-        return articleService.deleteArticle(id);
+        public boolean deleteArticle(@RequestParam String id, @RequestHeader HttpHeaders headers){
+            // httpheader;
+            return articleService.deleteArticle(id);
     }
 
 }

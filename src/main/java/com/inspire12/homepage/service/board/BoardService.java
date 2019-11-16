@@ -1,4 +1,4 @@
-package com.inspire12.homepage.service;
+package com.inspire12.homepage.service.board;
 
 import com.inspire12.homepage.model.Board;
 import com.inspire12.homepage.repository.BoardRepository;
