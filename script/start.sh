@@ -1,1 +1,1 @@
-nohup ./gradlew bootRun &
+nohup ./gradlew bootrun --args='--spring.profiles.active=live' &
