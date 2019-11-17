@@ -1,6 +1,7 @@
 package com.inspire12.homepage.controller.template;
 
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,8 +43,9 @@ public class ViewController {
         return "gallery";
     }
 
+    @Nullable
     @GetMapping("/board")
-    public String getBoardView(@RequestParam String type, Model model){
+    public String getBoardView(@RequestParam(value="type", defaultValue = "all") String type, Model model){
         // board 종류
         model.addAttribute("name", "board");
         return "board";
