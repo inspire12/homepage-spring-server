@@ -53,8 +53,4 @@ public class ViewController {
     public String getSingleBlogView(){
         return "single-blog";
     }
-
-
-
-
 }
