@@ -66,22 +66,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>공지</td>
-                    <td>동아리 홈페이지 만들기 사업</td>
+                <tr th:each="article: ${articles}">
+                    <td></td>
+                    <td th:text="${article.subject}"></td>
                     <td>서영학</td>
                     <td>2019.11.15</td>
                     <td>2</td>
                     <td>0</td>
                 </tr>
-                <tr>
-                    <td>공지</td>
-                    <td>동아리 홈페이지 만들기 사업</td>
-                    <td>서영학</td>
-                    <td>2019.11.12</td>
-                    <td>3</td>
-                    <td>2</td>
-                </tr>
+
                 </tbody>
             </table>
         </div>
