@@ -43,12 +43,11 @@ public class ViewController {
     }
 
     @GetMapping("/board")
-    public String getBoardView(@RequestParam String type, Model model){
+    public String getBoardView(@RequestParam (defaultValue = "all") String type, Model model){
         // board 종류
         model.addAttribute("name", "board");
         return "board";
     }
-
 
     @GetMapping("/single-blog")
     public String getSingleBlogView(){
