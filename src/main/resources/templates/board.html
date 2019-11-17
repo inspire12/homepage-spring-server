@@ -115,7 +115,7 @@
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="breadcrumb-content text-center">
-                    <h2 class="page-title">Board List</h2>
+                    <h2 class="page-title"></h2>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center">
                             <li class="breadcrumb-item"><a href="index.html"><i class="icon_house_alt"></i> Home</a>
@@ -134,38 +134,27 @@
 <!-- Blog Area Start -->
 <div class="alime-blog-area section-padding-80-0 mb-70">
     <div class="container">
-        <div class="row">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">분류</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">글쓴이</th>
-                    <th scope="col">날짜</th>
-                    <th scope="col">조회</th>
-                    <th scope="col">추천</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>공지</td>
-                    <td>동아리 홈페이지 만들기 사업</td>
-                    <td>서영학</td>
-                    <td>2019.11.15</td>
-                    <td>2</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>공지</td>
-                    <td>동아리 홈페이지 만들기 사업</td>
-                    <td>서영학</td>
-                    <td>2019.11.12</td>
-                    <td>2</td>
-                    <td>0</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class = "table table-striped">
+            <thead class="thead-light">
+            <tr><!--tr은 행 만들어 줘--><!--th로 같은 행에 있는 다른 요소 넣어주기--><!--scope = "col"을 써 각각의 열의 헤드임을 보여줌-->
+                <th scope = "col">분류</th><th scope = "col">제목</th><th scope = "col">글쓴이</th><th scope = "col">날짜</th><th scope = "col">조회수</th><th scope = "col">추천수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>공지</td><td>Health</td><td>복신영</td><td>2019.11.14</td><td>1</td><td>1</td>
+            </tr>
+            <tr>
+                <td>자유</td><td>Elephant</td><td>복신영</td><td>2019.11.14</td><td>1</td><td>1</td>
+            </tr>
+            <tr>
+                <td>자유</td><td>Lemon</td><td>복신영</td><td>2019.11.14</td><td>2</td><td>9</td>
+            </tr>
+            <tr>
+                <td>자유</td><td>Pizza</td><td>복신영</td><td>2019.11.14</td><td>2</td><td>0</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <!-- Blog Area End -->
