@@ -25,8 +25,89 @@
 </div>
 <!-- /Preloader -->
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<!-- Top Search Form Area -->
+<div class="top-search-area">
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- Close -->
+                    <button type="button" class="btn close-btn" data-dismiss="modal"><i class="ti-close"></i></button>
+                    <!-- Form -->
+                    <form action="index.html" method="post">
+                        <input type="search" name="top-search-bar" class="form-control"
+                               placeholder="Search and hit enter...">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header Area Start -->
+<header class="header-area">
+    <!-- Main Header Start -->
+    <div class="main-header-area">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="alimeNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="./index.html"><img src="./img/core-img/logo.png" alt=""></a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+                        <!-- Menu Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li><a href="./index.html">Home</a></li>
+                                <li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="./index.html">- Home</a></li>
+                                        <li><a href="./about.html">- About</a></li>
+                                        <li><a href="./gallery.html">- Gallery</a></li>
+                                        <li><a href="./blog.html">- Blog</a></li>
+                                        <li><a href="./single-blog.html">- Blog Details</a></li>
+                                        <li><a href="./contact.html">- Contact</a></li>
+                                        <li><a href="#">- Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">- Dropdown Item</a></li>
+                                                <li><a href="#">- Dropdown Item</a></li>
+                                                <li><a href="#">- Dropdown Item</a></li>
+                                                <li><a href="#">- Dropdown Item</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="./about.html">About</a></li>
+                                <li><a href="./gallery.html">Gallery</a></li>
+                                <li class="active"><a href="./blog.html">Blog</a></li>
+                                <li><a href="./contact.html">Contact</a></li>
+                            </ul>
+
+                            <!-- Search Icon -->
+                            <div class="search-icon" data-toggle="modal" data-target="#searchModal"><i
+                                    class="ti-search"></i></div>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End -->
 
 <!-- Breadcrumb Area Start -->
 <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
@@ -54,27 +135,30 @@
 <div class="alime-blog-area section-padding-80-0 mb-70">
     <div class="container">
         <div class="row">
-            <table class="table table-striped">
-                <thead class="thead-dark">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
                 <tr>
-                    <th scope="col">분류</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">글쓴이</th>
-                    <th scope="col">날짜</th>
-                    <th scope="col">조회</th>
-                    <th scope="col">추천</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">나이</th>
+                    <th scope="col">동아리</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="article: ${articles}">
-                    <td th:text="${article.type}"></td>
-                    <td th:text="${article.subject}"></td>
-                    <td th:text="${article.author.name}">서영학</td>
-                    <td th:text="${article.createdAt}">2019.11.15</td>
-                    <td th:text="${article.hit}">2</td>
-                    <td th:text="${article.like}">0</td>
+                <tr>
+                    <th scope="row">유형곤</th>
+                    <td>20</td>
+                    <td>SPG</td>
                 </tr>
-
+                <tr>
+                    <th scope="row">문정현</th>
+                    <td>21</td>
+                    <td>GROW</td>
+                </tr>
+                <tr>
+                    <th scope="row">엄호정</th>
+                    <td>22</td>
+                    <td>GROW</td>
+                </tr>
                 </tbody>
             </table>
         </div>
