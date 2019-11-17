@@ -43,10 +43,11 @@ public class ViewController {
     }
 
     @GetMapping("/board")
-    public String getBoardView(@RequestParam String type, Model model){
+    public String getBoardView(@RequestParam(defaultValue = "all") String type, Model model){
         // board 종류
         model.addAttribute("name", "board");
         return "board";
+        //data를 html에 연결해주는 객체를 model이라고 한다.
     }
 
 
