@@ -11,6 +11,9 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, String> {
     List<Article> findTop30ByBoardIdOrderByNo(Long boardId);
 
+    @Query(value = "select * from article order by no", nativeQuery = true)
+    List<Article> findByOrderByNo();
+
     Article findTopById(Long id);
 
     @Query("select a.userId from Article a where a.userId=:userId")

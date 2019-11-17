@@ -1,6 +1,9 @@
 package com.inspire12.homepage.controller.template;
 
 
+import com.inspire12.homepage.model.Article;
+import com.inspire12.homepage.service.board.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.List;
+
 @Controller
 @EnableWebMvc
 public class ViewController {
+
+    @Autowired
+    ArticleService articleService;
 
     @GetMapping({"/", "/index"})
     public String index(Model model){
@@ -45,6 +53,8 @@ public class ViewController {
     @GetMapping("/board")
     public String getBoardView(@RequestParam String type, Model model){
         // board 종류
+        List<Article> articles = articleService.showArticles();
+        model.addAttribute("articles", articles);
         model.addAttribute("name", "board");
         return "board";
     }
