@@ -5,7 +5,6 @@ import com.inspire12.homepage.model.Article;
 import com.inspire12.homepage.model.User;
 import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.UserRepository;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +26,12 @@ public class ArticleService {
     }
 
     public List<ArticleMsg> showArticlesByBoard(int boardId) {
-        List<Article> articles = articleRepository.findTop30ByBoardIdOrderByNo(boardId);
+        List<Article> articles = articleRepository.findTop30ByBoardIdOrderByNoDesc(boardId);
         return convertArticlesToArticleMsgs(articles);
     }
 
-    public List<ArticleMsg> showArticles() {
-        List<Article> articles = articleRepository.findByOrderByNo();
+    public List<ArticleMsg> showArticles(int articleCount) {
+        List<Article> articles = articleRepository.showArticlesInBoard(articleCount);
         return convertArticlesToArticleMsgs(articles);
     }
 

@@ -52,9 +52,9 @@ public class ViewController {
     }
 
     @GetMapping("/board")
-    public String getBoardView(@RequestParam(defaultValue = "all") String type, Model model){
+    public String getBoardView(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "10") int articleCount, Model model){
         // board 종류
-        List<ArticleMsg> articles = articleService.showArticles();
+        List<ArticleMsg> articles = articleService.showArticles(articleCount);
         model.addAttribute("articles", articles);
         model.addAttribute("name", "board");
         return "board";
