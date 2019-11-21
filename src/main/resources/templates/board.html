@@ -67,12 +67,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="article: ${articles}">
-                    <td></td>
+                    <td th:text="${article.type}"></td>
                     <td th:text="${article.subject}"></td>
-                    <td>서영학</td>
-                    <td>2019.11.15</td>
-                    <td>2</td>
-                    <td>0</td>
+                    <td th:text="${article.author.name}">서영학</td>
+                    <td th:text="${article.createdAt}">2019.11.15</td>
+                    <td th:text="${article.hit}">2</td>
+                    <td th:text="${article.like}">0</td>
                 </tr>
 
                 </tbody>
