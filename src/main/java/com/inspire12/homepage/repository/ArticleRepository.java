@@ -8,13 +8,11 @@ import org.springframework.data.repository.query.Param;
 import javax.persistence.Tuple;
 import java.util.List;
 
-public interface ArticleRepository extends JpaRepository<Article, String> {
-    List<Article> findTop30ByBoardIdOrderByNo(Long boardId);
+public interface ArticleRepository extends JpaRepository<Article, Integer> {
+    List<Article> findTop30ByBoardIdOrderByNo(int boardId);
 
     @Query(value = "select * from article order by no", nativeQuery = true)
     List<Article> findByOrderByNo();
-
-    Article findTopById(Long id);
 
     @Query("select a.userId from Article a where a.userId=:userId")
     List<Article> selectAll(@Param("userId") long userId);

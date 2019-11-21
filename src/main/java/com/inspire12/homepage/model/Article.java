@@ -57,5 +57,16 @@ public class Article {
     @Column(name = "board_id")
     @JsonProperty("board_id")
     int boardId;
+
+
+    @Column(name = "tags")
+    String tags;
+
+    @Column(name = "hit")
+    Integer hit;
+
+    @Column(name = "like")
+    Integer like;
+
 }
 

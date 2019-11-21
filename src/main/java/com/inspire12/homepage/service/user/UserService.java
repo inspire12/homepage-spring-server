@@ -33,7 +33,7 @@
 ////        User user = userRepository.findByUserId(userId);
 ////
 ////        if(user.getPasswd().equals(passwd)){
-////            userRepository.deleteByUserId(userId);
+////            userRepository.deleteById(userId);
 ////            return true;
 ////        }
 ////        return false;

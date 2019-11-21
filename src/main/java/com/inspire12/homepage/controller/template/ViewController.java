@@ -1,6 +1,7 @@
 package com.inspire12.homepage.controller.template;
 
 
+import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.model.Article;
 import com.inspire12.homepage.service.board.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class ViewController {
     @GetMapping("/board")
     public String getBoardView(@RequestParam(defaultValue = "all") String type, Model model){
         // board 종류
-        List<Article> articles = articleService.showArticles();
+        List<ArticleMsg> articles = articleService.showArticles();
         model.addAttribute("articles", articles);
         model.addAttribute("name", "board");
         return "board";
