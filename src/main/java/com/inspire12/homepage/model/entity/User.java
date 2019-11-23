@@ -1,17 +1,23 @@
 package com.inspire12.homepage.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user")
-@Data
-public class User {
+@Setter
+@Getter
+public class User  {
+
 
     @Id
     @Column(name="id")
@@ -31,7 +37,7 @@ public class User {
     String name;
 
     @Column(name = "passwd")
-    @JsonProperty("passwd")
+    @JsonIgnore
     String passwd;
 
     @Column(name="created_at")
