@@ -1,5 +1,6 @@
 package com.inspire12.homepage.message;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.inspire12.homepage.model.entity.Article;
@@ -26,7 +27,9 @@ public class ArticleMsg {
     String subject;
     String content;
     String url;
+
     @JsonProperty("author")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User author;
     @JsonProperty("created_at")
     LocalDateTime createdAt;
