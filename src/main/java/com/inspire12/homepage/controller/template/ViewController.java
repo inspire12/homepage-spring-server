@@ -60,7 +60,9 @@ public class ViewController {
     }
 
     @GetMapping("/article")
-    public String getSingleBlogView(){
+    public String getSingleBlogView(@RequestParam(defaultValue = "1") int id, Model model){
+        model.addAttribute("article", articleService.showArticleMsg(id));
+        model.addAttribute("name", "article");
         return "article";
     }
 }

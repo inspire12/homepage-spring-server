@@ -3,6 +3,13 @@ const el = (domstring) => {
     return html.body.firstChild;
 };
 
+function createGallaryImgModel (name, tag, delay) {
+    let model = {};
+    model.name = name;
+    model.tag = tag;
+    model.delay = delay;
+    return model;
+}
 
 function createGallaryImg(img, tag, delay) {
     let singleGallayString = '<div class="col-12 col-sm-6 col-lg-3 single_gallery_item '
