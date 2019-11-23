@@ -1,6 +1,6 @@
 package com.inspire12.homepage.repository;
 
-import com.inspire12.homepage.model.Board;
+import com.inspire12.homepage.model.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,13 @@
 package com.inspire12.homepage.service.board;
 
+
 import com.inspire12.homepage.message.ArticleMsg;
-import com.inspire12.homepage.model.Article;
-import com.inspire12.homepage.model.User;
+import com.inspire12.homepage.model.entity.Article;
+import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +25,13 @@ public class ArticleService {
         return ArticleMsg.create(articleRepository.getOne(id), userRepository.getOne(article.getUserId()));
     }
 
-    public List<ArticleMsg> showArticlesByBoard(int boardId) {
-        List<Article> articles = articleRepository.findTop30ByBoardIdOrderByNoDesc(boardId);
+    public List<ArticleMsg> showArticleMsgsWithCount(int articleCount) {
+        List<Article> articles = articleRepository.showArticlesWithArticleCount(articleCount);
         return convertArticlesToArticleMsgs(articles);
     }
 
-    public List<ArticleMsg> showArticles(int articleCount) {
-        List<Article> articles = articleRepository.showArticlesInBoard(articleCount);
+    public List<ArticleMsg> showArticleMsgs() {
+        List<Article> articles = articleRepository.findAll();
         return convertArticlesToArticleMsgs(articles);
     }
 

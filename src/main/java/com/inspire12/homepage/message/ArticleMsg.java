@@ -1,10 +1,10 @@
 package com.inspire12.homepage.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.inspire12.homepage.model.Article;
-import com.inspire12.homepage.model.User;
+
+import com.inspire12.homepage.model.entity.Article;
+import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.util.ArticleUtil;
-import com.inspire12.homepage.util.TimeUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

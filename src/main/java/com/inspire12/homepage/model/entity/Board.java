@@ -1,4 +1,4 @@
-package com.inspire12.homepage.model;
+package com.inspire12.homepage.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;

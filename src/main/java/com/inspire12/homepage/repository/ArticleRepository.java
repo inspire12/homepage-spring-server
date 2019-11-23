@@ -1,6 +1,6 @@
 package com.inspire12.homepage.repository;
 
-import com.inspire12.homepage.model.Article;
+import com.inspire12.homepage.model.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,8 +12,10 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> findTop30ByBoardIdOrderByNoDesc(int boardId);
 
     @Query(value = "select * from article order by `no` desc limit :articleCount", nativeQuery = true)
-    List<Article> showArticlesInBoard(@Param(value = "articleCount") int articleCount);
+    List<Article> showArticlesWithArticleCount(@Param(value = "articleCount") int articleCount);
 
-    @Query("select a.userId from Article a where a.userId=:userId")
-    List<Article> selectAll(@Param("userId") long userId);
+
+    @Query(value = "SELECT a.*, u.nickname FROM homepage.article as a join homepage.user as u on a.user_id=u.id order by `no` limit 30", nativeQuery = true)
+    List<Tuple> selectArticlesWithNickname();
+
 }
