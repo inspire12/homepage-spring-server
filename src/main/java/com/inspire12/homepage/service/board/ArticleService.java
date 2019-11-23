@@ -6,6 +6,7 @@ import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.UserRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
