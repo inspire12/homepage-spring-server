@@ -59,8 +59,8 @@ public class ViewController {
         return "board";
     }
 
-    @GetMapping("/single-blog")
+    @GetMapping("/article")
     public String getSingleBlogView(){
-        return "single-blog";
+        return "article";
     }
 }
