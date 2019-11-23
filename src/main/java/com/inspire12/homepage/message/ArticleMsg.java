@@ -22,30 +22,20 @@ public class ArticleMsg {
     int id;
     int no;
     int depth;
-
-    String type;
+    String category;
     String subject;
-
     String content;
-
     String url;
-
     @JsonProperty("author")
     User author;
-
     @JsonProperty("created_at")
     LocalDateTime createdAt;
-
     @JsonProperty("updated_at")
     LocalDateTime updatedAt;
-
     @JsonProperty("board_id")
     int boardId;
-
     List<String> tags;
-
     Integer hit;
-
     Integer like;
 
 
@@ -53,7 +43,7 @@ public class ArticleMsg {
         ArticleMsg articleMsg = new ArticleMsg();
         articleMsg.setId(article.getId());
         articleMsg.setNo(article.getNo());
-        articleMsg.setType(ArticleUtil.getArticleType(article.getBoardId()));
+        articleMsg.setCategory(ArticleUtil.getArticleCategory(article.getBoardId()));
         articleMsg.setDepth(article.getDepth());
         articleMsg.setSubject(article.getSubject());
         articleMsg.setContent(article.getContent());
