@@ -15,7 +15,6 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -143,7 +142,7 @@
                     <th scope="col">동아리</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="myTBody">
                 <tr>
                     <th scope="row">유형곤</th>
                     <td>20</td>
@@ -161,6 +160,7 @@
                 </tr>
                 </tbody>
             </table>
+            <button type="button" onclick="javascript:addRow()" class="gray">행추가</button>
         </div>
     </div>
 </div>
@@ -181,7 +181,20 @@
 <script src="js/alime.bundle.js"></script>
 <!-- Active -->
 <script src="js/default-assets/active.js"></script>
+<script>
+    function addRow(){
+        tbody = document.getElementById('myTBody');
+        row = tbody.insertRow(tbody.rows.length);
 
+        cell1 = row.insertCell(0);
+        cell2 = row.insertCell(1);
+        cell3 = row.insertCell(2);
+
+        cell1.innerHTML = "<th>서영학</th>";
+        cell2.innerHTML = "<td>200</td>";
+        cell3.innerHTML = "<td>ANT</td>";
+    }
+</script>
 </body>
 
 </html>
