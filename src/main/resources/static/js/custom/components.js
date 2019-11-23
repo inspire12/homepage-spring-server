@@ -9,3 +9,4 @@ function createGallaryImg(img, tag, delay) {
     return singleGallayItem = el(singleGallayString);
     // document.getElementById("alime-portfolio").append(singleGallayItem);
 }
+
