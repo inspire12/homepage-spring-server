@@ -1,7 +1,7 @@
 package com.inspire12.homepage.util;
 
 public class ArticleUtil {
-    public static String getArticleType(int id){
+    public static String getArticleCategory(int id){
         if (id == 1){
             return "공지";
         } else if(id == 2){
