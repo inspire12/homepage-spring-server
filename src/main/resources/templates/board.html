@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="article: ${articles}">
-                    <td th:text="${article.type}"></td>
+                    <td th:text="${article.category}"></td>
                     <td th:text="${article.subject}"></td>
                     <td th:text="${article.author.name}">서영학</td>
                     <td th:text="${article.createdAt}">2019.11.15</td>
