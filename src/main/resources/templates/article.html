@@ -29,23 +29,9 @@
 <th:block th:include="@{/fragment/common/header.html}"></th:block>
 
 <!-- Breadcrumb Area Start -->
-<section class="breadcrumb-area blog bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/18.jpg);">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <div class="breadcrumb-content text-center">
-                    <a href="#" class="btn post-catagory">Nature</a>
-                    <h2 class="page-title">Sunset over Cantal, France</h2>
-                    <div class="post-meta">
-                        <a href="#" class="post-author">By Jared Padilla</a>
-                        <a href="#" class="post-date">July 15, 2019</a>
-                        <a href="#" class="post-comments">No Comments</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div id="breadcrumb-area-id">
+
+</div>
 <!-- Breadcrumb Area End -->
 
 <!-- Blog Details Area Start -->
@@ -344,11 +330,19 @@
 <script th:src="@{/js/custom/components.js}"></script>
 <!-- CUSTOM -->
 <script th:inline="javascript">
+
+    let article = /*[[${article}]]*/ '';
+    let contentStr = /*[[${article.content}]]*/ '';
+
     function main() {
-        let contentStr = /*[[${article.content}]]*/ '';
         let contentElement = el(contentStr);
+        let sectionElement = createBreadcrumbSection(article);
+
+
+        document.getElementById("breadcrumb-area-id").append(sectionElement);
         document.getElementById("blog-details-text-id").append(contentElement);
     }
+
     main()
 
 </script>
