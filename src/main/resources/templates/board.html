@@ -40,7 +40,7 @@
                             <li class="breadcrumb-item"><a href="index.html"><i class="icon_house_alt"></i> Home</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">Board</li>
-                            <li class="breadcrumb-item active" aria-current="page">Notice</li>
+<!--                            <li class="breadcrumb-item active" aria-current="page">Notice</li>-->
                         </ol>
                     </nav>
                 </div>
@@ -67,10 +67,9 @@
                 </thead>
                 <tbody>
 
-
                 </tbody>
             </table>
-            <div class="col-12">
+            <div class="col-12 text-right">
                 <button type="submit" class="btn alime-btn btn-2 mt-15">글쓰기</button>
             </div>
         </div>
@@ -97,18 +96,22 @@
     let articles = /*[[${articles}]]*/ [];
 
     function showDateFrom(locatDateTime) {
-        return locatDateTime;
+        let d = new Date(locatDateTime);
+        let year = d.getFullYear();
+        let month = d.getMonth()+1;
+        let day = d.getDay();
+        return year + "." + month + "." + day;
     }
 
     function createArticleRows(article) {
         let trStr = '<tr><td>' + article['category'] + '</td>\n' +
             '<td> <a href=/article?id=' + article['id'] + '>' + article['subject'] + '</a></td>\n' +
             '<td>' + article['author']['nickname'] + '</td>\n' +
-            '<td>' + showDateFrom(article['updatedAt']) + '</td>\n' +
+            '<td>' + showDateFrom(article['updated_at']) + '</td>\n' +
             '<td>' + article['hit'] + '</td>\n' +
             '<td>' + article['like'] + '</td>\n' +
             '</tr>';
-        return createElementFromStr(trStr);
+        return createTrFromStr(trStr);
     }
 
     function main() {
