@@ -3,7 +3,7 @@ function main() {
 
 
     document.getElementById("blog-details-text-id")
-    
+
 }
 
 function createCommentForm () {
@@ -17,7 +17,7 @@ function createCommentForm () {
         '                            </div>\n' +
         '                        </div>\n' +
         '                    </form>';
-    let commentForm = el(commentFormStr);
+    let commentForm = createElementFromStr(commentFormStr);
 
     let messageTextarea = commentForm.getElementsByClassName("message-name")[0];
 

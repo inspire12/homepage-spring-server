@@ -335,7 +335,7 @@
     let contentStr = /*[[${article.content}]]*/ '';
 
     function main() {
-        let contentElement = el(contentStr);
+        let contentElement = createElementFromStr(contentStr);
         let sectionElement = createBreadcrumbSection(article);
 
 

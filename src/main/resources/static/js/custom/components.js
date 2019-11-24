@@ -1,7 +1,9 @@
-const el = (domstring) => {
+const createElementFromStr = (domstring) => {
     const html = new DOMParser().parseFromString(domstring, 'text/html');
     return html.body.firstChild;
 };
+
+
 
 function createGallaryImgModel(name, tag, delay) {
     let model = {};
@@ -17,7 +19,7 @@ function createGallaryImg(img, tag, delay) {
         + delay + 'ms"><div class="single-portfolio-content"><img src="'
         + img + '" alt=""><div class="hover-content"><a href="'
         + img + '" class="portfolio-img">+</a></div></div></div>'
-    return el(singleGallayString);
+    return createElementFromStr(singleGallayString);
     // document.getElementById("alime-portfolio").append(singleGallayItem);
 }
 
@@ -25,7 +27,7 @@ function createFollowAreaImg(imgName) {
     let followAreaImg = '<div class="single-instagram-item">\n' + '<img src="img/bg-img/'
         + imgName + '.jpg" alt="">\n' + '<div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">\n' + '<a href="#">\n' + '<i class="ti-instagram" aria-hidden="true"></i>\n'
         + '<span>Best of the world,Tasha</span>\n' + '</a>\n' + '</div>\n' + '</div>'
-    return el(followAreaImg);
+    return createElementFromStr(followAreaImg);
 }
 
 function createBreadcrumbSection(article) {
@@ -46,6 +48,6 @@ function createBreadcrumbSection(article) {
         '            </div>\n' +
         '        </div>\n' +
         '    </section>'
-    let sectionElement = el(section);
+    let sectionElement = createElementFromStr(section);
     return sectionElement;
 }
