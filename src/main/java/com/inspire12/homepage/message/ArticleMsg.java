@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.inspire12.homepage.model.entity.Article;
+import com.inspire12.homepage.model.entity.Comment;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.util.ArticleUtil;
 import lombok.Getter;
@@ -31,6 +32,11 @@ public class ArticleMsg {
     @JsonProperty("author")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User author;
+
+    @JsonProperty("comment")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    CommentMsg comment;
+
     @JsonProperty("created_at")
     LocalDateTime createdAt;
     @JsonProperty("updated_at")
@@ -40,6 +46,7 @@ public class ArticleMsg {
     List<String> tags;
     Integer hit;
     Integer like;
+
 
 
     public static ArticleMsg create(Article article, User user) {

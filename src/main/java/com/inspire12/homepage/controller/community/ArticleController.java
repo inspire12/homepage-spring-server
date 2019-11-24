@@ -23,7 +23,7 @@ public class ArticleController {
 
     @GetMapping("/articles/{id}")
     public ArticleMsg showArticleList(@PathVariable int id) {
-        return articleService.showArticleMsg(id);
+        return articleService.showArticleMsgById(id);
     }
 
     @PostMapping("/articles")

@@ -1,6 +1,7 @@
 package com.inspire12.homepage.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.inspire12.homepage.message.CommentMsg;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,7 +31,10 @@ public class Comment {
     int userId;
 
     @Column(name = "no")
-    int no;
+    int grpno;
+
+    @Column(name = "grpord")
+    int grpord;
 
     @Column(name = "depth")
     int depth;
@@ -38,6 +42,8 @@ public class Comment {
     @Column(name = "content")
     @JsonProperty("content")
     String content;
+
+    int like;
 
 
     @Column(name = "created_at")
@@ -49,6 +55,5 @@ public class Comment {
     @UpdateTimestamp
     @JsonProperty("updated_at")
     LocalDateTime updatedAt;
-
 
 }

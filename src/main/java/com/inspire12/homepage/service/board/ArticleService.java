@@ -20,7 +20,7 @@ public class ArticleService {
     @Autowired
     UserRepository userRepository;
 
-    public ArticleMsg showArticleMsg(int id) {
+    public ArticleMsg showArticleMsgById(int id) {
         Article article = articleRepository.getOne(id);
         return ArticleMsg.create(articleRepository.getOne(id), userRepository.getOne(article.getUserId()));
     }
