@@ -1,8 +1,13 @@
+let _domParser = new DOMParser();
 const createElementFromStr = (domstring) => {
-    const html = new DOMParser().parseFromString(domstring, 'text/html');
+    const html = _domParser.parseFromString(domstring, 'text/html');
     return html.body.firstChild;
 };
 
+const createTrFromStr = (domstring) => {
+    const html = _domParser.parseFromString("<table><tbody>" + domstring + "</tbody></table>", 'text/html');
+    return html.body.firstChild.firstChild.firstChild;
+};
 
 
 function createGallaryImgModel(name, tag, delay) {
