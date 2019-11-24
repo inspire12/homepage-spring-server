@@ -23,6 +23,10 @@ public class CommentService {
         return convertToCommentMsgs(comments);
     }
 
+    public void saveComment(Comment comment) {
+        commentRepository.save(comment);
+    }
+
     private List<CommentMsg> convertToCommentMsgs(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (Comment comment : comments) {
