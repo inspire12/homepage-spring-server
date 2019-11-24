@@ -66,17 +66,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="article: ${articles}">
-                    <td th:text="${article.category}"></td>
-                    <td> <a th:href="@{'/article'(id=${article.id})}" th:text="${article.subject}"></a></td>
-                    <td th:text="${article.author.name}">서영학</td>
-                    <td th:text="${article.createdAt}">2019.11.15</td>
-                    <td th:text="${article.hit}">2</td>
-                    <td th:text="${article.like}">0</td>
-                </tr>
+
 
                 </tbody>
             </table>
+            <div class="col-12">
+                <button type="submit" class="btn alime-btn btn-2 mt-15">글쓰기</button>
+            </div>
         </div>
     </div>
 </div>
@@ -93,6 +89,40 @@
 <script src="js/popper.min.js"></script>
 <!-- Bootstrap -->
 <script src="js/bootstrap.min.js"></script>
+
+<!-- Common CUSTOM -->
+<script th:src="@{/js/custom/components.js}"></script>
+<!-- CUSTOM -->
+<script th:inline="javascript">
+    let articles = /*[[${articles}]]*/ [];
+
+    function showDateFrom(locatDateTime) {
+        return locatDateTime;
+    }
+
+    function createArticleRows(article) {
+        let trStr = '<tr><td>' + article['category'] + '</td>\n' +
+            '<td> <a href=/article?id=' + article['id'] + '>' + article['subject'] + '</a></td>\n' +
+            '<td>' + article['author']['nickname'] + '</td>\n' +
+            '<td>' + showDateFrom(article['updatedAt']) + '</td>\n' +
+            '<td>' + article['hit'] + '</td>\n' +
+            '<td>' + article['like'] + '</td>\n' +
+            '</tr>';
+        return createElementFromStr(trStr);
+    }
+
+    function main() {
+        let tbody = document.getElementsByTagName("tbody")[0];
+        for (let i = 0; i < articles.length; i++) {
+            tbody.append(createArticleRows(articles[i]))
+        }
+    }
+
+    main()
+
+</script>
+
+
 <!-- All Plugins -->
 <script src="js/alime.bundle.js"></script>
 <!-- Active -->
@@ -100,4 +130,4 @@
 
 </body>
 
-</html>
+</html>`
