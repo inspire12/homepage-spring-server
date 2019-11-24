@@ -68,7 +68,7 @@
                 <tbody>
                 <tr th:each="article: ${articles}">
                     <td th:text="${article.category}"></td>
-                    <td th:text="${article.subject}"></td>
+                    <td th:text="<a href='/article?id=${article.id}'>${article.subject}</a>"></td>
                     <td th:text="${article.author.name}">서영학</td>
                     <td th:text="${article.createdAt}">2019.11.15</td>
                     <td th:text="${article.hit}">2</td>
