@@ -1,11 +1,11 @@
 
 
 function getData(url, f) {
-    let request = {
-        "url":url,
-    };
+    // let request = {
+    //     "url":url,
+    // };
 
-    fetch(request).then(data => {
+    fetch(url).then(data => {
         f(data)
     }).catch(e => {
         console.dir (e);

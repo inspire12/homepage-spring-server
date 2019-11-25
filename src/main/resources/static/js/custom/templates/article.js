@@ -1,12 +1,33 @@
+function submitComment(message) {
+    let url = "http://localhost:8080/comments";
 
-function main() {
+    console.dir(message);
+    console.dir(message.value)
+    let data = {
+        "user_id": 1,
+        "message": message.value
+    };
 
-
-    document.getElementById("blog-details-text-id")
-
+    fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, cors, *same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrer: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify(data)
+    }).then(data => {
+        f(data)
+    }).catch(e => {
+        console.dir(e);
+    })
 }
 
-function createCommentForm () {
+function createCommentForm() {
     let commentFormStr = ' <form action="#" method="post">\n' +
         '                        <div class="row">\n' +
         '                            <div class="col-12">\n' +
@@ -18,8 +39,6 @@ function createCommentForm () {
         '                        </div>\n' +
         '                    </form>';
     let commentForm = createElementFromStr(commentFormStr);
-
     let messageTextarea = commentForm.getElementsByClassName("message-name")[0];
-
     return {"form-section": commentForm, "message": messageTextarea};
 }
