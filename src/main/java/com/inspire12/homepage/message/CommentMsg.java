@@ -1,5 +1,6 @@
 package com.inspire12.homepage.message;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.inspire12.homepage.model.entity.Comment;
 import com.inspire12.homepage.model.entity.User;
@@ -19,6 +20,7 @@ public class CommentMsg {
     @JsonProperty("article_id")
     int articleId;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User author;
 
     int grpno;

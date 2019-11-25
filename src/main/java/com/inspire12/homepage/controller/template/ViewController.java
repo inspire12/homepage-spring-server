@@ -1,6 +1,7 @@
 package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.message.CommentMsg;
 import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;

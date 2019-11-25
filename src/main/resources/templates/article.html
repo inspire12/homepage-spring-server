@@ -196,7 +196,7 @@
 
                     <ol id="comment-area-id">
                         <!-- Single Comment Area -->
-                        
+
 
                     </ol>
                 </div>
@@ -258,22 +258,15 @@
         let formElement = document.getElementsByTagName("form")[0];
         // formElement.getElementsByClassName("")
 
-        let testComment = {
-            "author": {
-                "name": "서영학",
-                "nickname":"inspire12"
-            },
-            "message": "코멘트입니다."
-        };
-        let commentElement = createCommentElement(testComment);
-
         let comments = article['comments'];
         for (let i = 0; i < comments.length; i++){
             let comment = comments[i];
+            let commentElement = createCommentElement(comment);
 
+            document.getElementById("comment-area-id").append(commentElement);
         }
 
-        document.getElementById("comment-area-id").append(commentElement);
+
     }
 
     main()

@@ -54,7 +54,7 @@ function createCommentElement(comment) {
         '                                <div class="comment-meta">\n' +
         '                                    <a href="#" class="post-date">27 Aug 2019</a>\n' +
         '                                    <h5>' + comment.author.name + '</h5>\n' +
-        '                                    <p>' + comment.message + '</p>\n' +
+        '                                    <p>' + comment.content + '</p>\n' +
         '                                    <a href="#" class="like">Like</a>\n' +
         '                                    <a href="#" class="reply">Reply</a>\n' +
         '                                </div>\n' +
