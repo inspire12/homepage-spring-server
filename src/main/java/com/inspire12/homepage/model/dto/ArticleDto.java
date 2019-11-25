@@ -37,7 +37,7 @@ public class ArticleDto {
     public static ArticleDto create(Article article) {
         ArticleDto articleDto = new ArticleDto();
         articleDto.setId(article.getId());
-        articleDto.setNo(article.getNo());
+        articleDto.setNo(article.getGrpno());
         articleDto.setDepth(article.getDepth());
         articleDto.setSubject(article.getSubject());
         articleDto.setUserId(article.getUserId());

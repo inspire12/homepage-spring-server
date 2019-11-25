@@ -9,7 +9,7 @@ import javax.persistence.Tuple;
 import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
-    List<Article> findTop30ByBoardIdOrderByNoDesc(int boardId);
+    List<Article> findTop30ByBoardIdOrderByGrpnoDesc(int boardId);
 
     @Query(value = "select * from article order by `no` desc limit :articleCount", nativeQuery = true)
     List<Article> showArticlesWithArticleCount(@Param(value = "articleCount") int articleCount);

@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -52,7 +53,7 @@ public class ArticleMsg {
     public static ArticleMsg create(Article article, User user) {
         ArticleMsg articleMsg = new ArticleMsg();
         articleMsg.setId(article.getId());
-        articleMsg.setNo(article.getNo());
+        articleMsg.setNo(article.getGrpno());
         articleMsg.setCategory(ArticleUtil.getArticleCategory(article.getBoardId()));
         articleMsg.setDepth(article.getDepth());
         articleMsg.setSubject(article.getSubject());
@@ -60,11 +61,17 @@ public class ArticleMsg {
         articleMsg.setCreatedAt((article.getCreatedAt()));
         articleMsg.setUpdatedAt((article.getUpdatedAt()));
         articleMsg.setBoardId(article.getBoardId());
-//        articleMsg.setTags();
+        articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
         articleMsg.setAuthor(user);
         articleMsg.setHit(article.getHit());
         articleMsg.setLike(article.getLike());
 
+        return articleMsg;
+    }
+    public static ArticleMsg createWithComments(Article article, User user, List<CommentMsg> commentMsgs) {
+
+        ArticleMsg articleMsg = create(article, user);
+        articleMsg.setComments(commentMsgs);
         return articleMsg;
     }
 }

@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,11 @@ public class Article {
 
     @Nullable
     @Column(name = "no")
-    int no;
+    int grpno;
+
+    @Nullable
+    @Column(name = "grpord")
+    int grpord;
 
     @Nullable
     @Column(name = "depth")
