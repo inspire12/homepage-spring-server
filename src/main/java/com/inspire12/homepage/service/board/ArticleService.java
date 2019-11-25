@@ -2,12 +2,16 @@ package com.inspire12.homepage.service.board;
 
 
 import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.message.CommentMsg;
 import com.inspire12.homepage.model.entity.Article;
+import com.inspire12.homepage.model.entity.Comment;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.repository.ArticleRepository;
+import com.inspire12.homepage.repository.CommentRepository;
 import com.inspire12.homepage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +24,12 @@ public class ArticleService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CommentRepository commentRepository;
+
     public ArticleMsg showArticleMsgById(int id) {
         Article article = articleRepository.getOne(id);
-        return ArticleMsg.create(articleRepository.getOne(id), userRepository.getOne(article.getUserId()));
+        return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUserId()), convertToMsg(commentRepository.findAllByArticleId(article.getId())));
     }
 
     public List<ArticleMsg> showArticleMsgsWithCount(int articleCount) {
@@ -53,12 +60,21 @@ public class ArticleService {
     }
 
 
-    private List<ArticleMsg> convertArticlesToArticleMsgs(List<Article> articles){
+    private List<ArticleMsg> convertArticlesToArticleMsgs(List<Article> articles) {
         List<ArticleMsg> articleMsgs = new ArrayList<>();
         for (Article article : articles) {
             User author = userRepository.findById(article.getUserId()).get();
-            articleMsgs.add(ArticleMsg.create(article, author));
+            List<Comment> comments = commentRepository.findAllByArticleId(article.getId());
+            articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
         }
         return articleMsgs;
+    }
+
+    public List<CommentMsg> convertToMsg(List<Comment> comments) {
+        List<CommentMsg> commentMsgs = new ArrayList<>();
+        for (int i = 0; i < comments.size(); i++) {
+            commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUserId())));
+        }
+        return commentMsgs;
     }
 }

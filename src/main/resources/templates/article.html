@@ -196,45 +196,7 @@
 
                     <ol id="comment-area-id">
                         <!-- Single Comment Area -->
-                        <li class="single_comment_area">
-                            <!-- Comment Content -->
-                            <div class="comment-content d-flex">
-                                <!-- Comment Author -->
-                                <div class="comment-author">
-                                    <img src="img/bg-img/32.jpg" alt="author">
-                                </div>
-                                <!-- Comment Meta -->
-                                <div class="comment-meta">
-                                    <a href="#" class="post-date">27 Aug 2019</a>
-                                    <h5>Brandon Kelley</h5>
-                                    <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                        adipisci velit, sed quia non numquam eius modi tempora.</p>
-                                    <a href="#" class="like">Like</a>
-                                    <a href="#" class="reply">Reply</a>
-                                </div>
-                            </div>
-
-                            <ol class="children">
-                                <li class="single_comment_area">
-                                    <!-- Comment Content -->
-                                    <div class="comment-content d-flex">
-                                        <!-- Comment Author -->
-                                        <div class="comment-author">
-                                            <img src="img/bg-img/33.jpg" alt="author">
-                                        </div>
-                                        <!-- Comment Meta -->
-                                        <div class="comment-meta">
-                                            <a href="#" class="post-date">27 Aug 2018</a>
-                                            <h5>Mia Maya</h5>
-                                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetu adipisci velit, sed quia non numquam eius modi</p>
-                                            <a href="#" class="like">Like</a>
-                                            <a href="#" class="reply">Reply</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </li>
+                        
 
                     </ol>
                 </div>
@@ -294,20 +256,21 @@
         document.getElementById("breadcrumb-area-id").append(sectionElement);
 
         let formElement = document.getElementsByTagName("form")[0];
-        formElement.getElementsByClassName("")
+        // formElement.getElementsByClassName("")
 
         let testComment = {
             "author": {
-                "name": "inspire12"
+                "name": "서영학",
+                "nickname":"inspire12"
             },
-            "message": "asdfasdfasdf"
+            "message": "코멘트입니다."
         };
         let commentElement = createCommentElement(testComment);
 
         let comments = article['comments'];
         for (let i = 0; i < comments.length; i++){
             let comment = comments[i];
-            
+
         }
 
         document.getElementById("comment-area-id").append(commentElement);
