@@ -33,9 +33,9 @@ public class ArticleMsg {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User author;
 
-    @JsonProperty("comment")
+    @JsonProperty("comments")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    CommentMsg comment;
+    List<CommentMsg> comments;
 
     @JsonProperty("created_at")
     LocalDateTime createdAt;
