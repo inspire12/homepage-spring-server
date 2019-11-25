@@ -194,7 +194,7 @@
                 <div class="comment_area clearfix">
                     <h4 class="mb-30">02 Comments</h4>
 
-                    <ol>
+                    <ol id="comment-area-id">
                         <!-- Single Comment Area -->
                         <li class="single_comment_area">
                             <!-- Comment Content -->
@@ -236,46 +236,6 @@
                             </ol>
                         </li>
 
-                        <!-- Single Comment Area -->
-                        <li class="single_comment_area">
-                            <!-- Comment Content -->
-                            <div class="comment-content d-flex">
-                                <!-- Comment Author -->
-                                <div class="comment-author">
-                                    <img src="img/bg-img/34.jpg" alt="author">
-                                </div>
-                                <!-- Comment Meta -->
-                                <div class="comment-meta">
-                                    <a href="#" class="post-date">27 Aug 2018</a>
-                                    <h5>Mike Phillips</h5>
-                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetu
-                                        adipisci velit, sed quia non numquam eius modi</p>
-                                    <a href="#" class="like">Like</a>
-                                    <a href="#" class="reply">Reply</a>
-                                </div>
-                            </div>
-
-                            <ol class="children">
-                                <li class="single_comment_area">
-                                    <!-- Comment Content -->
-                                    <div class="comment-content d-flex">
-                                        <!-- Comment Author -->
-                                        <div class="comment-author">
-                                            <img src="img/bg-img/33.jpg" alt="author">
-                                        </div>
-                                        <!-- Comment Meta -->
-                                        <div class="comment-meta">
-                                            <a href="#" class="post-date">27 Aug 2018</a>
-                                            <h5>Mia Maya</h5>
-                                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetu adipisci velit, sed quia non numquam eius modi</p>
-                                            <a href="#" class="like">Like</a>
-                                            <a href="#" class="reply">Reply</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ol>
-                        </li>
                     </ol>
                 </div>
 
@@ -286,10 +246,13 @@
                     <form action="javascript:void(0);">
                         <div class="row">
                             <div class="col-12">
-                                <textarea name="message" class="form-control mb-30" id="comment" placeholder="Messages"></textarea>
+                                <textarea name="message" class="form-control mb-30" id="comment"
+                                          placeholder="Messages"></textarea>
                             </div>
                             <div class="col-12">
-                                <button class="btn alime-btn btn-2 mt-15" onclick="submitComment(comment)">Send Messages</button>
+                                <button class="btn alime-btn btn-2 mt-15" onclick="submitComment(comment)">Send
+                                    Messages
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -325,15 +288,29 @@
 
     function main() {
         let contentElement = createElementFromStr(article['content']);
+        document.getElementById("blog-details-text-id").append(contentElement);
+
         let sectionElement = createBreadcrumbSection(article);
+        document.getElementById("breadcrumb-area-id").append(sectionElement);
 
         let formElement = document.getElementsByTagName("form")[0];
         formElement.getElementsByClassName("")
 
+        let testComment = {
+            "author": {
+                "name": "inspire12"
+            },
+            "message": "asdfasdfasdf"
+        };
+        let commentElement = createCommentElement(testComment);
 
+        let comments = article['comments'];
+        for (let i = 0; i < comments.length; i++){
+            let comment = comments[i];
+            
+        }
 
-        document.getElementById("breadcrumb-area-id").append(sectionElement);
-        document.getElementById("blog-details-text-id").append(contentElement);
+        document.getElementById("comment-area-id").append(commentElement);
     }
 
     main()

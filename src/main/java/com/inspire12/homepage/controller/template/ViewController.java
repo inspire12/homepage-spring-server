@@ -1,6 +1,7 @@
 package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +54,26 @@ public class ViewController {
     @GetMapping("/board")
     public String getBoardView(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "10") int articleCount, Model model){
         // board 종류
-        List<ArticleMsg> articles = articleService.showArticleMsgsWithCount(articleCount);
-        model.addAttribute("articles", articles);
+        try {
+            List<ArticleMsg> articles = articleService.showArticleMsgsWithCount(articleCount);
+            model.addAttribute("articles", articles);
+        }catch (Exception e) {
+        }
+
         model.addAttribute("name", "board");
         return "board";
     }
 
     @GetMapping("/article")
     public String getSingleBlogView(@RequestParam(defaultValue = "1") int id, Model model){
-        model.addAttribute("article", articleService.showArticleMsgById(id));
+        ArticleMsg article;
+        try {
+            article = articleService.showArticleMsgById(id);
+        }catch (Exception e){
+            article = new ArticleMsg();
+        }
+        model.addAttribute("article", article);
+        model.addAttribute("name", "article");
         model.addAttribute("name", "article");
         return "article";
     }
