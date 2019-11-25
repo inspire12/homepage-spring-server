@@ -17,8 +17,8 @@ public class CommentController {
 
     @PutMapping("/comments")
     public ResponseEntity saveComment(@RequestBody ObjectNode requestBody) {
-        System.out.println(requestBody.get("message"));
-//        commentService.saveComment(comment);
+
+        commentService.saveByRequest(requestBody);
         return ResponseEntity.ok().build();
     }
 

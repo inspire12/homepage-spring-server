@@ -1,5 +1,6 @@
 package com.inspire12.homepage.service.board;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.message.CommentMsg;
 import com.inspire12.homepage.model.entity.Comment;
 import com.inspire12.homepage.repository.CommentRepository;
@@ -23,6 +24,18 @@ public class CommentService {
         return convertToCommentMsgs(comments);
     }
 
+    public void saveByRequest(ObjectNode request) {
+        int userId = request.get("user_id").asInt();
+        int articleId = request.get("article_id").asInt();
+        String content = request.get("content").asText();
+        Comment comment = createComment(userId, articleId, content);
+        try{
+            commentRepository.insertByRequest(articleId, userId, content);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void saveComment(Comment comment) {
         commentRepository.save(comment);
     }
@@ -36,4 +49,11 @@ public class CommentService {
         return commentMsgs;
     }
 
+    public Comment createComment(int userId, int articleId, String content) {
+        Comment comment = new Comment();
+        comment.setArticleId(articleId);
+        comment.setUserId(userId);
+        comment.setContent(content);
+        return comment;
+    }
 }

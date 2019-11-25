@@ -56,4 +56,9 @@ public class Comment {
     @JsonProperty("updated_at")
     LocalDateTime updatedAt;
 
+    public static Comment create() {
+        Comment comment = new Comment();
+
+        return comment;
+    }
 }
