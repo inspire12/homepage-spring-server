@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="related-news-id">
             <!-- Single Blog Area -->
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-post-area">
@@ -191,10 +191,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-9">
                 <!-- Comments Area -->
-                <div class="comment_area clearfix">
+                <div class="comment_area clearfix" id="comment-area-id">
                     <h4 class="mb-30">02 Comments</h4>
 
-                    <ol id="comment-area-id">
+                    <ol>
                         <!-- Single Comment Area -->
                     </ol>
                 </div>
@@ -231,11 +231,11 @@
 
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
-<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
 <!-- Popper -->
-<script th:src="@{js/popper.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
 <!-- Bootstrap -->
-<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 <!-- Common CUSTOM -->
 <script th:src="@{/js/custom/fetch.js}"></script>
@@ -245,26 +245,14 @@
 <script th:inline="javascript">
 
     let article = /*[[${article}]]*/ '';
-
-    function main() {
-        let contentElement = createElementFromStr(article['content']);
-        document.getElementById("blog-details-text-id").append(contentElement);
-
-        let sectionElement = createBreadcrumbSection(article);
-        document.getElementById("breadcrumb-area-id").append(sectionElement);
-
-        let comments = article['comments'];
-        let commentArea = document.getElementById("comment-area-id");
-        appendComments(comments, commentArea);
-    }
-    main()
+    main(article)
 
 </script>
 
 <!-- All Plugins -->
-<script th:src="@{js/alime.bundle.js}"></script>
+<script th:src="@{/js/alime.bundle.js}"></script>
 <!-- Active -->
-<script th:src="@{js/default-assets/active.js}"></script>
+<script th:src="@{/js/default-assets/active.js}"></script>
 
 </body>
 
