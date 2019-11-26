@@ -24,7 +24,30 @@
         }
     }
 }
+.alime-writing-form {
+    .form-control {
+        @include transition-duration(500ms);
+        width: 100%;
+        height: 50px;
+        padding: 0 20px;
+        border-radius: 2px;
+        color: $secondary;
+        font-size: 14px;
+        border: 1px solid $border;
 
+        &:focus {
+            box-shadow: none;
+            border-color: $primary;
+        }
+    }
+
+    textarea {
+        &.form-control {
+            height: 320px;
+            padding: 20px;
+        }
+    }
+}
 .contact-area {
     .contact-title {
         font-size: 56px;

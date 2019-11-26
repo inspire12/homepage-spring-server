@@ -1,17 +1,14 @@
 package com.inspire12.homepage.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
 @Entity
@@ -70,6 +67,15 @@ public class Article {
 
     @Column(name = "like")
     Integer like;
+
+    public static Article createFromRequest(ObjectNode requestBody) {
+        Article article = new Article();
+        int userId = requestBody.get("user_id").asInt();
+        String content = requestBody.get("content").asText();
+        article.setUserId(userId);
+        article.setContent(content);
+        return article;
+    }
 
 }
 

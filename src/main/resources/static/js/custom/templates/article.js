@@ -1,39 +1,24 @@
 function submitComment(message) {
-    let url = "http://localhost:8080/comments";
     console.dir(message);
     console.dir(message.value);
-    let data = {
+
+    let url = "http://localhost:8080/comments";
+    let body = {
         "article_id": article['id'],
         "user_id": 1,
         "content": message.value
     };
-
-    fetch(url, {
-        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, cors, *same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrer: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify(data)
-    }).then(data => {
+    putRequest(url, body, (data) => {
         console.dir(data);
         // comment dom 삭제 후 다시 갱신 (전체를 다 받아서 리턴하도록 해야겠네)
-
         let comments = data['comments'];
         let commentArea = document.getElementById("comment-area-id");
-        while(commentArea.childElementCount > 0 ){
+        while (commentArea.childElementCount > 0) {
             commentArea.removeChild(commentArea.firstChild);
             // 무한루프 조심
         }
-        commentArea.remove();
         appendComments(comments, commentArea);
         window.location.reload();
-    }).catch(e => {
-        console.dir(e);
     })
 }
 
@@ -54,7 +39,7 @@ function createCommentForm() {
 }
 
 function appendComments(comments, commentArea) {
-    for (let i = 0; i < comments.length; i++){
+    for (let i = 0; i < comments.length; i++) {
         let comment = comments[i];
         let commentElement = createCommentElement(comment);
         commentArea.append(commentElement);

@@ -1,8 +1,6 @@
 package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.message.ArticleMsg;
-import com.inspire12.homepage.message.CommentMsg;
-import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +75,12 @@ public class ViewController {
         model.addAttribute("name", "article");
         model.addAttribute("name", "article");
         return "article";
+    }
+
+    @GetMapping("/writing")
+    public String getWriteView(Model model){
+
+        model.addAttribute("name", "write");
+        return "writing";
     }
 }
