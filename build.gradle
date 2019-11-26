@@ -30,6 +30,8 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 
+	implementation('org.springframework.boot:spring-boot-starter-security')
+
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.projectlombok:lombok:1.18.4'
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
