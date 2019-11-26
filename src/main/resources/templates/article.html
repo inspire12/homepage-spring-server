@@ -256,14 +256,9 @@
         document.getElementById("breadcrumb-area-id").append(sectionElement);
 
         let comments = article['comments'];
-        for (let i = 0; i < comments.length; i++){
-            let comment = comments[i];
-            let commentElement = createCommentElement(comment);
-
-            document.getElementById("comment-area-id").append(commentElement);
-        }
+        let commentArea = document.getElementById("comment-area-id");
+        appendComments(comments, commentArea);
     }
-
     main()
 
 </script>
