@@ -5,8 +5,9 @@ function getRequest(url, f) {
     //     "url":url,
     // };
 
-    fetch(url).then(data => {
+    fetch(url).then(response => {
         __swalStatusMessage(status);
+        let data = JSON.stringify(response);
         f(data)
     }).catch(e => {
         console.dir (e);
@@ -27,7 +28,6 @@ function putRequest(url, body, func) {
         let status = response.status;
         __swalStatusMessage(status);
         let data = JSON.stringify(response);
-
         func(data)
     }).catch(e => {
         console.dir(e);
