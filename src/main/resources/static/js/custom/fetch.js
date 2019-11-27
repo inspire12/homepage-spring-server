@@ -5,7 +5,9 @@ function getRequest(url, f) {
     //     "url":url,
     // };
 
-    fetch(url).then(data => {
+    fetch(url).then(response => {
+        __swalStatusMessage(status);
+        let data = JSON.stringify(response);
         f(data)
     }).catch(e => {
         console.dir (e);
@@ -15,20 +17,25 @@ function getRequest(url, f) {
 
 function putRequest(url, body, func) {
 
-    fetch(url, {
+    return fetch(url, {
         method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-        mode: 'same-origin', // no-cors, cors, *same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
         headers: {
             'Content-Type': 'application/json',
         },
-        redirect: 'follow', // manual, *follow, error
-        referrer: 'no-referrer', // no-referrer, *client
         body: JSON.stringify(body)
-    }).then(data => function () {
+    }).then(response => {
+        console.dir(response);
+        let status = response.status;
+        __swalStatusMessage(status);
+        let data = JSON.stringify(response);
         func(data)
     }).catch(e => {
         console.dir(e);
     })
+}
+
+function __swalStatusMessage(status) {
+    if (status !== 200) {
+        swal("문제가 발생했습니다.","임원진들에게 알려주세요." ,"warning")
+    }
 }

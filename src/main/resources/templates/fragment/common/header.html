@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <header class="header-area">
     <!-- Main Header Start -->
     <div class="main-header-area">
@@ -6,7 +8,7 @@
                 <!-- Classy Menu -->
                 <nav class="classy-navbar justify-content-between" id="alimeNav">
                     <!-- Logo -->
-                    <a class="nav-brand" href="./index.html"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
+                    <a class="nav-brand" href="/index"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -22,77 +24,32 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul id="nav">
-                                <li class="active"><a href="./index.html">Home</a></li>
+                                <li class="active"><a href="/index">Home</a></li>
                                 <li><a href="#">자료실</a>
                                     <ul class="dropdown">
-                                        <li><a href="./board.html">- Home</a></li>
-                                        <li><a href="./blog.html">- Blog</a></li>
-                                        <li><a href="./single-blog.html">- Blog Details</a></li>
-                                        <li><a href="./board.html">Board</a></li>
-                                        <li><a href="./contact.html">- Contact</a></li>
+                                        <li><a href="/board">- Home</a></li>
+                                        <li><a href="/blog">- Blog</a></li>
+                                        <li><a href="/article">- Article</a></li>
+                                        <li><a href="/board">Board</a></li>
+                                        <li><a href="/contact">- Contact</a></li>
                                         <li><a href="#">-Mento</a>
                                             <ul class="dropdown">
-                                                <li><a href="https://github.com/inspire12">- inspire12</a></li>
-                                                <li><a href="https://github.com/willook">- willook</a></li>
-                                                <li><a href="https://github.com/hygoni">- hygoni</a></li>
-                                                <li><a href="https://github.com/Sinyoung3016">- Sinyoung</a></li>
-                                                <li><a href="https://github.com/MoonDD99">- MoonDD99</a></li>
+                                                <li><a href="https://github.com/inspire12" target="_blank">- inspire12</a></li>
+                                                <li><a href="https://github.com/willook" target="_blank">- willook</a></li>
+                                                <li><a href="https://github.com/MoonDD99" target="_blank">- MoonDD99</a></li>
+                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">- Sinyoung</a></li>
+                                                <li><a href="https://github.com/hygoni" target="_blank">- hygoni</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="./about.html">About</a></li>
-                                <li><a href="./gallery.html">Gallery</a></li>
-                                <li><a href="./blog.html">blog</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
-                                <li class="nav-item">
-                                    <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Login</a>
-                                    <ul class="dropdown-menu form-wrapper">
-                                        <li>
-                                            <form action="/examples/actions/confirmation.php" method="post">
-                                                <p class="hint-text">Sign in with your social media account</p>
-                                                <div class="form-group social-btn clearfix">
-                                                    <a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a>
-                                                    <a href="#" class="btn btn-info pull-right"><i class="fa fa-twitter"></i> Twitter</a>
-                                                </div>
-                                                <div class="or-seperator"><b>or</b></div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Username" required="required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Password" required="required">
-                                                </div>
-                                                <input type="submit" class="btn btn-primary btn-block" value="Login">
-                                                <div class="form-footer">
-                                                    <a href="#">Forgot Your password?</a>
-                                                </div>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Sign up</a>
-                                    <ul class="dropdown-menu form-wrapper">
-                                        <li>
-                                            <form action="/examples/actions/confirmation.php" method="post">
-                                                <p class="hint-text">Fill in this form to create your account!</p>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Username" required="required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Password" required="required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" placeholder="Confirm Password" required="required">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>
-                                                </div>
-                                                <input type="submit" class="btn btn-primary btn-block" value="Sign up">
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
+
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/board">Board</a></li>
+                                <li><a href="/gallery">Gallery</a></li>
+                                <li><a href="/blog">blog</a></li>
+                                <li><a href="/contact">Contact</a></li>
+
                             </ul>
                             <div class="dropdown">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

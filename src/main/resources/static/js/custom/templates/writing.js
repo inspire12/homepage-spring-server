@@ -3,6 +3,6 @@ function submitWriting(writing) {
     let body = {
         "user_id":1,
         "content": writing.value
-    }
-    putRequest("/articles", body, (data)=>{console.dir})
+    };
+    putRequest("/articles", body, (data)=>{console.dir(data)});
 }
