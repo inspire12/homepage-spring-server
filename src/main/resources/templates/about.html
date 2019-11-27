@@ -135,74 +135,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <!-- Team Member Area -->
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="100ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/19.jpg" alt="">
-                        </div>
-                        <h5>Inspire12</h5>
-                        <span>서영학</span>
-                        <div class="member-social-info">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-linkedin"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Member Area -->
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="300ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/20.jpg" alt="">
-                        </div>
-                        <h5>Tommy Kim</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-linkedin"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Member Area -->
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="500ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/21.jpg" alt="">
-                        </div>
-                        <h5>Max McCormick</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-linkedin"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Member Area -->
-                <div class="col-md-6 col-xl-3">
-                    <div class="team-content-area text-center mb-30 wow fadeInUp" data-wow-delay="700ms">
-                        <div class="member-thumb">
-                            <img src="img/bg-img/22.jpg" alt="">
-                        </div>
-                        <h5>Robert Ward</h5>
-                        <span>Photographer</span>
-                        <div class="member-social-info">
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-twitter-alt"></i></a>
-                            <a href="#"><i class="ti-linkedin"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="row" id="team-member-area-id">
+               
             </div>
         </div>
     </section>
@@ -223,8 +157,23 @@
     <script th:src="@{/js/popper.min.js}"></script>
     <!-- Bootstrap -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- Common CUSTOM -->
+    <script th:src="@{/js/custom/components.js}"></script>
 
+    <script th:src="@{/js/custom/templates/about.js}"></script>
+    <script th:inline="javascript">
+        function main () {
+            let teamMemberArea = document.getElementById("team-member-area-id");
+            let users = [{"id":"inspire12", "name":"서영학","profile": "https://avatars2.githubusercontent.com/u/11865970?s=460&v=4"},
+                {"id":"Sinyoung", "name":"김신영", "profile": "https://avatars0.githubusercontent.com/u/53924962?s=400&v=4"}];
 
+            for (let i = 0; i<users.length; i++) {
+                let element = createTeamMemberArea(users[i]);
+                teamMemberArea.append(element)
+            }
+        }
+        main();
+    </script>
     <!-- All Plugins -->
     <script th:src="@{/js/alime.bundle.js}"></script>
     <!-- Active -->
