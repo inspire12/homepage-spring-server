@@ -70,7 +70,7 @@
                 </tbody>
             </table>
             <div class="col-12 text-right">
-                <button type="submit" class="btn alime-btn btn-2 mt-15">글쓰기</button>
+                <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="/writing" target="_blank">Contact Us</a>
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
 
     function main() {
         let tbody = document.getElementsByTagName("tbody")[0];
-        for (let i = 0; i < articles.length; i++) {
+        for (let i = 0; articles !== null && i < articles.length; i++) {
             tbody.append(createArticleRows(articles[i]))
         }
     }
