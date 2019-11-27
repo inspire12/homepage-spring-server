@@ -32,8 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource)
@@ -44,34 +45,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/images/**", "/js/**", "/css/**", "/scss/**", "/plugins/**", "/font/**");
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
-    }
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.httpBasic().disable();
+        httpSecurity.csrf().disable();
 
         httpSecurity
-                .authorizeRequests()
-                .antMatchers("/resources/**", "/webjars/**", "/static/**", "/signup", "/").permitAll()
-                .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/login")
-                .and()
-                .csrf()
-                .ignoringAntMatchers("/h2-console/**")
-                .and()
+//                .authorizeRequests()
+//                .antMatchers( "/signup", "/", "/about", "/login").permitAll()
+//                .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
+//                .anyRequest().authenticated().
+//                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/login")
+//                .and()
+//                .csrf()
+//                .ignoringAntMatchers("/h2-console/**")
+//                .and()
                 .headers().frameOptions().disable();
     }
 }
