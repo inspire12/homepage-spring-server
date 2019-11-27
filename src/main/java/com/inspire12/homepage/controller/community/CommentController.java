@@ -5,16 +5,14 @@ import com.inspire12.homepage.model.entity.Comment;
 import com.inspire12.homepage.service.board.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @CrossOrigin(origins = "http://cnuant.iptime.org:8080")
     @PutMapping("/comments")
     public ResponseEntity saveComment(@RequestBody ObjectNode requestBody) {
 
