@@ -1,18 +1,16 @@
 [HTML](#HTML)
-<<<<<<< Updated upstream
 
-<div id="HTML"></div>
-
-# HTML 
-=======
 [CSS](#CSS)
 [Javascript](#JAVASCRIPT)
 
 <div id="HTML"></div>
+<div id="HTML"></div>
 # HTML
->>>>>>> Stashed changes
+
+#### HTML 이란
+
 HTML : HyperText Markup Language
-####HTML 이란
+
 웹 문서의 구조를 표하는 데에 사용되는 마크업 언어
 CERN에서 일하던 Tim-Berners Lee 아조씨가 만들었음
 
@@ -72,7 +70,7 @@ http://archive.is/djFxD  -  에디터 비교글
 ##### 4. img 태그
 
 ```
-  <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="이미지에 마우스를 올려보자">
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="이미지에 마우스를 올려보자">
 
 여기서 img태그 속성은
 src="주소"
@@ -86,11 +84,11 @@ alt="이미지설명"
 #### HTML의 속성
 속성이란 말이 사물의 특징, 성질을 의미하듯이 HTML 태그에도 특징을 부여해줄 수 있다.   예를 들어 아까 img 태그로 이미지를 불러왔다면, 크기 속성을 추가해 크기를 조절해줄 수 있다.
 
-```
-  <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" width="100px" height="100px">
+```html
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" width="100px" height="100px">
   <!-- 그리고 사실 src도 속성이다 -->
   
-  <태그이름 속성="속성">
+<태그이름 속성="속성">
 위처럼 생긴건 다 속성임.
 ```
 
@@ -103,7 +101,6 @@ https://blog.naver.com/dbgudrhs1/90174972698**
 =======
 
 <div id="JAVASCRIPT"></div>
-
 #### JavaScript란
 
 > "다이나믹한 웹 페이지를 위한 언어"
@@ -166,5 +163,3 @@ HTML 안에 JavaScript를 넣는 방법 :
 
 
 ##### 코드 구조
-
->>>>>>> Stashed changes
