@@ -1,8 +1,16 @@
 [HTML](#HTML)
+<<<<<<< Updated upstream
 
 <div id="HTML"></div>
 
 # HTML 
+=======
+[CSS](#CSS)
+[Javascript](#JAVASCRIPT)
+
+<div id="HTML"></div>
+# HTML
+>>>>>>> Stashed changes
 HTML : HyperText Markup Language
 ####HTML 이란
 웹 문서의 구조를 표하는 데에 사용되는 마크업 언어
@@ -91,3 +99,72 @@ alt="이미지설명"
 **다 정리하긴 내용이 많아요 ㅜㅜㅜ 
 옛날에 썼던 강좌 링크 던지고 튀겠습니다 흨흨
 https://blog.naver.com/dbgudrhs1/90174972698**
+<<<<<<< Updated upstream
+=======
+
+<div id="JAVASCRIPT"></div>
+
+#### JavaScript란
+
+> "다이나믹한 웹 페이지를 위한 언어"
+
+JavaScript는 Java에서 이름을 빌려왔지만 다른 언어다 'ㅅ' 헷갈리지 말자. 
+
+
+
+#### JavaScript가 "브라우저 안에서" 할 수 있는 것들
+
+- HTML 수정 및 추가
+- 사용자와 상호작용 (다이나믹한 페이지 만듦)
+- 웹 서버와 통신
+- 쿠키 및 알림 설정
+- 브라우저에 데이터 전송 (트래픽, 데이터 절약)
+
+#### JavaScript가 "브라우저 안에서" 할 수 없는 것들 (보안 문제로)
+
+- 하드디스크의 아무 파일이나  접근
+- 서로다른 창 사이의 의사소통
+- 다른 사이트와의 데이터 전달
+
+
+
+**여기서 "브라우저 안에서"를 강조하는 이유는, 자바스크립트가 원래는 브라우저 안에서만 쓰였는데, 이제는 브라우저 밖에서도 독립된 언어로서 작동하기 때문!**
+
+
+
+#### JavaScript 콘솔 (개발자 전용 도구임, 디버깅 + @)
+
+눈으로 디버깅은 너무 어려우니 콘솔을 쓰자..
+
+Google Chrome 기준 : F12 클릭 -> Console!
+
+
+
+#### JavaScript 기본기
+
+##### Hello, world!
+
+HTML 안에 JavaScript를 넣는 방법 :
+
+- script 태그로 감싼 후 JavaScript를 넣는다.
+
+```html
+<script>
+	alert('Hello, world!');
+</script>	
+```
+
+
+
+- 외부 JavaScript 파일을 이용한다 (로컬 or 리모트 모두 가능
+
+```html
+<script src="/js/main.js"></script> <!-- 내부 파일 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script> <!-- 외부 파일 -->
+```
+
+
+
+##### 코드 구조
+
+>>>>>>> Stashed changes
