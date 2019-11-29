@@ -50,14 +50,13 @@ public class AuthProvider implements AuthenticationProvider {
             String name = authentication.getName();
             String password = encrypt(name, authentication.getCredentials().toString());
 
-            Optional<User> user = Optional.of(repository.findByIdAndPasswd(name, password));
-
-//            repository.updateUserLastLoginTime(id, LocalDateTime.now());
+            Optional<User> user = Optional.of(repository.findByUsernameAndPassward(name, password));
+            repository.updateUserLastLoginTime(LocalDateTime.now(), name);
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-//            grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole()));
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole()));
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(user.get().getId(), user.get().getPasswd(), grantedAuthorities);
+            Authentication auth = new UsernamePasswordAuthenticationToken(user.get().getUsername(), user.get().getPassward(), grantedAuthorities);
             return auth;
 
         } catch (Exception e) {

@@ -7,22 +7,22 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Setter
 @Getter
 public class User  {
 
-
     @Id
-    @Column(name="id")
+    @Column(name="username")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    Integer id;
+    String username;
 
     @Column(name = "email")
     @JsonProperty("email")
@@ -36,12 +36,21 @@ public class User  {
     @JsonProperty("name")
     String name;
 
-    @Column(name = "passwd")
+    @Column(name = "passward")
     @JsonIgnore
-    String passwd;
+    String passward;
 
     @Column(name="created_at")
     @CreationTimestamp
     @JsonProperty("created_at")
     LocalDateTime createdAt;
+
+    @Column(name="last_logined_at")
+    @UpdateTimestamp
+    @JsonProperty("last_logined_at")
+    LocalDateTime lastLoginedAt;
+
+    @Column(name="role")
+    String role;
+
 }

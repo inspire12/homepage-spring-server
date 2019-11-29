@@ -40,9 +40,9 @@ public class Article {
     @Column(name = "content")  // html 으로
     String content;
 
-    @Column(name = "user_id")
-    @JsonProperty("user_id")
-    int userId;
+    @Column(name = "username")
+    @JsonProperty("username")
+    String username;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -70,9 +70,9 @@ public class Article {
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
-        int userId = requestBody.get("user_id").asInt();
+        String userId = requestBody.get("user_id").asText();
         String content = requestBody.get("content").asText();
-        article.setUserId(userId);
+        article.setUsername(userId);
         article.setContent(content);
         return article;
     }

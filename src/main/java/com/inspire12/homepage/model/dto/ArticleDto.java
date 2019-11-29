@@ -21,8 +21,8 @@ public class ArticleDto {
     String subject;
     String content;
 
-    @JsonProperty("user_id")
-    int userId;
+    @JsonProperty("username")
+    String username;
     String userNickName;
 
     @JsonProperty("created_at")
@@ -40,7 +40,7 @@ public class ArticleDto {
         articleDto.setNo(article.getGrpno());
         articleDto.setDepth(article.getDepth());
         articleDto.setSubject(article.getSubject());
-        articleDto.setUserId(article.getUserId());
+        articleDto.setUsername(article.getUsername());
 //        articleDto.setUserNickName(article.getSubject());
         article.setCreatedAt(article.getCreatedAt());
         article.setUpdatedAt(article.getUpdatedAt());

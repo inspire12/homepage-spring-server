@@ -26,9 +26,9 @@ public class Comment {
     @JsonProperty("article_id")
     int articleId;
 
-    @Column(name = "user_id")
-    @JsonProperty("user_id")
-    int userId;
+    @Column(name = "username")
+    @JsonProperty("username")
+    String username;
 
     @Column(name = "no")
     int grpno;

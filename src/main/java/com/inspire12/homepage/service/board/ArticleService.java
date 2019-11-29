@@ -29,7 +29,7 @@ public class ArticleService {
 
     public ArticleMsg showArticleMsgById(int id) {
         Article article = articleRepository.getOne(id);
-        return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUserId()), convertToMsg(commentRepository.findAllByArticleId(article.getId())));
+        return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUsername()), convertToMsg(commentRepository.findAllByArticleId(article.getId())));
     }
 
     public List<ArticleMsg> showArticleMsgsWithCount(int articleCount) {
@@ -63,7 +63,7 @@ public class ArticleService {
     private List<ArticleMsg> convertArticlesToArticleMsgs(List<Article> articles) {
         List<ArticleMsg> articleMsgs = new ArrayList<>();
         for (Article article : articles) {
-            User author = userRepository.findById(article.getUserId()).get();
+            User author = userRepository.findById(article.getUsername()).get();
             List<Comment> comments = commentRepository.findAllByArticleId(article.getId());
             articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
         }
@@ -73,7 +73,7 @@ public class ArticleService {
     public List<CommentMsg> convertToMsg(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (int i = 0; i < comments.size(); i++) {
-            commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUserId())));
+            commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUsername())));
         }
         return commentMsgs;
     }
