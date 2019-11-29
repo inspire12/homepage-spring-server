@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Mac;
@@ -30,18 +31,21 @@ public class AuthProvider implements AuthenticationProvider {
 
     private Logger logger = LoggerFactory.getLogger(AuthProvider.class);
 
+//    @Autowired
+//    BCryptPasswordEncoder encoder;
+
     @Autowired
     private Environment env;
 
     @Autowired
     private UserRepository repository;
 
-    public String encrypt(String key, String text) throws NoSuchAlgorithmException, InvalidKeyException {
+    public String encrypt(String key, String salt) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
         SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(), "HmacSHA256");
         sha256_HMAC.init(secret_key);
 
-        return Base64.encodeBase64String(sha256_HMAC.doFinal(text.getBytes()));
+        return Base64.encodeBase64String(sha256_HMAC.doFinal(salt.getBytes()));
     }
 
     @Override
@@ -50,13 +54,13 @@ public class AuthProvider implements AuthenticationProvider {
             String name = authentication.getName();
             String password = encrypt(name, authentication.getCredentials().toString());
 
-            Optional<User> user = Optional.of(repository.findByUsernameAndPassward(name, password));
-            repository.updateUserLastLoginTime(LocalDateTime.now(), name);
+            Optional<User> user = Optional.of(repository.findByUsernameAndPassword(name, password));
+//            repository.updateUserLastLoginTime(LocalDateTime.now(), name);
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole()));
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(user.get().getUsername(), user.get().getPassward(), grantedAuthorities);
+            Authentication auth = new UsernamePasswordAuthenticationToken(user.get().getUsername(), user.get().getPassword(), grantedAuthorities);
             return auth;
 
         } catch (Exception e) {

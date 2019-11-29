@@ -53,7 +53,11 @@
 <!-- CUSTOM -->
 <script th:src="@{/js/custom/templates/home.js}"></script>
 <script th:inline="javascript">
+    let status =  /*[[${status}]]*/;
     function main() {
+        if (status === "signup") {
+            swal("가입을 축하합니다.")
+        }
         appendGallaryImgs();
         appendFollowAreaImgs();
     }

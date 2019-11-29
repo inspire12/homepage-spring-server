@@ -11,9 +11,16 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
 
 
 @Configuration
@@ -26,51 +33,69 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.dataSource = dataSource;
     }
 
+    @Autowired
+    public RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username,password, enabled from user where email=?")
-                .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
-                .passwordEncoder(passwordEncoder());
+//        auth
+//                .jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery("select username,password, enabled from user where email=?")
+//                .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
+//                .passwordEncoder(passwordEncoder());
 
     }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/images/**", "/js/**", "/css/**", "/scss/**", "/plugins/**", "/font/**");
+        web.ignoring().antMatchers("/resources/**", "/static/**", "/img/**", "/js/**", "/css/**", "/scss/**", "/plugins/**", "/fonts/**");
+    }
+
+    @Component
+    public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        }
     }
 
 
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.httpBasic().disable();
-        httpSecurity.csrf().disable();
+//        httpSecurity.httpBasic().disable();
+
 
         httpSecurity
-//                .authorizeRequests()
-//                .antMatchers( "/signup", "/", "/about", "/login").permitAll()
-//                .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
-//                .anyRequest().authenticated().
-//                .and()
+                .authorizeRequests()
+//                .anyRequest().authenticated()
+                .antMatchers("/signup", "/", "/index", "/about").permitAll()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/*.js").permitAll()
+                .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
+                .antMatchers("/board").authenticated();
+//                .antMatchers("/resources/**").permitAll().anyRequest().permitAll();
+        httpSecurity
+                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+
+        httpSecurity
 //                .formLogin()
-//                .loginPage("/login").permitAll()
+//                .loginPage("/").permitAll()
 //                .and()
-//                .logout()
-//                .logoutSuccessUrl("/login")
+                .logout()
+                .logoutSuccessUrl("/")
 //                .and()
-//                .csrf()
 //                .ignoringAntMatchers("/h2-console/**")
-//                .and()
+                .and()
                 .headers().frameOptions().disable();
+
+        httpSecurity.csrf().disable();
     }
 }

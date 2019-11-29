@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Repository
 public interface UserRepository extends JpaRepository <User, String>{
     void deleteByUsername(String username);
-    User findByUsernameAndPassward(String username, String passward);
+    User findByUsernameAndPassword(String username, String password);
 
     @Modifying
     @Query(value = "UPDATE users SET last_logined_at = :last_logined_at where username=:username", nativeQuery = true)
