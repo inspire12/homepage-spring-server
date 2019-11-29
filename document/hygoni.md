@@ -39,10 +39,12 @@ http://archive.is/djFxD  -  에디터 비교글
 <h4>글자가 작아진다, 숫자가 클수록 중요한 제목!</h4>
 ```
 
-<iframe height="332" style="width: 100%;" scrolling="no" title="xxbKZMG" src="https://codepen.io/hygoni/embed/xxbKZMG?height=332&theme-id=default&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hygoni/pen/xxbKZMG'>xxbKZMG</a> by Jade Yu
-  (<a href='https://codepen.io/hygoni'>@hygoni</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="result" data-user="hygoni" data-slug-hash="xxbKZMG" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="xxbKZMG">
+  <span>See the Pen <a href="https://codepen.io/hygoni/pen/xxbKZMG">
+  xxbKZMG</a> by Jade Yu (<a href="https://codepen.io/hygoni">@hygoni</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 ##### 2. p (paragraph) 태그
 ```
