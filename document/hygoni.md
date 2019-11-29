@@ -1,6 +1,7 @@
 [HTML](#HTML)
 
-<div id="HTML>
+<div id="HTML"></div>
+
 # HTML 
 HTML : HyperText Markup Language
 ####HTML 이란
@@ -90,4 +91,3 @@ alt="이미지설명"
 **다 정리하긴 내용이 많아요 ㅜㅜㅜ 
 옛날에 썼던 강좌 링크 던지고 튀겠습니다 흨흨
 https://blog.naver.com/dbgudrhs1/90174972698**
-</div>
