@@ -30,6 +30,7 @@ http://archive.is/djFxD  -  에디터 비교글
 
 #### 간단한 태그들
 
+**CodePen으로 시각적으로 보여주고 싶었으나 Github-Flavored Markdown이 지원하지 않는다 ㅜ.ㅜ 그냥 링크를 눌러주자**
 ##### 1.  h1~h5태그 (heading)
 
 ```
@@ -39,32 +40,21 @@ http://archive.is/djFxD  -  에디터 비교글
 <h4>글자가 작아진다, 숫자가 클수록 중요한 제목!</h4>
 ```
 
-<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="result" data-user="hygoni" data-slug-hash="xxbKZMG" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="xxbKZMG">
-  <span>See the Pen <a href="https://codepen.io/hygoni/pen/xxbKZMG">
-  xxbKZMG</a> by Jade Yu (<a href="https://codepen.io/hygoni">@hygoni</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+https://codepen.io/hygoni/pen/xxbKZMG
 
 ##### 2. p (paragraph) 태그
 ```
 <p>여기에는 글을 쓸 수 있다!</p>
 ```
 
-<iframe height="265" style="width: 100%;" scrolling="no" title="RwNbrdg" src="https://codepen.io/hygoni/embed/RwNbrdg?height=265&theme-id=default&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hygoni/pen/RwNbrdg'>RwNbrdg</a> by Jade Yu
-  (<a href='https://codepen.io/hygoni'>@hygoni</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+https://codepen.io/hygoni/pen/RwNbrdg
 
 ##### 3. a 태그
 ```
 <a href="https://google.com">글, 이미지 등등에 링크를 걸려면 a로 둘러싸버리자</a>
 ```
 
-<iframe height="265" style="width: 100%;" scrolling="no" title="JjoPGVG" src="https://codepen.io/hygoni/embed/JjoPGVG?height=265&theme-id=default&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hygoni/pen/JjoPGVG'>JjoPGVG</a> by Jade Yu
-  (<a href='https://codepen.io/hygoni'>@hygoni</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+https://codepen.io/hygoni/pen/JjoPGVG
 
 ##### 4. img 태그
 
@@ -75,10 +65,7 @@ http://archive.is/djFxD  -  에디터 비교글
 src="주소"
 alt="이미지설명"
 ```
-<iframe height="265" style="width: 100%;" scrolling="no" title="dyPbGEO" src="https://codepen.io/hygoni/embed/dyPbGEO?height=265&theme-id=default&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hygoni/pen/dyPbGEO'>dyPbGEO</a> by Jade Yu
-  (<a href='https://codepen.io/hygoni'>@hygoni</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+https://codepen.io/hygoni/pen/dyPbGEO
 
 **더 많지만  귀찮으므로 패스. HTML 태그들은 검색하며 많이 나온다.**
 
