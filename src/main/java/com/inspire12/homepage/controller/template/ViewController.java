@@ -26,6 +26,11 @@ public class ViewController {
         return "index";
     }
 
+    @GetMapping("/signup")
+    public String getSignup(Model model){
+        model.addAttribute("name", "signup");
+        return "auth/signup";
+    }
     @GetMapping("/introduce")
     public String getIntroduceView() {return "introduce";}
 
