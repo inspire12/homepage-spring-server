@@ -40,21 +40,23 @@ http://archive.is/djFxD  -  에디터 비교글
 <h4>글자가 작아진다, 숫자가 클수록 중요한 제목!</h4>
 ```
 
-https://codepen.io/hygoni/pen/xxbKZMG
+<a href='https://codepen.io/hygoni/pen/xxbKZMG' target="_blank">https://codepen.io/hygoni/pen/xxbKZMG</a>
 
 ##### 2. p (paragraph) 태그
 ```
 <p>여기에는 글을 쓸 수 있다!</p>
 ```
 
-https://codepen.io/hygoni/pen/RwNbrdg
+
+<a href='https://codepen.io/hygoni/pen/RwNbrdg' target="_blank">https://codepen.io/hygoni/pen/RwNbrdg</a>
 
 ##### 3. a 태그
 ```
 <a href="https://google.com">글, 이미지 등등에 링크를 걸려면 a로 둘러싸버리자</a>
 ```
 
-https://codepen.io/hygoni/pen/JjoPGVG
+
+<a href='https://codepen.io/hygoni/pen/JjoPGVG' target="_blank">https://codepen.io/hygoni/pen/JjoPGVG</a>
 
 ##### 4. img 태그
 
@@ -65,7 +67,8 @@ https://codepen.io/hygoni/pen/JjoPGVG
 src="주소"
 alt="이미지설명"
 ```
-https://codepen.io/hygoni/pen/dyPbGEO
+
+<a href='https://codepen.io/hygoni/pen/dyPbGEO' target="_blank">https://codepen.io/hygoni/pen/dyPbGEO</a>
 
 **더 많지만  귀찮으므로 패스. HTML 태그들은 검색하며 많이 나온다.**
 
@@ -79,10 +82,8 @@ https://codepen.io/hygoni/pen/dyPbGEO
   <태그이름 속성="속성">
 위처럼 생긴건 다 속성임.
 ```
-<iframe height="265" style="width: 100%;" scrolling="no" title="KKwPVjJ" src="https://codepen.io/hygoni/embed/KKwPVjJ?height=265&theme-id=dark&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hygoni/pen/KKwPVjJ'>KKwPVjJ</a> by Jade Yu
-  (<a href='https://codepen.io/hygoni'>@hygoni</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+
+<a href='https://codepen.io/hygoni/pen/KKwPVjJ' target="_blank">https://codepen.io/hygoni/pen/KKwPVjJ</a>
 
 **다 정리하긴 내용이 많아요 ㅜㅜㅜ 
 옛날에 썼던 강좌 링크 던지고 튀겠습니다 흨흨
