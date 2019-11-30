@@ -65,7 +65,9 @@ public class ArticleService {
         for (Article article : articles) {
             User author = userRepository.findById(article.getUserId()).get();
             List<Comment> comments = commentRepository.findAllByArticleId(article.getId());
-            articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
+            List<CommentMsg> commentMsgs = convertToMsg(comments);
+            ArticleMsg articleMsg = ArticleMsg.createWithComments(article, author, commentMsgs);
+            articleMsgs.add(articleMsg);
         }
         return articleMsgs;
     }
@@ -73,7 +75,10 @@ public class ArticleService {
     public List<CommentMsg> convertToMsg(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (int i = 0; i < comments.size(); i++) {
-            commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUserId())));
+            Comment comment = comments.get(i);
+            User user = userRepository.getOne(comments.get(i).getUserId());
+            CommentMsg commentMsg = CommentMsg.createCommentMsg(comment, user);
+            commentMsgs.add(commentMsg);
         }
         return commentMsgs;
     }

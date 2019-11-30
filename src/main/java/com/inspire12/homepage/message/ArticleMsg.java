@@ -71,7 +71,7 @@ public class ArticleMsg {
     public static ArticleMsg createWithComments(Article article, User user, List<CommentMsg> commentMsgs) {
 
         ArticleMsg articleMsg = create(article, user);
-        articleMsg.setComments(commentMsgs);
+//        articleMsg.setComments(commentMsgs);
         return articleMsg;
     }
 }
