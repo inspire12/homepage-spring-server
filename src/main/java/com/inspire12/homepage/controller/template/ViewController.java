@@ -1,6 +1,8 @@
 package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.model.entity.User;
+import com.inspire12.homepage.repository.UserRepository;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ViewController {
     @Autowired
     ArticleService articleService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping({"/", "/index"})
     public String index(Model model){
         model.addAttribute("name", "index");
@@ -35,7 +40,9 @@ public class ViewController {
     }
 
     @GetMapping("/about")
-    public String getAboutView(){
+    public String getAboutView(Model model){
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
         return "about";
     }
 

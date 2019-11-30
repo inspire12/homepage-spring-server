@@ -5,7 +5,7 @@ function createTeamMemberArea(user, delay) {
         '                        <div class="member-thumb">\n' +
         '                            <img src="' + user['profile'] + '" alt="">\n' +
         '                        </div>\n' +
-        '                        <h5>' + user['id'] + '</h5>\n' +
+        '                        <h5>' + user['nickname'] + '</h5>\n' +
         '                        <span>' + user['name'] + '</span>\n' +
         '                        <div class="member-social-info">\n' +
         '                            <a href="#"><i class="ti-facebook"></i></a>\n' +
