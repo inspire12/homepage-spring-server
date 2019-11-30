@@ -45,7 +45,6 @@ public class Comment {
 
     int like;
 
-
     @Column(name = "created_at")
     @CreationTimestamp
     @JsonProperty("created_at")
