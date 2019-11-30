@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -42,6 +44,7 @@ public class ViewController {
     @GetMapping("/about")
     public String getAboutView(Model model){
         List<User> users = userRepository.findAll();
+        Collections.shuffle(users);
         model.addAttribute("users", users);
         return "about";
     }
