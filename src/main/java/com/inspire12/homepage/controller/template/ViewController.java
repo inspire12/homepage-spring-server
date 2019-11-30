@@ -22,6 +22,7 @@ public class ViewController {
 
     @GetMapping({"/", "/index"})
     public String index(Model model){
+
         model.addAttribute("name", "index");
         return "index";
     }
@@ -62,6 +63,7 @@ public class ViewController {
             List<ArticleMsg> articles = articleService.showArticleMsgsWithCount(articleCount);
             model.addAttribute("articles", articles);
         }catch (Exception e) {
+            e.printStackTrace();
         }
 
         model.addAttribute("name", "board");

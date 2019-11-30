@@ -63,9 +63,13 @@ public class ArticleService {
     private List<ArticleMsg> convertArticlesToArticleMsgs(List<Article> articles) {
         List<ArticleMsg> articleMsgs = new ArrayList<>();
         for (Article article : articles) {
-            User author = userRepository.findById(article.getUsername()).get();
-            List<Comment> comments = commentRepository.findAllByArticleId(article.getId());
-            articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
+            try {
+                User author = userRepository.findById(article.getUsername()).get();
+                List<Comment> comments = commentRepository.findAllByArticleId(article.getId());
+                articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return articleMsgs;
     }
