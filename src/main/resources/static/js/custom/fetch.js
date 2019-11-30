@@ -27,8 +27,9 @@ function putRequest(url, body, func) {
         console.dir(response);
         let status = response.status;
         __swalStatusMessage(status);
-        let data = JSON.stringify(response);
-        func(data)
+        return response.json();
+    }).then(body => {
+        func(body)
     }).catch(e => {
         console.dir(e);
     })

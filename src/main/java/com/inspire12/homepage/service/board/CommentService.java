@@ -19,7 +19,7 @@ public class CommentService {
     @Autowired
     UserRepository userRepository;
 
-    List<CommentMsg> getComments(int articleId) {
+    public List<CommentMsg> getComments(int articleId) {
         List<Comment> comments = commentRepository.findAllByArticleId(articleId);
         return convertToCommentMsgs(comments);
     }

@@ -23,10 +23,10 @@ function submitComment(message) {
     console.dir(message);
     console.dir(message.value);
 
-    let url = "http://localhost:8080/comments";
+    let url = "/comments";
     let body = {
         "article_id": article['id'],
-        "user_id": 1,
+        "user_id": user,
         "content": message.value
     };
     putRequest(url, body, (data) => {
@@ -41,8 +41,7 @@ function submitComment(message) {
             commentsArea.removeChild(commentsArea.firstChild);
             // 무한루프 조심
         }
-        appendComments(comments, commentArea);
-        window.location.reload();
+        appendComments(comments, commentsArea);
     })
 }
 
