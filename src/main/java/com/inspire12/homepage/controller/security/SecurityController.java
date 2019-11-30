@@ -22,7 +22,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-@RestController
+@Controller
 public class SecurityController {
     @Autowired
     AuthProvider authProvider;
@@ -55,7 +55,7 @@ public class SecurityController {
     @RequestMapping(value="/login", method=RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public AuthenticationToken login(
+    public String login(
             @RequestParam Map<String, String> authenticationRequest, Model model,
             HttpSession session
     ) {
@@ -69,6 +69,8 @@ public class SecurityController {
                 SecurityContextHolder.getContext());
 
         User user = userDetailService.readUser(username);
-        return new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
+        new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
+        model.addAttribute("name", "index");
+        return "index";
     }
 }
