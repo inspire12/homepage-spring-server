@@ -26,3 +26,4 @@
 /.nb-gradle/
 
 /nohup.out
+application.pid
