@@ -9,7 +9,7 @@ const createTrFromStr = (domstring) => {
     return html.body.firstChild.firstChild.firstChild;
 };
 
-const createGallaryImgModel = (name, tag, delay) => {
+const creategalleryImgModel = (name, tag, delay) => {
     let model = {};
     model.name = name;
     model.tag = tag;
@@ -17,7 +17,7 @@ const createGallaryImgModel = (name, tag, delay) => {
     return model;
 };
 
-function createGallaryImg(img, tag, delay) {
+function creategalleryImg(img, tag, delay) {
     let singleGallayString = '<div class="col-12 col-sm-6 col-lg-3 single_gallery_item '
         + tag + ' mb-30 wow fadeInUp" data-wow-delay="'
         + delay + 'ms"><div class="single-portfolio-content"><img src="'
@@ -64,11 +64,11 @@ function appendFollowAreaImgs(imgs){
     }
 }
 
-function appendGallaryImgs(imgs) {
-    imgs = [createGallaryImgModel("3", "human", 500), createGallaryImgModel("4", "country", 200)
-        , createGallaryImgModel("boyoung_test", "human", 700)];
+function appendgalleryImgs(imgs) {
+    imgs = [creategalleryImgModel("3", "human", 500), creategalleryImgModel("4", "country", 200)
+        , creategalleryImgModel("boyoung_test", "human", 700)];
     for (let i = 0; i < imgs.length; i++) {
-        let singleGallayItem = createGallaryImg("/img/bg-img/" + imgs[i].name + ".jpg", imgs[i].tag,imgs[i].delay);
+        let singleGallayItem = creategalleryImg("/img/bg-img/" + imgs[i].name + ".jpg", imgs[i].tag,imgs[i].delay);
         document.getElementById("alime-portfolio").append(singleGallayItem);
     }
 }

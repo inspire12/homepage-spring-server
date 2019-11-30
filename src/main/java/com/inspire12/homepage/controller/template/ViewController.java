@@ -51,7 +51,7 @@ public class ViewController {
 
 
     @GetMapping("/gallery")
-    public String getGallaryView(){
+    public String getgalleryView(){
         return "gallery";
     }
 
