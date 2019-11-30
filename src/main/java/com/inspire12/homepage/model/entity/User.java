@@ -44,4 +44,7 @@ public class User  {
     @CreationTimestamp
     @JsonProperty("created_at")
     LocalDateTime createdAt;
+
+    @Column(name="profile")
+    String profile;
 }
