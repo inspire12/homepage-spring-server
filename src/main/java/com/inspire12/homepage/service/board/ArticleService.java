@@ -45,7 +45,7 @@ public class ArticleService {
 
     public boolean saveArticle(Article article) {
         // 데이터 검증
-        articleRepository.save(article);
+        articleRepository.saveArticle(article.getSubject(), article.getContent(), article.getUsername());
         return true;
     }
 
