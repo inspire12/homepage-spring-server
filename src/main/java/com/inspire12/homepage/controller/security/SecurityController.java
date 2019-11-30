@@ -8,6 +8,8 @@ import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,13 +19,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletMapping;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
-public class SecurityController {
+public class SecurityController implements ErrorController {
     @Autowired
     AuthProvider authProvider;
 
@@ -72,5 +78,24 @@ public class SecurityController {
         new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
         model.addAttribute("name", "index");
         return "index";
+    }
+
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request, Model model) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+
+        HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
+        model.addAttribute("code", status.toString());
+        model.addAttribute("msg", httpStatus.getReasonPhrase());
+        model.addAttribute("timestamp", LocalDateTime.now());
+        if (status != null) {
+
+        }
+        return getErrorPath();
+    }
+
+    @Override
+    public String getErrorPath() {
+        return "error/404";
     }
 }
