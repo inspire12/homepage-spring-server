@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SpringSecurityDialect springSecurityDialect(){
+    public SpringSecurityDialect springSecurityDialect() {
         return new SpringSecurityDialect();
     }
 
@@ -72,7 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity.httpBasic().disable();
@@ -81,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
 //                .anyRequest().authenticated()
-                .antMatchers("/signup", "/", "/index", "/about").permitAll()
+                .antMatchers("/login", "/signup", "/", "/index", "/about").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/*.js").permitAll()
                 .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
