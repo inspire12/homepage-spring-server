@@ -57,6 +57,8 @@
     function main() {
         if (status === "signup") {
             swal("가입을 축하합니다.")
+        } else if(status === 'login') {
+            swal('로그인 되었습니다.')
         }
         appendgalleryImgs();
         appendFollowAreaImgs();

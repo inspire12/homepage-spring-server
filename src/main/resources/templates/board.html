@@ -40,7 +40,7 @@
                             <li class="breadcrumb-item"><a href="index.html"><i class="icon_house_alt"></i> Home</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">Board</li>
-<!--                            <li class="breadcrumb-item active" aria-current="page">Notice</li>-->
+                            <!--                            <li class="breadcrumb-item active" aria-current="page">Notice</li>-->
                         </ol>
                     </nav>
                 </div>
@@ -58,7 +58,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">분류</th>
-                    <th scope="col">제목</th>
+                    <th style="width:450px" scope="col">제목</th>
                     <th scope="col">글쓴이</th>
                     <th scope="col">날짜</th>
                     <th scope="col">조회</th>
@@ -70,7 +70,8 @@
                 </tbody>
             </table>
             <div class="col-12 text-right">
-                <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="/writing" target="_blank">글쓰기</a>
+                <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="/writing"
+                   target="_blank">글쓰기</a>
             </div>
         </div>
     </div>
@@ -98,7 +99,7 @@
     function showDateFrom(locatDateTime) {
         let d = new Date(locatDateTime);
         let year = d.getFullYear();
-        let month = d.getMonth()+1;
+        let month = d.getMonth() + 1;
         let day = d.getDay();
         return year + "." + month + "." + day;
     }
