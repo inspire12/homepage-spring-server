@@ -51,7 +51,7 @@
                                 <li><a href="/contact">Contact</a></li>
 
                             </ul>
-                            <div class="dropdown" sec:authorize="!isAuthenticated()">
+                            <div class="dropdown text-right" sec:authorize="!isAuthenticated()">
                                 <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Login
@@ -79,7 +79,7 @@
                                     <a class="dropdown-item" href="#">Forgot password?</a>
                                 </div>
                             </div>
-                            <div class="" sec:authorize="isAuthenticated()">
+                            <div class="text-right" sec:authorize="isAuthenticated()">
                                 <a href="/logout" class="btn btn-warning form-submit" name="logout" id="logout"> Logout</a>
                             </div>
 

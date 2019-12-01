@@ -90,7 +90,6 @@ public class ViewController {
         }
         model.addAttribute("article", article);
         model.addAttribute("name", "article");
-        model.addAttribute("name", "article");
         return "article";
     }
 
