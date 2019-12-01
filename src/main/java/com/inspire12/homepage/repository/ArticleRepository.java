@@ -22,6 +22,10 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO `article` (`subject`, `content`,`username`) VALUES (:subject, :content, :username)",nativeQuery = true)
-    void saveArticle(@Param("subject")String subject, @Param("content")String content, @Param("username")String username);
+    @Query(value = "INSERT INTO `article` (`subject`, `content`,`username`) VALUES (:subject, :content, :username)", nativeQuery = true)
+    void saveArticle(@Param("subject") String subject, @Param("content") String content, @Param("username") String username);
+
+
+    @Query(value = "select * from `article` order by no desc limit 1,:limit", nativeQuery = true)
+    List<Article> selectArticles(@Param("limit") int limit);
 }

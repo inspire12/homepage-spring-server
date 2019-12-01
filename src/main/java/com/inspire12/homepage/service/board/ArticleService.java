@@ -38,7 +38,7 @@ public class ArticleService {
     }
 
     public List<ArticleMsg> showArticleMsgs() {
-        List<Article> articles = articleRepository.findAll();
+        List<Article> articles = articleRepository.selectArticles(30);
         return convertArticlesToArticleMsgs(articles);
     }
 
