@@ -13,7 +13,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (modelAndView != null && authentication.isAuthenticated()){
+        if (modelAndView != null && authentication != null &&authentication.isAuthenticated()){
             String user = (String) authentication.getPrincipal();
             modelAndView.addObject("user", user);
         }

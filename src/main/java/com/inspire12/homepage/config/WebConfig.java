@@ -13,7 +13,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/*");
+        registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/img/**")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/fonts/**")
+                .excludePathPatterns("/scss/**")
+                .excludePathPatterns("/style.css");
+
     }
 
     @Override
@@ -30,8 +37,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "classpath:/static/css/",
                         "classpath:/static/js/");
 
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/resources/");
+
 
     }
 }
