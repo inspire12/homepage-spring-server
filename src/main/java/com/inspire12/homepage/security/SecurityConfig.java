@@ -80,7 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/*.js").permitAll()
                 .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
-                .antMatchers("/board").authenticated();
+                .antMatchers("/board").authenticated()
+                .antMatchers("/article").authenticated();
 //                .antMatchers("/resources/**").permitAll().anyRequest().permitAll();
         httpSecurity
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
