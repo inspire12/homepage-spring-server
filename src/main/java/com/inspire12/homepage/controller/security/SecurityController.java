@@ -1,6 +1,7 @@
 package com.inspire12.homepage.controller.security;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.model.entity.AuthenticationToken;
 import com.inspire12.homepage.model.entity.User;
@@ -18,6 +19,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletMapping;
@@ -34,36 +37,41 @@ public class SecurityController implements ErrorController {
     AuthProvider authProvider;
 
     @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
     UserDetailService userDetailService;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String registerUser(@RequestParam Map<String, String> requestBody, Model model) throws InvalidKeyException, NoSuchAlgorithmException {
+    public String registerUser(@RequestParam Map<String, String> requestBody,
+                               Model model, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
         String name = requestBody.get("username");
         String password = requestBody.get("password");
         String email = requestBody.get("email");
         String encryptedPassword = authProvider.encrypt(name, password);
         User user = User.create(name, email, encryptedPassword);
         try {
+            // 중복 체크 추가
             userDetailService.saveUser(user);
-            model.addAttribute("status","signup");
-            model.addAttribute("name","index");
-            return "index";
-        }catch (Exception e){
-            model.addAttribute("status","fail");
+            model.addAttribute("status", "signup");
+            model.addAttribute("name", "index");
+            return "redirect:index";
+        } catch (Exception e) {
+            model.addAttribute("status", "fail");
         }
-        model.addAttribute("name","signup");
-        return "signup";
+        model.addAttribute("name", "signup");
+        return "redirect:signup";
     }
 
 
-    @RequestMapping(value="/login", method=RequestMethod.POST,
+    @RequestMapping(value = "/login", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public String login(
-            @RequestParam Map<String, String> authenticationRequest, Model model,
-            HttpSession session
+    public RedirectView login(
+            @RequestParam Map<String, String> authenticationRequest,
+            HttpSession session, RedirectAttributes redirectAttributes
     ) {
         String username = authenticationRequest.get("username");
         String password = authenticationRequest.get("password");
@@ -76,8 +84,12 @@ public class SecurityController implements ErrorController {
 
         User user = userDetailService.readUser(username);
         new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
-        model.addAttribute("name", "index");
-        return "index";
+        RedirectView redirectView = new RedirectView("index", true);
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("name", "index");
+        objectNode.put("status", "login");
+        redirectAttributes.addFlashAttribute(objectNode);
+        return redirectView;
     }
 
     @RequestMapping("/error")
