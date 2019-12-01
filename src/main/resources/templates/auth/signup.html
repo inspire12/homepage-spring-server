@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="css/signup/style.css">
 </head>
 <body>
-
+    <script type="text/javascript" sec:authorize="isAuthenticated()">
+        location.href = "/index";
+    </script>
     <div class="main">
 
         <!-- Sign up form -->
