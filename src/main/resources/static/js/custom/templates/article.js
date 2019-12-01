@@ -14,7 +14,7 @@ function main(article) {
     let commentSection = document.getElementById("comment-area-id");
     let commentTitle = commentSection.firstElementChild;
     let commentsArea = commentSection.children[1];
-    let commentSize =  comments.length;
+    let commentSize = comments.length;
     commentTitle.textContent = commentSize + " Comments";
     appendComments(comments, commentsArea);
 }
@@ -59,11 +59,11 @@ function createCommentElement(comment) {
     let commentStr = '<li class="single_comment_area">\n' +
         '                            <div class="comment-content d-flex">\n' +
         '                                <div class="comment-author">\n' +
-        '                                    <img src="img/bg-img/32.jpg" alt="author">\n' +
+        '                                    <img src="' + comment.author.profile + '" alt="author">\n' +
         '                                </div>\n' +
         '                                <div class="comment-meta">\n' +
         '                                    <a href="#" class="post-date">27 Aug 2019</a>\n' +
-        '                                    <h5>' + comment.author.name + '</h5>\n' +
+        '                                    <h5>' + comment.author.username + '</h5>\n' +
         '                                    <p>' + comment.content + '</p>\n' +
         '                                    <a href="#" class="like">Like</a>\n' +
         '                                    <a href="#" class="reply">Reply</a>\n' +
@@ -73,7 +73,8 @@ function createCommentElement(comment) {
     return createElementFromStr(commentStr);
 
 }
-function convertDate (date) {
+
+function convertDate(date) {
     return date
 }
 
@@ -96,8 +97,8 @@ function createRecommendElement(article) {
         '                    <!-- Post Conetent -->\n' +
         '                    <div class="post-content">\n' +
         '                        <div class="post-meta">\n' +
-        '                            <a href="#">' + updatedAt +'</a>\n' +
-        '                            <a href="#">' +commentSize +' Comment</a>\n' +
+        '                            <a href="#">' + updatedAt + '</a>\n' +
+        '                            <a href="#">' + commentSize + ' Comment</a>\n' +
         '                        </div>\n' +
         '                        <a href="' + url + '" class="post-title">' + subject + '</a>\n' +
         '                    </div>\n' +
@@ -108,7 +109,6 @@ function createRecommendElement(article) {
 
     return recommendElement;
 }
-
 
 
 function createCommentForm() {
