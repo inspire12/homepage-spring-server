@@ -95,4 +95,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+    @Column(name="profile")
+    String profile;
+
 }

@@ -162,19 +162,23 @@
 
     <script th:src="@{/js/custom/templates/about.js}"></script>
     <script th:inline="javascript">
-        function main () {
-            let teamMemberArea = document.getElementById("team-member-area-id");
-            let users = [{"id":"inspire12", "name":"서영학","profile": "https://avatars2.githubusercontent.com/u/11865970?s=460&v=4"},
-                {"id":"Sinyoung", "name":"김신영", "profile": "https://avatars0.githubusercontent.com/u/53924962?s=400&v=4"}];
 
+        function main (users) {
+            let teamMemberArea = document.getElementById("team-member-area-id");
+            // let users = [{"id":"inspire12", "name":"서영학","profile": "https://avatars2.githubusercontent.com/u/11865970?s=460&v=4"},
+            //     {"id":"Sinyoung3016", "name":"복신영", "profile": "https://avatars0.githubusercontent.com/u/53924962?s=400&v=4"},
+            //     {"id":"willook", "name":"이종화", "profile": "https://avatars3.githubusercontent.com/u/20057702?s=400&u=206097fc053c71eb3888a2e4bfa85133429225c1&v=4"},
+            //     {"id":"hygoni", "name":"유형곤", "profile":"https://avatars0.githubusercontent.com/u/50040414?s=460&v=4"}
+            // ];
             for (let i = 0; i<users.length; i++) {
-                let element = createTeamMemberArea(users[i]);
+                let element = createTeamMemberArea(users[i], 500 + 500 * i);
                 teamMemberArea.append(element)
             }
 
             appendFollowAreaImgs();
         }
-        main();
+        let users = /*[[${users}]]*/;
+        main(users);
     </script>
     <!-- All Plugins -->
     <script th:src="@{/js/alime.bundle.js}"></script>

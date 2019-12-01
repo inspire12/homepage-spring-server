@@ -77,7 +77,11 @@ public class ArticleService {
     public List<CommentMsg> convertToMsg(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (int i = 0; i < comments.size(); i++) {
-            commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUsername())));
+            try {
+                commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUsername())));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return commentMsgs;
     }
