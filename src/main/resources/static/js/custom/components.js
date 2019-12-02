@@ -64,11 +64,20 @@ function appendFollowAreaImgs(imgs){
     }
 }
 
-function appendgalleryImgs(imgs) {
-    imgs = [creategalleryImgModel("3", "human", 500), creategalleryImgModel("4", "country", 200)
-        , creategalleryImgModel("boyoung_test", "human", 700)];
+function appendGalleryImgs(imgs) {
+    imgs = [creategalleryImgModel("devday2018.png", "human", 500), creategalleryImgModel("ana_2.png", "country", 200)
+        , creategalleryImgModel("ucpc.png", "human", 700), creategalleryImgModel("sw_festival.png", "human", 700)
+        , creategalleryImgModel("ant2.jpg", "human", 700), creategalleryImgModel("poster.png", "human", 700)];
+
     for (let i = 0; i < imgs.length; i++) {
-        let singleGallayItem = creategalleryImg("/img/bg-img/" + imgs[i].name + ".jpg", imgs[i].tag,imgs[i].delay);
-        document.getElementById("alime-portfolio").append(singleGallayItem);
+        try{
+            let singleGallayItem = creategalleryImg("/img/bg-img/" + imgs[i].name , imgs[i].tag,imgs[i].delay);
+            document.getElementById("alime-portfolio").append(singleGallayItem);
+        }catch (e) {
+            console.dir(e)
+            console.dir("gallery img error: index: " + i)
+
+        }
+
     }
 }
