@@ -28,6 +28,11 @@ public class ArticleService {
     CommentRepository commentRepository;
 
     public ArticleMsg showArticleMsgById(int id) {
+        articleRepository.increaseHit(id);
+        return getArticleMsgById(id);
+    }
+
+    public ArticleMsg getArticleMsgById(int id) {
         Article article = articleRepository.getOne(id);
         return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUsername()), convertToMsg(commentRepository.findAllByArticleId(article.getId())));
     }
