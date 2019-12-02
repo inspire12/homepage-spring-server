@@ -87,6 +87,7 @@ public class ViewController {
             article = articleService.showArticleMsgById(id);
         }catch (Exception e){
             article = new ArticleMsg();
+            e.printStackTrace();
         }
         model.addAttribute("article", article);
         model.addAttribute("name", "article");
