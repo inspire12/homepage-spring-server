@@ -31,7 +31,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "update `article` set hit = hit+1 where id =:id;", nativeQuery = true)
+    @Query(value = "update `article` set hit = hit+1 where id =:id", nativeQuery = true)
     void increaseHit(@Param("id") int id);
 
 
