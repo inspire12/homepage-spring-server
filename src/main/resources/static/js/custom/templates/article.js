@@ -35,12 +35,13 @@ function submitComment(message) {
         let comments = data['comments'];
         let commentSection = document.getElementById("comment-area-id");
 
-        let commentTitle = commentSection.firstChild;
         let commentsArea = commentSection.children[1];
         while (commentsArea.childElementCount > 0) {
             commentsArea.removeChild(commentsArea.firstChild);
             // 무한루프 조심
         }
+        let commentTitle = commentSection.firstElementChild;
+        commentTitle.textContent = comments.length + " Comments";
         appendComments(comments, commentsArea);
     })
 }
