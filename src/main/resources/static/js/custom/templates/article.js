@@ -35,15 +35,20 @@ function submitComment(message) {
         let comments = data['comments'];
         let commentSection = document.getElementById("comment-area-id");
 
-        let commentsArea = commentSection.children[1];
-        while (commentsArea.childElementCount > 0) {
-            commentsArea.removeChild(commentsArea.firstChild);
-            // 무한루프 조심
-        }
-        let commentTitle = commentSection.firstElementChild;
-        commentTitle.textContent = comments.length + " Comments";
-        appendComments(comments, commentsArea);
+        refreshComments(comments, commentSection);
+        appendComments(comments, commentSection.children[1]);
     })
+}
+
+function refreshComments(comments, commentSection) {
+    let commentsArea = commentSection.children[1];
+    while (commentsArea.childElementCount > 0) {
+        commentsArea.removeChild(commentsArea.firstChild);
+        // 무한루프 조심
+    }
+    let commentTitle = commentSection.firstElementChild;
+    commentTitle.textContent = comments.length + " Comments";
+    document.getElementById("postComments").textContent = comments.length + " Comments";
 }
 
 function appendComments(comments, commentArea) {

@@ -39,7 +39,7 @@ function createBreadcrumbSection(article) {
         '                        <div class="post-meta">\n' +
         '                            <a href="#" class="post-author"> By&nbsp;' + article['author']['nickname'] + '</a>\n' +
         '                            <a href="#" class="post-date">' + article['created_at'] + '</a>\n' +
-        '                            <a href="#" class="post-comments">No Comments</a>\n' +
+        '                            <a href="#" class="post-comments" id="postComments">'+ article['comments'].length+ ' Comments</a>\n' +
         '                        </div>\n' +
         '                    </div>\n' +
         '                </div>\n' +
