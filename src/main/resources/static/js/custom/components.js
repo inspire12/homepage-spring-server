@@ -65,9 +65,9 @@ function appendFollowAreaImgs(imgs){
 }
 
 function appendGalleryImgs(imgs) {
-    imgs = [creategalleryImgModel("devday2018.png", "human", 500), creategalleryImgModel("ana_2.png", "country", 200)
-        , creategalleryImgModel("ucpc.png", "human", 700), creategalleryImgModel("sw_festival.png", "human", 700)
-        , creategalleryImgModel("ant2.jpg", "human", 700), creategalleryImgModel("poster.png", "human", 700)];
+    imgs = [creategalleryImgModel("devday2018.png", "algorithm", 500), creategalleryImgModel("ana_2.png", "study", 200)
+        , creategalleryImgModel("ucpc.png", "algorithm", 700), creategalleryImgModel("sw_festival.png", "contest", 700)
+        , creategalleryImgModel("ant_2.jpg", "study", 700), creategalleryImgModel("poster.png", "algorithm", 700)];
 
     for (let i = 0; i < imgs.length; i++) {
         try{
