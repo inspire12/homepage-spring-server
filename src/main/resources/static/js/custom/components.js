@@ -67,7 +67,7 @@ function appendFollowAreaImgs(imgs){
 function appendGalleryImgs(imgs) {
     imgs = [creategalleryImgModel("devday2018.png", "algorithm", 500), creategalleryImgModel("ana_2.png", "study", 200)
         , creategalleryImgModel("ucpc.png", "algorithm", 700), creategalleryImgModel("sw_festival.png", "contest", 700)
-        , creategalleryImgModel("study.png", "study", 400),
+        , creategalleryImgModel("study.jpg", "study", 400),
         , creategalleryImgModel("ant_2.jpg", "study", 200), creategalleryImgModel("poster.png", "algorithm", 500)];
 
     for (let i = 0; i < imgs.length; i++) {
