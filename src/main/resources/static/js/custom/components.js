@@ -52,13 +52,13 @@ function createBreadcrumbSection(article) {
 
 function createFollowAreaImg(imgName) {
     let followAreaImg = '<div class="single-instagram-item">\n' + '<img src="img/bg-img/'
-        + imgName + '.jpg" alt="">\n' + '<div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">\n' + '<a href="#">\n' + '<i class="ti-instagram" aria-hidden="true"></i>\n'
+        + imgName + '" alt="">\n' + '<div class="instagram-hover-content text-center d-flex align-items-center justify-content-center">\n' + '<a href="#">\n' + '<i class="ti-instagram" aria-hidden="true"></i>\n'
         + '<span>Best of the world,Tasha</span>\n' + '</a>\n' + '</div>\n' + '</div>'
     return createElementFromStr(followAreaImg);
 }
 
 function appendFollowAreaImgs(imgs){
-    imgs = ['boyoung_test', "3","18","4","5","6","7"];
+    imgs = ['boyoung_test.jpg', "3.jpg","18.jpg","4.jpg","5.jpg","6.jpg","7.jpg"];
     for (let i=0; i  < imgs.length; i++){
         document.getElementById("instagram-feed-area-id").append(createFollowAreaImg(imgs[i]));
     }
@@ -67,7 +67,8 @@ function appendFollowAreaImgs(imgs){
 function appendGalleryImgs(imgs) {
     imgs = [creategalleryImgModel("devday2018.png", "algorithm", 500), creategalleryImgModel("ana_2.png", "study", 200)
         , creategalleryImgModel("ucpc.png", "algorithm", 700), creategalleryImgModel("sw_festival.png", "contest", 700)
-        , creategalleryImgModel("ant_2.jpg", "study", 700), creategalleryImgModel("poster.png", "algorithm", 700)];
+        , creategalleryImgModel("study.png", "study", 400),
+        , creategalleryImgModel("ant_2.jpg", "study", 200), creategalleryImgModel("poster.png", "algorithm", 500)];
 
     for (let i = 0; i < imgs.length; i++) {
         try{
