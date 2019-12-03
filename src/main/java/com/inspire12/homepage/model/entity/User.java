@@ -68,6 +68,7 @@ public class User implements UserDetails {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
+        user.setRole("USER");
         return user;
     }
 

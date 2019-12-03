@@ -28,6 +28,9 @@ public class UserDetailService implements UserDetailsService {
         throw new UsernameNotFoundException("");
     }
 
+    public boolean isExistUser(User user) {
+        return userRepository.existsById(user.getUsername());
+    }
 
     public User readUser(String username){
         return userRepository.getOne(username);

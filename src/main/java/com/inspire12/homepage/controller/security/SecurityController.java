@@ -54,6 +54,11 @@ public class SecurityController implements ErrorController {
         User user = User.create(name, email, encryptedPassword);
         try {
             // 중복 체크 추가
+            if (userDetailService.isExistUser(user)){
+                model.addAttribute("name", "signup");
+                model.addAttribute("status", "fail");
+                return "redirect:signup";
+            }
             userDetailService.saveUser(user);
             model.addAttribute("status", "signup");
             model.addAttribute("name", "index");
