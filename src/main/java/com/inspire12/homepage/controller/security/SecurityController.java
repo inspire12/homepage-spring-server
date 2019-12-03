@@ -89,7 +89,7 @@ public class SecurityController implements ErrorController {
 
         User user = userDetailService.readUser(username);
         userDetailService.setLastLoginedAt(username);
-        
+
         new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
         RedirectView redirectView = new RedirectView("index", true);
         ObjectNode objectNode = objectMapper.createObjectNode();

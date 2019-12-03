@@ -6,6 +6,13 @@ function main(article) {
     let content = article['content'];
     let contentElement = createElementFromStr(content);
     document.getElementById("blog-details-text-id").append(contentElement);
+    let tags = article['tags'];
+    let tagContainer = document.getElementById("popular-tags");
+    for (let i=0; tags !== undefined && i< tags.length; i++ ){
+        let tagElement = createElementFromStr('<li><a class="btn badges-btn" href="#">'+tags[i]+'</a></li>');
+        tagContainer.append(tagElement)
+    }
+
 
     let recommendElement = createRecommendElement(article);
     document.getElementById("related-news-id").append(recommendElement);

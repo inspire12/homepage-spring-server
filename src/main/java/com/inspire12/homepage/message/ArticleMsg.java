@@ -61,7 +61,8 @@ public class ArticleMsg {
         articleMsg.setCreatedAt((article.getCreatedAt()));
         articleMsg.setUpdatedAt((article.getUpdatedAt()));
         articleMsg.setBoardId(article.getBoardId());
-        articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
+        if (!article.getTags().equals(""))
+            articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
         articleMsg.setAuthor(user);
         articleMsg.setHit(article.getHit());
         articleMsg.setLike(article.getLike());

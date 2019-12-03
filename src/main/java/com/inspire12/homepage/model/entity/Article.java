@@ -80,7 +80,7 @@ public class Article {
         article.setUsername(userId);
         article.setSubject(title);
         article.setContent(content);
-        article.setTags("test");
+        article.setTags("");
         article.setBoardId(1);
         article.setUpdatedAt(LocalDateTime.now());
         article.setCreatedAt(LocalDateTime.now());
