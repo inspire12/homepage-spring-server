@@ -49,4 +49,7 @@ public class UserDetailService implements UserDetailsService {
 
     }
 
+    public void setLastLoginedAt(String username){
+        userRepository.updateUserLastLoginTime(username);
+    }
 }
