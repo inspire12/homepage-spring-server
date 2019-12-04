@@ -15,7 +15,11 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
+    <style>
+        .choices {
+            width:200px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,6 +28,12 @@
     <div class="loader"></div>
 </div>
 <!-- /Preloader -->
+
+<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
+/>
+
 
 <th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
 <th:block th:include="@{/fragment/common/header.html}"></th:block>
@@ -44,11 +54,18 @@
                     <h4 class="mb-30">글쓰기</h4>
                     <!-- Form -->
                     <form action="javascript:void(0);">
+                        <div class="row col-12">
+                            <select class="js-choice" style="width:100%">
+
+                            </select>
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" name="message" class="form-control mb-30" id="writingTitle"
                                           placeholder="제목을 입력하세요."/>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12">
                                 <textarea name="message" class="form-control mb-30" id="writing"></textarea>
                             </div>
@@ -80,6 +97,9 @@
 <!-- Bootstrap -->
 <script th:src="@{js/bootstrap.min.js}"></script>
 
+<!-- Include Choices JavaScript (latest) -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <!-- Common CUSTOM -->
 <script th:src="@{/js/custom/fetch.js}"></script>
@@ -90,11 +110,36 @@
 
     let article = /*[[${article}]]*/ '';
     let user = /*[[${user}]]*/ '';
-
+    let choice;
     function main() {
+        choice = new Choices(document.querySelector(".js-choice"), {
+            shouldSort: false
+        });
+        choice.setValue([
+            { value: '0', label: '잡담' },
+            { value: '1', label: '정보' },
+            { value: '2', label: '스터디' },
+            { value: '3', label: '알고리즘' },
+            { value: '4', label: 'AI' },
+            { value: '5', label: '개발지식' }
+        ]);
+        choice.setChoiceByValue('0');
         CKEDITOR.replace('writing')
     }
 
+    function submitWriting(writingTitle) {
+        let title = writingTitle.value;
+        let content = CKEDITOR.instances['writing'].getData();
+        console.dir(title);
+        console.dir(content);
+        let body = {
+            "type": choice.getValue(true),
+            "user_id":user,
+            "title": title,
+            "content": content
+        };
+        putRequest("/articles", body, (data)=>{window.location.href="/board"});
+    }
     main()
 
 </script>

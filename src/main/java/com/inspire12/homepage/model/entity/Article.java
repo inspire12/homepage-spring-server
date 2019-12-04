@@ -80,6 +80,7 @@ public class Article {
         String userId = requestBody.get("user_id").asText();
         String title = requestBody.get("title").asText();
         String content = requestBody.get("content").asText();
+        int boardId = requestBody.get("type").asInt();
         article.setUsername(userId);
         article.setSubject(title);
         article.setContent(content);
