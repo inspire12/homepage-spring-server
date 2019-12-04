@@ -62,7 +62,6 @@ public class Article {
     @JsonProperty("board_id")
     int boardId;
 
-
     @Column(name = "tags")
     String tags = "";
 
@@ -71,6 +70,10 @@ public class Article {
 
     @Column(name = "like")
     Integer like = 0;
+
+    @Column(name = "is_deleted")
+    @JsonProperty(value = "is_deleted")
+    Boolean isDeleted = false;
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();

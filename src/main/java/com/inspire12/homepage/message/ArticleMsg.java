@@ -47,7 +47,8 @@ public class ArticleMsg {
     List<String> tags;
     Integer hit;
     Integer like;
-
+    @JsonProperty("is_deleted")
+    Boolean isDeleted;
 
 
     public static ArticleMsg create(Article article, User user) {
@@ -66,9 +67,11 @@ public class ArticleMsg {
         articleMsg.setAuthor(user);
         articleMsg.setHit(article.getHit());
         articleMsg.setLike(article.getLike());
+        articleMsg.setIsDeleted(article.getIsDeleted());
 
         return articleMsg;
     }
+
     public static ArticleMsg createWithComments(Article article, User user, List<CommentMsg> commentMsgs) {
 
         ArticleMsg articleMsg = create(article, user);
