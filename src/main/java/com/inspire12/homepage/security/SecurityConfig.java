@@ -1,6 +1,7 @@
 package com.inspire12.homepage.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,8 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
+    @Value("${env.dev:}")
+    String dev;
 
     @Autowired
     public SecurityConfig(DataSource dataSource) {
@@ -76,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity.httpBasic().disable();
 
-
+        if (dev.equals("local")) return;
         httpSecurity
                 .authorizeRequests()
 //                .anyRequest().authenticated()
