@@ -8,11 +8,12 @@ function main(article) {
     document.getElementById("blog-details-text-id").append(contentElement);
     let tags = article['tags'];
     let tagContainer = document.getElementById("popular-tags");
-    for (let i=0; tags !== undefined && i< tags.length; i++ ){
-        let tagElement = createElementFromStr('<li><a class="btn badges-btn" href="#">'+tags[i]+'</a></li>');
+    for (let i = 0; tags !== undefined && (tags !== null) && (i < tags.length); i++) {
+        let tagElement = createElementFromStr('<li><a class="btn badges-btn" href="#">' + tags[i] + '</a></li>');
         tagContainer.append(tagElement)
     }
-
+    // document.getElementById("previous-article").appendChild(createOtherArticle(article['prev_article'], "prev"));
+    // document.getElementById("next-article").appendChild(createOtherArticle(article['next_article'], "next"));
 
     let recommendElement = createRecommendElement(article);
     document.getElementById("related-news-id").append(recommendElement);
