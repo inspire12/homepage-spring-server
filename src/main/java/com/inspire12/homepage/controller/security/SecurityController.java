@@ -74,10 +74,6 @@ public class SecurityController implements ErrorController {
         return "redirect:signup";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLogin (Model model) {
-        return "login";
-    }
     @RequestMapping(value = "/login", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})

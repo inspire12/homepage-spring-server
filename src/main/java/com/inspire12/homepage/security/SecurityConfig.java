@@ -78,26 +78,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity.httpBasic().disable();
-
-        if (dev.equals("local")) return;
         httpSecurity
                 .authorizeRequests()
 //                .anyRequest().authenticated()
 //                .antMatchers("/login", "/signup").anonymous()
-                .antMatchers( "/login", "/signup","/", "/index", "/about").permitAll()
+                .antMatchers("/login", "/signup", "/", "/index", "/about").permitAll()
                 .antMatchers("/resources/**").permitAll()
-                .antMatchers("/*.js").permitAll()
-                .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
-                .antMatchers("/board").authenticated()
-                .antMatchers("/article").authenticated();
-//                .antMatchers("/resources/**").permitAll().anyRequest().permitAll();
+                .antMatchers("/*.js").permitAll();
         httpSecurity
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
-
         httpSecurity
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .and()
                 .logout()
                 .logoutSuccessUrl("/")
 //                .and()
@@ -106,5 +99,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable();
 
         httpSecurity.csrf().disable();
+        if (dev.equals("local")) return;
+        httpSecurity
+                .authorizeRequests()
+                .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
+                .antMatchers("/board").authenticated()
+                .antMatchers("/article").authenticated();
+//                .antMatchers("/resources/**").permitAll().anyRequest().permitAll();
+
+
     }
 }

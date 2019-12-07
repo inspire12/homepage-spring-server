@@ -23,9 +23,9 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (userRepository.existsById(username)) {
-            throw new UsernameNotFoundException("");
+            return userRepository.getOne(username);
         }
-        return userRepository.getOne(username);
+        throw new UsernameNotFoundException("");
     }
 
     public boolean isExistUser(User user) {
