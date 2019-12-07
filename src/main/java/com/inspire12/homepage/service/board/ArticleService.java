@@ -10,6 +10,7 @@ import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.CommentRepository;
 import com.inspire12.homepage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -60,8 +61,12 @@ public class ArticleService {
     }
 
     public boolean deleteArticle(int articleId) {
-        articleRepository.deleteById(articleId);
-        return true;
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (username.equals(articleRepository.getOne(articleId).getUsername())){
+            articleRepository.deleteById(articleId);
+            return true;
+        }
+        return false;
     }
 
 

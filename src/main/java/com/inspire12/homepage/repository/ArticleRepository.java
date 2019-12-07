@@ -1,5 +1,6 @@
 package com.inspire12.homepage.repository;
 
+
 import com.inspire12.homepage.model.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> findTop30ByBoardIdOrderByGrpnoDesc(int boardId);
 
-    @Query(value = "select * from article order by `id` desc limit :articleCount", nativeQuery = true)
+    @Query(value = "select * from article where is_deleted = false order by `id` desc limit :articleCount", nativeQuery = true)
     List<Article> showArticlesWithArticleCount(@Param(value = "articleCount") int articleCount);
 
 

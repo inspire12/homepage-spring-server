@@ -83,7 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
 //                .anyRequest().authenticated()
-                .antMatchers("/login", "/signup", "/", "/index", "/about").permitAll()
+//                .antMatchers("/login", "/signup").anonymous()
+                .antMatchers( "/login", "/signup","/", "/index", "/about").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/*.js").permitAll()
                 .antMatchers("/h2-console/**").access("hasRole('ADMIN') and hasRole('DBA')")
@@ -94,9 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
 
         httpSecurity
-//                .formLogin()
-//                .loginPage("/").permitAll()
-//                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .and()
                 .logout()
                 .logoutSuccessUrl("/")
 //                .and()

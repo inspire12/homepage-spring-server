@@ -1,4 +1,4 @@
-function main(article) {
+function main(article, user) {
 
     let sectionElement = createBreadcrumbSection(article);
     document.getElementById("breadcrumb-area-id").append(sectionElement);
@@ -25,6 +25,17 @@ function main(article) {
     let commentSize = comments.length;
     commentTitle.textContent = commentSize + " Comments";
     appendComments(comments, commentsArea);
+}
+
+function redirectEdit() {
+
+}
+
+function deleteArticle() {
+    let url = "/articles?id=" + article['id'];
+    deleteRequest(url, function (data) {
+        alert(data)
+    });
 }
 
 function submitComment(message) {
