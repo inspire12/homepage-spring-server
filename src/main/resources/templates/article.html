@@ -35,7 +35,11 @@
 <!-- Breadcrumb Area End -->
 
 <!-- Blog Details Area Start -->
-<div class="alime--blog-area section-padding-80">
+<div class="alime-blog-area section-padding-80">
+    <div sec:authorize="isAuthenticated()" class="container text-right">
+        <i class="fa fa-edit fa-i-cursor" onclick="return alert('edit')"></i>
+        <i class="fa fa-trash fa-i-cursor" onclick="return alert('delete')"></i>
+    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10">
