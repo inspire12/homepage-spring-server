@@ -44,7 +44,6 @@ public class ArticleController {
     @DeleteMapping("/articles")
     public boolean deleteArticle(@RequestParam int id, @RequestHeader HttpHeaders headers) {
         // httpheader;
-        articleService.deleteArticle(id);
-        return true;
+        return articleService.deleteArticle(id);
     }
 }

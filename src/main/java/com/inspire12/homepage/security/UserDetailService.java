@@ -25,7 +25,7 @@ public class UserDetailService implements UserDetailsService {
         if (userRepository.existsById(username)) {
             throw new UsernameNotFoundException("");
         }
-        throw new UsernameNotFoundException("");
+        return userRepository.getOne(username);
     }
 
     public boolean isExistUser(User user) {

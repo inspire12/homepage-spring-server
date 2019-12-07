@@ -8,6 +8,8 @@ import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -42,6 +44,8 @@ public class SecurityController implements ErrorController {
     @Autowired
     UserDetailService userDetailService;
 
+    Logger logger = LoggerFactory.getLogger(SecurityController.class);
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -54,7 +58,7 @@ public class SecurityController implements ErrorController {
         User user = User.create(name, email, encryptedPassword);
         try {
             // 중복 체크 추가
-            if (userDetailService.isExistUser(user)){
+            if (userDetailService.isExistUser(user)) {
                 model.addAttribute("name", "signup");
                 model.addAttribute("status", "fail");
                 return "redirect:signup";
@@ -70,7 +74,10 @@ public class SecurityController implements ErrorController {
         return "redirect:signup";
     }
 
-
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getLogin (Model model) {
+        return "login";
+    }
     @RequestMapping(value = "/login", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -90,7 +97,7 @@ public class SecurityController implements ErrorController {
         User user = userDetailService.readUser(username);
         userDetailService.setLastLoginedAt(username);
 
-        new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
+//        new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
         RedirectView redirectView = new RedirectView("index", true);
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("name", "index");
@@ -100,16 +107,17 @@ public class SecurityController implements ErrorController {
     }
 
     @RequestMapping("/error")
+//    @ExceptionHandler(Throwable.class)
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
+//        logger.error("Exception during execution of SpringSecurity application", throwable);
+//        String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
+//        model.addAttribute("errorMessage", errorMessage);
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
         model.addAttribute("code", status.toString());
         model.addAttribute("msg", httpStatus.getReasonPhrase());
         model.addAttribute("timestamp", LocalDateTime.now());
-        if (status != null) {
 
-        }
         return getErrorPath();
     }
 
