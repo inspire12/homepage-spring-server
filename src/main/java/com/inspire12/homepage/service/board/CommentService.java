@@ -25,7 +25,7 @@ public class CommentService {
     }
 
     public void saveByRequest(ObjectNode request) {
-        String userId = request.get("user_id").asText();
+        String userId = request.get("username").asText();
         int articleId = request.get("article_id").asInt();
         String content = request.get("content").asText();
         Comment comment = createComment(userId, articleId, content);

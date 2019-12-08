@@ -45,7 +45,7 @@ function submitComment(message) {
     let url = "/comments";
     let body = {
         "article_id": article['id'],
-        "user_id": user,
+        "username": user,
         "content": message.value
     };
     putRequest(url, body, (data) => {

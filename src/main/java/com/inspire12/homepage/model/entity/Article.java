@@ -77,7 +77,7 @@ public class Article {
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
-        String userId = requestBody.get("user_id").asText();
+        String userId = requestBody.get("username").asText();
         String title = requestBody.get("title").asText();
         String content = requestBody.get("content").asText();
         int boardId = requestBody.get("type").asInt();
