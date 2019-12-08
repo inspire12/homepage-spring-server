@@ -33,7 +33,7 @@ public class UserDetailService implements UserDetailsService {
     }
 
     public User readUser(String username){
-        return userRepository.getOne(username);
+        return userRepository.findById(username).get();
     }
     private static List<GrantedAuthority> getAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();

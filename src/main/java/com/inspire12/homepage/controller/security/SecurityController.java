@@ -77,7 +77,7 @@ public class SecurityController implements ErrorController {
     @RequestMapping(value = "/login", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public RedirectView login(
+    public String login(
             @RequestParam Map<String, String> authenticationRequest,
             HttpSession session, RedirectAttributes redirectAttributes
     ) {
@@ -93,13 +93,10 @@ public class SecurityController implements ErrorController {
         User user = userDetailService.readUser(username);
         userDetailService.setLastLoginedAt(username);
 
-//        new AuthenticationToken(user.getName(), user.getAuthorities(), session.getId());
-        RedirectView redirectView = new RedirectView("index", true);
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("name", "index");
-        objectNode.put("status", "login");
-        redirectAttributes.addFlashAttribute(objectNode);
-        return redirectView;
+        redirectAttributes.addFlashAttribute("name", "index");
+        redirectAttributes.addFlashAttribute("status", "login");
+        redirectAttributes.addFlashAttribute("user", user);
+        return "redirect:/index";
     }
 
     @RequestMapping("/error")
