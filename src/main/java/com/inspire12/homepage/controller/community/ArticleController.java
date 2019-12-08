@@ -27,16 +27,24 @@ public class ArticleController {
         return articleService.getArticleMsgById(id);
     }
 
-    @PostMapping("/articles")
-    public boolean saveArticle(@RequestBody Article article) {
-        articleService.saveArticle(article);
-        return true;
-    }
+//    @PostMapping("/articles")
+//    public boolean saveArticle(@RequestBody Article article) {
+//        articleService.saveArticle(article);
+//        return true;
+//    }
 
     @PutMapping("/articles")
     public boolean insertArticle(@RequestBody ObjectNode requestBody) {
         Article article = Article.createFromRequest(requestBody);
         articleService.saveArticle(article);
+        return true;
+    }
+
+    @PutMapping("/articles/replies")
+    public boolean insertArticleReply(@RequestBody ObjectNode requestBody) {
+        Article article = Article.createFromRequest(requestBody);
+        int parentId = requestBody.get("parent_id").asInt();
+        articleService.saveArticleReply(parentId, article);
         return true;
     }
 

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,17 @@ public class ArticleService {
         return true;
     }
 
+
+
+    @Transactional
+    public boolean saveArticleReply(int parentId, Article childArticle) {
+        Article parentArticle = articleRepository.findById(parentId).get();
+        articleRepository.updateReplyOrder(parentArticle.getGrpno(), parentArticle.getGrpord());
+        articleRepository.saveReplyArticle(childArticle.getSubject(), childArticle.getContent(), childArticle.getUsername(),
+                    parentArticle.getGrpno(), parentArticle.getGrpord()+1, parentArticle.getDepth() + 1);
+        return true;
+    }
+
     public boolean modifyArticle(Article article) {
         articleRepository.save(article);
         return true;
@@ -63,7 +75,7 @@ public class ArticleService {
     public boolean deleteArticle(int articleId) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (username.equals(articleRepository.getOne(articleId).getUsername())){
-            articleRepository.deleteById(articleId);
+            articleRepository.updateIsDeletedArticle(articleId);
             return true;
         }
         return false;
