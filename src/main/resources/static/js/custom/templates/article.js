@@ -31,11 +31,29 @@ function redirectEdit() {
 
 }
 
+function swalIsDelete(url) {
+
+    swal({
+        title: "삭제하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                deleteRequest(url, function (data) {
+                    alert(data)
+                });
+            } else {
+
+            }
+        });
+
+}
+
 function deleteArticle() {
     let url = "/articles?id=" + article['id'];
-    deleteRequest(url, function (data) {
-        alert(data)
-    });
+    swalIsDelete(url)
 }
 
 function submitComment(message) {
@@ -73,6 +91,7 @@ function refreshComments(comments, commentSection) {
 function appendComments(comments, commentArea) {
     for (let i = 0; i < comments.length; i++) {
         let comment = comments[i];
+
         let commentElement = createCommentElement(comment);
         commentArea.append(commentElement);
     }
@@ -82,7 +101,11 @@ function appendComments(comments, commentArea) {
 function createCommentElement(comment) {
 
     let commentStr = '<li class="single_comment_area">\n' +
-        '                            <div class="comment-content d-flex">\n' +
+        '                            <div class="comment-content d-flex">\n';
+    for (let i = 0; i < comment['depth']; i++) {
+        commentStr += '                                <div class="comment-author"></div>\n';
+    }
+    commentStr +=
         '                                <div class="comment-author">\n' +
         '                                    <img src="' + comment.author.profile + '" alt="author">\n' +
         '                                </div>\n' +
