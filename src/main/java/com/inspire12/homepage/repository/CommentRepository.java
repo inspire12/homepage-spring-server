@@ -16,6 +16,12 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO comment (article_id, username, content) VALUES (:article_id, :username, :content)", nativeQuery = true)
-    void insertByRequest(@Param("article_id") int articleId, @Param("username")String userId, @Param("content") String content);
+    @Query(value = "INSERT INTO comment (article_id, username, content, `no`) VALUES (:article_id, :username, :content, (select last_insert_id()+1))", nativeQuery = true)
+    void insertByRequest(@Param("article_id") int articleId, @Param("username") String userId, @Param("content") String content);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE comment set grpord = grpord + 1 where `no` = :no and grpord > :grpord", nativeQuery = true)
+    void updateReplyOrder(@Param("no") int no, @Param("grpord") int grpord);
+
 }

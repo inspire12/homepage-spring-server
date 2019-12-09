@@ -36,8 +36,20 @@ public class CommentService {
         }
     }
 
-    public void saveComment(Comment comment) {
-        commentRepository.save(comment);
+    public void saveReplyByRequest(ObjectNode request) {
+        String userId = request.get("username").asText();
+        int articleId = request.get("article_id").asInt();
+        String content = request.get("content").asText();
+        int parentCommentId = request.get("parent_id").asInt();
+
+//        Comment childComment = createComment(userId, articleId, content);
+        try{
+            Comment parentComment = commentRepository.findById(parentCommentId).get();
+            commentRepository.updateReplyOrder(parentComment.getGrpno(), parentComment.getGrpord());
+            commentRepository.insertByRequest(articleId, userId, content);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private List<CommentMsg> convertToCommentMsgs(List<Comment> comments) {
