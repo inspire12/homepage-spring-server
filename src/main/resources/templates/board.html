@@ -105,8 +105,12 @@
     }
 
     function createArticleRows(article) {
+        let depth = "";
+        for (let i = 0; i < article['depth']; i++) {
+            depth += "<i class=\"ti ti-hand-point-right\"></i>"
+        }
         let trStr = '<tr><td>' + article['category'] + '</td>\n' +
-            '<td> <a href=/article?id=' + article['id'] + '>' + article['subject'] + '</a></td>\n' +
+            '<td class="cursor-pointer"> <a href=/article?id=' + article['id'] + '>' + depth + article['subject'] + '</a></td>\n' +
             '<td>' + article['author']['nickname'] + '</td>\n' +
             '<td>' + showDateFrom(article['updated_at']) + '</td>\n' +
             '<td>' + article['hit'] + '</td>\n' +
