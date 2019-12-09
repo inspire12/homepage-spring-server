@@ -20,7 +20,7 @@ public class CommentService {
     UserRepository userRepository;
 
     public List<CommentMsg> getComments(int articleId) {
-        List<Comment> comments = commentRepository.findAllByArticleId(articleId);
+        List<Comment> comments = commentRepository.selectCommentByArticleOrder(articleId);
         return convertToCommentMsgs(comments);
     }
 

@@ -85,10 +85,10 @@ public class ViewController {
     }
 
     @GetMapping("/board")
-    public String getBoardView(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "10") int articleCount, Model model) {
+    public String getBoardView(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum ,Model model) {
         // board 종류
         try {
-            List<ArticleMsg> articles = articleService.showArticleMsgsWithCount(articleCount);
+            List<ArticleMsg> articles = articleService.showArticleMsgsWithCount(pageNum, articleCount);
             model.addAttribute("articles", articles);
         } catch (Exception e) {
             e.printStackTrace();

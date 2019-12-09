@@ -15,8 +15,8 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> findTop30ByBoardIdOrderByGrpnoDesc(int boardId);
 
-    @Query(value = "select * from article where is_deleted = false order by `no` desc, `grpord` asc limit :articleCount", nativeQuery = true)
-    List<Article> showArticlesWithArticleCount(@Param(value = "articleCount") int articleCount);
+    @Query(value = "select * from article where is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
+    List<Article> showArticlesWithArticleCount(@Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
     @Query(value = "select * from `article` order by `no` desc limit 1,:limit", nativeQuery = true)

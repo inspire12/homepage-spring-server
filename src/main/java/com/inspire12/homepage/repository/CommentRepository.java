@@ -14,6 +14,8 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     List<Comment> findAllByArticleId(int article);
 
+    @Query(value = "select * from comment where article_id=:articleId order by no desc, grpord asc", nativeQuery = true)
+    List<Comment> selectCommentByArticleOrder(@Param("articleId") int articleId);
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO comment (article_id, username, content, `no`) VALUES (:article_id, :username, :content, (select last_insert_id()+1))", nativeQuery = true)

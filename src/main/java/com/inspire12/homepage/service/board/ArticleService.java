@@ -36,11 +36,12 @@ public class ArticleService {
 
     public ArticleMsg getArticleMsgById(int id) {
         Article article = articleRepository.getOne(id);
-        return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUsername()), convertToMsg(commentRepository.findAllByArticleId(article.getId())));
+        return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUsername()), convertToMsg(commentRepository.selectCommentByArticleOrder(article.getId())));
     }
 
-    public List<ArticleMsg> showArticleMsgsWithCount(int articleCount) {
-        List<Article> articles = articleRepository.showArticlesWithArticleCount(articleCount);
+    public List<ArticleMsg> showArticleMsgsWithCount(int pageNum, int articleCount) {
+        int start = (pageNum-1) * articleCount;
+        List<Article> articles = articleRepository.showArticlesWithArticleCount(start, articleCount);
         return convertArticlesToArticleMsgs(articles);
     }
 
@@ -87,7 +88,7 @@ public class ArticleService {
         for (Article article : articles) {
             try {
                 User author = userRepository.findById(article.getUsername()).get();
-                List<Comment> comments = commentRepository.findAllByArticleId(article.getId());
+                List<Comment> comments = commentRepository.selectCommentByArticleOrder(article.getId());
                 articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
             }catch (Exception e){
                 e.printStackTrace();
