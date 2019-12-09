@@ -80,12 +80,15 @@ public class Article {
         String userId = requestBody.get("username").asText();
         String title = requestBody.get("title").asText();
         String content = requestBody.get("content").asText();
-        int boardId = requestBody.get("type").asInt();
+        int boardId = 1;
+        if (requestBody.has("type")){
+            boardId = requestBody.get("type").asInt();
+        }
         article.setUsername(userId);
         article.setSubject(title);
         article.setContent(content);
         article.setTags("");
-        article.setBoardId(1);
+        article.setBoardId(boardId);
         article.setUpdatedAt(LocalDateTime.now());
         article.setCreatedAt(LocalDateTime.now());
         article.setHit(0);
