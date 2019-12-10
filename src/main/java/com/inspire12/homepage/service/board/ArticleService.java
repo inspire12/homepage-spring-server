@@ -39,9 +39,15 @@ public class ArticleService {
         return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUsername()), convertToMsg(commentRepository.selectCommentByArticleOrder(article.getId())));
     }
 
-    public List<ArticleMsg> showArticleMsgsWithCount(int pageNum, int articleCount) {
+    public List<ArticleMsg> showArticleMsgsWithCount(String type, int pageNum, int articleCount) {
         int start = (pageNum-1) * articleCount;
-        List<Article> articles = articleRepository.showArticlesWithArticleCount(start, articleCount);
+        List<Article> articles;
+        if(type.equals("all")) {
+            articles = articleRepository.showArticlesWithArticleCount(start, articleCount);
+        }else {
+            articles = articleRepository.showArticlesWithArticleByTypeCount(type, start, articleCount);
+        }
+
         return convertArticlesToArticleMsgs(articles);
     }
 
