@@ -25,5 +25,5 @@
 /nbdist/
 /.nb-gradle/
 
-
+/upload-dir
 nohub.out
