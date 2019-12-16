@@ -147,4 +147,9 @@ public class ViewController {
         return "lab/gif";
     }
 
+    @GetMapping("/opensource")
+    public String getOpensourceView() {
+        return "opensource";
+    }
+
 }
