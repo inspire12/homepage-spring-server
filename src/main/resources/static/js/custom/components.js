@@ -58,7 +58,7 @@ function createFollowAreaImg(imgName) {
 }
 
 function appendFollowAreaImgs(imgs){
-    imgs = ['boyoung_test.jpg', "3.jpg","18.jpg","4.jpg","5.jpg","6.jpg","7.jpg"];
+    imgs = ["2.jpg","3.png","4.jpg","5.jpg","6.jpg","7.jpg"];
     for (let i=0; i  < imgs.length; i++){
         document.getElementById("instagram-feed-area-id").append(createFollowAreaImg(imgs[i]));
     }

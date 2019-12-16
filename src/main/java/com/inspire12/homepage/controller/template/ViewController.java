@@ -126,24 +126,25 @@ public class ViewController {
         return "writing";
     }
 
+
     @GetMapping("/algorithm")
     public String getAlgorithmView() {
-        return "algorithm";
+        return "lab/algorithm";
     }
 
     @GetMapping("/gan")
     public String getGanView() {
-        return "/gan";
+        return "lab/gan";
     }
 
     @GetMapping("/ai")
     public String getAiView() {
-        return "ai";
+        return "lab/ai";
     }
 
     @GetMapping("/gif")
     public String getGifView() {
-        return "gif";
+        return "lab/gif";
     }
 
 }
