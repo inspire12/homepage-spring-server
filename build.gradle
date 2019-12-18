@@ -21,7 +21,7 @@ apply plugin: 'docker'
 task buildDocker(type: Docker, dependsOn: build) {
 	// push = true
 	applicationName = jar.baseName
-	dockerfile = file('src/main/docker/Dockerfile')
+	dockerfile = file('Dockerfile')
 	doFirst {
 		copy {
 			from jar
