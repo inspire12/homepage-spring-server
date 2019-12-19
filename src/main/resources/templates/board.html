@@ -25,8 +25,8 @@
 </div>
 <!-- /Preloader -->
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
 
 <!-- Breadcrumb Area Start -->
 <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
@@ -79,7 +79,7 @@
 <!-- Blog Area End -->
 
 <!-- Footer Area Start -->
-<th:block th:include="/fragment/common/footer-area"></th:block>
+<th:block th:include="fragment/common/footer-area"></th:block>
 <!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
@@ -91,7 +91,7 @@
 <script src="js/bootstrap.min.js"></script>
 
 <!-- Common CUSTOM -->
-<script th:src="@{/js/custom/components.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
 <script th:inline="javascript">
     let articles = /*[[${articles}]]*/ [];
@@ -132,9 +132,9 @@
 
 
 <!-- All Plugins -->
-<script th:src="@{/js/alime.bundle.js}"></script>
+<script th:src="@{js/alime.bundle.js}"></script>
 <!-- Active -->
-<script th:src="@{/js/default-assets/active.js}"></script>
+<script th:src="@{js/default-assets/active.js}"></script>
 
 </body>
 

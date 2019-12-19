@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <th:block th:include="@{/fragment/common/head.html}"></th:block>
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
 
 </head>
 
@@ -14,8 +14,8 @@
 <!-- /Preloader -->
 
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
 
 <!-- Breadcrumb Area Start -->
 <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
@@ -84,23 +84,23 @@
 <!-- About Us Area End -->
 
 <!-- Footer Area Start -->
-<th:block th:include="/fragment/common/footer-area"></th:block>
+<th:block th:include="fragment/common/footer-area"></th:block>
 
 
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{js/jquery.min.js}"></script>
 <!-- Popper -->
-<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{js/popper.min.js}"></script>
 <!-- Bootstrap -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
 
 <!-- Common CUSTOM -->
-<script th:src="@{/js/custom/components.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
-<script th:src="@{/js/custom/templates/about.js}"></script>
+<script th:src="@{js/custom/templates/about.js}"></script>
 
-<script th:src="@{/js/custom/templates/home.js}"></script>
+<script th:src="@{js/custom/templates/home.js}"></script>
 <script th:inline="javascript">
     let status = /*[[${status}]]*/;
     let adminUsers = /*[[${users}]]*/;
@@ -124,9 +124,9 @@
 
 
 <!-- All Plugins -->
-<script th:src="@{/js/alime.bundle.js}"></script>
+<script th:src="@{js/alime.bundle.js}"></script>
 <!-- Active -->
-<script th:src="@{/js/default-assets/active.js}"></script>
+<script th:src="@{js/default-assets/active.js}"></script>
 
 </body>
 
