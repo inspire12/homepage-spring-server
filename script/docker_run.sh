@@ -1,5 +1,4 @@
-
-
+./gradlew clean
 #./gradlew clean
 #./gradlew build buildDocker
 #
@@ -20,8 +19,9 @@
 #docker stop 컨테이너아이디
 #docker rm 컨테이너아이디
 
-# docker 이미지 빌드
-docker build -t hompage .
 
-# docker 이미지 실행
-docker run -p 8080:8080 hompage
+./gradlew build
+docker build -t homepage .
+
+# 컨테이너 실행
+docker run -d -p 8080:8080 -i -t --name homepage homepage:latest /bin/bash

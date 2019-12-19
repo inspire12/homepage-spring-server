@@ -8,9 +8,25 @@ import springfox.documentation.service.ResponseMessage;
 
 @RestController
 public class TestController {
+
     @ApiOperation(value = "테스트", response = ResponseMessage.class)
     @GetMapping("/test")
-    public String getTest(){
+    public String getTest() {
+
+        MyFunctionalInterface fi;
+        fi = (x) -> {
+            int result = x + 5;
+            System.out.println(result);
+        };
+        fi.method(2);
+
         return "test";
     }
+
+
+    public interface MyFunctionalInterface {
+        public void method(int x);
+    }
 }
+
+

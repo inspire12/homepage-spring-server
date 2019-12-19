@@ -35,8 +35,8 @@
 />
 
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
 
 <!-- Breadcrumb Area Start -->
 <div id="breadcrumb-area-id">
@@ -83,10 +83,10 @@
 </div>
 <!-- Comment Area End -->
 
-<th:block th:include="/fragment/home/follow-area.html"></th:block>
+<th:block th:include="fragment/home/follow-area.html"></th:block>
 
 <!-- Footer Area Start -->
-<th:block th:include="/fragment/common/footer-area"></th:block>
+<th:block th:include="fragment/common/footer-area"></th:block>
 <!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
@@ -102,10 +102,10 @@
 
 <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <!-- Common CUSTOM -->
-<script th:src="@{/js/custom/fetch.js}"></script>
-<script th:src="@{/js/custom/components.js}"></script>
+<script th:src="@{js/custom/fetch.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
-<script th:src="@{/js/custom/templates/writing.js}"></script>
+<script th:src="@{js/custom/templates/writing.js}"></script>
 <script th:inline="javascript">
 
     let article = /*[[${article}]]*/ '';
