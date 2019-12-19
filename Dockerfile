@@ -8,8 +8,10 @@ VOLUME /tmp
 EXPOSE 8080
 # 외부에 노출할 포트 지정
 
-ADD build/libs/hompage-0.0.1-SNAPSHOT.jar hompage.jar
+ENV PROFILE=live
+
+COPY build/libs/homepage-0.0.1-SNAPSHOT.jar homepage.jar
 # 파일이나 디렉토리를 docker image로 복사
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/hompage.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/homepage.jar"]
 # docker image가 실행될 때 기본으로 실행될 command
