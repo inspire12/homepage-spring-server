@@ -5,6 +5,8 @@ public class ArticleUtil {
         if (id == 1){
             return "공지";
         } else if(id == 2){
+            return "정보";
+        } else if(id == 3){
             return "족보";
         }
         return "잡담";
