@@ -57,6 +57,9 @@ public class User implements UserDetails {
 
     @Column(name="role")
     String role;
+
+    @Column(name="profile")
+    String profile;
 //    List<String> role;
 
 //    Collection<? extends GrantedAuthority> authorities;
@@ -97,7 +100,5 @@ public class User implements UserDetails {
         return false;
     }
 
-    @Column(name="profile")
-    String profile;
 
 }

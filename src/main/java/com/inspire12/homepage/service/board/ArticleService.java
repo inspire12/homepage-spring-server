@@ -35,8 +35,8 @@ public class ArticleService {
     }
 
     public ArticleMsg getArticleMsgById(int id) {
-        Article article = articleRepository.getOne(id);
-        return ArticleMsg.createWithComments(articleRepository.getOne(id), userRepository.getOne(article.getUsername()), convertToMsg(commentRepository.selectCommentByArticleOrder(article.getId())));
+        Article article = articleRepository.findById(id).get();
+        return ArticleMsg.create(article);
     }
 
     public List<ArticleMsg> showArticleMsgsWithCount(String type, int pageNum, int articleCount) {
@@ -48,12 +48,12 @@ public class ArticleService {
             articles = articleRepository.showArticlesWithArticleByTypeCount(type, start, articleCount);
         }
 
-        return convertArticlesToArticleMsgs(articles);
+        return convertArticles(articles);
     }
 
     public List<ArticleMsg> showArticleMsgs() {
         List<Article> articles = articleRepository.selectArticles(30);
-        return convertArticlesToArticleMsgs(articles);
+        return convertArticles(articles);
     }
 
 
@@ -88,6 +88,17 @@ public class ArticleService {
         return false;
     }
 
+    private List<ArticleMsg> convertArticles (List<Article> articles) {
+        List<ArticleMsg> articleMsgs = new ArrayList<>();
+        for (Article article : articles) {
+            try {
+                articleMsgs.add(ArticleMsg.create(article));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return articleMsgs;
+    }
 
     private List<ArticleMsg> convertArticlesToArticleMsgs(List<Article> articles) {
         List<ArticleMsg> articleMsgs = new ArrayList<>();
@@ -103,12 +114,12 @@ public class ArticleService {
         return articleMsgs;
     }
 
-    public List<CommentMsg> convertToMsg(List<Comment> comments) {
+    private List<CommentMsg> convertToMsg(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
-        for (int i = 0; i < comments.size(); i++) {
+        for (Comment comment : comments) {
             try {
-                commentMsgs.add(CommentMsg.createCommentMsg(comments.get(i), userRepository.getOne(comments.get(i).getUsername())));
-            }catch (Exception e){
+                commentMsgs.add(CommentMsg.createCommentMsg(comment, userRepository.getOne(comment.getUsername())));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

@@ -7,11 +7,10 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "comment")
@@ -26,7 +25,7 @@ public class Comment {
     @JsonProperty("article_id")
     int articleId;
 
-    @Column(name = "username")
+    @Transient
     @JsonProperty("username")
     String username;
 
@@ -54,6 +53,11 @@ public class Comment {
     @UpdateTimestamp
     @JsonProperty("updated_at")
     LocalDateTime updatedAt;
+
+
+    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "username")
+    private User user = new User();
 
     public static Comment create() {
         Comment comment = new Comment();
