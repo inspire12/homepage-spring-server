@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
+    <link rel="stylesheet" th:href="@{css/plugin/dropzone.css}">
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
+
+
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
+
+
+<!-- Breadcrumb Area Start -->
+<section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center">
+                    <h2 class="page-title">Gan Style transfer</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="#"><i class="icon_house_alt"></i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">About</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<section class="bg-gray section-padding-80-50 clearfix">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                    <h2>Gan - Style transfer 듀토리얼</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cust-grid my-lg-5">
+            <div class="col-sm-4 wow fadeIn">
+                <form action="" class="dropzone" id="dropzone-target">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple/>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4 wow fadeIn">
+                <form action="" class="dropzone" id="dropzone-styles">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row cust-grid">
+            <button class="btn btn-info"> 변환 </button>
+        </div>
+        <div class="row cust-grid" id="result">
+
+        </div>
+    </div>
+</section>
+
+
+<th:block th:include="@{fragment/home/follow-area.html}"></th:block>
+
+
+<!-- Footer Area Start -->
+<!--CC By licence-->
+<th:block th:include="@{fragment/common/footer-area}"></th:block>
+
+
+<!-- **** All JS Files ***** -->
+<!-- jQuery 2.2.4 -->
+<script th:src="@{js/jquery.min.js}"></script>
+<!-- Popper -->
+<script th:src="@{js/popper.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{js/bootstrap.min.js}"></script>
+
+<!-- Common CUSTOM -->
+<script th:src="@{js/custom/components.js}"></script>
+<!-- CUSTOM -->
+<script th:src="@{js/custom/templates/lab/gan-styles.js}"></script>
+<script th:src="@{js/plugin/dropzone.js}"></script>
+<script th:src="@{js/custom/templates/home.js}"></script>
+<script th:inline="javascript">
+    // let status = /*[[${status}]]*/;
+    // let adminUsers = /*[[${users}]]*/;
+    main();
+
+    function main() {
+        let dropzoneTarget = new Dropzone();
+
+        let dropzoneStyle
+    }
+
+    function submitTransfer() {
+
+    }
+
+</script>
+
+
+<!-- All Plugins -->
+<script th:src="@{js/alime.bundle.js}"></script>
+<!-- Active -->
+<script th:src="@{js/default-assets/active.js}"></script>
+
+</body>
+
+</html>
