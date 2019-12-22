@@ -96,18 +96,18 @@
 <script th:inline="javascript">
     let articles = /*[[${articles}]]*/ [];
 
-    function showDateFrom(locatDateTime) {
-        let d = new Date(locatDateTime);
+    function showDateFrom(localDateTime) {
+        let d = new Date(localDateTime);
         let year = d.getFullYear();
-        let month = d.getMonth() + 1;
-        let day = d.getDay();
+        let month = (d.getMonth() + 1).toString().padStart(2,0);
+        let day = d.getDate().toString().padStart(2,0);
         return year + "." + month + "." + day;
     }
 
     function createArticleRows(article) {
         let depth = "";
         for (let i = 0; i < article['depth']; i++) {
-            depth += "<i class=\"ti ti-hand-point-right\"></i>"
+            depth += "<i class=\"fa fa-share fa-flip-vertical re mr-1\"></i>"
         }
         let trStr = '<tr><td>' + article['category'] + '</td>\n' +
             '<td class="cursor-pointer"> <a href=/article?id=' + article['id'] + '>' + depth + article['subject'] + '</a></td>\n' +
