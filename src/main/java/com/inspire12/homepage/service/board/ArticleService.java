@@ -1,6 +1,7 @@
 package com.inspire12.homepage.service.board;
 
 
+import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.message.CommentMsg;
 import com.inspire12.homepage.model.entity.Article;
@@ -50,6 +51,7 @@ public class ArticleService {
 
         return convertArticlesToArticleMsgs(articles);
     }
+
 
     public List<ArticleMsg> showArticleMsgs() {
         List<Article> articles = articleRepository.selectArticles(30);

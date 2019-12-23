@@ -2,6 +2,7 @@ package com.inspire12.homepage.interceptor;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,4 +19,21 @@ public class SecurityInterceptor implements HandlerInterceptor {
             modelAndView.addObject("user", user);
         }
     }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        UserLevel userLevel = ((HandlerMethod)handler).getMethodAnnotation(UserLevel.class);
+
+        assert userLevel != null;
+        if (userLevel.allow().equals(UserLevel.UserRole.USER)){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            return authentication.isAuthenticated();
+
+        } else if (userLevel.allow().equals(UserLevel.UserRole.GUEST)){
+            return true;
+        }
+        return false;
+    }
+
 }

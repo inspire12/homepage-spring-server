@@ -1,5 +1,6 @@
 package com.inspire12.homepage.controller.template;
 
+import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.repository.UserRepository;
@@ -48,6 +49,7 @@ public class ViewController {
         return users;
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
     public String index(Model model) {
         model.addAttribute("users", getAdminUsers());
