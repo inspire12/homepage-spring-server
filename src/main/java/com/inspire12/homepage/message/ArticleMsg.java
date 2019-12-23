@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,8 +51,7 @@ public class ArticleMsg {
     @JsonProperty("is_deleted")
     Boolean isDeleted;
 
-
-    public static ArticleMsg create(Article article, User user) {
+    public static ArticleMsg create(Article article){
         ArticleMsg articleMsg = new ArticleMsg();
         articleMsg.setId(article.getId());
         articleMsg.setNo(article.getGrpno());
@@ -64,17 +64,29 @@ public class ArticleMsg {
         articleMsg.setBoardId(article.getBoardId());
         if (!article.getTags().equals(""))
             articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
-        articleMsg.setAuthor(user);
+        articleMsg.setAuthor(article.getUser());
+
         articleMsg.setHit(article.getHit());
         articleMsg.setLike(article.getLike());
         articleMsg.setIsDeleted(article.getIsDeleted());
 
+        List<CommentMsg> commentMsgs = new ArrayList<>();
+        for (Comment comment : article.getComments()){
+            commentMsgs.add(CommentMsg.create(comment));
+        }
+        articleMsg.setComments(commentMsgs);
+        return articleMsg;
+    }
+
+    public static ArticleMsg createWithUser(Article article, User user) {
+        ArticleMsg articleMsg = ArticleMsg.create(article);
+        articleMsg.setAuthor(user);
         return articleMsg;
     }
 
     public static ArticleMsg createWithComments(Article article, User user, List<CommentMsg> commentMsgs) {
 
-        ArticleMsg articleMsg = create(article, user);
+        ArticleMsg articleMsg = createWithUser(article, user);
         articleMsg.setComments(commentMsgs);
         return articleMsg;
     }

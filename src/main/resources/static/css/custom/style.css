@@ -1,0 +1,9 @@
+.cust-grid {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.cust-grid-col {
+    float: none;
+}

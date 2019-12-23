@@ -18,7 +18,6 @@ apply plugin: 'io.spring.dependency-management'
 
 apply plugin: 'docker'
 
-
 group = 'com.inspire12'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'

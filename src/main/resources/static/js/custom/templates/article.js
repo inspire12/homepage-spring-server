@@ -3,7 +3,7 @@ function main(article, user) {
     let sectionElement = createBreadcrumbSection(article);
     document.getElementById("breadcrumb-area-id").append(sectionElement);
 
-    let content = article['content'];
+    let content = "<div>"+ article['content'] +"</div>";
     let contentElement = createElementFromStr(content);
     document.getElementById("blog-details-text-id").append(contentElement);
     let tags = article['tags'];

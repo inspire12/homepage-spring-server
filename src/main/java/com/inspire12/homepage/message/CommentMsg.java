@@ -38,21 +38,24 @@ public class CommentMsg {
 
     int like;
 
-    public static CommentMsg createCommentMsg(Comment comment, User user){
+    public static CommentMsg create(Comment comment){
         CommentMsg commentMsg = new CommentMsg();
-
         commentMsg.setId(comment.getId());
         commentMsg.setArticleId(comment.getArticleId());
-        commentMsg.setAuthor(user);
+        commentMsg.setAuthor(comment.getUser());
         commentMsg.setContent(comment.getContent());
-
         commentMsg.setGrpno(comment.getGrpno());
         commentMsg.setGrpord(comment.getGrpord());
         commentMsg.setDepth(comment.getDepth());
-
         commentMsg.setLike(comment.getLike());
         commentMsg.setCreatedAt(comment.getCreatedAt());
         commentMsg.setUpdatedAt(comment.getUpdatedAt());
+        return commentMsg;
+    }
+
+    public static CommentMsg createCommentMsg(Comment comment, User user){
+        CommentMsg commentMsg = CommentMsg.create(comment);
+        commentMsg.setAuthor(user);
         return commentMsg;
     }
 }

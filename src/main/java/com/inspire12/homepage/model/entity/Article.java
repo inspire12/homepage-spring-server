@@ -7,11 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
@@ -19,22 +24,20 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Article {
+public class Article implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
 
-    @Nullable
+    @Generated(GenerationTime.INSERT)
     @Column(name = "no")
-    int grpno = 1;
+    int grpno;
 
-    @Nullable
     @Column(name = "grpord")
     int grpord = 0;
 
-    @Nullable
     @Column(name = "depth")
     int depth = 0;
 
@@ -44,7 +47,7 @@ public class Article {
     @Column(name = "content")  // html 으로
     String content;
 
-    @Column(name = "username")
+    @Transient
     @JsonProperty("username")
     String username;
 
@@ -74,6 +77,14 @@ public class Article {
     @Column(name = "is_deleted")
     @JsonProperty(value = "is_deleted")
     Boolean isDeleted = false;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "article_id")
+    private List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
+    private User user = new User();
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();

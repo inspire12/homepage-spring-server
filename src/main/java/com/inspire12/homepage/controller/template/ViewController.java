@@ -134,9 +134,10 @@ public class ViewController {
         return "lab/algorithm";
     }
 
-    @GetMapping("/gan")
-    public String getGanView() {
-        return "lab/gan";
+    @GetMapping("/gan-style")
+    public String getGanView(Model model) {
+
+        return "lab/gan-styles";
     }
 
     @GetMapping("/ai")
