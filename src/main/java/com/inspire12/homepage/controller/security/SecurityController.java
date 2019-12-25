@@ -119,7 +119,12 @@ public class SecurityController implements ErrorController {
 //        model.addAttribute("errorMessage", errorMessage);
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
         model.addAttribute("code", status.toString());
-        model.addAttribute("msg", httpStatus.getReasonPhrase());
+
+        if (status.toString().equals("401")) {
+            model.addAttribute("msg", "회원을 위한 공간입니다. 가입한 후 사용해주세요~");
+        } else {
+            model.addAttribute("msg", httpStatus.getReasonPhrase());
+        }
         model.addAttribute("timestamp", LocalDateTime.now());
 
         if (httpStatus.equals(HttpStatus.FORBIDDEN)) {

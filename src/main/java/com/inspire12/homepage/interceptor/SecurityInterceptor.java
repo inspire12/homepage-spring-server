@@ -1,5 +1,6 @@
 package com.inspire12.homepage.interceptor;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.method.HandlerMethod;
@@ -24,16 +25,11 @@ public class SecurityInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         UserLevel userLevel = ((HandlerMethod) handler).getMethodAnnotation(UserLevel.class);
-        if (userLevel == null || userLevel.equals("null")) {
+
+        if (userLevel == null || userLevel.equals("null") || userLevel.allow().equals(UserLevel.UserRole.USER)) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if(authentication.getPrincipal().equals("anonymousUser")){
-                throw new Exception();
-            }
-            return true;
-        } else if (userLevel.allow().equals(UserLevel.UserRole.USER)) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if(authentication.getPrincipal().equals("anonymousUser")){
-                throw new Exception();
+                throw new AccessDeniedException("가입한 후 사용해주세요");
             }
             return true;
         } else if (userLevel.allow().equals(UserLevel.UserRole.GUEST)) {
