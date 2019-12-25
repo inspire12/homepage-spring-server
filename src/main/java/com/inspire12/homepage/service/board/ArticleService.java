@@ -60,7 +60,6 @@ public class ArticleService {
         return convertArticles(articles);
     }
 
-
     public boolean saveArticle(Article article) {
         // 데이터 검증
         articleRepository.save(article);
@@ -74,8 +73,12 @@ public class ArticleService {
     public boolean saveArticleReply(int parentId, Article childArticle) {
         Article parentArticle = articleRepository.findById(parentId).get();
         articleRepository.updateReplyOrder(parentArticle.getGrpno(), parentArticle.getGrpord());
-        articleRepository.saveReplyArticle(childArticle.getSubject(), childArticle.getContent(), childArticle.getUsername(),
-                parentArticle.getGrpno(), parentArticle.getGrpord() + 1, parentArticle.getDepth() + 1);
+
+        childArticle.setGrpno(parentArticle.getGrpno());
+        childArticle.setGrpord(parentArticle.getGrpord() + 1);
+        childArticle.setDepth(parentArticle.getDepth() + 1);
+
+        articleRepository.save(childArticle);
         return true;
     }
 
