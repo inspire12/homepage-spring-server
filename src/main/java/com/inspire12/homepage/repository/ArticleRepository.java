@@ -19,6 +19,9 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> showArticlesWithArticleCount(@Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
+    @Query(value = "update `article` set `no`=id where id:id", nativeQuery = true)
+    void updateArticleNo(@Param("id")int id);
+
 
     @Query(value = "select * from article where `board_id`=:boardType and is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
     List<Article> showArticlesWithArticleByTypeCount(@Param("boardType")String type, @Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
@@ -29,7 +32,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO `article` (`subject`, `content`,`username`, `no`) VALUES (:subject, :content, :username, (select last_insert_id()+1))", nativeQuery = true)
+    @Query(value = "INSERT INTO `article` (`subject`, `content`,`username`) VALUES (:subject, :content, :username)", nativeQuery = true)
     void saveArticle(@Param("subject") String subject, @Param("content") String content, @Param("username") String username);
 
 

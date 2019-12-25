@@ -118,6 +118,7 @@
     <!-- Our Team Area End -->
 
     <th:block th:include="@{fragment/home/follow-area.html}"></th:block>
+
 </div>
 
 
@@ -139,11 +140,22 @@
 <script th:src="@{js/custom/templates/about.js}"></script>
 
 <script th:src="@{js/custom/templates/home.js}"></script>
+<script th:src="@{js/plugin/snow.js}"></script>
+
 <script th:inline="javascript">
     let status = /*[[${status}]]*/;
     let adminUsers = /*[[${users}]]*/;
     main(adminUsers);
     function main(adminUsers) {
+
+        document.addEventListener('DOMContentLoaded', function() {
+            new Snow('#snow',{
+                number:10,
+                r: 4.5,
+                v: 0.8
+            });
+        });
+
         if (status === "signup") {
             swal("가입을 축하합니다.")
         } else if(status === 'login') {
@@ -160,7 +172,6 @@
     }
 
 </script>
-
 
 <!-- All Plugins -->
 <script th:src="@{js/alime.bundle.js}"></script>

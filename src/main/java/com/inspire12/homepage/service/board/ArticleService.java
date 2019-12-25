@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class ArticleService {
     CommentRepository commentRepository;
 
     public ArticleMsg showArticleMsgById(int id) {
+
         articleRepository.increaseHit(id);
         return getArticleMsgById(id);
     }
@@ -40,14 +43,13 @@ public class ArticleService {
     }
 
     public List<ArticleMsg> showArticleMsgsWithCount(String type, int pageNum, int articleCount) {
-        int start = (pageNum-1) * articleCount;
+        int start = (pageNum - 1) * articleCount;
         List<Article> articles;
-        if(type.equals("all")) {
+        if (type.equals("all")) {
             articles = articleRepository.showArticlesWithArticleCount(start, articleCount);
-        }else {
+        } else {
             articles = articleRepository.showArticlesWithArticleByTypeCount(type, start, articleCount);
         }
-
         return convertArticles(articles);
     }
 
@@ -59,10 +61,11 @@ public class ArticleService {
 
     public boolean saveArticle(Article article) {
         // 데이터 검증
-        articleRepository.saveArticle(article.getSubject(), article.getContent(), article.getUsername());
+        articleRepository.save(article);
+        article.setGrpno(article.getId());
+        articleRepository.save(article);
         return true;
     }
-
 
 
     @Transactional
@@ -70,7 +73,7 @@ public class ArticleService {
         Article parentArticle = articleRepository.findById(parentId).get();
         articleRepository.updateReplyOrder(parentArticle.getGrpno(), parentArticle.getGrpord());
         articleRepository.saveReplyArticle(childArticle.getSubject(), childArticle.getContent(), childArticle.getUsername(),
-                    parentArticle.getGrpno(), parentArticle.getGrpord()+1, parentArticle.getDepth() + 1);
+                parentArticle.getGrpno(), parentArticle.getGrpord() + 1, parentArticle.getDepth() + 1);
         return true;
     }
 
@@ -81,19 +84,19 @@ public class ArticleService {
 
     public boolean deleteArticle(int articleId) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (username.equals(articleRepository.getOne(articleId).getUsername())){
+        if (username.equals(articleRepository.getOne(articleId).getUsername())) {
             articleRepository.updateIsDeletedArticle(articleId);
             return true;
         }
         return false;
     }
 
-    private List<ArticleMsg> convertArticles (List<Article> articles) {
+    private List<ArticleMsg> convertArticles(List<Article> articles) {
         List<ArticleMsg> articleMsgs = new ArrayList<>();
         for (Article article : articles) {
             try {
                 articleMsgs.add(ArticleMsg.create(article));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -107,7 +110,7 @@ public class ArticleService {
                 User author = userRepository.findById(article.getUsername()).get();
                 List<Comment> comments = commentRepository.selectCommentByArticleOrder(article.getId());
                 articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

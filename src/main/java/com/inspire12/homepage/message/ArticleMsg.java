@@ -62,12 +62,12 @@ public class ArticleMsg {
         articleMsg.setCreatedAt((article.getCreatedAt()));
         articleMsg.setUpdatedAt((article.getUpdatedAt()));
         articleMsg.setBoardId(article.getBoardId());
-        if (!article.getTags().equals(""))
+        if (article.getTags() != null && !article.getTags().equals(""))
             articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
         articleMsg.setAuthor(article.getUser());
 
         articleMsg.setHit(article.getHit());
-        articleMsg.setLike(article.getLike());
+        articleMsg.setLike(article.getLikes());
         articleMsg.setIsDeleted(article.getIsDeleted());
 
         List<CommentMsg> commentMsgs = new ArrayList<>();

@@ -49,6 +49,7 @@ public class SecurityController implements ErrorController {
     @RequestMapping(value = "/signup", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+//    @ResponseBody
     public String registerUser(@RequestParam Map<String, String> requestBody,
                                Model model, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
         String name = requestBody.get("username");
@@ -73,12 +74,13 @@ public class SecurityController implements ErrorController {
         model.addAttribute("name", "signup");
         return "redirect:signup";
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         return "auth/login";
     }
 
-        @RequestMapping(value = "/login", method = RequestMethod.POST,
+    @RequestMapping(value = "/login", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String login(
@@ -115,7 +117,7 @@ public class SecurityController implements ErrorController {
         model.addAttribute("msg", httpStatus.getReasonPhrase());
         model.addAttribute("timestamp", LocalDateTime.now());
 
-        if (httpStatus.equals(HttpStatus.FORBIDDEN)){
+        if (httpStatus.equals(HttpStatus.FORBIDDEN)) {
             return "auth/login";
         }
         return getErrorPath();
