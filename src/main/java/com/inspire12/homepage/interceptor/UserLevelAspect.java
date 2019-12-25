@@ -15,8 +15,7 @@ public class UserLevelAspect {
     @Around("@annotation(com.inspire12.homepage.interceptor.UserLevel)")
     public Object allow(ProceedingJoinPoint joinPoint) throws Throwable {
         Method method = ((MethodSignature)joinPoint.getSignature()).getMethod();
-        UserLevel smartCache = method.getAnnotation(UserLevel.class);
-
+        UserLevel userLevel = method.getAnnotation(UserLevel.class);
         return joinPoint.proceed();
     }
 }

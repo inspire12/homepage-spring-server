@@ -57,6 +57,7 @@ public class ViewController {
         return "index";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/signup")
     public String getSignup(Model model) {
         model.addAttribute("name", "signup");
@@ -73,6 +74,7 @@ public class ViewController {
         return "contact";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/about")
     public String getAboutView(Model model) {
         model.addAttribute("users", getAdminUsers());
@@ -84,12 +86,13 @@ public class ViewController {
         return "blog";
     }
 
-
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/gallery")
     public String getgalleryView() {
         return "gallery";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/board")
     public String getBoardView(@RequestParam(defaultValue = "all") String type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum, Model model) {
         // board 종류
@@ -121,6 +124,7 @@ public class ViewController {
         return "article";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/writing")
     public String getWriteView(Model model) {
 

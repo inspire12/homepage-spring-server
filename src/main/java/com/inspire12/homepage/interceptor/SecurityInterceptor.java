@@ -14,7 +14,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (modelAndView != null && authentication != null &&authentication.isAuthenticated()){
+        if (modelAndView != null && authentication != null && authentication.isAuthenticated()) {
             String user = (String) authentication.getPrincipal();
             modelAndView.addObject("user", user);
         }
@@ -23,17 +23,23 @@ public class SecurityInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        UserLevel userLevel = ((HandlerMethod)handler).getMethodAnnotation(UserLevel.class);
-
-        assert userLevel != null;
-        if (userLevel.allow().equals(UserLevel.UserRole.USER)){
+        UserLevel userLevel = ((HandlerMethod) handler).getMethodAnnotation(UserLevel.class);
+        if (userLevel == null || userLevel.equals("null")) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            return authentication.isAuthenticated();
-
-        } else if (userLevel.allow().equals(UserLevel.UserRole.GUEST)){
+            if(authentication.getPrincipal().equals("anonymousUser")){
+                throw new Exception();
+            }
+            return true;
+        } else if (userLevel.allow().equals(UserLevel.UserRole.USER)) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if(authentication.getPrincipal().equals("anonymousUser")){
+                throw new Exception();
+            }
+            return true;
+        } else if (userLevel.allow().equals(UserLevel.UserRole.GUEST)) {
             return true;
         }
-        return false;
+        throw new Exception();
     }
 
 }

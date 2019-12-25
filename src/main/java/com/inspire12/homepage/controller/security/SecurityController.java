@@ -3,6 +3,7 @@ package com.inspire12.homepage.controller.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.model.entity.AuthenticationToken;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.security.AuthProvider;
@@ -46,6 +47,7 @@ public class SecurityController implements ErrorController {
 
     Logger logger = LoggerFactory.getLogger(SecurityController.class);
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/signup", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -75,11 +77,13 @@ public class SecurityController implements ErrorController {
         return "redirect:signup";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         return "auth/login";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/login", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -105,6 +109,7 @@ public class SecurityController implements ErrorController {
         return "redirect:/index";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping("/error")
 //    @ExceptionHandler(Throwable.class)
     public String handleError(HttpServletRequest request, Model model) {
