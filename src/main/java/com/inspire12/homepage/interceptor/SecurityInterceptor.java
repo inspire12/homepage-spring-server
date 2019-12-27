@@ -1,5 +1,7 @@
 package com.inspire12.homepage.interceptor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SecurityInterceptor implements HandlerInterceptor {
 
+    String env;
+
+    public SecurityInterceptor(String env) {
+        this.env = env;
+    }
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -23,7 +31,10 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+//        return true;
+        if (this.env.equals("local")){
+            return true;
+        }
         UserLevel userLevel = ((HandlerMethod) handler).getMethodAnnotation(UserLevel.class);
 
         if (userLevel == null || userLevel.equals("null") || userLevel.allow().equals(UserLevel.UserRole.USER)) {

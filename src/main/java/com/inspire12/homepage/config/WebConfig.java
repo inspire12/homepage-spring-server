@@ -1,6 +1,7 @@
 package com.inspire12.homepage.config;
 
 import com.inspire12.homepage.interceptor.SecurityInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,10 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-
+    @Value("${env.dev:}")
+    String env;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SecurityInterceptor()).addPathPatterns("/**")
+        registry.addInterceptor(new SecurityInterceptor(env)).addPathPatterns("/**")
                 .excludePathPatterns("/img/**")
                 .excludePathPatterns("/upload-dir/**")
                 .excludePathPatterns("/css/**")
