@@ -1,6 +1,8 @@
 package com.inspire12.homepage.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.storage.FileSystemStorageService;
 import com.inspire12.homepage.storage.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FileUploadController {
 
     private final FileSystemStorageService storageService;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Autowired
     public FileUploadController(FileSystemStorageService storageService) {
@@ -42,14 +47,24 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+    @GetMapping("/images/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
+
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity.ok().body(file);
+    }
+
     @PostMapping("/files")
-    public String handleFileUpload( @RequestParam("file") MultipartFile file,
+    public ResponseEntity handleFileUpload( @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
         // file type 확인
         String uploadUrl = storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-        return uploadUrl;
+        ObjectNode body = objectMapper.createObjectNode();
+        body.put("upload-file", uploadUrl);
+        return ResponseEntity.ok().body(body);
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

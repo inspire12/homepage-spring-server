@@ -3,7 +3,9 @@ previewNode.id = "";
 var previewTemplate = previewNode.parentNode.innerHTML;
 previewNode.parentNode.removeChild(previewNode);
 
-var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+let successFiles = [];
+
+let myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
     url: "/files", // Set the url
     thumbnailWidth: 80,
     thumbnailHeight: 80,
@@ -14,19 +16,37 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
     clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
 });
 
-myDropzone.on("addedfile", function(file) {
+myDropzone.on("addedfile", function (file) {
     // Hookup the start button
-    file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+    file.previewElement.querySelector(".start").onclick = function () {
+        myDropzone.enqueueFile(file);
+    };
     let path = "upload-dir/" + file.name
     console.dir(path)
 });
+myDropzone.on("success", function (file, response) {
+    console.dir(response);
+    let uploadFile = response['upload-file'];
+    successFiles.push(uploadFile)
+    let dz_insert_button = '<button type="button" class="btn btn-info btn-xs"><span class="glyphicon"></span> 본문에 넣기 </button>';
+    let insert_button = Dropzone.createElement(dz_insert_button);
+    let _this = this;
+    insert_button.addEventListener('click', function (e) {
+        e.preventDefault(); // click이벤트 외의 이벤트 막기위해
+        e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지 // 파일 업로드시 장애가 발생한 경우
+        if (file['status'] != 'error') { // Send Client Event Delete//
+        }
+        insertUploadedImg(uploadFile)
+    });
+    file.previewElement.appendChild(insert_button);
 
+});
 // Update the total progress bar
-myDropzone.on("totaluploadprogress", function(progress) {
+myDropzone.on("totaluploadprogress", function (progress) {
     document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
 });
 
-myDropzone.on("sending", function(file) {
+myDropzone.on("sending", function (file) {
     // Show the total progress bar when upload starts
     document.querySelector("#total-progress").style.opacity = "1";
     // And disable the start button
@@ -34,29 +54,37 @@ myDropzone.on("sending", function(file) {
 });
 
 // Hide the total progress bar when nothing's uploading anymore
-myDropzone.on("queuecomplete", function(progress) {
+myDropzone.on("queuecomplete", function (progress) {
     document.querySelector("#total-progress").style.opacity = "0";
 });
 // Setup the buttons for all transfers
 // The "add files" button doesn't need to be setup because the config
 // `clickable` has already been specified.
-document.querySelector("#actions .start").onclick = function() {
+document.querySelector("#actions .start").onclick = function () {
     myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
 };
-document.querySelector("#actions .cancel").onclick = function() {
+document.querySelector("#actions .cancel").onclick = function () {
     myDropzone.removeAllFiles(true);
+    successFiles = []
 };
+
+function insertUploadedImg(filename) {
+    CKEDITOR.instances['writing'].insertHtml('<img src="/images/' + filename + '">')
+}
 
 function submitWriting(writingTitle) {
     let title = writingTitle.value;
     let content = CKEDITOR.instances['writing'].getData();
     console.dir(title);
     console.dir(content);
+    let uploadedFiles = myDropzone.files;
+
     let body = {
         "type": choice.getValue(true),
         "username": user,
         "title": title,
-        "content": content
+        "content": content,
+        "files": successFiles
     };
 
     putRequest("/articles", body, (data) => {
