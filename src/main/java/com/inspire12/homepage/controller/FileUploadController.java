@@ -3,6 +3,7 @@ package com.inspire12.homepage.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.storage.FileSystemStorageService;
 import com.inspire12.homepage.storage.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class FileUploadController {
 //        return "uploadForm";
 //    }
 
+    @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -47,6 +49,7 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+    @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/images/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
@@ -55,6 +58,7 @@ public class FileUploadController {
         return ResponseEntity.ok().body(file);
     }
 
+    @UserLevel(allow = UserLevel.UserRole.USER)
     @PostMapping("/files")
     public ResponseEntity handleFileUpload( @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {

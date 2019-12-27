@@ -111,7 +111,7 @@ public class SecurityController implements ErrorController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping("/error")
-//    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler(Throwable.class)
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 //        logger.error("Exception during execution of SpringSecurity application", throwable);

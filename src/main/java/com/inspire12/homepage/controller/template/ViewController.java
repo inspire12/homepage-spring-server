@@ -124,7 +124,7 @@ public class ViewController {
         return "article";
     }
 
-    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/writing")
     public String getWriteView(Model model, @RequestParam(name = "id", defaultValue = "0") Integer id) {
         if (id != 0){
