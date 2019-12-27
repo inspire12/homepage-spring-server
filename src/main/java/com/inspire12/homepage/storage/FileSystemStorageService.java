@@ -18,7 +18,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 @Service
-public class FileSystemStorageService implements StorageService {
+public class FileSystemStorageService {
 
     private final Path rootLocation;
 
@@ -27,7 +27,7 @@ public class FileSystemStorageService implements StorageService {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
-    @Override
+
     public String store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
@@ -60,7 +60,6 @@ public class FileSystemStorageService implements StorageService {
 
     }
 
-    @Override
     public Stream<Path> loadAll() {
         try {
             return Files.walk(this.rootLocation, 1)
@@ -72,12 +71,11 @@ public class FileSystemStorageService implements StorageService {
 
     }
 
-    @Override
+
     public Path load(String filename) {
         return rootLocation.resolve(filename);
     }
 
-    @Override
     public Resource loadAsResource(String filename) {
         try {
             Path file = load(filename);
@@ -94,12 +92,12 @@ public class FileSystemStorageService implements StorageService {
         }
     }
 
-    @Override
+
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 
-    @Override
+
     public void init() {
         try {
             Files.createDirectories(rootLocation);

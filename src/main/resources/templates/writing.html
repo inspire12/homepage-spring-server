@@ -5,11 +5,69 @@
     <th:block th:include="@{fragment/common/head.html}"></th:block>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{css/plugin/dropzone.css}">
+
     <style>
         .choices {
-            width:200px;
+            width: 200px;
         }
+
+        html, body {
+            height: 100%;
+        }
+        #actions {
+            margin: 2em 0;
+        }
+        /* Mimic table appearance */
+        div.table {
+            display: table;
+        }
+        div.table .file-row {
+            display: table-row;
+        }
+        div.table .file-row > div {
+            display: table-cell;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+            padding: 8px;
+        }
+        div.table .file-row:nth-child(odd) {
+            background: #f9f9f9;
+        }
+        /* The total progress gets shown by event listeners */
+        #total-progress {
+            opacity: 0;
+            transition: opacity 0.3s linear;
+        }
+
+        /* Hide the progress bar when finished */
+        #previews .file-row.dz-success .progress {
+            opacity: 0;
+            transition: opacity 0.3s linear;
+        }
+
+        /* Hide the delete button initially */
+        #previews .file-row .delete {
+            display: none;
+        }
+
+        /* Hide the start and cancel buttons and show the delete button */
+
+        #previews .file-row.dz-success .start,
+        #previews .file-row.dz-success .cancel {
+            display: none;
+        }
+        #previews .file-row.dz-success .delete {
+            display: block;
+        }
+
+
+
     </style>
+
+    <link
+            rel="stylesheet"
+            href="css/plugin/choice.css"/>
 </head>
 
 <body>
@@ -19,11 +77,7 @@
 </div>
 <!-- /Preloader -->
 
-<link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
-/>
-
+<script th:src="@{js/plugin/dropzone.js}"></script>
 
 <th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
 <th:block th:include="@{fragment/common/header.html}"></th:block>
@@ -52,19 +106,85 @@
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" name="message" class="form-control mb-30" id="writingTitle"
-                                          placeholder="제목을 입력하세요."/>
+                                       placeholder="제목을 입력하세요."/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <textarea name="message" class="form-control mb-30" id="writing"></textarea>
                             </div>
-                            <div class="col-12 text-right">
-                                <button class="btn alime-btn btn-2 mt-15" onclick="submitWriting(writingTitle)">작성완료
+                        </div>
+                    </form>
+
+                    <div id="actions" class="row">
+                        <div class="col-lg-9">
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button dz-clickable">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>Add files...</span>
+                            </span>
+                            <button type="submit" class="btn btn-primary start">
+                                <i class="glyphicon glyphicon-upload"></i>
+                                <span>Start upload</span>
+                            </button>
+                            <button type="reset" class="btn btn-warning cancel">
+                                <i class="glyphicon glyphicon-ban-circle"></i>
+                                <span>Cancel upload</span>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <!-- The global file processing state -->
+                            <span class="fileupload-process">
+                            <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                               aria-valuemax="100" aria-valuenow="0" style="opacity: 0;">
+                            <div class="progress-bar progress-bar-success" style="width: 100%;" data-dz-uploadprogress=""></div>
+                            </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table table-striped files" id="previews">
+                        <div id="template" class="file-row">
+                            <!-- This is used as the file preview template -->
+                            <div>
+                                <span class="preview"><img data-dz-thumbnail/></span>
+                            </div>
+                            <div>
+                                <p class="name" data-dz-name></p>
+                                <strong class="error text-danger" data-dz-errormessage></strong>
+                            </div>
+                            <div>
+                                <p class="size" data-dz-size></p>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100" aria-valuenow="0">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;"
+                                         data-dz-uploadprogress></div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Start</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-warning cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>Cancel</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-danger delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span>Delete</span>
                                 </button>
                             </div>
                         </div>
-                    </form>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <button class="btn alime-btn btn-2 mt-15" onclick="submitWriting(writingTitle)">작성완료
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -88,9 +208,10 @@
 <script th:src="@{js/bootstrap.min.js}"></script>
 
 <!-- Include Choices JavaScript (latest) -->
-<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script th:src="@{js/plugin/choices.min.js}"></script>
 
-<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script th:src="@{js/plugin/ckeditor/ckeditor.js}"></script>
+
 <!-- Common CUSTOM -->
 <script th:src="@{js/custom/fetch.js}"></script>
 <script th:src="@{js/custom/components.js}"></script>
@@ -101,35 +222,10 @@
     let article = /*[[${article}]]*/ '';
     let user = /*[[${user}]]*/ '';
     let choice;
-    function main() {
-        choice = new Choices(document.querySelector(".js-choice"), {
-            shouldSort: false
-        });
-        choice.setValue([
-            { value: '0', label: '잡담' },
-            { value: '1', label: '정보' },
-            { value: '2', label: '스터디' },
-            { value: '3', label: '알고리즘' },
-            { value: '4', label: 'AI' },
-            { value: '5', label: '개발지식' }
-        ]);
-        choice.setChoiceByValue('0');
-        CKEDITOR.replace('writing')
-    }
 
-    function submitWriting(writingTitle) {
-        let title = writingTitle.value;
-        let content = CKEDITOR.instances['writing'].getData();
-        console.dir(title);
-        console.dir(content);
-        let body = {
-            "type": choice.getValue(true),
-            "username":user,
-            "title": title,
-            "content": content
-        };
-        putRequest("/articles", body, (data)=>{window.location.href="/board"});
-    }
+
+
+
     main()
 
 </script>

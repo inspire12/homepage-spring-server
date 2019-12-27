@@ -88,7 +88,7 @@ public class ViewController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/gallery")
-    public String getgalleryView() {
+    public String getGalleryView() {
         return "gallery";
     }
 
@@ -124,10 +124,13 @@ public class ViewController {
         return "article";
     }
 
-    @UserLevel(allow = UserLevel.UserRole.USER)
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/writing")
-    public String getWriteView(Model model) {
-
+    public String getWriteView(Model model, @RequestParam(name = "id", defaultValue = "0") Integer id) {
+        if (id != 0){
+            ArticleMsg articleMsg = articleService.getArticleMsgById(id);
+            model.addAttribute("article", articleMsg);
+        }
         model.addAttribute("name", "write");
         return "writing";
     }
