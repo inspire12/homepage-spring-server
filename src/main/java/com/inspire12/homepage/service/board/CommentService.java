@@ -28,7 +28,7 @@ public class CommentService {
         String userId = request.get("username").asText();
         int articleId = request.get("article_id").asInt();
         String content = request.get("content").asText();
-        Comment comment = createComment(userId, articleId, content);
+        Comment comment = Comment.create(userId, articleId, content);
         try{
             commentRepository.insertByRequest(articleId, userId, content);
         }catch (Exception e){
@@ -55,17 +55,10 @@ public class CommentService {
     private List<CommentMsg> convertToCommentMsgs(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (Comment comment : comments) {
-            CommentMsg commentMsg = CommentMsg.createCommentMsg(comment, userRepository.getOne(comment.getUsername()));
+            CommentMsg commentMsg = CommentMsg.createCommentMsg(comment, userRepository.findById(comment.getUsername()).get());
             commentMsgs.add(commentMsg);
         }
         return commentMsgs;
     }
 
-    public Comment createComment(String username, int articleId, String content) {
-        Comment comment = new Comment();
-        comment.setArticleId(articleId);
-        comment.setUsername(username);
-        comment.setContent(content);
-        return comment;
-    }
 }

@@ -114,16 +114,20 @@ function createCommentElement(comment) {
     for (let i = 0; i < comment['depth']; i++) {
         commentStr += '                                <div class="comment-author"></div>\n';
     }
+    let profile = comment.author.profile;
+    if (profile === null || profile === "null") {
+        profile = "img/bg-img/52.jpg"
+    }
     commentStr +=
         '                                <div class="comment-author">\n' +
-        '                                    <img src="' + comment.author.profile + '" alt="author">\n' +
+        '                                    <img src="' + profile + '" alt="author">\n' +
         '                                </div>\n' +
         '                                <div class="comment-meta">\n' +
         '                                    <a href="#" class="post-date">27 Aug 2019</a>\n' +
         '                                    <h5>' + comment.author.username + '</h5>\n' +
         '                                    <p>' + comment.content + '</p>\n' +
-        '                                    <a href="#" class="like">Like</a>\n' +
-        '                                    <a href="#" class="reply">Reply</a>\n' +
+        // '                                    <a href="#" class="like">Like</a>\n' +
+        // '                                    <a href="#" class="reply">Reply</a>\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                        </li>';

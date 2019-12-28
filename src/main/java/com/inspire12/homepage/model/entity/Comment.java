@@ -18,33 +18,25 @@ import java.util.List;
 @Setter
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
-
     @Column(name = "article_id")
     @JsonProperty("article_id")
     int articleId;
 
-    @Transient
     @JsonProperty("username")
     String username;
-
     @Column(name = "no")
     int grpno;
-
     @Column(name = "grpord")
     int grpord;
-
     @Column(name = "depth")
     int depth;
 
     @Column(name = "content")
     @JsonProperty("content")
     String content;
-
-    int like;
-
+    int like = 0;
     @Column(name = "created_at")
     @CreationTimestamp
     @JsonProperty("created_at")
@@ -57,12 +49,14 @@ public class Comment {
 
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "username", insertable = false, updatable = false)
     private User user = new User();
 
-    public static Comment create() {
+    public static Comment create(String username, int articleId, String content) {
         Comment comment = new Comment();
-
+        comment.setArticleId(articleId);
+        comment.setUsername(username);
+        comment.setContent(content);
         return comment;
     }
 }
