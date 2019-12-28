@@ -83,6 +83,10 @@ public class Article implements Serializable {
     @JoinColumn(name = "article_id")
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "article_id")
+    private List<FileMeta> fileMetas = new ArrayList<>();
+
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = true, insertable = false, updatable = false)

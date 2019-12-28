@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.model.entity.Comment;
+import com.inspire12.homepage.model.entity.FileMeta;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.util.ArticleUtil;
 import lombok.Getter;
@@ -39,6 +40,10 @@ public class ArticleMsg {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     List<CommentMsg> comments;
 
+    @JsonProperty("files")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    List<FileMeta> files = new ArrayList<>();
+
     @JsonProperty("created_at")
     LocalDateTime createdAt;
     @JsonProperty("updated_at")
@@ -50,6 +55,8 @@ public class ArticleMsg {
     Integer like;
     @JsonProperty("is_deleted")
     Boolean isDeleted;
+
+
 
     public static ArticleMsg create(Article article){
         ArticleMsg articleMsg = new ArticleMsg();
@@ -66,6 +73,8 @@ public class ArticleMsg {
             articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
         articleMsg.setAuthor(article.getUser());
 
+        articleMsg.setFiles(article.getFileMetas());
+
         articleMsg.setHit(article.getHit());
         articleMsg.setLike(article.getLikes());
         articleMsg.setIsDeleted(article.getIsDeleted());
@@ -74,6 +83,7 @@ public class ArticleMsg {
         for (Comment comment : article.getComments()){
             commentMsgs.add(CommentMsg.create(comment));
         }
+
         articleMsg.setComments(commentMsgs);
         return articleMsg;
     }

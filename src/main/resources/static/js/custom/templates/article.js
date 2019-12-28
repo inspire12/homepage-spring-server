@@ -3,7 +3,7 @@ function main(article, user) {
     let sectionElement = createBreadcrumbSection(article);
     document.getElementById("breadcrumb-area-id").append(sectionElement);
 
-    let content = "<div>"+ article['content'] +"</div>";
+    let content = "<div>" + article['content'] + "</div>";
     let contentElement = createElementFromStr(content);
     document.getElementById("blog-details-text-id").append(contentElement);
     let tags = article['tags'];
@@ -14,7 +14,7 @@ function main(article, user) {
     }
     // document.getElementById("previous-article").appendChild(createOtherArticle(article['prev_article'], "prev"));
     // document.getElementById("next-article").appendChild(createOtherArticle(article['next_article'], "next"));
-
+    appendFiles(article);
     let recommendElement = createRecommendElement(article);
     document.getElementById("related-news-id").append(recommendElement);
 
@@ -86,6 +86,15 @@ function refreshComments(comments, commentSection) {
     let commentTitle = commentSection.firstElementChild;
     commentTitle.textContent = comments.length + " Comments";
     document.getElementById("postComments").textContent = comments.length + " Comments";
+}
+
+function appendFiles(article) {
+    let files = article['files'];
+    for (let i = 0; i < files.length; i++) {
+        let file = createElementFromStr("<li><a href='"+ files[i].file_url + "'> <i class=\"fa fa-save\">" + files[i].filename + "</a> </li>")
+        document.getElementById("file-list").firstElementChild.append(file)
+    }
+
 }
 
 function appendComments(comments, commentArea) {
