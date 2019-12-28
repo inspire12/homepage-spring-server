@@ -1,5 +1,6 @@
 package com.inspire12.homepage.controller.template;
 
+import com.inspire12.homepage.exception.NotAuthException;
 import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -127,11 +129,15 @@ public class ViewController {
         return "article";
     }
 
-    @UserLevel(allow = UserLevel.UserRole.USER)
+//    @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/writing")
-    public String getWriteView(Model model, @RequestParam(name = "id", defaultValue = "0") Integer id) {
+    public String getWriteView(Model model,
+                               @RequestParam(name = "id", defaultValue = "0") Integer id) throws NotAuthException {
         if (id != 0){
             ArticleMsg articleMsg = articleService.getArticleMsgById(id);
+//            if (! SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(articleMsg.getAuthor().getUsername())){
+//                throw new NotAuthException("작성자만 글을 수정할 수 있습니다.");
+//            }
             model.addAttribute("article", articleMsg);
         }
         model.addAttribute("name", "write");

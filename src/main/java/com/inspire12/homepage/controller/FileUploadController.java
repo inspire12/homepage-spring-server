@@ -4,6 +4,8 @@ package com.inspire12.homepage.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.interceptor.UserLevel;
+import com.inspire12.homepage.model.entity.FileMeta;
+import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.storage.FileSystemStorageService;
 import com.inspire12.homepage.storage.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FileUploadController {
 
     private final FileSystemStorageService storageService;
+
+    @Autowired
+    private FileMetaService fileMetaService;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -70,6 +75,18 @@ public class FileUploadController {
         body.put("upload-file", uploadUrl);
         return ResponseEntity.ok().body(body);
     }
+
+    @UserLevel(allow = UserLevel.UserRole.USER)
+    @DeleteMapping("/files")
+    public ResponseEntity deleteFileUpload( @RequestParam("id") Integer id,
+                                            RedirectAttributes redirectAttributes) {
+        // file type 확인
+        FileMeta fileMeta = fileMetaService.getFileMeta(id);
+        fileMetaService.deleteFileMeta(id);
+
+        return ResponseEntity.ok().body(id);
+    }
+
 
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {

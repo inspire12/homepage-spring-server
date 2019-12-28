@@ -28,12 +28,22 @@ function main(article, user) {
     appendComments(comments, commentsArea);
 }
 
-function redirectEdit() {
-
+function editArticle () {
+    swal({
+        title: "수정하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willEdit) => {
+            if (willEdit) {
+                let id = getParameter("id");
+                window.location.href = "/writing?id="+ id;
+            } 
+        });
 }
 
 function swalIsDelete(url) {
-
     swal({
         title: "삭제하시겠습니까?",
         icon: "warning",
@@ -43,7 +53,11 @@ function swalIsDelete(url) {
         .then((willDelete) => {
             if (willDelete) {
                 deleteRequest(url, function (data) {
-                    alert(data)
+                    if(data === true)
+                        window.location.href = "/board";
+                    else
+                        swal("삭제에 실패했습니다.", "", "warning")
+
                 });
             } else {
 

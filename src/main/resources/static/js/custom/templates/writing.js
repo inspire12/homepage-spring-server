@@ -11,7 +11,7 @@ function createDropzone() {
         thumbnailHeight: 80,
         parallelUploads: 20,
         previewTemplate: previewTemplate,
-        autoQueue: false, // Make sure the files aren't queued until manually added
+        autoQueue: false, // Make sure the files aren't quexued until manually added
         previewsContainer: "#previews", // Define the container to display the previews
         clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
     });
@@ -80,7 +80,7 @@ function insertUploadedImg(filename) {
     CKEDITOR.instances['writing'].insertHtml('<img src="/images/' + filename + '">')
 }
 
-function submitWriting(myDropzone) {
+function submitWriting(choice, myDropzone) {
     let title = document.getElementById("writingTitle").value;
     if (title === "") {
         swal("제목을 입력하세요", "", "warning");
@@ -90,7 +90,9 @@ function submitWriting(myDropzone) {
     console.dir(title);
     console.dir(content);
     let uploadedFiles = myDropzone.files;
+    if (window.location.href) {
 
+    }
     let body = {
         "type": choice.getValue(true),
         "username": user,
@@ -104,8 +106,24 @@ function submitWriting(myDropzone) {
     });
 }
 
-function main() {
-    choice = new Choices(document.querySelector(".js-choice"), {
+function appendFilesWithDelete(article) {
+    let files = article['files'];
+    for (let i = 0; i < files.length; i++) {
+        let file = createElementFromStr("<li id='"+ files[i].id + "'><a href='"+ files[i].file_url + "'> <i class=\"fa fa-save mr-2\"></i>" + files[i].filename + "</a> </li>")
+        let btnDelete = createElementFromStr("<button class='btn btn-danger' onclick='deleteFile( \""+ files[i].id +"\" )'>X</button>")
+        file.appendChild(btnDelete);
+        document.getElementById("file-list").firstElementChild.append(file)
+    }
+}
+function deleteFile(id) {
+    let url = "/files?id=" + id;
+    deleteRequest(url, (response) => {
+        console.dir(response);
+        document.getElementById(response).remove();
+    });
+}
+function main(article) {
+    let choice = new Choices(document.querySelector(".js-choice"), {
         shouldSort: false
     });
     choice.setValue([
@@ -116,14 +134,31 @@ function main() {
         {value: '4', label: 'AI'},
         {value: '5', label: '개발지식'}
     ]);
-    choice.setChoiceByValue('0');
+    let boardId = 0;
+    let title = "";
+    let uploadedFiles = []
+    if (article != null) {
+        boardId = article.board_id;
+        title = article.subject;
+        appendFilesWithDelete(article);
+    }
+    choice.setChoiceByValue(boardId.toString());
+
+    document.getElementById("writingTitle").value = title;
+    document.getElementById("writing").value = article.content;
+
+
     CKEDITOR.replace('writing');
-    if (article != null)
-        CKEDITOR.instances['writing'].insertHtml(article.content);
+
+
     let dropzone = createDropzone();
 
     document.getElementById("submitWriting").addEventListener("click", function () {
-        submitWriting(dropzone)
-    })
-
+        submitWriting(choice, dropzone)
+    });
+    // if (article != null) {
+    //     window.onload = function () {
+    //         CKEDITOR.instances['writing'].insertHtml(article.content);
+    //     };
+    // }
 }

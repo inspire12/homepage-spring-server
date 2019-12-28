@@ -75,10 +75,15 @@ function appendGalleryImgs(imgs) {
             let singleGallayItem = creategalleryImg("/img/bg-img/" + imgs[i].name , imgs[i].tag,imgs[i].delay);
             document.getElementById("alime-portfolio").append(singleGallayItem);
         }catch (e) {
-            console.dir(e)
+            console.dir(e);
             console.dir("gallery img error: index: " + i)
 
         }
 
     }
+}
+
+function getParameter(param) {
+    let url = new URL(window.location.href);
+    return url.searchParams.get(param)
 }

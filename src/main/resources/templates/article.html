@@ -24,7 +24,7 @@
 <!-- Blog Details Area Start -->
 <div class="alime-blog-area section-padding-80">
     <div sec:authorize="isAuthenticated()" class="container text-right">
-        <i class="fa fa-edit cursor-pointer" onclick="return alert('edit')"></i>
+        <i class="fa fa-edit cursor-pointer" onclick="return editArticle()"></i>
         <i class="fa fa-trash cursor-pointer" onclick="return deleteArticle()"></i>
     </div>
     <div class="container">
@@ -50,7 +50,7 @@
 <!--                        <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>-->
                     </div>
                 </div>
-                <div class="row mt-15 file-list" id="file-list">
+                <div class="d-flex align-items-center justify-content-between row mt-15 ml-4 file-list" id="file-list">
                     <ul>
 
                     </ul>

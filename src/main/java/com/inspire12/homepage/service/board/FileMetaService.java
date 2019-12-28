@@ -17,4 +17,11 @@ public class FileMetaService {
             fileMetaRepository.save(fileMeta);
         }
     }
+
+    public void deleteFileMeta(Integer id) {
+        fileMetaRepository.deleteById(id);
+    }
+    public FileMeta getFileMeta(Integer id) {
+        return fileMetaRepository.findById(id).get();
+    }
 }
