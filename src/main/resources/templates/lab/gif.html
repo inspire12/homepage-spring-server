@@ -4,24 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        * {
-            background: antiquewhite;
-            width: 100%;
-            height: 100%;
-        }
+
     </style>
+
+    <link rel="stylesheet" th:href="@{css/plugin/dropzone.css}">
+    <script th:src="@{js/plugin/dropzone.js}"></script>
 </head>
 <body>
-<div id="snow"></div>
-<script th:src="@{js/plugin/snow.js}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        new Snow('#snow',{
-            number:10,
-            r: 4.5,
-            v: 0.8
-        });
-    });
-</script>
+
+<p>
+    This is the most minimal example of Dropzone. The upload in this example
+    doesn't work, because there is no actual server to handle the file upload.
+</p>
+
+<!-- Change /upload-target to your upload address -->
+
+<img src="/upload-dir/2.jpg" alt=""/>
 </body>
 </html>

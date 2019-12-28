@@ -1,5 +1,5 @@
-
 let successFiles = [];
+
 function createDropzone() {
     let previewNode = document.querySelector("#template");
     previewNode.id = "";
@@ -27,14 +27,20 @@ function createDropzone() {
     myDropzone.on("success", function (file, response) {
         console.dir(response);
         let uploadFile = response['upload-file'];
-        successFiles.push(uploadFile)
+
+        let successFile = {
+            "file-url": "files/" + uploadFile,
+            "filename": uploadFile,
+            "type": file.type
+        };
+        successFiles.push(successFile);
         let dz_insert_button = '<button type="button" class="btn btn-info btn-xs"><span class="glyphicon"></span> 본문에 넣기 </button>';
         let insert_button = Dropzone.createElement(dz_insert_button);
         let _this = this;
         insert_button.addEventListener('click', function (e) {
             e.preventDefault(); // click이벤트 외의 이벤트 막기위해
             e.stopPropagation(); // 부모태그로의 이벤트 전파를 중지 // 파일 업로드시 장애가 발생한 경우
-            if (file['status'] != 'error') { // Send Client Event Delete//
+            if (file['status'] !== 'error') { // Send Client Event Delete//
             }
             insertUploadedImg(uploadFile)
         });
@@ -78,7 +84,7 @@ function submitWriting(myDropzone) {
     let title = document.getElementById("writingTitle").value;
     if (title === "") {
         swal("제목을 입력하세요", "", "warning");
-        return ;
+        return;
     }
     let content = CKEDITOR.instances['writing'].getData();
     console.dir(title);
@@ -116,7 +122,7 @@ function main() {
         CKEDITOR.instances['writing'].insertHtml(article.content);
     let dropzone = createDropzone();
 
-    document.getElementById("submitWriting").addEventListener("click", function() {
+    document.getElementById("submitWriting").addEventListener("click", function () {
         submitWriting(dropzone)
     })
 

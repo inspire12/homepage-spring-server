@@ -15,8 +15,9 @@ function main(article, user) {
     // document.getElementById("previous-article").appendChild(createOtherArticle(article['prev_article'], "prev"));
     // document.getElementById("next-article").appendChild(createOtherArticle(article['next_article'], "next"));
     appendFiles(article);
-    let recommendElement = createRecommendElement(article);
-    document.getElementById("related-news-id").append(recommendElement);
+
+    // let recommendElement = createRecommendElement(article);
+    // document.getElementById("related-news-id").append(recommendElement);
 
     let comments = article['comments'];
     let commentSection = document.getElementById("comment-area-id");
@@ -91,10 +92,9 @@ function refreshComments(comments, commentSection) {
 function appendFiles(article) {
     let files = article['files'];
     for (let i = 0; i < files.length; i++) {
-        let file = createElementFromStr("<li><a href='"+ files[i].file_url + "'> <i class=\"fa fa-save\">" + files[i].filename + "</a> </li>")
+        let file = createElementFromStr("<li><a href='"+ files[i].file_url + "'> <i class=\"fa fa-save mr-2\"></i>" + files[i].filename + "</a> </li>")
         document.getElementById("file-list").firstElementChild.append(file)
     }
-
 }
 
 function appendComments(comments, commentArea) {

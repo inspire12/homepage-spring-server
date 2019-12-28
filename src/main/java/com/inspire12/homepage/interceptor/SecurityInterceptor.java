@@ -31,7 +31,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        return true;
+
         if (this.env.equals("local")){
             return true;
         }

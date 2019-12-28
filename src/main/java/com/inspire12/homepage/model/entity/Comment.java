@@ -18,6 +18,7 @@ import java.util.List;
 @Setter
 public class Comment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
 
