@@ -55,14 +55,17 @@ public class ArticleService {
         }
         return convertArticles(articles);
     }
-    public boolean updateArticle(ObjectNode objectNode) {
+    public Article updateArticle(ObjectNode objectNode) {
         // 데이터 검증
         int id = objectNode.get("id").asInt();
 
         Article article = articleRepository.findById(id).get();
-
+        article.setSubject(objectNode.get("title").asText());
+        article.setContent(objectNode.get("content").asText());
+        article.setBoardId(objectNode.get("type").asInt());
         articleRepository.save(article);
-        return true;
+
+        return article;
     }
 
     public List<ArticleMsg> showArticleMsgs() {

@@ -43,10 +43,23 @@ public class ArticleController {
 
     @PostMapping("/articles")
     public boolean updateArticle(@RequestBody ObjectNode requestBody) {
-        articleService.updateArticle(requestBody);
+        Article article = articleService.updateArticle(requestBody);
+        ArrayNode files = (ArrayNode) requestBody.get("files");
 
+        saveFileMetas(files, article);
         return true;
     }
+
+    private boolean saveFileMetas(ArrayNode files, Article article) {
+        List<FileMeta> fileMetas = new ArrayList<>();
+        for(JsonNode file: files){
+            FileMeta fileMeta = FileMeta.create(file, article);
+            fileMetas.add(fileMeta);
+        }
+        fileMetaService.saveFileMetas(fileMetas);
+        return true;
+    }
+
 
     @PutMapping("/articles")
     @Transactional
@@ -54,12 +67,7 @@ public class ArticleController {
         Article article = Article.createFromRequest(requestBody);
         articleService.saveArticle(article);
         ArrayNode files = (ArrayNode) requestBody.get("files");
-        List<FileMeta> fileMetas = new ArrayList<>();
-        for(JsonNode file: files){
-            FileMeta fileMeta = FileMeta.create(file, article);
-            fileMetas.add(fileMeta);
-        }
-        fileMetaService.saveFileMetas(fileMetas);
+        saveFileMetas(files, article);
         return true;
     }
 
