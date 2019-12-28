@@ -64,11 +64,13 @@ public class ViewController {
         return "auth/signup";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/introduce")
     public String getIntroduceView() {
         return "introduce";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/contact")
     public String getContactView() {
         return "contact";
@@ -81,6 +83,7 @@ public class ViewController {
         return "about";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/blog")
     public String getBlogView() {
         return "blog";
@@ -143,7 +146,6 @@ public class ViewController {
 
     @GetMapping("/gan-style")
     public String getGanView(Model model) {
-
         return "lab/gan-styles";
     }
 
@@ -152,11 +154,13 @@ public class ViewController {
         return "lab/ai";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/gif")
     public String getGifView() {
         return "lab/gif";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/opensource")
     public String getOpensourceView() {
         return "opensource";
