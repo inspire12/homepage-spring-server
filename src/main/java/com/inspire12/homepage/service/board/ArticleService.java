@@ -1,6 +1,7 @@
 package com.inspire12.homepage.service.board;
 
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.message.CommentMsg;
@@ -10,6 +11,7 @@ import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.CommentRepository;
 import com.inspire12.homepage.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -53,7 +55,15 @@ public class ArticleService {
         }
         return convertArticles(articles);
     }
+    public boolean updateArticle(ObjectNode objectNode) {
+        // 데이터 검증
+        int id = objectNode.get("id").asInt();
 
+        Article article = articleRepository.findById(id).get();
+
+        articleRepository.save(article);
+        return true;
+    }
 
     public List<ArticleMsg> showArticleMsgs() {
         List<Article> articles = articleRepository.selectArticles(30);

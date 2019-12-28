@@ -94,6 +94,14 @@ public class Article implements Serializable {
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
+        if (requestBody.has("id")) {
+            article.setId(requestBody.get("id").asInt());
+            article.setGrpno(requestBody.get("id").asInt());
+        } else {
+            article.setCreatedAt(LocalDateTime.now());
+            article.setHit(0);
+            article.setLikes(0);
+        }
         String username = requestBody.get("username").asText();
         String title = requestBody.get("title").asText();
         String content = requestBody.get("content").asText();
@@ -107,9 +115,8 @@ public class Article implements Serializable {
 //        article.setTags();
         article.setBoardId(boardId);
         article.setUpdatedAt(LocalDateTime.now());
-        article.setCreatedAt(LocalDateTime.now());
-        article.setHit(0);
-        article.setLikes(0);
+
+
         return article;
     }
 

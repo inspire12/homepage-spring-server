@@ -80,7 +80,7 @@ function insertUploadedImg(filename) {
     CKEDITOR.instances['writing'].insertHtml('<img src="/images/' + filename + '">')
 }
 
-function submitWriting(choice, myDropzone) {
+function submitWriting(choice, myDropzone, id) {
     let title = document.getElementById("writingTitle").value;
     if (title === "") {
         swal("제목을 입력하세요", "", "warning");
@@ -101,9 +101,20 @@ function submitWriting(choice, myDropzone) {
         "files": successFiles
     };
 
-    putRequest("/articles", body, (data) => {
-        window.location.href = "/board"
-    });
+    if (id!== undefined && id !== 0){
+        // 글 수정인 경우
+        body["id"] = id;
+        postRequest("/articles", body, (data) => {
+            window.location.href = "/board"
+        });
+    } else {
+        // 글 쓰기인 경우
+        putRequest("/articles", body, (data) => {
+            window.location.href = "/board"
+        });
+    }
+
+
 }
 
 function appendFilesWithDelete(article) {
@@ -136,8 +147,9 @@ function main(article) {
     ]);
     let boardId = 0;
     let title = "";
-    let uploadedFiles = []
+    let id;
     if (article != null) {
+        id = article.id;
         boardId = article.board_id;
         title = article.subject;
         appendFilesWithDelete(article);
@@ -154,7 +166,7 @@ function main(article) {
     let dropzone = createDropzone();
 
     document.getElementById("submitWriting").addEventListener("click", function () {
-        submitWriting(choice, dropzone)
+        submitWriting(choice, dropzone, id)
     });
     // if (article != null) {
     //     window.onload = function () {

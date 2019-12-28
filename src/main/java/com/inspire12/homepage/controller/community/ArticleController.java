@@ -41,11 +41,12 @@ public class ArticleController {
         return articleService.getArticleMsgById(id);
     }
 
-//    @PostMapping("/articles")
-//    public boolean saveArticle(@RequestBody Article article) {
-//        articleService.saveArticle(article);
-//        return true;
-//    }
+    @PostMapping("/articles")
+    public boolean updateArticle(@RequestBody ObjectNode requestBody) {
+        articleService.updateArticle(requestBody);
+
+        return true;
+    }
 
     @PutMapping("/articles")
     @Transactional
