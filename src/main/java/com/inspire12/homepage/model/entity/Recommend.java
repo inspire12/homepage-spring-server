@@ -1,6 +1,8 @@
 package com.inspire12.homepage.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "recommend")
+@Setter
+@Getter
 public class Recommend {
     @Id
     @JsonProperty("id")
@@ -23,8 +27,11 @@ public class Recommend {
     @JsonProperty("article_id")
     int articleId;
 
-    @Column(name = "comment_id")
-    @JsonProperty("comment_id")
-    Integer commentId;
 
+    public static Recommend create(int articleId, String username) {
+        Recommend recommend = new Recommend();
+        recommend.setUsername(username);
+        recommend.setArticleId(articleId);
+        return recommend;
+    }
 }
