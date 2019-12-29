@@ -101,7 +101,7 @@
             '<td>' + article['author']['nickname'] + '</td>\n' +
             '<td>' + showDateFrom(article['updated_at']) + '</td>\n' +
             '<td>' + article['hit'] + '</td>\n' +
-            '<td>' + article['like'] + '</td>\n' +
+            '<td>' + article['like'].length + '</td>\n' +
             '</tr>';
         return createTrFromStr(trStr);
     }
