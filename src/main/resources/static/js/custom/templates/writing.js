@@ -147,17 +147,19 @@ function main(article) {
     ]);
     let boardId = 0;
     let title = "";
+    let content = "";
     let id;
     if (article != null) {
         id = article.id;
         boardId = article.board_id;
         title = article.subject;
+        content = article.content;
         appendFilesWithDelete(article);
     }
     choice.setChoiceByValue(boardId.toString());
 
     document.getElementById("writingTitle").value = title;
-    document.getElementById("writing").value = article.content;
+    document.getElementById("writing").value = content;
 
 
     CKEDITOR.replace('writing');
