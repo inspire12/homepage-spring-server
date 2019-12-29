@@ -40,6 +40,10 @@ public class Article implements Serializable {
     @Column(name = "depth")
     int depth = 0;
 
+    @Column(name = "is_deleted")
+    @JsonProperty(value = "is_deleted")
+    Boolean isDeleted = false;
+
     @Column(name = "subject")
     String subject;
 
@@ -69,15 +73,13 @@ public class Article implements Serializable {
     @Column(name = "tags", nullable = true)
     String tags;
 
+
     @Column(name = "hit")
     Integer hit = 0;
 
-    @Column(name = "likes")
-    Integer likes = 0;
-
-    @Column(name = "is_deleted")
-    @JsonProperty(value = "is_deleted")
-    Boolean isDeleted = false;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "article_id")
+    List<Recommend> likes;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "article_id")
@@ -100,7 +102,6 @@ public class Article implements Serializable {
         } else {
             article.setCreatedAt(LocalDateTime.now());
             article.setHit(0);
-            article.setLikes(0);
         }
         String username = requestBody.get("username").asText();
         String title = requestBody.get("title").asText();

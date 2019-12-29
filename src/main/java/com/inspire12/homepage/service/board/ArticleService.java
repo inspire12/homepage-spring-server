@@ -2,7 +2,7 @@ package com.inspire12.homepage.service.board;
 
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.inspire12.homepage.interceptor.UserLevel;
+
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.message.CommentMsg;
 import com.inspire12.homepage.model.entity.Article;
@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;

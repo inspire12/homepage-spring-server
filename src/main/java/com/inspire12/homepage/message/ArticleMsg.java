@@ -3,10 +3,7 @@ package com.inspire12.homepage.message;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.inspire12.homepage.model.entity.Article;
-import com.inspire12.homepage.model.entity.Comment;
-import com.inspire12.homepage.model.entity.FileMeta;
-import com.inspire12.homepage.model.entity.User;
+import com.inspire12.homepage.model.entity.*;
 import com.inspire12.homepage.util.ArticleUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,7 +49,9 @@ public class ArticleMsg {
     int boardId;
     List<String> tags;
     Integer hit;
-    Integer like;
+
+    List<Recommend> like;
+
     @JsonProperty("is_deleted")
     Boolean isDeleted;
 
