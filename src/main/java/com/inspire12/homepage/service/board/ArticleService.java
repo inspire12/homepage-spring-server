@@ -43,10 +43,10 @@ public class ArticleService {
         return ArticleMsg.create(article);
     }
 
-    public List<ArticleMsg> showArticleMsgsWithCount(String type, int pageNum, int articleCount) {
+    public List<ArticleMsg> showArticleMsgsWithCount(int type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles;
-        if (type.equals("all")) {
+        if (type == 0) {
             articles = articleRepository.showArticlesWithArticleCount(start, articleCount);
         } else {
             articles = articleRepository.showArticlesWithArticleByTypeCount(type, start, articleCount);

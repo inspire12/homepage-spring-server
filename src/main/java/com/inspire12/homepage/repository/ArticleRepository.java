@@ -24,7 +24,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
 
     @Query(value = "select * from article where `board_id`=:boardType and is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
-    List<Article> showArticlesWithArticleByTypeCount(@Param("boardType")String type, @Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
+    List<Article> showArticlesWithArticleByTypeCount(@Param("boardType")int type, @Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
     @Query(value = "select * from `article` order by `no` desc limit 1,:limit", nativeQuery = true)
