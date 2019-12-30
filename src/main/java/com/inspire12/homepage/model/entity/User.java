@@ -62,7 +62,7 @@ public class User implements UserDetails {
     String profile;
 
     @Column(name = "student_id")
-    int studentId;
+    Integer studentId;
 
 //    List<String> role;
 
