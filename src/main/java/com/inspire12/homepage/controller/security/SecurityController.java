@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,33 +50,35 @@ public class SecurityController implements ErrorController {
     Logger logger = LoggerFactory.getLogger(SecurityController.class);
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
-    @RequestMapping(value = "/signup", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-    public String registerUser(@RequestParam Map<String, String> requestBody,
-                               Model model, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
-        String name = requestBody.get("username");
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ObjectNode> registerUser(@RequestBody Map<String, String> requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
+        String username = requestBody.get("username");
         String password = requestBody.get("password");
         String email = requestBody.get("email");
-        String encryptedPassword = authProvider.encrypt(name, password);
-        User user = User.create(name, email, encryptedPassword);
+        String studentId = requestBody.get("student_id");
+        String realName = requestBody.get("realname");
+
+        String encryptedPassword = authProvider.encrypt(username, password);
+        User user = User.create(username, email, encryptedPassword);
+        ObjectNode response = objectMapper.createObjectNode();
         try {
             // 중복 체크 추가
             if (userDetailService.isExistUser(user)) {
-                model.addAttribute("name", "signup");
-                model.addAttribute("status", "fail");
-                return "redirect:signup";
+                response.put("name", "signup");
+                response.put("status", "fail");
+                response.put("status_detail", "duplicated_id");
+                return ResponseEntity.unprocessableEntity().body(response);
             }
             userDetailService.saveUser(user);
-            model.addAttribute("status", "signup");
-            model.addAttribute("name", "index");
-            return "redirect:index";
+            response.put("status", "signup");
+            response.put("name", "index");
+            return ResponseEntity.ok().body(response);
         } catch (Exception e) {
-            model.addAttribute("status", "fail");
+            response.put("status", "fail");
         }
-        model.addAttribute("name", "signup");
-        return "redirect:signup";
+        response.put("name", "signup");
+        return ResponseEntity.unprocessableEntity().body(response);
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)

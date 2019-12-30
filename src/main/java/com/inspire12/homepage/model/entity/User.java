@@ -60,9 +60,12 @@ public class User implements UserDetails {
 
     @Column(name="profile")
     String profile;
+
+    @Column(name = "student_id")
+    int studentId;
+
 //    List<String> role;
 
-//    Collection<? extends GrantedAuthority> authorities;
 
 
     public static User create(String username, String email, String password) {
