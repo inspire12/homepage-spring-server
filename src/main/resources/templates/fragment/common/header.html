@@ -1,4 +1,4 @@
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="js/plugin/sweetalert.min.js"></script>
 
 <header class="header-area">
     <!-- Main Header Start -->
@@ -8,7 +8,8 @@
                 <!-- Classy Menu -->
                 <nav class="classy-navbar justify-content-between" id="alimeNav">
                     <!-- Logo -->
-                    <a class="nav-brand" href="/index"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
+                    <a class="nav-brand" href="/index">
+                        <div style="color:antiquewhite">ANA</div> </a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -24,15 +25,18 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul id="nav">
-                                <li><a href="/index">Home</a></li>
                                 <li><a href="#">자료실</a>
                                     <ul class="dropdown">
-                                        <li><a href="/board">- Home</a></li>
+                                        <li><a href="/index">- Home</a></li>
+                                        <li><a href="/about">- About</a></li>
                                         <li><a href="/blog">- Blog</a></li>
-                                        <li><a href="/article">- Article</a></li>
+                                        <li><a href="/gallery">- Gallery</a></li>
                                         <li><a href="/board">- Board</a></li>
+                                        <li><a href="/article?id=1">- Article Test</a></li>
                                         <li><a href="/contact">- Contact</a></li>
-                                        <li><a href="#">-Mento</a>
+                                        <li><a href="/opensource">- Open Source</a></li>
+
+                                        <li><a href="#">- Mento</a>
                                             <ul class="dropdown">
                                                 <li><a href="https://github.com/inspire12" target="_blank">- inspire12</a></li>
                                                 <li><a href="https://github.com/willook" target="_blank">- willook</a></li>
@@ -44,11 +48,29 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="/about">About</a></li>
-                                <li><a href="/board">Board</a></li>
-                                <li><a href="/gallery">Gallery</a></li>
-                                <li><a href="/blog">blog</a></li>
-                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="#">게시판</a>
+                                    <ul class="dropdown">
+                                        <li><a href="/board">- All</a></li>
+                                        <li><a href="/board?type=1">- 잡담</a></li>
+                                        <li><a href="/board?type=2">- 정보</a></li>
+                                        <li><a href="/board?type=3">- 스터디</a></li>
+                                        <li><a href="/board?type=4">- 알고리즘</a></li>
+                                        <li><a href="/board?type=5">- AI</a></li>
+                                        <li><a href="/board?type=6">- 개발지식</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="#">Lab</a>
+                                    <ul class="dropdown">
+                                        <li><a href="/algorithm">- Algorithm</a></li>
+
+                                        <li><a href="/ai">- AI</a></li>
+                                        <li><a href="/gan-style">- AI-GAN</a></li>
+
+                                        <li><a href="/gif">- Gif</a></li>
+                                    </ul>
+                                </li>
+
 
                             </ul>
                             <div class="dropdown text-right" sec:authorize="!isAuthenticated()">

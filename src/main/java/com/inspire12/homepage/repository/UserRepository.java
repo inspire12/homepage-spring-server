@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
 @Repository
@@ -15,6 +16,7 @@ public interface UserRepository extends JpaRepository <User, String>{
     User findByUsernameAndPassword(String username, String password);
 
     @Modifying
-    @Query(value = "UPDATE users SET last_logined_at = :last_logined_at where username=:username", nativeQuery = true)
-    void updateUserLastLoginTime(@Param("last_logined_at") LocalDateTime localDateTime, @Param("username") String username);
+    @Transactional
+    @Query(value = "UPDATE users SET last_logined_at = NOW() where username=:username", nativeQuery = true)
+    void updateUserLastLoginTime(@Param("username") String username);
 }

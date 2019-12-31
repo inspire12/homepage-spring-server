@@ -23,14 +23,17 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (userRepository.existsById(username)) {
-            throw new UsernameNotFoundException("");
+            return userRepository.getOne(username);
         }
         throw new UsernameNotFoundException("");
     }
 
+    public boolean isExistUser(User user) {
+        return userRepository.existsById(user.getUsername());
+    }
 
     public User readUser(String username){
-        return userRepository.getOne(username);
+        return userRepository.findById(username).get();
     }
     private static List<GrantedAuthority> getAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -46,4 +49,7 @@ public class UserDetailService implements UserDetailsService {
 
     }
 
+    public void setLastLoginedAt(String username){
+        userRepository.updateUserLastLoginTime(username);
+    }
 }

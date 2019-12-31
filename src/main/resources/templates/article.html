@@ -2,20 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Title -->
-    <title>ANT Algorithm & Think</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="./img/core-img/favicon.png">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
 </head>
 
 <body>
@@ -25,8 +12,8 @@
 </div>
 <!-- /Preloader -->
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
 
 <!-- Breadcrumb Area Start -->
 <div id="breadcrumb-area-id">
@@ -35,10 +22,14 @@
 <!-- Breadcrumb Area End -->
 
 <!-- Blog Details Area Start -->
-<div class="alime--blog-area section-padding-80">
+<div class="alime-blog-area section-padding-80">
+    <div sec:authorize="isAuthenticated()" class="container text-right">
+        <i class="fa fa-edit cursor-pointer" onclick="return editArticle()"></i>
+        <i class="fa fa-trash cursor-pointer" onclick="return deleteArticle()"></i>
+    </div>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
+            <div class="col-lg-10">
                 <!-- Blog Details Text -->
                 <div class="blog-details-text" id="blog-details-text-id">
 
@@ -46,21 +37,26 @@
 
                 <!-- Post Author Area -->
                 <div class="post-author-area mt-50 d-flex align-items-center justify-content-between">
-                    <ul class="popular-tags">
-                        <li><a class="btn badges-btn" href="#">CAMERA</a></li>
-                        <li><a class="btn badges-btn" href="#">PHOTOGRAHY</a></li>
-                        <li><a class="btn badges-btn" href="#">TIPS</a></li>
+                    <ul class="popular-tags" id="popular-tags">
                     </ul>
 
                     <!-- Share Info -->
                     <div class="post-social-info d-flex align-items-center">
-                        <p>Share:</p>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+<!--                        <p>Share:</p>-->
+<!--                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
+<!--                        <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>-->
                     </div>
+                </div>
+                <div class="row mt-15 flex-column-reverse">
+                    <button class="btn"> LIKE </button>
+                </div>
+                <div class="d-flex align-items-center justify-content-between row ml-4 file-list" id="file-list">
+                    <ul>
+
+                    </ul>
                 </div>
             </div>
         </div>
@@ -68,128 +64,28 @@
 </div>
 <!-- Blog Details Area End -->
 
-<!-- Pager Area Start -->
-<div class="alime-pager-area section-padding-0-80">
-    <div class="container">
-        <div class="row no-gutters">
-            <!-- Previous -->
-            <div class="col-6">
-                <div class="previous bg-img" style="background-image: url(img/bg-img/5.jpg);">
-                    <div class="overlay-content d-flex align-items-center justify-content-center">
-                        <a href="#" class="post-title">The Female Body Shape Men Find Most Attractive</a>
-                        <a href="#" class="previous-link"><i class="arrow_left"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- Next -->
-            <div class="col-6">
-                <div class="next bg-img" style="background-image: url(img/bg-img/49.jpg);">
-                    <div class="overlay-content d-flex align-items-center justify-content-center">
-                        <a href="#" class="post-title">Vietnam's largest art community</a>
-                        <a href="#" class="next-link"><i class="arrow_right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Pager Area End -->
-
-<!-- Related News Area Start -->
-<div class="related-news-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading">
-                    <h2>Recommended For You</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" id="related-news-id">
-            <!-- Single Blog Area -->
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="single-post-area">
-                    <!-- Post Thumbnail -->
-                    <a href="#" class="post-thumbnail"><img src="img/bg-img/52.jpg" alt=""></a>
-                    <!-- Post Catagory -->
-                    <a href="#" class="btn post-catagory">Camera</a>
-                    <!-- Post Conetent -->
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <a href="#">May 19, 2019</a>
-                            <a href="#">3 Comment</a>
-                        </div>
-                        <a href="#" class="post-title">The Female Body Shape Men Find</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="single-post-area">
-                    <!-- Post Thumbnail -->
-                    <a href="#" class="post-thumbnail"><img src="img/bg-img/53.jpg" alt=""></a>
-                    <!-- Post Catagory -->
-                    <a href="#" class="btn post-catagory">Country</a>
-                    <!-- Post Conetent -->
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <a href="#">May 19, 2019</a>
-                            <a href="#">3 Comment</a>
-                        </div>
-                        <a href="#" class="post-title">Vietnam's largest art community</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="single-post-area">
-                    <!-- Post Thumbnail -->
-                    <a href="#" class="post-thumbnail"><img src="img/bg-img/54.jpg" alt=""></a>
-                    <!-- Post Catagory -->
-                    <a href="#" class="btn post-catagory">Camera</a>
-                    <!-- Post Conetent -->
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <a href="#">May 19, 2019</a>
-                            <a href="#">3 Comment</a>
-                        </div>
-                        <a href="#" class="post-title">Photo awards of the year</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="single-post-area">
-                    <!-- Post Thumbnail -->
-                    <a href="#" class="post-thumbnail"><img src="img/bg-img/55.jpg" alt=""></a>
-                    <!-- Post Catagory -->
-                    <a href="#" class="btn post-catagory">Tips</a>
-                    <!-- Post Conetent -->
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <a href="#">May 19, 2019</a>
-                            <a href="#">3 Comment</a>
-                        </div>
-                        <a href="#" class="post-title">The Female Body Shape Men Find</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="border-top mt-5"></div>
-    </div>
-</div>
-<!-- Related News Area End -->
+<!--&lt;!&ndash; Related News Area Start &ndash;&gt;-->
+<!--<div class="related-news-area">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-10">-->
+<!--                <div class="section-heading">-->
+<!--                    <h2>Recommended For You</h2>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row" id="related-news-id">-->
+<!--        </div>-->
+<!--        <div class="border-top mt-5"></div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Related News Area End &ndash;&gt;-->
 
 <!-- Comment Area Start -->
 <div class="comment-area section-padding-80">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 <!-- Comments Area -->
                 <div class="comment_area clearfix" id="comment-area-id">
                     <h4 class="mb-30">No Comments</h4>
@@ -209,7 +105,7 @@
                                 <textarea name="message" class="form-control mb-30" id="comment"
                                           placeholder="Messages"></textarea>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 text-right">
                                 <button class="btn alime-btn btn-2 mt-15" onclick="submitComment(comment)"> 댓글 달기
                                 </button>
                             </div>
@@ -222,38 +118,39 @@
     </div>
 </div>
 <!-- Comment Area End -->
-
-<th:block th:include="/fragment/home/follow-area.html"></th:block>
+<!-- Board-->
+<!---->
+<th:block th:include="fragment/home/follow-area.html"></th:block>
 
 <!-- Footer Area Start -->
-<th:block th:include="/fragment/common/footer-area"></th:block>
+<th:block th:include="fragment/common/footer-area"></th:block>
 <!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{js/jquery.min.js}"></script>
 <!-- Popper -->
-<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{js/popper.min.js}"></script>
 <!-- Bootstrap -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
 
 <!-- Common CUSTOM -->
-<script th:src="@{/js/custom/fetch.js}"></script>
-<script th:src="@{/js/custom/components.js}"></script>
+<script th:src="@{js/custom/fetch.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
-<script th:src="@{/js/custom/templates/article.js}"></script>
+<script th:src="@{js/custom/templates/article.js}"></script>
 <script th:inline="javascript">
 
     let article = /*[[${article}]]*/ '';
     let user = /*[[${user}]]*/ '';
-    main(article);
+    main(article, user);
 
 </script>
 
 <!-- All Plugins -->
-<script th:src="@{/js/alime.bundle.js}"></script>
+<script th:src="@{js/alime.bundle.js}"></script>
 <!-- Active -->
-<script th:src="@{/js/default-assets/active.js}"></script>
+<script th:src="@{js/default-assets/active.js}"></script>
 
 </body>
 

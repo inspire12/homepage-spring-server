@@ -55,7 +55,7 @@ public class AuthProvider implements AuthenticationProvider {
             String password = encrypt(name, authentication.getCredentials().toString());
 
             Optional<User> user = Optional.of(repository.findByUsernameAndPassword(name, password));
-//            repository.updateUserLastLoginTime(LocalDateTime.now(), name);
+            repository.updateUserLastLoginTime(name);
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole()));

@@ -20,15 +20,15 @@ public class CommentService {
     UserRepository userRepository;
 
     public List<CommentMsg> getComments(int articleId) {
-        List<Comment> comments = commentRepository.findAllByArticleId(articleId);
+        List<Comment> comments = commentRepository.selectCommentByArticleOrder(articleId);
         return convertToCommentMsgs(comments);
     }
 
     public void saveByRequest(ObjectNode request) {
-        String userId = request.get("user_id").asText();
+        String userId = request.get("username").asText();
         int articleId = request.get("article_id").asInt();
         String content = request.get("content").asText();
-        Comment comment = createComment(userId, articleId, content);
+        Comment comment = Comment.create(userId, articleId, content);
         try{
             commentRepository.insertByRequest(articleId, userId, content);
         }catch (Exception e){
@@ -36,24 +36,29 @@ public class CommentService {
         }
     }
 
-    public void saveComment(Comment comment) {
-        commentRepository.save(comment);
+    public void saveReplyByRequest(ObjectNode request) {
+        String userId = request.get("username").asText();
+        int articleId = request.get("article_id").asInt();
+        String content = request.get("content").asText();
+        int parentCommentId = request.get("parent_id").asInt();
+
+//        Comment childComment = createComment(userId, articleId, content);
+        try{
+            Comment parentComment = commentRepository.findById(parentCommentId).get();
+            commentRepository.updateReplyOrder(parentComment.getGrpno(), parentComment.getGrpord());
+            commentRepository.insertByRequest(articleId, userId, content);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private List<CommentMsg> convertToCommentMsgs(List<Comment> comments) {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (Comment comment : comments) {
-            CommentMsg commentMsg = CommentMsg.createCommentMsg(comment, userRepository.getOne(comment.getUsername()));
+            CommentMsg commentMsg = CommentMsg.createCommentMsg(comment, userRepository.findById(comment.getUsername()).get());
             commentMsgs.add(commentMsg);
         }
         return commentMsgs;
     }
 
-    public Comment createComment(String username, int articleId, String content) {
-        Comment comment = new Comment();
-        comment.setArticleId(articleId);
-        comment.setUsername(username);
-        comment.setContent(content);
-        return comment;
-    }
 }

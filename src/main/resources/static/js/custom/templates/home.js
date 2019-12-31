@@ -2,7 +2,7 @@ console.log("hello home");
 let code = ""
 document.onkeypress = function (event) {
     code +=event.key
-    if (code === "inspire12"){
+    if (code === "inspire123"){
         window.location.reload();
     }
 }

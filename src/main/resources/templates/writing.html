@@ -2,20 +2,72 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Title -->
-    <title>Alime - Photography HTML Template</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="./img/core-img/favicon.png">
-
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{css/plugin/dropzone.css}">
 
+    <style>
+        .choices {
+            width: 200px;
+        }
+
+        html, body {
+            height: 100%;
+        }
+        #actions {
+            margin: 2em 0;
+        }
+        /* Mimic table appearance */
+        div.table {
+            display: table;
+        }
+        div.table .file-row {
+            display: table-row;
+        }
+        div.table .file-row > div {
+            display: table-cell;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+            padding: 8px;
+        }
+        div.table .file-row:nth-child(odd) {
+            background: #f9f9f9;
+        }
+        /* The total progress gets shown by event listeners */
+        #total-progress {
+            opacity: 0;
+            transition: opacity 0.3s linear;
+        }
+
+        /* Hide the progress bar when finished */
+        #previews .file-row.dz-success .progress {
+            opacity: 0;
+            transition: opacity 0.3s linear;
+        }
+
+        /* Hide the delete button initially */
+        #previews .file-row .delete {
+            display: none;
+        }
+
+        /* Hide the start and cancel buttons and show the delete button */
+
+        #previews .file-row.dz-success .start,
+        #previews .file-row.dz-success .cancel {
+            display: none;
+        }
+        #previews .file-row.dz-success .delete {
+            display: block;
+        }
+
+
+
+    </style>
+
+    <link
+            rel="stylesheet"
+            href="css/plugin/choice.css"/>
 </head>
 
 <body>
@@ -25,8 +77,10 @@
 </div>
 <!-- /Preloader -->
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<script th:src="@{js/plugin/dropzone.js}"></script>
+
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
 
 <!-- Breadcrumb Area Start -->
 <div id="breadcrumb-area-id">
@@ -44,20 +98,97 @@
                     <h4 class="mb-30">글쓰기</h4>
                     <!-- Form -->
                     <form action="javascript:void(0);">
+                        <div class="row col-12">
+                            <select class="js-choice" style="width:100%">
+
+                            </select>
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" name="message" class="form-control mb-30" id="writingTitle"
-                                          placeholder="제목을 입력하세요."/>
+                                       placeholder="제목을 입력하세요."/>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-12">
                                 <textarea name="message" class="form-control mb-30" id="writing"></textarea>
                             </div>
-                            <div class="col-12 text-right">
-                                <button class="btn alime-btn btn-2 mt-15" onclick="submitWriting(writingTitle)">작성완료
-                                </button>
-                            </div>
                         </div>
                     </form>
+                    <div class="row mt-15 file-list" id="file-list">
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div id="actions" class="row">
+                        <div class="col-lg-9">
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button dz-clickable">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>Add files...</span>
+                            </span>
+                            <button type="submit" class="btn btn-primary start">
+                                <i class="glyphicon glyphicon-upload"></i>
+                                <span>Start upload</span>
+                            </button>
+                            <button type="reset" class="btn btn-warning cancel">
+                                <i class="glyphicon glyphicon-ban-circle"></i>
+                                <span>Cancel upload</span>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <!-- The global file processing state -->
+                            <span class="fileupload-process">
+                            <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                               aria-valuemax="100" aria-valuenow="0" style="opacity: 0;">
+                            <div class="progress-bar progress-bar-success" style="width: 100%;" data-dz-uploadprogress=""></div>
+                            </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table table-striped files" id="previews">
+                        <div id="template" class="file-row">
+                            <!-- This is used as the file preview template -->
+                            <div>
+                                <span class="preview"><img data-dz-thumbnail/></span>
+                            </div>
+                            <div>
+                                <p class="name" data-dz-name></p>
+                                <strong class="error text-danger" data-dz-errormessage></strong>
+                            </div>
+                            <div>
+                                <p class="size" data-dz-size></p>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100" aria-valuenow="0">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;"
+                                         data-dz-uploadprogress></div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Start</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-warning cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>Cancel</span>
+                                </button>
+<!--                                <button data-dz-remove class="btn btn-danger delete">-->
+<!--                                    <i class="glyphicon glyphicon-trash"></i>-->
+<!--                                    <span>Delete</span>-->
+<!--                                </button>-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <button class="btn alime-btn btn-2 mt-15" id="submitWriting">작성완료
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -66,10 +197,10 @@
 </div>
 <!-- Comment Area End -->
 
-<th:block th:include="/fragment/home/follow-area.html"></th:block>
+<th:block th:include="fragment/home/follow-area.html"></th:block>
 
 <!-- Footer Area Start -->
-<th:block th:include="/fragment/common/footer-area"></th:block>
+<th:block th:include="fragment/common/footer-area"></th:block>
 <!-- Footer Area End -->
 
 <!-- **** All JS Files ***** -->
@@ -80,22 +211,22 @@
 <!-- Bootstrap -->
 <script th:src="@{js/bootstrap.min.js}"></script>
 
-<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<!-- Include Choices JavaScript (latest) -->
+<script th:src="@{js/plugin/choices.min.js}"></script>
+
+<script th:src="@{js/plugin/ckeditor/ckeditor.js}"></script>
+
 <!-- Common CUSTOM -->
-<script th:src="@{/js/custom/fetch.js}"></script>
-<script th:src="@{/js/custom/components.js}"></script>
+<script th:src="@{js/custom/fetch.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
-<script th:src="@{/js/custom/templates/writing.js}"></script>
+<script th:src="@{js/custom/templates/writing.js}"></script>
 <script th:inline="javascript">
 
     let article = /*[[${article}]]*/ '';
     let user = /*[[${user}]]*/ '';
 
-    function main() {
-        CKEDITOR.replace('writing')
-    }
-
-    main()
+    main(article)
 
 </script>
 

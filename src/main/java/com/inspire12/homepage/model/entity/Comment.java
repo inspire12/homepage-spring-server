@@ -7,11 +7,10 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "comment")
@@ -21,30 +20,23 @@ public class Comment {
     @Id
     @Column(name = "id")
     int id;
-
     @Column(name = "article_id")
     @JsonProperty("article_id")
     int articleId;
 
-    @Column(name = "username")
     @JsonProperty("username")
     String username;
-
     @Column(name = "no")
     int grpno;
-
     @Column(name = "grpord")
     int grpord;
-
     @Column(name = "depth")
     int depth;
 
     @Column(name = "content")
     @JsonProperty("content")
     String content;
-
-    int like;
-
+    int like = 0;
     @Column(name = "created_at")
     @CreationTimestamp
     @JsonProperty("created_at")
@@ -55,9 +47,16 @@ public class Comment {
     @JsonProperty("updated_at")
     LocalDateTime updatedAt;
 
-    public static Comment create() {
-        Comment comment = new Comment();
 
+    @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "username", insertable = false, updatable = false)
+    private User user = new User();
+
+    public static Comment create(String username, int articleId, String content) {
+        Comment comment = new Comment();
+        comment.setArticleId(articleId);
+        comment.setUsername(username);
+        comment.setContent(content);
         return comment;
     }
 }

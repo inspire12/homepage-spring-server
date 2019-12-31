@@ -14,6 +14,25 @@ function getRequest(url, f) {
     })
 }
 
+function postRequest(url, body, func) {
+
+    return fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    }).then(response => {
+        console.dir(response);
+        let status = response.status;
+        __swalStatusMessage(status);
+        return response.json();
+    }).then(body => {
+        func(body)
+    }).catch(e => {
+        console.dir(e);
+    })
+}
 
 function putRequest(url, body, func) {
 
@@ -34,6 +53,27 @@ function putRequest(url, body, func) {
         console.dir(e);
     })
 }
+
+
+function deleteRequest(url, func) {
+
+    return fetch(url, {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).then(response => {
+        console.dir(response);
+        let status = response.status;
+        __swalStatusMessage(status);
+        return response.json();
+    }).then(body => {
+        func(body)
+    }).catch(e => {
+        console.dir(e);
+    })
+}
+
 
 function __swalStatusMessage(status) {
     if (status !== 200) {

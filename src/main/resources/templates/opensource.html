@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- /Preloader -->
+
+
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
+
+<!-- Breadcrumb Area Start -->
+<section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center">
+                    <h2 class="page-title">Opensource Usage</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<!-- About Us Area Start -->
+<div class="about-us-area section-padding-80-0 clearfix">
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-6">
+                <div class="about-us-content mb-80">
+                    <h3 class="wow fadeInUp" data-wow-delay="100ms">Alime Template</h3>
+                    <div class="line wow fadeInUp" data-wow-delay="200ms"></div>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">사용처: 기본 템플릿</p>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">https://colorlib.com/wp/template/alime/</p>
+                    <p class="wow fadeInUp" data-wow-delay="300ms"> CC BY 3.0</p>
+                    <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="https://colorlib.com/wp/template/alime/" target="_blank">Contact</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-6">
+                <div class="about-us-content mb-80">
+                    <h3 class="wow fadeInUp" data-wow-delay="100ms">CKEditor</h3>
+                    <div class="line wow fadeInUp" data-wow-delay="200ms"></div>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">사용처: Writing 라이브러리</p>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">GNU General Public License Version 2 </p>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">https://ckeditor.com</p>
+                    <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="https://ckeditor.com" target="_blank">Contact</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-6">
+                <div class="about-us-content mb-80">
+                    <h3 class="wow fadeInUp" data-wow-delay="100ms">Choice js</h3>
+                    <div class="line wow fadeInUp" data-wow-delay="200ms"></div>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">사용처: select box component</p>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">MIT License</p>
+                    <p class="wow fadeInUp" data-wow-delay="300ms">https://github.com/jshjohnson/Choices</p>
+                    <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="https://github.com/jshjohnson/Choices" target="_blank">Contact</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- About Us Area End -->
+
+<!-- Footer Area Start -->
+<th:block th:include="fragment/common/footer-area"></th:block>
+
+
+<!-- **** All JS Files ***** -->
+<!-- jQuery 2.2.4 -->
+<script th:src="@{js/jquery.min.js}"></script>
+<!-- Popper -->
+<script th:src="@{js/popper.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{js/bootstrap.min.js}"></script>
+
+<!-- Common CUSTOM -->
+<script th:src="@{js/custom/components.js}"></script>
+<!-- CUSTOM -->
+<script th:src="@{js/custom/templates/about.js}"></script>
+
+<script th:src="@{js/custom/templates/home.js}"></script>
+<script th:inline="javascript">
+    let status = /*[[${status}]]*/;
+    let adminUsers = /*[[${users}]]*/;
+    main(adminUsers);
+
+    function main(adminUsers) {
+        if (status === "signup") {
+            swal("가입을 축하합니다.")
+        } else if (status === 'login') {
+            swal('로그인 되었습니다.')
+        }
+        let teamMemberArea = document.getElementById("team-member-area-id");
+        for (let i = 0; i < adminUsers.length; i++) {
+            let element = createTeamMemberArea(adminUsers[i], 500 + 500 * i);
+            teamMemberArea.append(element)
+        }
+        appendGalleryImgs();
+    }
+
+</script>
+
+
+<!-- All Plugins -->
+<script th:src="@{js/alime.bundle.js}"></script>
+<!-- Active -->
+<script th:src="@{js/default-assets/active.js}"></script>
+
+</body>
+
+</html>

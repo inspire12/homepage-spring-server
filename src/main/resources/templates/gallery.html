@@ -2,20 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Title -->
-    <title>Alime - Photography HTML Template</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="./img/core-img/favicon.png">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
 </head>
 
 <body>
@@ -25,8 +12,8 @@
     </div>
     <!-- /Preloader -->
 
-    <th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-    <th:block th:include="@{/fragment/common/header.html}"></th:block>
+    <th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+    <th:block th:include="@{fragment/common/header.html}"></th:block>
 
     <!-- Breadcrumb Area Start -->
     <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
@@ -198,28 +185,28 @@
     <!-- Gallery Area End -->
 
     <!-- Follow Area Start -->
-    <th:block th:include="/fragment/home/follow-area.html"></th:block>
+    <th:block th:include="fragment/home/follow-area.html"></th:block>
     <!-- Follow Area End -->
 
     <!-- Footer Area Start -->
-    <th:block th:include="/fragment/common/footer-area"></th:block>
+    <th:block th:include="fragment/common/footer-area"></th:block>
 
     <!-- Footer Area End -->
 
     <!-- **** All JS Files ***** -->
     <!-- jQuery 2.2.4 -->
-    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{js/jquery.min.js}"></script>
     <!-- Popper -->
-    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{js/popper.min.js}"></script>
     <!-- Bootstrap -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
 
     <!-- Common CUSTOM -->
-    <script th:src="@{/js/custom/components.js}"></script>
+    <script th:src="@{js/custom/components.js}"></script>
     <!-- All Plugins -->
-    <script th:src="@{/js/alime.bundle.js}"></script>
+    <script th:src="@{js/alime.bundle.js}"></script>
     <!-- Active -->
-    <script th:src="@{/js/default-assets/active.js}"></script>
+    <script th:src="@{js/default-assets/active.js}"></script>
 
 </body>
 

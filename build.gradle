@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('se.transmode.gradle:gradle-docker:1.2')
 	}
 }
 
@@ -14,6 +15,8 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+
+apply plugin: 'docker'
 
 group = 'com.inspire12'
 version = '0.0.1-SNAPSHOT'
@@ -28,6 +31,7 @@ dependencies {
 	implementation 'mysql:mysql-connector-java'
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE')
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
@@ -35,4 +39,5 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 
+	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 }

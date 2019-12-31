@@ -6,12 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.lang.Nullable;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
@@ -19,24 +23,26 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Article {
+public class Article implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    Integer id;
 
-    @Nullable
+    @Generated(GenerationTime.INSERT)
     @Column(name = "no")
-    int grpno = 1;
+    int grpno;
 
-    @Nullable
     @Column(name = "grpord")
     int grpord = 0;
 
-    @Nullable
     @Column(name = "depth")
     int depth = 0;
+
+    @Column(name = "is_deleted")
+    @JsonProperty(value = "is_deleted")
+    Boolean isDeleted = false;
 
     @Column(name = "subject")
     String subject;
@@ -44,48 +50,74 @@ public class Article {
     @Column(name = "content")  // html 으로
     String content;
 
-    @Column(name = "username")
+//    @Transient
+    @Column(name="username")
     @JsonProperty("username")
     String username;
 
     @Column(name = "created_at")
     @CreationTimestamp
     @JsonProperty("created_at")
-    LocalDateTime createdAt;
+    LocalDateTime createdAt = LocalDateTime.now();
+
 
     @Column(name = "updated_at")
     @UpdateTimestamp
     @JsonProperty("updated_at")
-    LocalDateTime updatedAt;
+    LocalDateTime updatedAt = LocalDateTime.now();
 
     @Column(name = "board_id")
     @JsonProperty("board_id")
     int boardId;
 
+    @Column(name = "tags", nullable = true)
+    String tags;
 
-    @Column(name = "tags")
-    String tags = "";
 
     @Column(name = "hit")
     Integer hit = 0;
 
-    @Column(name = "like")
-    Integer like = 0;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "article_id")
+    List<Recommend> likes;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "article_id")
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "article_id")
+    private List<FileMeta> fileMetas = new ArrayList<>();
+
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = true, insertable = false, updatable = false)
+    private User user;
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
-        String userId = requestBody.get("user_id").asText();
+        if (requestBody.has("id")) {
+            article.setId(requestBody.get("id").asInt());
+            article.setGrpno(requestBody.get("id").asInt());
+        } else {
+            article.setCreatedAt(LocalDateTime.now());
+            article.setHit(0);
+        }
+        String username = requestBody.get("username").asText();
         String title = requestBody.get("title").asText();
         String content = requestBody.get("content").asText();
-        article.setUsername(userId);
+        int boardId = 1;
+        if (requestBody.has("type")){
+            boardId = requestBody.get("type").asInt();
+        }
+        article.setUsername(username);
         article.setSubject(title);
         article.setContent(content);
-        article.setTags("test");
-        article.setBoardId(1);
+//        article.setTags();
+        article.setBoardId(boardId);
         article.setUpdatedAt(LocalDateTime.now());
-        article.setCreatedAt(LocalDateTime.now());
-        article.setHit(0);
-        article.setLike(0);
+
+
         return article;
     }
 

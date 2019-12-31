@@ -1,20 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Title -->
-    <title>Alime - Photography HTML Template</title>
-
-    <!-- Favicon -->
-    <link rel="icon" th:href="@{img/core-img/favicon.png}">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
 
 </head>
 
@@ -26,51 +14,160 @@
 <!-- /Preloader -->
 
 
-<th:block th:include="@{/fragment/common/top-search-area.html}"></th:block>
-<th:block th:include="@{/fragment/common/header.html}"></th:block>
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
 
 <div th:if="${name.equals('index')}">
-    <th:block th:include="/fragment/home/welcome-area.html"></th:block>
-    <th:block th:include="/fragment/home/alime-portfolio-area.html"></th:block>
-    <th:block th:include="/fragment/home/follow-area.html"></th:block>
+    <th:block th:include="@{fragment/home/welcome-area.html}"></th:block>
+    <th:block th:include="@{fragment/home/alime-portfolio-area.html}"></th:block>
+
+    <!-- About Us Area Start -->
+    <div class="about-us-area section-padding-80-0 clearfix">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-6">
+                    <div class="about-us-content mb-80">
+                        <h3 class="wow fadeInUp" data-wow-delay="100ms">We Live For Passion</h3>
+                        <div class="line wow fadeInUp" data-wow-delay="200ms"></div>
+                        <p class="wow fadeInUp" data-wow-delay="300ms">동아리 명인 ANT 는 다음과 같은 뜻을 담았습니다. Algorithm & Think 의 줄임말로 컴퓨터 과학의 기반이 되는 알고리즘을 생각하는 동아리입니다. 또한 성실한 노력과 새로운 것을 적극적으로 탐험하는 개미의 약자입니다.  </p>
+                        <p class="wow fadeInUp" data-wow-delay="400ms">ANA는 알고리즘 동아리 ANT와 오픈소스 동아리 Almighty 가 결합한 동아리입니다. </p>
+                        <a class="btn alime-btn btn-2 mt-30 wow fadeInUp" data-wow-delay="500ms" href="https://github.com/CNU-ANT" target="_blank">Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="about-video-area mb-80 wow fadeInUp" data-wow-delay="100ms">
+                        <img src="img/bg-img/6.jpg" alt="">
+                        <div class="video-icon">
+                            <a href="https://www.youtube.com/watch?v=sSakBz_eYzQ" class="video-play-btn"><i class="arrow_triangle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Us Area End -->
+
+    <!-- Why Choose Us Area Start -->
+    <section class="why-choose-us-area bg-gray section-padding-80-0 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                        <h2>Why Choose Us</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Why Choose Area -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="why-choose-us-content text-center mb-80 wow fadeInUp" data-wow-delay="100ms">
+                        <div class="chosse-us-icon">
+                            <i class="fa fa-film" aria-hidden="true"></i>
+                        </div>
+                        <h4>프로그래밍 교육, 스터디</h4>
+                        <p>기초 강의부터 대회에서 나오는 다양한 알고리즘까지 성장할 수 있는 교육을 제공합니다.
+                            웹서버 스터디, 머신러닝 스터디 등을 결성해 다양한 공부를 진행하고 있습니다.</p>
+                    </div>
+                </div>
+
+                <!-- Single Why Choose Area -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="why-choose-us-content text-center mb-80 wow fadeInUp" data-wow-delay="300ms">
+                        <div class="chosse-us-icon">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+                        <h4>대회 경험, 코딩테스트 준비 </h4>
+                        <p>여러 대학 알고리즘대회부터 ICPC, CodeJam 등 각종 알고리즘 대회에 도전합니다.
+                            대회 경험을 바탕으로 '생각하는 프로그래밍 대회'를 매년 개최 중입니다.</p>
+                    </div>
+                </div>
+
+                <!-- Single Why Choose Area -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="why-choose-us-content text-center mb-80 wow fadeInUp" data-wow-delay="500ms">
+                        <div class="chosse-us-icon">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </div>
+                        <h4>개발자 문화, 공모전, 도전</h4>
+                        <p>지식을 나누고 이야기하는 동아리입니다. 순수하게 개발을 즐기고 겸손하게 이야기를 나눴으면 합니다.
+                            다양한 공모전에 도전하며 성장하는 동아리입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Why Choose  us Area End -->
+
+    <!-- Our Team Area Start -->
+    <section class="our-team-area section-padding-80-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="100ms">
+                        <h2>Our Team</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="team-member-area-id">
+
+            </div>
+        </div>
+    </section>
+    <!-- Our Team Area End -->
+
+    <th:block th:include="@{fragment/home/follow-area.html}"></th:block>
+
 </div>
 
 
 <!-- Footer Area Start -->
-<th:block th:include="/fragment/common/footer-area"></th:block>
+<th:block th:include="@{fragment/common/footer-area}"></th:block>
 
 
 <!-- **** All JS Files ***** -->
 <!-- jQuery 2.2.4 -->
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{js/jquery.min.js}"></script>
 <!-- Popper -->
-<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{js/popper.min.js}"></script>
 <!-- Bootstrap -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
 
 <!-- Common CUSTOM -->
-<script th:src="@{/js/custom/components.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
-<script th:src="@{/js/custom/templates/home.js}"></script>
+<script th:src="@{js/custom/templates/about.js}"></script>
+
+<script th:src="@{js/custom/templates/home.js}"></script>
+
 <script th:inline="javascript">
     let status = /*[[${status}]]*/;
-    function main() {
+    let adminUsers = /*[[${users}]]*/;
+    main(adminUsers);
+    function main(adminUsers) {
+
         if (status === "signup") {
             swal("가입을 축하합니다.")
         } else if(status === 'login') {
             swal('로그인 되었습니다.')
         }
-        appendgalleryImgs();
+        let teamMemberArea = document.getElementById("team-member-area-id");
+        for (let i = 0; i < adminUsers.length; i++) {
+            let element = createTeamMemberArea(adminUsers[i], 500 + 500 * i);
+            teamMemberArea.append(element)
+        }
+
+        appendGalleryImgs();
         appendFollowAreaImgs();
     }
-    main()
+
 </script>
 
-
 <!-- All Plugins -->
-<script th:src="@{/js/alime.bundle.js}"></script>
+<script th:src="@{js/alime.bundle.js}"></script>
 <!-- Active -->
-<script th:src="@{/js/default-assets/active.js}"></script>
+<script th:src="@{js/default-assets/active.js}"></script>
 
 </body>
 

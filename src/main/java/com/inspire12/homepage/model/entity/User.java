@@ -2,21 +2,18 @@ package com.inspire12.homepage.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -32,6 +29,7 @@ public class User implements UserDetails {
 
     @Column(name = "email")
     @JsonProperty("email")
+    @Email(message="Please provide a valid Email")
     String email;
 
     @Column(name = "nickname")
@@ -44,6 +42,7 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     @JsonIgnore
+    @Length(min=5, message = "Password must have at least 5 characters")
     String password;
 
     @Column(name="created_at")
@@ -58,16 +57,24 @@ public class User implements UserDetails {
 
     @Column(name="role")
     String role;
+
+    @Column(name="profile")
+    String profile;
+
+    @Column(name = "student_id")
+    Integer studentId;
+
 //    List<String> role;
 
-//    Collection<? extends GrantedAuthority> authorities;
 
 
     public static User create(String username, String email, String password) {
         User user = new User();
         user.setUsername(username);
+        user.setNickname(username);
         user.setEmail(email);
         user.setPassword(password);
+        user.setRole("USER");
         return user;
     }
 
@@ -96,7 +103,5 @@ public class User implements UserDetails {
         return false;
     }
 
-    @Column(name="profile")
-    String profile;
 
 }
