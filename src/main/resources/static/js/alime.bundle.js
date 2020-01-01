@@ -36,8 +36,9 @@
         var closeIcon = $('.classycloseIcon');
         var navToggler = $('.navbarToggler');
         var classyMenu = $('.classy-menu');
+        var classyMenuProfile = $('.menu-profile');
         var var_window = $(window);
-
+        var searchIcon = $('.serach-icon');
         // default options
         var defaultOpt = $.extend({
             breakpoint: 991,
@@ -51,12 +52,14 @@
             navbarToggler.on('click', function () {
                 navToggler.toggleClass('active');
                 classyMenu.toggleClass('menu-on');
+                searchIcon.toggleClass('d-none')
             });
 
             // close icon
             closeIcon.on('click', function () {
-                classyMenu.removeClass('menu-on');
                 navToggler.removeClass('active');
+                classyMenu.removeClass('menu-on');
+                searchIcon.removeClass('d-none')
             });
 
             // add dropdown & megamenu class in parent li class
@@ -91,8 +94,11 @@
                 var windoWidth = window.innerWidth;
                 if (windoWidth <= defaultOpt.breakpoint) {
                     navContainer.removeClass('breakpoint-off').addClass('breakpoint-on');
+                    classyMenuProfile.removeClass('d-none')
                 } else {
                     navContainer.removeClass('breakpoint-on').addClass('breakpoint-off');
+                    classyMenuProfile.addClass('d-none')
+
                 }
             }
 

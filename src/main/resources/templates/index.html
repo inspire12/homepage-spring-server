@@ -143,7 +143,8 @@
 
 <script th:inline="javascript">
     let status = /*[[${status}]]*/;
-    let adminUsers = /*[[${users}]]*/;
+    let user = /*[[${userInfo}]]*/;
+    let adminUsers = /*[[${adminUsers}]]*/;
     main(adminUsers);
     function main(adminUsers) {
 

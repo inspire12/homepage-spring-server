@@ -107,11 +107,14 @@ public class SecurityController implements ErrorController {
         User user = userDetailService.readUser(username);
         userDetailService.setLastLoginedAt(username);
 
+        session.setAttribute("user", user);
         redirectAttributes.addFlashAttribute("name", "index");
         redirectAttributes.addFlashAttribute("status", "login");
         redirectAttributes.addFlashAttribute("user", user);
         return "redirect:/index";
     }
+
+
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping("/error")

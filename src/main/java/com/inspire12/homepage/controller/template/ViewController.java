@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,8 +54,10 @@ public class ViewController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
-    public String index(Model model) {
-        model.addAttribute("users", getAdminUsers());
+    public String index(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("userInfo", user);
+        model.addAttribute("adminUsers", getAdminUsers());
         model.addAttribute("name", "index");
         return "index";
     }
@@ -81,7 +84,7 @@ public class ViewController {
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/about")
     public String getAboutView(Model model) {
-        model.addAttribute("users", getAdminUsers());
+        model.addAttribute("adminUsers", getAdminUsers());
         return "about";
     }
 
