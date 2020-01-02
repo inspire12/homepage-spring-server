@@ -175,4 +175,10 @@ public class ViewController {
         return "opensource";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @GetMapping("/kakao")
+    public String getKakaoLabView() {
+        return "lab/kakao-login";
+    }
+
 }

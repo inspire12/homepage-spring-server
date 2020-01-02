@@ -15,12 +15,16 @@ function getRequest(url, f) {
 }
 
 function postRequest(url, body, func) {
+    let headers = {
+            'Content-Type': 'application/json',
+    };
+    postRequest(url, headers, body, func);
+}
 
+function postRequestWithHeader(url, header, body, func) {
     return fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: header,
         body: JSON.stringify(body)
     }).then(response => {
         console.dir(response);

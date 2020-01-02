@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<body>
+<img src="img/bg-img/2.jpg">
+<a id="kakao-login-btn"></a>
+<a href="https://kauth.kakao.com/oauth/authorize
+            ?client_id=b5f85af25d1bdf961d4f2016bafe3c6e
+            &redirect_uri=http://localhost:8080/oauth
+            &response_type=code">
+</a>
+<a href="http://developers.kakao.com/logout">logout</a>
+<script th:src="@{js/custom/fetch.js}"></script>
+
+
+<script type='text/javascript'>
+    //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('f4ad05ffe36cc9703410d23d2701dcf2');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+        container: '#kakao-login-btn',
+        success: function(authObj) {
+
+            alert(JSON.stringify(authObj));
+            let header =
+            postRequestWithHeader("http://localhost:8080/oauth").then(res => {
+
+            }).catch(e => {
+
+            })
+        },
+        fail: function(err) {
+            alert(JSON.stringify(err));
+        }
+    });
+    //]]>
+</script>
+
+</body>
+</html>
