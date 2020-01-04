@@ -60,9 +60,6 @@
         #previews .file-row.dz-success .delete {
             display: block;
         }
-
-
-
     </style>
 
     <link
@@ -72,9 +69,7 @@
 
 <body>
 <!-- Preloader -->
-<div id="preloader">
-    <div class="loader"></div>
-</div>
+<th:block th:include="@{fragment/common/pre-loader.html}"></th:block>
 <!-- /Preloader -->
 
 <script th:src="@{js/plugin/plugin/dropzone.js}"></script>
