@@ -70,6 +70,13 @@ public class ViewController {
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @GetMapping("/profile")
+    public String getProfile(Model model) {
+        model.addAttribute("name", "profiles");
+        return "profiles";
+    }
+
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/introduce")
     public String getIntroduceView() {
         return "introduce";
