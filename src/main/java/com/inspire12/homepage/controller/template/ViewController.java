@@ -7,6 +7,7 @@ import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.repository.UserRepository;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
+import com.inspire12.homepage.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,30 +35,17 @@ public class ViewController {
     ArticleService articleService;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     Logger logger = LoggerFactory.getLogger(ViewController.class);
 
-    private List<User> getAdminUsers() {
-        List<User> users = new ArrayList<>();
-        List<String> names = Arrays.asList("inspire12", "hygoni", "Sinyoung3016", "MoonDD99", "wilook");
-        for (String name : names) {
-            try {
-                users.add(userRepository.findById(name).get());
-            } catch (Exception e) {
-                logger.warn("user not found: " + name + e.toString());
-            }
-        }
-        Collections.shuffle(users);
-        return users;
-    }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
     public String index(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("userInfo", user);
-        model.addAttribute("adminUsers", getAdminUsers());
+        model.addAttribute("adminUsers", userService.getAdminUsers());
         model.addAttribute("name", "index");
         return "index";
     }
@@ -91,7 +79,7 @@ public class ViewController {
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/about")
     public String getAboutView(Model model) {
-        model.addAttribute("adminUsers", getAdminUsers());
+        model.addAttribute("adminUsers", userService.getAdminUsers());
         return "about";
     }
 
