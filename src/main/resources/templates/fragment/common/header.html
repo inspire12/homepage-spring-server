@@ -9,7 +9,8 @@
                 <nav class="classy-navbar justify-content-between" id="alimeNav">
                     <!-- Logo -->
                     <a class="nav-brand" href="/index">
-                        <div style="color:antiquewhite">ANA</div> </a>
+                        <div style="color:antiquewhite">ANA</div>
+                    </a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -26,8 +27,8 @@
                         <div class="classynav">
                             <div class="menu-profile" id="menuProfile" style="background: whitesmoke">
                                 유저란 입니다.
-                                <div> 하하하하 </div>
-                                <div> 하하하하 </div>
+                                <div> 하하하하</div>
+                                <div> 하하하하</div>
                             </div>
                             <ul id="nav">
                                 <li><a href="#">자료실</a>
@@ -43,11 +44,16 @@
 
                                         <li><a href="#">- Mento</a>
                                             <ul class="dropdown">
-                                                <li><a href="https://github.com/inspire12" target="_blank">- inspire12</a></li>
-                                                <li><a href="https://github.com/willook" target="_blank">- willook</a></li>
-                                                <li><a href="https://github.com/MoonDD99" target="_blank">- MoonDD99</a></li>
-                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">- Sinyoung</a></li>
-                                                <li><a href="https://github.com/hygoni" target="_blank">- hygoni</a></li>
+                                                <li><a href="https://github.com/inspire12" target="_blank">-
+                                                    inspire12</a></li>
+                                                <li><a href="https://github.com/willook" target="_blank">- willook</a>
+                                                </li>
+                                                <li><a href="https://github.com/MoonDD99" target="_blank">- MoonDD99</a>
+                                                </li>
+                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">-
+                                                    Sinyoung</a></li>
+                                                <li><a href="https://github.com/hygoni" target="_blank">- hygoni</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -78,7 +84,7 @@
 
 
                             </ul>
-                            <div class="dropdown text-right text-white" sec:authorize="!isAuthenticated()">
+                            <div class="dropdown text-right text-white margin-10" sec:authorize="!isAuthenticated()">
                                 <i class="fa fa-user-circle-o dropdown-toggle" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Login
@@ -87,11 +93,13 @@
                                     <form method="POST" action="/login" class="px-4 py-3">
                                         <div class="form-group">
                                             <label for="exampleDropdownFormID">ID</label>
-                                            <input type="text" class="form-control" name=username id="exampleDropdownFormID" placeholder="ID">
+                                            <input type="text" class="form-control" name=username
+                                                   id="exampleDropdownFormID" placeholder="ID">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleDropdownFormPassword1">Password</label>
-                                            <input type="password" class="form-control" name="password" id="exampleDropdownFormPassword1" placeholder="Password">
+                                            <input type="password" class="form-control" name="password"
+                                                   id="exampleDropdownFormPassword1" placeholder="Password">
                                         </div>
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" id="dropdownCheck">
@@ -99,19 +107,22 @@
                                                 Remember me
                                             </label>
                                         </div>
-                                        <input type="submit" class="btn btn-primary form-submit" name="login" id="login" value="Sign In"/>
+                                        <input type="submit" class="btn btn-primary form-submit" name="login" id="login"
+                                               value="Sign In"/>
                                     </form>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/signup">New around here? Sign up</a>
                                     <a class="dropdown-item" href="#">Forgot password?</a>
                                 </div>
                             </div>
-                            <div class="fa fa-user-circle-o text-right flex-vertical-center text-logout" sec:authorize="isAuthenticated()">
-                                <i class="fa fa-user-circle-o text-secondary form-submit" href="/logout" id="logout"> Logout</i>
+                            <div class="fa fa-user-circle-o text-right text-logout margin-10" sec:authorize="isAuthenticated()">
+                                <i class="fa fa-user-circle-o text-secondary form-submit" href="/logout" id="logout">
+                                    Logout</i>
                             </div>
 
                             <!-- Search Icon -->
-                            <div class="search-icon" data-toggle="modal" data-target="#searchModal"><i class="ti-search"></i></div>
+                            <div class="search-icon flex-vertical-center margin-10" data-toggle="modal"
+                                 data-target="#searchModal"><i class="ti-search"></i></div>
                         </div>
                         <!-- Nav End -->
                     </div>
@@ -123,16 +134,17 @@
 
 <script th:inline="javascript">
     activeSelectedInHeader();
+
     function activeSelectedInHeader() {
         let path = window.location.pathname;
         let headerMenu = document.getElementById("nav");
-        for (let i=0; i<headerMenu.childElementCount; i++) {
+        for (let i = 0; i < headerMenu.childElementCount; i++) {
             let menu = headerMenu.children[i];
-            if(menu.textContent.toLowerCase()==='home' && (path === '/index' || path === '/')){
+            if (menu.textContent.toLowerCase() === 'home' && (path === '/index' || path === '/')) {
                 menu.classList.add("active");
                 return
             }
-            if(path.slice(1, path.length) === menu.textContent.toLowerCase()){
+            if (path.slice(1, path.length) === menu.textContent.toLowerCase()) {
                 menu.classList.add("active");
                 return;
             }
