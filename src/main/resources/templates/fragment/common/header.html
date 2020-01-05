@@ -50,8 +50,7 @@
                                                 </li>
                                                 <li><a href="https://github.com/MoonDD99" target="_blank">- MoonDD99</a>
                                                 </li>
-                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">-
-                                                    Sinyoung</a></li>
+                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">- Sinyoung</a></li>
                                                 <li><a href="https://github.com/hygoni" target="_blank">- hygoni</a>
                                                 </li>
                                             </ul>
@@ -74,25 +73,28 @@
                                 <li><a href="#">Lab</a>
                                     <ul class="dropdown">
                                         <li><a href="/algorithm">- Algorithm</a></li>
-
                                         <li><a href="/ai">- AI</a></li>
                                         <li><a href="/gan-style">- AI-GAN</a></li>
-
                                         <li><a href="/gif">- Gif</a></li>
                                     </ul>
                                 </li>
-
+                                <li class="text-right text-white margin-10 cursor-pointer" sec:authorize="!isAuthenticated()">
+                                    <a href="#"><i class="fa fa-user-circle-o" onclick="window.location.href='/signup#signInForm'">
+                                        Login
+                                    </i></a>
+                                </li>
+                                <li class="cursor-pointer" sec:authorize="isAuthenticated()">
+                                    <a href="#"><i class="fa fa-user-circle-o form-submit" id="userProfile"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        User</i>
+                                    </a>
+                                    <ul>
+                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                    </ul>
+                                </li>
 
                             </ul>
-                            <div class="text-right text-white margin-10 cursor-pointer" sec:authorize="!isAuthenticated()">
-                                <i class="fa fa-user-circle-o" onclick="window.location.href='/signup#signInForm'">
-                                    Login
-                                </i>
-                            </div>
-                            <div class="fa fa-user-circle-o text-right text-logout margin-10 cursor-pointer" sec:authorize="isAuthenticated()">
-                                <i class="fa fa-user-circle-o text-secondary form-submit" href="/logout" id="logout">
-                                    Logout</i>
-                            </div>
 
                             <!-- Search Icon -->
                             <div class="search-icon flex-vertical-center margin-10" data-toggle="modal"

@@ -16,7 +16,7 @@
         var navToggler = $('.navbarToggler');
         var classyMenu = $('.classy-menu');
         var var_window = $(window);
-        var loginMenu = $('#dropdownMenuLink');
+        var menu_nav = $('#nav');
 
         // default options
         var defaultOpt = $.extend({
@@ -71,10 +71,11 @@
                 var windoWidth = window.innerWidth;
                 if (windoWidth <= defaultOpt.breakpoint) {
                     navContainer.removeClass('breakpoint-off').addClass('breakpoint-on');
-                    loginMenu.addClass('text-black').removeClass('text-white');
+                    menu_nav.children().last().hide()
+
                 } else {
                     navContainer.removeClass('breakpoint-on').addClass('breakpoint-off');
-                    loginMenu.addClass('text-white').removeClass('text-black');
+                    menu_nav.children().last().show()
                 }
             }
 

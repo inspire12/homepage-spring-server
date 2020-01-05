@@ -95,8 +95,8 @@ public class SecurityController implements ErrorController {
             @RequestParam Map<String, String> authenticationRequest,
             HttpSession session, RedirectAttributes redirectAttributes
     ) {
-        String username = authenticationRequest.get("username");
-        String password = authenticationRequest.get("password");
+        String username = (String)authenticationRequest.get("your_username");
+        String password = (String)authenticationRequest.get("your_password");
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = authProvider.authenticate(token);
