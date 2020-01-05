@@ -79,5 +79,4 @@ function validateFromForm(form) {
         }
     }
 
-    // action="/signup"
 }

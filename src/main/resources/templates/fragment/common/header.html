@@ -84,38 +84,12 @@
 
 
                             </ul>
-                            <div class="dropdown text-right text-white margin-10" sec:authorize="!isAuthenticated()">
-                                <i class="fa fa-user-circle-o dropdown-toggle" role="button" id="dropdownMenuLink"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="text-right text-white margin-10 cursor-pointer" sec:authorize="!isAuthenticated()">
+                                <i class="fa fa-user-circle-o" onclick="window.location.href='/signup#signInForm'">
                                     Login
                                 </i>
-                                <div class="dropdown-menu">
-                                    <form method="POST" action="/login" class="px-4 py-3">
-                                        <div class="form-group">
-                                            <label for="exampleDropdownFormID">ID</label>
-                                            <input type="text" class="form-control" name=username
-                                                   id="exampleDropdownFormID" placeholder="ID">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleDropdownFormPassword1">Password</label>
-                                            <input type="password" class="form-control" name="password"
-                                                   id="exampleDropdownFormPassword1" placeholder="Password">
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                            <label class="form-check-label" for="dropdownCheck">
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <input type="submit" class="btn btn-primary form-submit" name="login" id="login"
-                                               value="Sign In"/>
-                                    </form>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/signup">New around here? Sign up</a>
-                                    <a class="dropdown-item" href="#">Forgot password?</a>
-                                </div>
                             </div>
-                            <div class="fa fa-user-circle-o text-right text-logout margin-10" sec:authorize="isAuthenticated()">
+                            <div class="fa fa-user-circle-o text-right text-logout margin-10 cursor-pointer" sec:authorize="isAuthenticated()">
                                 <i class="fa fa-user-circle-o text-secondary form-submit" href="/logout" id="logout">
                                     Logout</i>
                             </div>

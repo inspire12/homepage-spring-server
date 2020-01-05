@@ -18,7 +18,8 @@
     <div class="main">
 
         <!-- Sign up form -->
-        <section class="signup">
+        <section class="signup" id="signUpForm">
+
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
@@ -53,7 +54,7 @@
                                 <label for="agreeTerm" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="sign-up" id="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
                     </div>
@@ -66,20 +67,20 @@
         </section>
 
         <!-- Sing in  Form -->
-        <section class="sign-in">
+        <section class="signin" id="signInForm">
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="img/outline-img/signin-image.jpg" alt="sign up image"></figure>
-                        <a href="#" class="signup-image-link">Create an account</a>
+                        <a href="#signUpForm" class="signup-image-link">Create an account</a>
                     </div>
 
                     <div class="signin-form">
                         <h2 class="form-title">Sign in</h2>
                         <form method="POST" action="/login" class="register-form" id="loginForm">
                             <div class="form-group">
-                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                                <label for="your_username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="your_name" id="your_username" placeholder="Your Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
@@ -90,7 +91,7 @@
                                 <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                                <input type="submit" name="sign-in" id="signin" class="form-submit" value="Log in"/>
                             </div>
                         </form>
                         <div class="social-login">
