@@ -1,6 +1,6 @@
 <script src="js/plugin/sweetalert.min.js"></script>
 
-<header class="header-area">
+<header class="header-area fixed-top">
     <!-- Main Header Start -->
     <div class="main-header-area">
         <div class="classy-nav-container breakpoint-off">
@@ -78,11 +78,11 @@
 
 
                             </ul>
-                            <div class="dropdown text-right" sec:authorize="!isAuthenticated()">
-                                <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            <div class="dropdown text-right text-white" sec:authorize="!isAuthenticated()">
+                                <i class="fa fa-user-circle-o dropdown-toggle" role="button" id="dropdownMenuLink"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Login
-                                </a>
+                                </i>
                                 <div class="dropdown-menu">
                                     <form method="POST" action="/login" class="px-4 py-3">
                                         <div class="form-group">
@@ -106,8 +106,8 @@
                                     <a class="dropdown-item" href="#">Forgot password?</a>
                                 </div>
                             </div>
-                            <div class="text-right" sec:authorize="isAuthenticated()">
-                                <a href="/logout" class="btn btn-warning form-submit" name="logout" id="logout"> Logout</a>
+                            <div class="fa fa-user-circle-o text-right flex-vertical-center text-logout" sec:authorize="isAuthenticated()">
+                                <i class="fa fa-user-circle-o text-secondary form-submit" href="/logout" id="logout"> Logout</i>
                             </div>
 
                             <!-- Search Icon -->

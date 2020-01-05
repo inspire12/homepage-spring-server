@@ -7,3 +7,17 @@
 .cust-grid-col {
     float: none;
 }
+
+.flex-vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-logout {
+    color: cornsilk;
+}
+
+.profile-img {
+    width: 140px;
+}
