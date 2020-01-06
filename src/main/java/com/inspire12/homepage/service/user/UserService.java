@@ -39,8 +39,12 @@ public class UserService {
         return userRepository.findById(username).get();
     }
 
-    public User modifyUser(String username, User modifiedUser) {
-
-        return userRepository.save(modifiedUser);
+    public User modifyUser(String username, User modifiedUser) throws Exception {
+        if(userRepository.existsById(username)) {
+            return userRepository.save(modifiedUser);
+        }
+        throw new Exception();
     }
+
 }
+

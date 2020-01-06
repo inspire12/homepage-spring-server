@@ -19,6 +19,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
@@ -56,11 +57,11 @@ public class SecurityController implements ErrorController {
         String username = requestBody.get("username");
         String password = requestBody.get("password");
         String email = requestBody.get("email");
-        String studentId = requestBody.get("student_id");
+        Integer studentId = Integer.parseInt(requestBody.get("student_id"));
         String realName = requestBody.get("realname");
 
         String encryptedPassword = authProvider.encrypt(username, password);
-        User user = User.create(username, email, encryptedPassword);
+        User user = User.create(username, email, encryptedPassword, studentId, realName);
         ObjectNode response = objectMapper.createObjectNode();
         try {
             // 중복 체크 추가
@@ -114,6 +115,26 @@ public class SecurityController implements ErrorController {
         return "redirect:/index";
     }
 
+    @PostMapping("/password")
+    public ResponseEntity setPassword(
+            @RequestParam Map<String, String> authenticationRequest,
+            HttpSession session, RedirectAttributes redirectAttributes
+    ) throws Exception {
+        String username = (String)authenticationRequest.get("username");
+        String password = (String)authenticationRequest.get("password");
+        String newPassword = (String)authenticationRequest.get("new_password");
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        Authentication authentication = authProvider.authenticate(token);
+        if (! authentication.isAuthenticated()) {
+            throw new Exception();
+        }
+        String encryptedPassword = authProvider.encrypt(username, newPassword);
+        if (userDetailService.setNewPassword(username, encryptedPassword) != 1){
+            throw new Exception();
+        }
+        return ResponseEntity.ok().build();
+    }
 //    @UserLevel(allow = UserLevel.UserRole.GUEST)
 //    @RequestMapping(value = "/oauth", method = RequestMethod.POST)
 //    public ResponseEntity<ObjectNode> loginFromKakao() {

@@ -78,6 +78,13 @@ public class User implements UserDetails {
         return user;
     }
 
+    public static User create(String username, String email, String password, int studentId, String realName) {
+        User user = create(username, email, password);
+        user.setStudentId(studentId);
+        user.setName(realName);
+        return user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

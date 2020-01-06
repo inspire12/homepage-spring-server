@@ -52,4 +52,8 @@ public class UserDetailService implements UserDetailsService {
     public void setLastLoginedAt(String username){
         userRepository.updateUserLastLoginTime(username);
     }
+
+    public int setNewPassword(String username, String encryptedPassword) {
+        return userRepository.updateNewPassword(username, encryptedPassword);
+    }
 }
