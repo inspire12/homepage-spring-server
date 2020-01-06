@@ -36,3 +36,7 @@
     cursor:pointer;
 }
 
+.no-shadow {
+    box-shadow: none!important;
+}
+

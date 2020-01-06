@@ -15,6 +15,7 @@ import com.inspire12.homepage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -38,8 +39,12 @@ public class ArticleService {
         return getArticleMsgById(id);
     }
 
+
     public ArticleMsg getArticleMsgById(int id) {
         Article article = articleRepository.findById(id).get();
+        if(article.getIsDeleted()) {
+
+        }
         return ArticleMsg.create(article);
     }
 
