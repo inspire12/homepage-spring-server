@@ -15,7 +15,7 @@ import java.io.IOException;
 @EnableConfigurationProperties(StorageProperties.class)
 public class HomepageApplication {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args){
         SpringApplication application = new SpringApplication(HomepageApplication.class);
         application.addListeners(new ApplicationPidFileWriter());
         application.run(args);

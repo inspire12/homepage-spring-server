@@ -4,7 +4,6 @@ package com.inspire12.homepage.controller.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.interceptor.UserLevel;
-import com.inspire12.homepage.model.entity.AuthenticationToken;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +27,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.InvalidKeyException;
@@ -135,6 +132,7 @@ public class SecurityController implements ErrorController {
         }
         return ResponseEntity.ok().build();
     }
+//
 //    @UserLevel(allow = UserLevel.UserRole.GUEST)
 //    @RequestMapping(value = "/oauth", method = RequestMethod.POST)
 //    public ResponseEntity<ObjectNode> loginFromKakao() {
@@ -151,7 +149,6 @@ public class SecurityController implements ErrorController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping("/error")
-    @ExceptionHandler(Throwable.class)
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 //        logger.error("Exception during execution of SpringSecurity application", throwable);
@@ -176,6 +173,6 @@ public class SecurityController implements ErrorController {
     @Override
     public String getErrorPath() {
 
-        return "error/404";
+        return "auth/error";
     }
 }

@@ -42,7 +42,8 @@ public class ViewController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
-    public String index(Model model, HttpSession session) {
+    public String index(Model model, HttpSession session) throws Exception {
+
         User user = (User) session.getAttribute("user");
         model.addAttribute("userInfo", user);
         model.addAttribute("adminUsers", userService.getAdminUsers());
@@ -127,7 +128,7 @@ public class ViewController {
         return "article";
     }
 
-//    @UserLevel(allow = UserLevel.UserRole.USER)
+    @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/writing")
     public String getWriteView(Model model,
                                @RequestParam(name = "id", defaultValue = "0") Integer id) throws NotAuthException {
