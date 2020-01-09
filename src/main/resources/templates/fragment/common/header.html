@@ -25,10 +25,37 @@
                         </div>
                         <!-- Nav Start -->
                         <div class="classynav">
-                            <div class="menu-profile" id="menuProfile" style="background: whitesmoke">
-                                유저란 입니다.
-                                <div> 하하하하</div>
-                                <div> 하하하하</div>
+                            <div class="menu-profile" id="menuProfile" style="background: whitesmoke; height:200px;">
+                                <div sec:authorize="!isAuthenticated()">
+                                    <div style="display:flex; justify-content: center">
+                                        <img style="border-radius: 50%; width:150px; height: 150px" src="/img/user-img/common-user.jpg">
+                                    </div>
+                                    <div class="" style="display:flex; justify-content: flex-end">
+                                        <div class="margin-10">
+                                            <a href="#"><i class="fa fa-user-circle-o"
+                                                           onclick="window.location.href='/signup#signUpForm'">
+                                                Sign Up
+                                            </i></a>
+                                        </div>
+                                        <div class="margin-10">
+                                            <a href="#"><i class="fa fa-user-circle-o"
+                                                           onclick="window.location.href='/signup#signInForm'">
+                                                Login
+                                            </i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div sec:authorize="isAuthenticated()">
+                                    <div class="display-flex-center">
+                                        <img height="150px" src="/img/user-img/common-user.jpg">
+                                    </div>
+                                    <div class="flex-md-wrap-reverse">
+                                        <a href="/profile">Profile</a>
+                                        <a href="/logout">Logout</a>
+                                    </div>
+
+                                </div>
+
                             </div>
                             <ul id="nav" class="mb-0">
                                 <li><a href="#">자료실</a>
@@ -49,7 +76,8 @@
                                                 </li>
                                                 <li><a href="https://github.com/MoonDD99" target="_blank">- MoonDD99</a>
                                                 </li>
-                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">- Sinyoung</a></li>
+                                                <li><a href="https://github.com/Sinyoung3016" target="_blank">-
+                                                    Sinyoung</a></li>
                                                 <li><a href="https://github.com/hygoni" target="_blank">- hygoni</a>
                                                 </li>
                                             </ul>
@@ -77,26 +105,27 @@
                                         <li><a href="/gif">- Gif</a></li>
                                     </ul>
                                 </li>
-                                <li class="text-right text-white margin-10 cursor-pointer" sec:authorize="!isAuthenticated()">
-                                    <a href="#"><i class="fa fa-user-circle-o" onclick="window.location.href='/signup#signInForm'">
+                                <li class="text-right text-white margin-10 cursor-pointer"
+                                    sec:authorize="!isAuthenticated()" id="headerLogin" style="inline-block!important">
+                                    <a href="#"><i class="fa fa-user-circle-o"
+                                                   onclick="window.location.href='/signup#signInForm'">
                                         Login
                                     </i></a>
                                 </li>
-                                <li class="cursor-pointer" sec:authorize="isAuthenticated()">
-                                    <a href="#"><i class="fa fa-user-circle-o form-submit" id="userProfile"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <li sec:authorize="isAuthenticated()">
+                                    <a href="#"><i class="fa fa-user-circle-o form-submit">
                                         User</i>
                                     </a>
-                                    <ul>
-                                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                    <ul class="dropdown">
+                                        <li><a href="/profile">Profile</a></li>
+                                        <li><a href="/logout">Logout</a></li>
                                     </ul>
                                 </li>
 
                             </ul>
 
                             <!-- Search Icon -->
-                            <div class="search-icon flex-vertical-center margin-10" data-toggle="modal"
+                            <div class="search-icon flex-vertical-center margin-10" data-toggle="modal" id="searchIcon"
                                  data-target="#searchModal"><i class="ti-search"></i></div>
                         </div>
                         <!-- Nav End -->

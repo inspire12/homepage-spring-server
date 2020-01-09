@@ -91,13 +91,18 @@
 
             // check browser width in real-time
             function breakpointCheck() {
-                var windoWidth = window.innerWidth;
-                if (windoWidth <= defaultOpt.breakpoint) {
+                var windowWidth = window.innerWidth;
+                if (windowWidth <= defaultOpt.breakpoint) {
                     navContainer.removeClass('breakpoint-off').addClass('breakpoint-on');
-                    classyMenuProfile.removeClass('d-none')
+                    classyMenuProfile.removeClass('d-none');
+                    $('#headerLogin').hide();
+                    $('#searchIcon').hide()
+
                 } else {
                     navContainer.removeClass('breakpoint-on').addClass('breakpoint-off');
                     classyMenuProfile.addClass('d-none')
+                    $('#headerLogin').show()
+                    $('#searchIcon').show()
                 }
             }
 
