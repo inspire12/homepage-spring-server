@@ -47,7 +47,7 @@
                                 </div>
                                 <div sec:authorize="isAuthenticated()">
                                     <div class="display-flex-center">
-                                        <img height="150px" src="/img/user-img/common-user.jpg">
+                                        <img height="150px" th:src="@{/img/user-img/common-user.jpg}">
                                     </div>
                                     <div class="flex-md-wrap-reverse">
                                         <a href="/profile">Profile</a>
@@ -105,8 +105,8 @@
                                         <li><a href="/gif">- Gif</a></li>
                                     </ul>
                                 </li>
-                                <li class="text-right text-white margin-10 cursor-pointer"
-                                    sec:authorize="!isAuthenticated()" id="headerLogin" style="inline-block!important">
+                                <li class="text-right text-white margin-10 cursor-pointer display-inline-block"
+                                    sec:authorize="!isAuthenticated()" id="headerLogin">
                                     <a href="#"><i class="fa fa-user-circle-o"
                                                    onclick="window.location.href='/signup#signInForm'">
                                         Login

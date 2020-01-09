@@ -19,7 +19,9 @@
     align-items: flex-end;
     justify-content: center;
 }
-
+.display-inline-block{
+    display: inline-block !important;
+}
 .text-logout {
     color: cornsilk;
 }
