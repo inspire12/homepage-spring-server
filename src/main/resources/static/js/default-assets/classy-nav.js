@@ -1,3 +1,4 @@
+
 // **********************************************
 // ** Classy Nav - 1.1.0
 // ** Responsive Megamenu Plugins
@@ -6,20 +7,19 @@
 
 (function ($) {
     $.fn.classyNav = function (options) {
-
         // Variables
-        var navContainer = $('.classy-nav-container');
-        var classy_nav = $('.classynav ul');
-        var classy_navli = $('.classynav > ul > li');
-        var navbarToggler = $('.classy-navbar-toggler');
-        var closeIcon = $('.classycloseIcon');
-        var navToggler = $('.navbarToggler');
-        var classyMenu = $('.classy-menu');
-        var var_window = $(window);
-        var menu_nav = $('#nav');
-
+        let navContainer = $('.classy-nav-container');
+        let classy_nav = $('.classynav ul');
+        let classy_navli = $('.classynav > ul > li');
+        let navbarToggler = $('.classy-navbar-toggler');
+        let closeIcon = $('.classycloseIcon');
+        let navToggler = $('.navbarToggler');
+        let classyMenu = $('.classy-menu');
+        let classyMenuProfile = $('.menu-profile');
+        let var_window = $(window);
+        let searchIcon = $('.serach-icon');
         // default options
-        var defaultOpt = $.extend({
+        let defaultOpt = $.extend({
             breakpoint: 991,
             openCloseSpeed: 500,
             megaopenCloseSpeed: 800
@@ -31,12 +31,14 @@
             navbarToggler.on('click', function () {
                 navToggler.toggleClass('active');
                 classyMenu.toggleClass('menu-on');
+                searchIcon.toggleClass('d-none')
             });
 
             // close icon
             closeIcon.on('click', function () {
-                classyMenu.removeClass('menu-on');
                 navToggler.removeClass('active');
+                classyMenu.removeClass('menu-on');
+                searchIcon.removeClass('d-none')
             });
 
             // add dropdown & megamenu class in parent li class
@@ -66,16 +68,25 @@
                 $(this).parent('li').children('.megamenu').slideToggle(defaultOpt.megaopenCloseSpeed);
             });
 
+
             // check browser width in real-time
             function breakpointCheck() {
-                var windoWidth = window.innerWidth;
-                if (windoWidth <= defaultOpt.breakpoint) {
+                let headerLogin = $('#headerLogin');
+                let headerLoginAfter = $('#headerLoginAfter');
+                let windowWidth = window.innerWidth;
+                if (windowWidth <= defaultOpt.breakpoint) {
                     navContainer.removeClass('breakpoint-off').addClass('breakpoint-on');
-                    menu_nav.children().last().hide()
+                    classyMenuProfile.removeClass('d-none');
+                    headerLogin.removeClass('display-inline-block').addClass('d-none');
+                    headerLoginAfter.addClass('d-none');
+                    $('#searchIcon').hide()
 
                 } else {
                     navContainer.removeClass('breakpoint-on').addClass('breakpoint-off');
-                    menu_nav.children().last().show()
+                    classyMenuProfile.addClass('d-none');
+                    headerLogin.removeClass('d-none').addClass('display-inline-block');
+                    headerLoginAfter.removeClass('d-none');
+                    $('#searchIcon').show()
                 }
             }
 
@@ -91,5 +102,11 @@
             }
         });
     };
-    
+
 }(jQuery));
+
+
+if ($.fn.classyNav) {
+    $('#alimeNav').classyNav();
+}
+

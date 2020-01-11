@@ -1,16 +1,16 @@
 // Avoid `console` errors in browsers that lack a console.
 (function () {
-    let method;
-    let noop = function noop() {
+    var method;
+    var noop = function noop() {
     };
-    let methods = [
+    var methods = [
         'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
         'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
         'timeStamp', 'trace', 'warn'
     ];
-    let length = methods.length;
-    let console = (window.console = window.console || {});
+    var length = methods.length;
+    var console = (window.console = window.console || {});
     while (length--) {
         method = methods[length];
         // Only stub undefined methods.
@@ -19,112 +19,6 @@
         }
     }
 }());
-
-// **********************************************
-// ** Classy Nav - 1.1.0
-// ** Responsive Megamenu Plugins
-// ** Copyright (c) 2019 Designing World
-// **********************************************
-
-(function ($) {
-    $.fn.classyNav = function (options) {
-        // Variables
-        let navContainer = $('.classy-nav-container');
-        let classy_nav = $('.classynav ul');
-        let classy_navli = $('.classynav > ul > li');
-        let navbarToggler = $('.classy-navbar-toggler');
-        let closeIcon = $('.classycloseIcon');
-        let navToggler = $('.navbarToggler');
-        let classyMenu = $('.classy-menu');
-        let classyMenuProfile = $('.menu-profile');
-        let var_window = $(window);
-        let searchIcon = $('.serach-icon');
-        // default options
-        let defaultOpt = $.extend({
-            breakpoint: 991,
-            openCloseSpeed: 500,
-            megaopenCloseSpeed: 800
-        }, options);
-
-        return this.each(function () {
-
-            // navbar toggler
-            navbarToggler.on('click', function () {
-                navToggler.toggleClass('active');
-                classyMenu.toggleClass('menu-on');
-                searchIcon.toggleClass('d-none')
-            });
-
-            // close icon
-            closeIcon.on('click', function () {
-                navToggler.removeClass('active');
-                classyMenu.removeClass('menu-on');
-                searchIcon.removeClass('d-none')
-            });
-
-            // add dropdown & megamenu class in parent li class
-            classy_navli.has('.dropdown').addClass('cn-dropdown-item');
-            classy_navli.has('.megamenu').addClass('megamenu-item');
-
-            // adds toggle button to li items that have children
-            classy_nav.find('li a').each(function () {
-                if ($(this).next().length > 0) {
-                    $(this).parent('li').addClass('has-down').append('<span class="dd-trigger"></span>');
-                }
-            });
-
-            // expands the dropdown menu on each click
-            classy_nav.find('li .dd-trigger').on('click', function (e) {
-                e.preventDefault();
-                $(this).parent('li').children('ul').stop(true, true).slideToggle(defaultOpt.openCloseSpeed);
-                $(this).parent('li').toggleClass('active');
-            });
-
-            // add padding in dropdown & megamenu item
-            $('.megamenu-item').removeClass('has-down');
-
-            // expands the megamenu on each click
-            classy_nav.find('li .dd-trigger').on('click', function (e) {
-                e.preventDefault();
-                $(this).parent('li').children('.megamenu').slideToggle(defaultOpt.megaopenCloseSpeed);
-            });
-
-
-            // check browser width in real-time
-            function breakpointCheck() {
-                let headerLogin = $('#headerLogin');
-                let headerLoginAfter = $('#headerLoginAfter');
-                let windowWidth = window.innerWidth;
-                if (windowWidth <= defaultOpt.breakpoint) {
-                    navContainer.removeClass('breakpoint-off').addClass('breakpoint-on');
-                    classyMenuProfile.removeClass('d-none');
-                    headerLogin.addClass('d-none');
-                    headerLoginAfter.addClass('d-none');
-                    $('#searchIcon').hide()
-
-                } else {
-                    navContainer.removeClass('breakpoint-on').addClass('breakpoint-off');
-                    classyMenuProfile.addClass('d-none');
-                    headerLogin.removeClass('d-none');
-                    headerLoginAfter.removeClass('d-none');
-                    $('#searchIcon').show()
-                }
-            }
-
-            breakpointCheck();
-
-            var_window.on('resize', function () {
-                breakpointCheck();
-            });
-
-            // sidebar menu enable
-            if (defaultOpt.sideMenu === true) {
-                navContainer.addClass('sidebar-menu-on').removeClass('breakpoint-off');
-            }
-        });
-    };
-
-}(jQuery));
 /**
  * Owl Carousel v2.2.1
  * Copyright 2013-2017 Saurabh Sharma
@@ -204,13 +98,13 @@
         }
     }, {
         filter: ["width", "items", "settings"], run: function (a) {
-            let b = this.settings.margin || "", c = !this.settings.autoWidth, d = this.settings.rtl,
+            var b = this.settings.margin || "", c = !this.settings.autoWidth, d = this.settings.rtl,
                 e = {width: "auto", "margin-left": d ? b : "", "margin-right": d ? "" : b};
             !c && this.$stage.children().css(e), a.css = e
         }
     }, {
         filter: ["width", "items", "settings"], run: function (a) {
-            let b = (this.width() / this.settings.items).toFixed(3) - this.settings.margin, c = null,
+            var b = (this.width() / this.settings.items).toFixed(3) - this.settings.margin, c = null,
                 d = this._items.length, e = !this.settings.autoWidth, f = [];
             for (a.items = {
                 merge: !1,
@@ -220,19 +114,19 @@
         }
     }, {
         filter: ["items", "settings"], run: function () {
-            let b = [], c = this._items, d = this.settings, e = Math.max(2 * d.items, 4),
+            var b = [], c = this._items, d = this.settings, e = Math.max(2 * d.items, 4),
                 f = 2 * Math.ceil(c.length / 2), g = d.loop && c.length ? d.rewind ? e : Math.max(e, f) : 0;
             for (g /= 2; g--;) b.push(this.normalize(b.length / 2, !0)), a(c[b[b.length - 1]][0]).clone(!0).addClass("cloned").appendTo(this.$stage), b.push(this.normalize(c.length - 1 - (b.length - 1) / 2, !0)), a(c[b[b.length - 1]][0]).clone(!0).addClass("cloned").prependTo(this.$stage);
             this._clones = b
         }
     }, {
         filter: ["width", "items", "settings"], run: function () {
-            for (let a = this.settings.rtl ? 1 : -1, b = this._clones.length + this._items.length, c = -1, d = 0, e = 0, f = []; ++c < b;) d = f[c - 1] || 0, e = this._widths[this.relative(c)] + this.settings.margin, f.push(d + e * a);
+            for (var a = this.settings.rtl ? 1 : -1, b = this._clones.length + this._items.length, c = -1, d = 0, e = 0, f = []; ++c < b;) d = f[c - 1] || 0, e = this._widths[this.relative(c)] + this.settings.margin, f.push(d + e * a);
             this._coordinates = f
         }
     }, {
         filter: ["width", "items", "settings"], run: function () {
-            let a = this.settings.stagePadding, b = this._coordinates, c = {
+            var a = this.settings.stagePadding, b = this._coordinates, c = {
                 width: Math.ceil(Math.abs(b[b.length - 1])) + 2 * a,
                 "padding-left": a || "",
                 "padding-right": a || ""
@@ -241,7 +135,7 @@
         }
     }, {
         filter: ["width", "items", "settings"], run: function (a) {
-            let b = this._coordinates.length, c = !this.settings.autoWidth, d = this.$stage.children();
+            var b = this._coordinates.length, c = !this.settings.autoWidth, d = this.$stage.children();
             if (c && a.items.merge) for (; b--;) a.css.width = this._widths[this.relative(b)], d.eq(b).css(a.css); else c && (a.css.width = a.items.width, d.css(a.css))
         }
     }, {
@@ -258,19 +152,19 @@
         }
     }, {
         filter: ["width", "position", "items", "settings"], run: function () {
-            let a, b, c, d, e = this.settings.rtl ? 1 : -1, f = 2 * this.settings.stagePadding,
+            var a, b, c, d, e = this.settings.rtl ? 1 : -1, f = 2 * this.settings.stagePadding,
                 g = this.coordinates(this.current()) + f, h = g + this.width() * e, i = [];
             for (c = 0, d = this._coordinates.length; c < d; c++) a = this._coordinates[c - 1] || 0, b = Math.abs(this._coordinates[c]) + f * e, (this.op(a, "<=", g) && this.op(a, ">", h) || this.op(b, "<", g) && this.op(b, ">", h)) && i.push(c);
             this.$stage.children(".active").removeClass("active"), this.$stage.children(":eq(" + i.join("), :eq(") + ")").addClass("active"), this.settings.center && (this.$stage.children(".center").removeClass("center"), this.$stage.children().eq(this.current()).addClass("center"))
         }
     }], e.prototype.initialize = function () {
         if (this.enter("initializing"), this.trigger("initialize"), this.$element.toggleClass(this.settings.rtlClass, this.settings.rtl), this.settings.autoWidth && !this.is("pre-loading")) {
-            let b, c, e;
+            var b, c, e;
             b = this.$element.find("img"), c = this.settings.nestedItemSelector ? "." + this.settings.nestedItemSelector : d, e = this.$element.children(c).width(), b.length && e <= 0 && this.preloadAutoWidthImages(b)
         }
         this.$element.addClass(this.options.loadingClass), this.$stage = a("<" + this.settings.stageElement + ' class="' + this.settings.stageClass + '"/>').wrap('<div class="' + this.settings.stageOuterClass + '"/>'), this.$element.append(this.$stage.parent()), this.replace(this.$element.children().not(this.$stage.parent())), this.$element.is(":visible") ? this.refresh() : this.invalidate("width"), this.$element.removeClass(this.options.loadingClass).addClass(this.options.loadedClass), this.registerEventHandlers(), this.leave("initializing"), this.trigger("initialized")
     }, e.prototype.setup = function () {
-        let b = this.viewport(), c = this.options.responsive, d = -1, e = null;
+        var b = this.viewport(), c = this.options.responsive, d = -1, e = null;
         c ? (a.each(c, function (a) {
             a <= b && a > d && (d = Number(a))
         }), e = a.extend({}, this.options, c[d]), "function" == typeof e.stagePadding && (e.stagePadding = e.stagePadding()), delete e.responsive, e.responsiveClass && this.$element.attr("class", this.$element.attr("class").replace(new RegExp("(" + this.options.responsiveClass + "-)\\S+\\s", "g"), "$1" + d))) : e = a.extend({}, this.options), this.trigger("change", {
@@ -287,10 +181,10 @@
     }, e.prototype.optionsLogic = function () {
         this.settings.autoWidth && (this.settings.stagePadding = !1, this.settings.merge = !1)
     }, e.prototype.prepare = function (b) {
-        let c = this.trigger("prepare", {content: b});
+        var c = this.trigger("prepare", {content: b});
         return c.data || (c.data = a("<" + this.settings.itemElement + "/>").addClass(this.options.itemClass).append(b)), this.trigger("prepared", {content: c.data}), c.data
     }, e.prototype.update = function () {
-        for (let b = 0, c = this._pipe.length, d = a.proxy(function (a) {
+        for (var b = 0, c = this._pipe.length, d = a.proxy(function (a) {
             return this[a]
         }, this._invalidated), e = {}; b < c;) (this._invalidated.all || a.grep(this._pipe[b].filter, d).length > 0) && this._pipe[b].run(e), b++;
         this._invalidated = {}, !this.is("valid") && this.enter("valid")
@@ -313,7 +207,7 @@
             return !1
         })), this.settings.touchDrag && (this.$stage.on("touchstart.owl.core", a.proxy(this.onDragStart, this)), this.$stage.on("touchcancel.owl.core", a.proxy(this.onDragEnd, this)))
     }, e.prototype.onDragStart = function (b) {
-        let d = null;
+        var d = null;
         3 !== b.which && (a.support.transform ? (d = this.$stage.css("transform").replace(/.*\(|\)| /g, "").split(","), d = {
             x: d[16 === d.length ? 12 : 4],
             y: d[16 === d.length ? 13 : 5]
@@ -321,26 +215,26 @@
             x: this.settings.rtl ? d.left + this.$stage.width() - this.width() + this.settings.margin : d.left,
             y: d.top
         }), this.is("animating") && (a.support.transform ? this.animate(d.x) : this.$stage.stop(), this.invalidate("position")), this.$element.toggleClass(this.options.grabClass, "mousedown" === b.type), this.speed(0), this._drag.time = (new Date).getTime(), this._drag.target = a(b.target), this._drag.stage.start = d, this._drag.stage.current = d, this._drag.pointer = this.pointer(b), a(c).on("mouseup.owl.core touchend.owl.core", a.proxy(this.onDragEnd, this)), a(c).one("mousemove.owl.core touchmove.owl.core", a.proxy(function (b) {
-            let d = this.difference(this._drag.pointer, this.pointer(b));
+            var d = this.difference(this._drag.pointer, this.pointer(b));
             a(c).on("mousemove.owl.core touchmove.owl.core", a.proxy(this.onDragMove, this)), Math.abs(d.x) < Math.abs(d.y) && this.is("valid") || (b.preventDefault(), this.enter("dragging"), this.trigger("drag"))
         }, this)))
     }, e.prototype.onDragMove = function (a) {
-        let b = null, c = null, d = null, e = this.difference(this._drag.pointer, this.pointer(a)),
+        var b = null, c = null, d = null, e = this.difference(this._drag.pointer, this.pointer(a)),
             f = this.difference(this._drag.stage.start, e);
         this.is("dragging") && (a.preventDefault(), this.settings.loop ? (b = this.coordinates(this.minimum()), c = this.coordinates(this.maximum() + 1) - b, f.x = ((f.x - b) % c + c) % c + b) : (b = this.settings.rtl ? this.coordinates(this.maximum()) : this.coordinates(this.minimum()), c = this.settings.rtl ? this.coordinates(this.minimum()) : this.coordinates(this.maximum()), d = this.settings.pullDrag ? -1 * e.x / 5 : 0, f.x = Math.max(Math.min(f.x, b + d), c + d)), this._drag.stage.current = f, this.animate(f.x))
     }, e.prototype.onDragEnd = function (b) {
-        let d = this.difference(this._drag.pointer, this.pointer(b)), e = this._drag.stage.current,
+        var d = this.difference(this._drag.pointer, this.pointer(b)), e = this._drag.stage.current,
             f = d.x > 0 ^ this.settings.rtl ? "left" : "right";
         a(c).off(".owl.core"), this.$element.removeClass(this.options.grabClass), (0 !== d.x && this.is("dragging") || !this.is("valid")) && (this.speed(this.settings.dragEndSpeed || this.settings.smartSpeed), this.current(this.closest(e.x, 0 !== d.x ? f : this._drag.direction)), this.invalidate("position"), this.update(), this._drag.direction = f, (Math.abs(d.x) > 3 || (new Date).getTime() - this._drag.time > 300) && this._drag.target.one("click.owl.core", function () {
             return !1
         })), this.is("dragging") && (this.leave("dragging"), this.trigger("dragged"))
     }, e.prototype.closest = function (b, c) {
-        let d = -1, e = 30, f = this.width(), g = this.coordinates();
+        var d = -1, e = 30, f = this.width(), g = this.coordinates();
         return this.settings.freeDrag || a.each(g, a.proxy(function (a, h) {
             return "left" === c && b > h - e && b < h + e ? d = a : "right" === c && b > h - f - e && b < h - f + e ? d = a + 1 : this.op(b, "<", h) && this.op(b, ">", g[a + 1] || h - f) && (d = "left" === c ? a + 1 : a), -1 === d
         }, this)), this.settings.loop || (this.op(b, ">", g[this.minimum()]) ? d = b = this.minimum() : this.op(b, "<", g[this.maximum()]) && (d = b = this.maximum())), d
     }, e.prototype.animate = function (b) {
-        let c = this.speed() > 0;
+        var c = this.speed() > 0;
         this.is("animating") && this.onTransitionEnd(), c && (this.enter("animating"), this.trigger("translate")), a.support.transform3d && a.support.transition ? this.$stage.css({
             transform: "translate3d(" + b + "px,0px,0px)",
             transition: this.speed() / 1e3 + "s"
@@ -351,7 +245,7 @@
         if (a === d) return this._current;
         if (0 === this._items.length) return d;
         if (a = this.normalize(a), this._current !== a) {
-            let b = this.trigger("change", {property: {name: "position", value: a}});
+            var b = this.trigger("change", {property: {name: "position", value: a}});
             b.data !== d && (a = this.normalize(b.data)), this._current = a, this.invalidate("position"), this.trigger("changed", {
                 property: {
                     name: "position",
@@ -367,12 +261,12 @@
     }, e.prototype.reset = function (a) {
         (a = this.normalize(a)) !== d && (this._speed = 0, this._current = a, this.suppress(["translate", "translated"]), this.animate(this.coordinates(a)), this.release(["translate", "translated"]))
     }, e.prototype.normalize = function (a, b) {
-        let c = this._items.length, e = b ? 0 : this._clones.length;
+        var c = this._items.length, e = b ? 0 : this._clones.length;
         return !this.isNumeric(a) || c < 1 ? a = d : (a < 0 || a >= c + e) && (a = ((a - e / 2) % c + c) % c + e / 2), a
     }, e.prototype.relative = function (a) {
         return a -= this._clones.length / 2, this.normalize(a, !0)
     }, e.prototype.maximum = function (a) {
-        let b, c, d, e = this.settings, f = this._coordinates.length;
+        var b, c, d, e = this.settings, f = this._coordinates.length;
         if (e.loop) f = this._clones.length / 2 + this._items.length - 1; else if (e.autoWidth || e.merge) {
             for (b = this._items.length, c = this._items[--b].width(), d = this.$element.width(); b-- && !((c += this._items[b].width() + this.settings.margin) > d);) ;
             f = b + 1
@@ -385,7 +279,7 @@
     }, e.prototype.mergers = function (a) {
         return a === d ? this._mergers.slice() : (a = this.normalize(a, !0), this._mergers[a])
     }, e.prototype.clones = function (b) {
-        let c = this._clones.length / 2, e = c + this._items.length, f = function (a) {
+        var c = this._clones.length / 2, e = c + this._items.length, f = function (a) {
             return a % 2 == 0 ? e + a / 2 : c - (a + 1) / 2
         };
         return b === d ? a.map(this._clones, function (a, b) {
@@ -396,14 +290,14 @@
     }, e.prototype.speed = function (a) {
         return a !== d && (this._speed = a), this._speed
     }, e.prototype.coordinates = function (b) {
-        let c, e = 1, f = b - 1;
+        var c, e = 1, f = b - 1;
         return b === d ? a.map(this._coordinates, a.proxy(function (a, b) {
             return this.coordinates(b)
         }, this)) : (this.settings.center ? (this.settings.rtl && (e = -1, f = b + 1), c = this._coordinates[b], c += (this.width() - c + (this._coordinates[f] || 0)) / 2 * e) : c = this._coordinates[f] || 0, c = Math.ceil(c))
     }, e.prototype.duration = function (a, b, c) {
         return 0 === c ? 0 : Math.min(Math.max(Math.abs(b - a), 1), 6) * Math.abs(c || this.settings.smartSpeed)
     }, e.prototype.to = function (a, b) {
-        let c = this.current(), d = null, e = a - this.relative(c), f = (e > 0) - (e < 0), g = this._items.length,
+        var c = this.current(), d = null, e = a - this.relative(c), f = (e > 0) - (e < 0), g = this._items.length,
             h = this.minimum(), i = this.maximum();
         this.settings.loop ? (!this.settings.rewind && Math.abs(e) > g / 2 && (e += -1 * f * g), a = c + e, (d = ((a - h) % g + g) % g + h) !== a && d - e <= i && d - e > 0 && (c = d - e, a = d, this.reset(c))) : this.settings.rewind ? (i += 1, a = (a % i + i) % i) : a = Math.max(h, Math.min(i, a)), this.speed(this.duration(c, a, b)), this.current(a), this.$element.is(":visible") && this.update()
     }, e.prototype.next = function (a) {
@@ -414,7 +308,7 @@
         if (a !== d && (a.stopPropagation(), (a.target || a.srcElement || a.originalTarget) !== this.$stage.get(0))) return !1;
         this.leave("animating"), this.trigger("translated")
     }, e.prototype.viewport = function () {
-        let d;
+        var d;
         return this.options.responsiveBaseElement !== b ? d = a(this.options.responsiveBaseElement).width() : b.innerWidth ? d = b.innerWidth : c.documentElement && c.documentElement.clientWidth ? d = c.documentElement.clientWidth : console.warn("Can not detect viewport width."), d
     }, e.prototype.replace = function (b) {
         this.$stage.empty(), this._items = [], b && (b = b instanceof jQuery ? b : a(b)), this.settings.nestedItemSelector && (b = b.find("." + this.settings.nestedItemSelector)), b.filter(function () {
@@ -423,7 +317,7 @@
             b = this.prepare(b), this.$stage.append(b), this._items.push(b), this._mergers.push(1 * b.find("[data-merge]").addBack("[data-merge]").attr("data-merge") || 1)
         }, this)), this.reset(this.isNumeric(this.settings.startPosition) ? this.settings.startPosition : 0), this.invalidate("items")
     }, e.prototype.add = function (b, c) {
-        let e = this.relative(this._current);
+        var e = this.relative(this._current);
         c = c === d ? this._items.length : this.normalize(c, !0), b = b instanceof jQuery ? b : a(b), this.trigger("add", {
             content: b,
             position: c
@@ -447,10 +341,10 @@
         }, this))
     }, e.prototype.destroy = function () {
         this.$element.off(".owl.core"), this.$stage.off(".owl.core"), a(c).off(".owl.core"), !1 !== this.settings.responsive && (b.clearTimeout(this.resizeTimer), this.off(b, "resize", this._handlers.onThrottledResize));
-        for (let d in this._plugins) this._plugins[d].destroy();
+        for (var d in this._plugins) this._plugins[d].destroy();
         this.$stage.children(".cloned").remove(), this.$stage.unwrap(), this.$stage.children().contents().unwrap(), this.$stage.children().unwrap(), this.$element.removeClass(this.options.refreshClass).removeClass(this.options.loadingClass).removeClass(this.options.loadedClass).removeClass(this.options.rtlClass).removeClass(this.options.dragClass).removeClass(this.options.grabClass).attr("class", this.$element.attr("class").replace(new RegExp(this.options.responsiveClass + "-\\S+\\s", "g"), "")).removeData("owl.carousel")
     }, e.prototype.op = function (a, b, c) {
-        let d = this.settings.rtl;
+        var d = this.settings.rtl;
         switch (b) {
             case"<":
                 return d ? a > c : a < c;
@@ -466,7 +360,7 @@
     }, e.prototype.off = function (a, b, c, d) {
         a.removeEventListener ? a.removeEventListener(b, c, d) : a.detachEvent && a.detachEvent("on" + b, c)
     }, e.prototype.trigger = function (b, c, d, f, g) {
-        let h = {item: {count: this._items.length, index: this.current()}},
+        var h = {item: {count: this._items.length, index: this.current()}},
             i = a.camelCase(a.grep(["on", b, d], function (a) {
                 return a
             }).join("-").toLowerCase()),
@@ -488,7 +382,7 @@
     }, e.prototype.register = function (b) {
         if (b.type === e.Type.Event) {
             if (a.event.special[b.name] || (a.event.special[b.name] = {}), !a.event.special[b.name].owl) {
-                let c = a.event.special[b.name]._default;
+                var c = a.event.special[b.name]._default;
                 a.event.special[b.name]._default = function (a) {
                     return !c || !c.apply || a.namespace && -1 !== a.namespace.indexOf("owl") ? a.namespace && a.namespace.indexOf("owl") > -1 : c.apply(this, arguments)
                 }, a.event.special[b.name].owl = !0
@@ -505,16 +399,16 @@
             delete this._supress[b]
         }, this))
     }, e.prototype.pointer = function (a) {
-        let c = {x: null, y: null};
+        var c = {x: null, y: null};
         return a = a.originalEvent || a || b.event, a = a.touches && a.touches.length ? a.touches[0] : a.changedTouches && a.changedTouches.length ? a.changedTouches[0] : a, a.pageX ? (c.x = a.pageX, c.y = a.pageY) : (c.x = a.clientX, c.y = a.clientY), c
     }, e.prototype.isNumeric = function (a) {
         return !isNaN(parseFloat(a))
     }, e.prototype.difference = function (a, b) {
         return {x: a.x - b.x, y: a.y - b.y}
     }, a.fn.owlCarousel = function (b) {
-        let c = Array.prototype.slice.call(arguments, 1);
+        var c = Array.prototype.slice.call(arguments, 1);
         return this.each(function () {
-            let d = a(this), f = d.data("owl.carousel");
+            var d = a(this), f = d.data("owl.carousel");
             f || (f = new e(this, "object" == typeof b && b), d.data("owl.carousel", f), a.each(["next", "prev", "to", "destroy", "refresh", "replace", "add", "remove"], function (b, c) {
                 f.register({
                     type: e.Type.Event,
@@ -526,7 +420,7 @@
         })
     }, a.fn.owlCarousel.Constructor = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
-    let e = function (b) {
+    var e = function (b) {
         this._core = b, this._interval = null, this._visible = null, this._handlers = {
             "initialized.owl.carousel": a.proxy(function (a) {
                 a.namespace && this._core.settings.autoRefresh && this.watch()
@@ -538,25 +432,25 @@
     }, e.prototype.refresh = function () {
         this._core.$element.is(":visible") !== this._visible && (this._visible = !this._visible, this._core.$element.toggleClass("owl-hidden", !this._visible), this._visible && this._core.invalidate("width") && this._core.refresh())
     }, e.prototype.destroy = function () {
-        let a, c;
+        var a, c;
         b.clearInterval(this._interval);
         for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (c in Object.getOwnPropertyNames(this)) "function" != typeof this[c] && (this[c] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.AutoRefresh = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
-    let e = function (b) {
+    var e = function (b) {
         this._core = b, this._loaded = [], this._handlers = {
             "initialized.owl.carousel change.owl.carousel resized.owl.carousel": a.proxy(function (b) {
-                if (b.namespace && this._core.settings && this._core.settings.lazyLoad && (b.property && "position" == b.property.name || "initialized" == b.type)) for (let c = this._core.settings, e = c.center && Math.ceil(c.items / 2) || c.items, f = c.center && -1 * e || 0, g = (b.property && b.property.value !== d ? b.property.value : this._core.current()) + f, h = this._core.clones().length, i = a.proxy(function (a, b) {
+                if (b.namespace && this._core.settings && this._core.settings.lazyLoad && (b.property && "position" == b.property.name || "initialized" == b.type)) for (var c = this._core.settings, e = c.center && Math.ceil(c.items / 2) || c.items, f = c.center && -1 * e || 0, g = (b.property && b.property.value !== d ? b.property.value : this._core.current()) + f, h = this._core.clones().length, i = a.proxy(function (a, b) {
                     this.load(b)
                 }, this); f++ < e;) this.load(h / 2 + this._core.relative(g)), h && a.each(this._core.clones(this._core.relative(g)), i), g++
             }, this)
         }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.$element.on(this._handlers)
     };
     e.Defaults = {lazyLoad: !1}, e.prototype.load = function (c) {
-        let d = this._core.$stage.children().eq(c), e = d && d.find(".owl-lazy");
+        var d = this._core.$stage.children().eq(c), e = d && d.find(".owl-lazy");
         !e || a.inArray(d.get(0), this._loaded) > -1 || (e.each(a.proxy(function (c, d) {
-            let e, f = a(d), g = b.devicePixelRatio > 1 && f.attr("data-src-retina") || f.attr("data-src");
+            var e, f = a(d), g = b.devicePixelRatio > 1 && f.attr("data-src-retina") || f.attr("data-src");
             this._core.trigger("load", {
                 element: f,
                 url: g
@@ -570,12 +464,12 @@
             }, this), e.src = g)
         }, this)), this._loaded.push(d.get(0)))
     }, e.prototype.destroy = function () {
-        let a, b;
+        var a, b;
         for (a in this.handlers) this._core.$element.off(a, this.handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.Lazy = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
-    let e = function (b) {
+    var e = function (b) {
         this._core = b, this._handlers = {
             "initialized.owl.carousel refreshed.owl.carousel": a.proxy(function (a) {
                 a.namespace && this._core.settings.autoHeight && this.update()
@@ -587,18 +481,18 @@
         }, this._core.options = a.extend({}, e.Defaults, this._core.options), this._core.$element.on(this._handlers)
     };
     e.Defaults = {autoHeight: !1, autoHeightClass: "owl-height"}, e.prototype.update = function () {
-        let b = this._core._current, c = b + this._core.settings.items,
+        var b = this._core._current, c = b + this._core.settings.items,
             d = this._core.$stage.children().toArray().slice(b, c), e = [], f = 0;
         a.each(d, function (b, c) {
             e.push(a(c).height())
         }), f = Math.max.apply(null, e), this._core.$stage.parent().height(f).addClass(this._core.settings.autoHeightClass)
     }, e.prototype.destroy = function () {
-        let a, b;
+        var a, b;
         for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.AutoHeight = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
-    let e = function (b) {
+    var e = function (b) {
         this._core = b, this._videos = {}, this._playing = null, this._handlers = {
             "initialized.owl.carousel": a.proxy(function (a) {
                 a.namespace && this._core.register({type: "state", name: "playing", tags: ["interacting"]})
@@ -610,7 +504,7 @@
                 a.namespace && "position" === a.property.name && this._playing && this.stop()
             }, this), "prepared.owl.carousel": a.proxy(function (b) {
                 if (b.namespace) {
-                    let c = a(b.content).find(".owl-video");
+                    var c = a(b.content).find(".owl-video");
                     c.length && (c.css("display", "none"), this.fetch(c, a(b.content)))
                 }
             }, this)
@@ -619,7 +513,7 @@
         }, this))
     };
     e.Defaults = {video: !1, videoHeight: !1, videoWidth: !1}, e.prototype.fetch = function (a, b) {
-        let c = function () {
+        var c = function () {
                 return a.attr("data-vimeo-id") ? "vimeo" : a.attr("data-vzaar-id") ? "vzaar" : "youtube"
             }(), d = a.attr("data-vimeo-id") || a.attr("data-youtube-id") || a.attr("data-vzaar-id"),
             e = a.attr("data-width") || this._core.settings.videoWidth,
@@ -636,7 +530,7 @@
             height: f
         }, b.attr("data-video", g), this.thumbnail(a, this._videos[g])
     }, e.prototype.thumbnail = function (b, c) {
-        let d, e, f, g = c.width && c.height ? 'style="width:' + c.width + "px;height:" + c.height + 'px;"' : "",
+        var d, e, f, g = c.width && c.height ? 'style="width:' + c.width + "px;height:" + c.height + 'px;"' : "",
             h = b.find("img"), i = "src", j = "", k = this._core.settings, l = function (a) {
                 e = '<div class="owl-video-play-icon"></div>', d = k.lazyLoad ? '<div class="owl-video-tn ' + j + '" ' + i + '="' + a + '"></div>' : '<div class="owl-video-tn" style="opacity:1;background-image:url(' + a + ')"></div>', b.after(d), b.after(e)
             };
@@ -661,20 +555,20 @@
     }, e.prototype.stop = function () {
         this._core.trigger("stop", null, "video"), this._playing.find(".owl-video-frame").remove(), this._playing.removeClass("owl-video-playing"), this._playing = null, this._core.leave("playing"), this._core.trigger("stopped", null, "video")
     }, e.prototype.play = function (b) {
-        let c, d = a(b.target), e = d.closest("." + this._core.settings.itemClass),
+        var c, d = a(b.target), e = d.closest("." + this._core.settings.itemClass),
             f = this._videos[e.attr("data-video")], g = f.width || "100%", h = f.height || this._core.$stage.height();
         this._playing || (this._core.enter("playing"), this._core.trigger("play", null, "video"), e = this._core.items(this._core.relative(e.index())), this._core.reset(e.index()), "youtube" === f.type ? c = '<iframe width="' + g + '" height="' + h + '" src="//www.youtube.com/embed/' + f.id + "?autoplay=1&rel=0&v=" + f.id + '" frameborder="0" allowfullscreen></iframe>' : "vimeo" === f.type ? c = '<iframe src="//player.vimeo.com/video/' + f.id + '?autoplay=1" width="' + g + '" height="' + h + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>' : "vzaar" === f.type && (c = '<iframe frameborder="0"height="' + h + '"width="' + g + '" allowfullscreen mozallowfullscreen webkitAllowFullScreen src="//view.vzaar.com/' + f.id + '/player?autoplay=true"></iframe>'), a('<div class="owl-video-frame">' + c + "</div>").insertAfter(e.find(".owl-video")), this._playing = e.addClass("owl-video-playing"))
     }, e.prototype.isInFullScreen = function () {
-        let b = c.fullscreenElement || c.mozFullScreenElement || c.webkitFullscreenElement;
+        var b = c.fullscreenElement || c.mozFullScreenElement || c.webkitFullscreenElement;
         return b && a(b).parent().hasClass("owl-video-frame")
     }, e.prototype.destroy = function () {
-        let a, b;
+        var a, b;
         this._core.$element.off("click.owl.video");
         for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.Video = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
-    let e = function (b) {
+    var e = function (b) {
         this.core = b, this.core.options = a.extend({}, e.Defaults, this.core.options), this.swapping = !0, this.previous = d, this.next = d, this.handlers = {
             "change.owl.carousel": a.proxy(function (a) {
                 a.namespace && "position" == a.property.name && (this.previous = this.core.current(), this.next = a.property.value)
@@ -688,7 +582,7 @@
     e.Defaults = {animateOut: !1, animateIn: !1}, e.prototype.swap = function () {
         if (1 === this.core.settings.items && a.support.animation && a.support.transition) {
             this.core.speed(0);
-            let b, c = a.proxy(this.clear, this), d = this.core.$stage.children().eq(this.previous),
+            var b, c = a.proxy(this.clear, this), d = this.core.$stage.children().eq(this.previous),
                 e = this.core.$stage.children().eq(this.next), f = this.core.settings.animateIn,
                 g = this.core.settings.animateOut;
             this.core.current() !== this.previous && (g && (b = this.core.coordinates(this.previous) - this.core.coordinates(this.next), d.one(a.support.animation.end, c).css({left: b + "px"}).addClass("animated owl-animated-out").addClass(g)), f && e.one(a.support.animation.end, c).addClass("animated owl-animated-in").addClass(f))
@@ -696,13 +590,13 @@
     }, e.prototype.clear = function (b) {
         a(b.target).css({left: ""}).removeClass("animated owl-animated-out owl-animated-in").removeClass(this.core.settings.animateIn).removeClass(this.core.settings.animateOut), this.core.onTransitionEnd()
     }, e.prototype.destroy = function () {
-        let a, b;
+        var a, b;
         for (a in this.handlers) this.core.$element.off(a, this.handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     },
         a.fn.owlCarousel.Constructor.Plugins.Animate = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
-    let e = function (b) {
+    var e = function (b) {
         this._core = b, this._timeout = null, this._paused = !1, this._handlers = {
             "changed.owl.carousel": a.proxy(function (a) {
                 a.namespace && "settings" === a.property.name ? this._core.settings.autoplay ? this.play() : this.stop() : a.namespace && "position" === a.property.name && this._core.settings.autoplay && this._setAutoPlayInterval()
@@ -741,14 +635,14 @@
     }, e.prototype.pause = function () {
         this._core.is("rotating") && (this._paused = !0)
     }, e.prototype.destroy = function () {
-        let a, b;
+        var a, b;
         this.stop();
         for (a in this._handlers) this._core.$element.off(a, this._handlers[a]);
         for (b in Object.getOwnPropertyNames(this)) "function" != typeof this[b] && (this[b] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.autoplay = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
     "use strict";
-    let e = function (b) {
+    var e = function (b) {
         this._core = b, this._initialized = !1, this._pages = [], this._controls = {}, this._templates = [], this.$element = this._core.$element, this._overrides = {
             next: this._core.next,
             prev: this._core.prev,
@@ -786,24 +680,24 @@
         dotsSpeed: !1,
         dotsContainer: !1
     }, e.prototype.initialize = function () {
-        let b, c = this._core.settings;
+        var b, c = this._core.settings;
         this._controls.$relative = (c.navContainer ? a(c.navContainer) : a("<div>").addClass(c.navContainerClass).appendTo(this.$element)).addClass("disabled"), this._controls.$previous = a("<" + c.navElement + ">").addClass(c.navClass[0]).html(c.navText[0]).prependTo(this._controls.$relative).on("click", a.proxy(function (a) {
             this.prev(c.navSpeed)
         }, this)), this._controls.$next = a("<" + c.navElement + ">").addClass(c.navClass[1]).html(c.navText[1]).appendTo(this._controls.$relative).on("click", a.proxy(function (a) {
             this.next(c.navSpeed)
         }, this)), c.dotsData || (this._templates = [a("<div>").addClass(c.dotClass).append(a("<span>")).prop("outerHTML")]), this._controls.$absolute = (c.dotsContainer ? a(c.dotsContainer) : a("<div>").addClass(c.dotsClass).appendTo(this.$element)).addClass("disabled"), this._controls.$absolute.on("click", "div", a.proxy(function (b) {
-            let d = a(b.target).parent().is(this._controls.$absolute) ? a(b.target).index() : a(b.target).parent().index();
+            var d = a(b.target).parent().is(this._controls.$absolute) ? a(b.target).index() : a(b.target).parent().index();
             b.preventDefault(), this.to(d, c.dotsSpeed)
         }, this));
         for (b in this._overrides) this._core[b] = a.proxy(this[b], this)
     }, e.prototype.destroy = function () {
-        let a, b, c, d;
+        var a, b, c, d;
         for (a in this._handlers) this.$element.off(a, this._handlers[a]);
         for (b in this._controls) this._controls[b].remove();
         for (d in this.overides) this._core[d] = this._overrides[d];
         for (c in Object.getOwnPropertyNames(this)) "function" != typeof this[c] && (this[c] = null)
     }, e.prototype.update = function () {
-        let a, b, c, d = this._core.clones().length / 2, e = d + this._core.items().length, f = this._core.maximum(!0),
+        var a, b, c, d = this._core.clones().length / 2, e = d + this._core.items().length, f = this._core.maximum(!0),
             g = this._core.settings, h = g.center || g.autoWidth || g.dotsData ? 1 : g.dotsEach || g.items;
         if ("page" !== g.slideBy && (g.slideBy = Math.min(g.slideBy, g.items)), g.dots || "page" == g.slideBy) for (this._pages = [], a = d, b = 0, c = 0; a < e; a++) {
             if (b >= h || 0 === b) {
@@ -813,47 +707,47 @@
             b += this._core.mergers(this._core.relative(a))
         }
     }, e.prototype.draw = function () {
-        let b, c = this._core.settings, d = this._core.items().length <= c.items,
+        var b, c = this._core.settings, d = this._core.items().length <= c.items,
             e = this._core.relative(this._core.current()), f = c.loop || c.rewind;
         this._controls.$relative.toggleClass("disabled", !c.nav || d), c.nav && (this._controls.$previous.toggleClass("disabled", !f && e <= this._core.minimum(!0)), this._controls.$next.toggleClass("disabled", !f && e >= this._core.maximum(!0))), this._controls.$absolute.toggleClass("disabled", !c.dots || d), c.dots && (b = this._pages.length - this._controls.$absolute.children().length, c.dotsData && 0 !== b ? this._controls.$absolute.html(this._templates.join("")) : b > 0 ? this._controls.$absolute.append(new Array(b + 1).join(this._templates[0])) : b < 0 && this._controls.$absolute.children().slice(b).remove(), this._controls.$absolute.find(".active").removeClass("active"), this._controls.$absolute.children().eq(a.inArray(this.current(), this._pages)).addClass("active"))
     }, e.prototype.onTrigger = function (b) {
-        let c = this._core.settings;
+        var c = this._core.settings;
         b.page = {
             index: a.inArray(this.current(), this._pages),
             count: this._pages.length,
             size: c && (c.center || c.autoWidth || c.dotsData ? 1 : c.dotsEach || c.items)
         }
     }, e.prototype.current = function () {
-        let b = this._core.relative(this._core.current());
+        var b = this._core.relative(this._core.current());
         return a.grep(this._pages, a.proxy(function (a, c) {
             return a.start <= b && a.end >= b
         }, this)).pop()
     }, e.prototype.getPosition = function (b) {
-        let c, d, e = this._core.settings;
+        var c, d, e = this._core.settings;
         return "page" == e.slideBy ? (c = a.inArray(this.current(), this._pages), d = this._pages.length, b ? ++c : --c, c = this._pages[(c % d + d) % d].start) : (c = this._core.relative(this._core.current()), d = this._core.items().length, b ? c += e.slideBy : c -= e.slideBy), c
     }, e.prototype.next = function (b) {
         a.proxy(this._overrides.to, this._core)(this.getPosition(!0), b)
     }, e.prototype.prev = function (b) {
         a.proxy(this._overrides.to, this._core)(this.getPosition(!1), b)
     }, e.prototype.to = function (b, c, d) {
-        let e;
+        var e;
         !d && this._pages.length ? (e = this._pages.length, a.proxy(this._overrides.to, this._core)(this._pages[(b % e + e) % e].start, c)) : a.proxy(this._overrides.to, this._core)(b, c)
     }, a.fn.owlCarousel.Constructor.Plugins.Navigation = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
     "use strict";
-    let e = function (c) {
+    var e = function (c) {
         this._core = c, this._hashes = {}, this.$element = this._core.$element, this._handlers = {
             "initialized.owl.carousel": a.proxy(function (c) {
                 c.namespace && "URLHash" === this._core.settings.startPosition && a(b).trigger("hashchange.owl.navigation")
             }, this), "prepared.owl.carousel": a.proxy(function (b) {
                 if (b.namespace) {
-                    let c = a(b.content).find("[data-hash]").addBack("[data-hash]").attr("data-hash");
+                    var c = a(b.content).find("[data-hash]").addBack("[data-hash]").attr("data-hash");
                     if (!c) return;
                     this._hashes[c] = b.content
                 }
             }, this), "changed.owl.carousel": a.proxy(function (c) {
                 if (c.namespace && "position" === c.property.name) {
-                    let d = this._core.items(this._core.relative(this._core.current())),
+                    var d = this._core.items(this._core.relative(this._core.current())),
                         e = a.map(this._hashes, function (a, b) {
                             return a === d ? b : null
                         }).join();
@@ -862,20 +756,20 @@
                 }
             }, this)
         }, this._core.options = a.extend({}, e.Defaults, this._core.options), this.$element.on(this._handlers), a(b).on("hashchange.owl.navigation", a.proxy(function (a) {
-            let c = b.location.hash.substring(1), e = this._core.$stage.children(),
+            var c = b.location.hash.substring(1), e = this._core.$stage.children(),
                 f = this._hashes[c] && e.index(this._hashes[c]);
             f !== d && f !== this._core.current() && this._core.to(this._core.relative(f), !1, !0)
         }, this))
     };
     e.Defaults = {URLhashListener: !1}, e.prototype.destroy = function () {
-        let c, d;
+        var c, d;
         a(b).off("hashchange.owl.navigation");
         for (c in this._handlers) this._core.$element.off(c, this._handlers[c]);
         for (d in Object.getOwnPropertyNames(this)) "function" != typeof this[d] && (this[d] = null)
     }, a.fn.owlCarousel.Constructor.Plugins.Hash = e
 }(window.Zepto || window.jQuery, window, document), function (a, b, c, d) {
     function e(b, c) {
-        let e = !1, f = b.charAt(0).toUpperCase() + b.slice(1);
+        var e = !1, f = b.charAt(0).toUpperCase() + b.slice(1);
         return a.each((b + " " + h.join(f + " ") + f).split(" "), function (a, b) {
             if (g[b] !== d) return e = !c || b, !1
         }), e
@@ -885,7 +779,7 @@
         return e(a, !0)
     }
 
-    let g = a("<support>").get(0).style, h = "Webkit Moz O ms".split(" "), i = {
+    var g = a("<support>").get(0).style, h = "Webkit Moz O ms".split(" "), i = {
         transition: {
             end: {
                 WebkitTransition: "webkitTransitionEnd",
@@ -918,12 +812,12 @@
 /*! WOW - v1.1.2 - 2016-04-08
 * Copyright (c) 2016 Matthieu Aussaguel;*/
 (function () {
-    let a, b, c, d, e, f = function (a, b) {
+    var a, b, c, d, e, f = function (a, b) {
         return function () {
             return a.apply(b, arguments)
         }
     }, g = [].indexOf || function (a) {
-        for (let b = 0, c = this.length; c > b; b++) if (b in this && this[b] === a) return b;
+        for (var b = 0, c = this.length; c > b; b++) if (b in this && this[b] === a) return b;
         return -1
     };
     b = function () {
@@ -931,13 +825,13 @@
         }
 
         return a.prototype.extend = function (a, b) {
-            let c, d;
+            var c, d;
             for (c in b) d = b[c], null == a[c] && (a[c] = d);
             return a
         }, a.prototype.isMobile = function (a) {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(a)
         }, a.prototype.createEvent = function (a, b, c, d) {
-            let e;
+            var e;
             return null == b && (b = !1), null == c && (c = !1), null == d && (d = null), null != document.createEvent ? (e = document.createEvent("CustomEvent"), e.initCustomEvent(a, b, c, d)) : null != document.createEventObject ? (e = document.createEventObject(), e.eventType = a) : e.eventName = a, e
         }, a.prototype.emitEvent = function (a, b) {
             return null != a.dispatchEvent ? a.dispatchEvent(b) : b in (null != a) ? a[b]() : "on" + b in (null != a) ? a["on" + b]() : void 0
@@ -954,10 +848,10 @@
         }
 
         return a.prototype.get = function (a) {
-            let b, c, d, e, f;
+            var b, c, d, e, f;
             for (f = this.keys, b = d = 0, e = f.length; e > d; b = ++d) if (c = f[b], c === a) return this.values[b]
         }, a.prototype.set = function (a, b) {
-            let c, d, e, f, g;
+            var c, d, e, f, g;
             for (g = this.keys, c = e = 0, f = g.length; f > e; c = ++e) if (d = g[c], d === a) return void (this.values[c] = b);
             return this.keys.push(a), this.values.push(b)
         }, a
@@ -970,7 +864,7 @@
         }, a
     }()), d = this.getComputedStyle || function (a, b) {
         return this.getPropertyValue = function (b) {
-            let c;
+            var c;
             return "float" === b && (b = "styleFloat"), e.test(b) && b.replace(e, function (a, b) {
                 return b.toUpperCase()
             }), (null != (c = a.currentStyle) ? c[b] : void 0) || null
@@ -989,24 +883,24 @@
             callback: null,
             scrollContainer: null
         }, e.prototype.init = function () {
-            let a;
+            var a;
             return this.element = window.document.documentElement, "interactive" === (a = document.readyState) || "complete" === a ? this.start() : this.util().addEvent(document, "DOMContentLoaded", this.start), this.finished = []
         }, e.prototype.start = function () {
-            let b, c, d, e;
+            var b, c, d, e;
             if (this.stopped = !1, this.boxes = function () {
-                let a, c, d, e;
+                var a, c, d, e;
                 for (d = this.element.querySelectorAll("." + this.config.boxClass), e = [], a = 0, c = d.length; c > a; a++) b = d[a], e.push(b);
                 return e
             }.call(this), this.all = function () {
-                let a, c, d, e;
+                var a, c, d, e;
                 for (d = this.boxes, e = [], a = 0, c = d.length; c > a; a++) b = d[a], e.push(b);
                 return e
             }.call(this), this.boxes.length) if (this.disabled()) this.resetStyle(); else for (e = this.boxes, c = 0, d = e.length; d > c; c++) b = e[c], this.applyStyle(b, !0);
             return this.disabled() || (this.util().addEvent(this.config.scrollContainer || window, "scroll", this.scrollHandler), this.util().addEvent(window, "resize", this.scrollHandler), this.interval = setInterval(this.scrollCallback, 50)), this.config.live ? new a(function (a) {
                 return function (b) {
-                    let c, d, e, f, g;
+                    var c, d, e, f, g;
                     for (g = [], c = 0, d = b.length; d > c; c++) f = b[c], g.push(function () {
-                        let a, b, c, d;
+                        var a, b, c, d;
                         for (c = f.addedNodes || [], d = [], a = 0, b = c.length; b > a; a++) e = c[a], d.push(this.doSync(e));
                         return d
                     }.call(a));
@@ -1018,7 +912,7 @@
         }, e.prototype.sync = function (b) {
             return a.notSupported ? this.doSync(this.element) : void 0
         }, e.prototype.doSync = function (a) {
-            let b, c, d, e, f;
+            var b, c, d, e, f;
             if (null == a && (a = this.element), 1 === a.nodeType) {
                 for (a = a.parentNode || a, e = a.querySelectorAll("." + this.config.boxClass), f = [], c = 0, d = e.length; d > c; c++) b = e[c], g.call(this.all, b) < 0 ? (this.boxes.push(b), this.all.push(b), this.stopped || this.disabled() ? this.resetStyle() : this.applyStyle(b, !0), f.push(this.scrolled = !0)) : f.push(void 0);
                 return f
@@ -1026,7 +920,7 @@
         }, e.prototype.show = function (a) {
             return this.applyStyle(a), a.className = a.className + " " + this.config.animateClass, null != this.config.callback && this.config.callback(a), this.util().emitEvent(a, this.wowEvent), this.util().addEvent(a, "animationend", this.resetAnimation), this.util().addEvent(a, "oanimationend", this.resetAnimation), this.util().addEvent(a, "webkitAnimationEnd", this.resetAnimation), this.util().addEvent(a, "MSAnimationEnd", this.resetAnimation), a
         }, e.prototype.applyStyle = function (a, b) {
-            let c, d, e;
+            var c, d, e;
             return d = a.getAttribute("data-wow-duration"), c = a.getAttribute("data-wow-delay"), e = a.getAttribute("data-wow-iteration"), this.animate(function (f) {
                 return function () {
                     return f.customStyle(a, b, d, c, e)
@@ -1039,29 +933,29 @@
                 return a()
             }
         }(), e.prototype.resetStyle = function () {
-            let a, b, c, d, e;
+            var a, b, c, d, e;
             for (d = this.boxes, e = [], b = 0, c = d.length; c > b; b++) a = d[b], e.push(a.style.visibility = "visible");
             return e
         }, e.prototype.resetAnimation = function (a) {
-            let b;
+            var b;
             return a.type.toLowerCase().indexOf("animationend") >= 0 ? (b = a.target || a.srcElement, b.className = b.className.replace(this.config.animateClass, "").trim()) : void 0
         }, e.prototype.customStyle = function (a, b, c, d, e) {
             return b && this.cacheAnimationName(a), a.style.visibility = b ? "hidden" : "visible", c && this.vendorSet(a.style, {animationDuration: c}), d && this.vendorSet(a.style, {animationDelay: d}), e && this.vendorSet(a.style, {animationIterationCount: e}), this.vendorSet(a.style, {animationName: b ? "none" : this.cachedAnimationName(a)}), a
         }, e.prototype.vendors = ["moz", "webkit"], e.prototype.vendorSet = function (a, b) {
-            let c, d, e, f;
+            var c, d, e, f;
             d = [];
             for (c in b) e = b[c], a["" + c] = e, d.push(function () {
-                let b, d, g, h;
+                var b, d, g, h;
                 for (g = this.vendors, h = [], b = 0, d = g.length; d > b; b++) f = g[b], h.push(a["" + f + c.charAt(0).toUpperCase() + c.substr(1)] = e);
                 return h
             }.call(this));
             return d
         }, e.prototype.vendorCSS = function (a, b) {
-            let c, e, f, g, h, i;
+            var c, e, f, g, h, i;
             for (h = d(a), g = h.getPropertyCSSValue(b), f = this.vendors, c = 0, e = f.length; e > c; c++) i = f[c], g = g || h.getPropertyCSSValue("-" + i + "-" + b);
             return g
         }, e.prototype.animationName = function (a) {
-            let b;
+            var b;
             try {
                 b = this.vendorCSS(a, "animation-name").cssText
             } catch (c) {
@@ -1075,18 +969,18 @@
         }, e.prototype.scrollHandler = function () {
             return this.scrolled = !0
         }, e.prototype.scrollCallback = function () {
-            let a;
+            var a;
             return !this.scrolled || (this.scrolled = !1, this.boxes = function () {
-                let b, c, d, e;
+                var b, c, d, e;
                 for (d = this.boxes, e = [], b = 0, c = d.length; c > b; b++) a = d[b], a && (this.isVisible(a) ? this.show(a) : e.push(a));
                 return e
             }.call(this), this.boxes.length || this.config.live) ? void 0 : this.stop()
         }, e.prototype.offsetTop = function (a) {
-            for (let b; void 0 === a.offsetTop;) a = a.parentNode;
+            for (var b; void 0 === a.offsetTop;) a = a.parentNode;
             for (b = a.offsetTop; a = a.offsetParent;) b += a.offsetTop;
             return b
         }, e.prototype.isVisible = function (a) {
-            let b, c, d, e, f;
+            var b, c, d, e, f;
             return c = a.getAttribute("data-wow-offset") || this.config.offset, f = this.config.scrollContainer && this.config.scrollContainer.scrollTop || window.pageYOffset, e = f + Math.min(this.element.clientHeight, this.util().innerHeight()) - c, d = this.offsetTop(a), b = d + a.clientHeight, e >= d && b >= f
         }, e.prototype.util = function () {
             return null != this._util ? this._util : this._util = new b
@@ -1101,13 +995,13 @@
 !function (a) {
     "function" == typeof define && define.amd ? define(["jquery"], a) : a("object" == typeof exports ? require("jquery") : window.jQuery || window.Zepto)
 }(function (a) {
-    let b, c, d, e, f, g, h = "Close", i = "BeforeClose", j = "AfterClose", k = "BeforeAppend", l = "MarkupParse",
+    var b, c, d, e, f, g, h = "Close", i = "BeforeClose", j = "AfterClose", k = "BeforeAppend", l = "MarkupParse",
         m = "Open", n = "Change", o = "mfp", p = "." + o, q = "mfp-ready", r = "mfp-removing", s = "mfp-prevent-close",
         t = function () {
         }, u = !!window.jQuery, v = a(window), w = function (a, c) {
             b.ev.on(o + a + p, c)
         }, x = function (b, c, d, e) {
-            let f = document.createElement("div");
+            var f = document.createElement("div");
             return f.className = "mfp-" + b, d && (f.innerHTML = d), e ? c && c.appendChild(f) : (f = a(f), c && f.appendTo(c)), f
         }, y = function (c, d) {
             b.ev.triggerHandler(o + c, d), b.st.callbacks && (c = c.charAt(0).toLowerCase() + c.slice(1), b.st.callbacks[c] && b.st.callbacks[c].apply(b, a.isArray(d) ? d : [d]))
@@ -1116,20 +1010,20 @@
         }, A = function () {
             a.magnificPopup.instance || (b = new t, b.init(), a.magnificPopup.instance = b)
         }, B = function () {
-            let a = document.createElement("p").style, b = ["ms", "O", "Moz", "Webkit"];
+            var a = document.createElement("p").style, b = ["ms", "O", "Moz", "Webkit"];
             if (void 0 !== a.transition) return !0;
             for (; b.length;) if (b.pop() + "Transition" in a) return !0;
             return !1
         };
     t.prototype = {
         constructor: t, init: function () {
-            let c = navigator.appVersion;
+            var c = navigator.appVersion;
             b.isLowIE = b.isIE8 = document.all && !document.addEventListener, b.isAndroid = /android/gi.test(c), b.isIOS = /iphone|ipad|ipod/gi.test(c), b.supportsTransition = B(), b.probablyMobile = b.isAndroid || b.isIOS || /(Opera Mini)|Kindle|webOS|BlackBerry|(Opera Mobi)|(Windows Phone)|IEMobile/i.test(navigator.userAgent), d = a(document), b.popupsCache = {}
         }, open: function (c) {
-            let e;
+            var e;
             if (c.isObj === !1) {
                 b.items = c.items.toArray(), b.index = 0;
-                let g, h = c.items;
+                var g, h = c.items;
                 for (e = 0; e < h.length; e++) if (g = h[e], g.parsed && (g = g.el[0]), g === c.el[0]) {
                     b.index = e;
                     break
@@ -1141,9 +1035,9 @@
             }), b.wrap = x("wrap").attr("tabindex", -1).on("click" + p, function (a) {
                 b._checkIfClose(a.target) && b.close()
             }), b.container = x("container", b.wrap)), b.contentContainer = x("content"), b.st.preloader && (b.preloader = x("preloader", b.container, b.st.tLoading));
-            let i = a.magnificPopup.modules;
+            var i = a.magnificPopup.modules;
             for (e = 0; e < i.length; e++) {
-                let j = i[e];
+                var j = i[e];
                 j = j.charAt(0).toUpperCase() + j.slice(1), b["init" + j].call(b)
             }
             y("BeforeOpen"), b.st.showCloseBtn && (b.st.closeBtnInside ? (w(l, function (a, b, c, d) {
@@ -1163,13 +1057,13 @@
             }), v.on("resize" + p, function () {
                 b.updateSize()
             }), b.st.closeOnContentClick || (f += " mfp-auto-cursor"), f && b.wrap.addClass(f);
-            let k = b.wH = v.height(), n = {};
+            var k = b.wH = v.height(), n = {};
             if (b.fixedContentPos && b._hasScrollBar(k)) {
-                let o = b._getScrollbarSize();
+                var o = b._getScrollbarSize();
                 o && (n.marginRight = o)
             }
             b.fixedContentPos && (b.isIE7 ? a("body, html").css("overflow", "hidden") : n.overflow = "hidden");
-            let r = b.st.mainClass;
+            var r = b.st.mainClass;
             return b.isIE7 && (r += " mfp-ie7"), r && b._addClassToMFP(r), b.updateItemHTML(), y("BuildControls"), a("html").css(n), b.bgOverlay.add(b.wrap).prependTo(b.st.prependTo || a(document.body)), b._lastFocusedEl = document.activeElement, setTimeout(function () {
                 b.content ? (b._addClassToMFP(q), b._setFocus()) : b.bgOverlay.addClass(q), d.on("focusin" + p, b._onFocusIn)
             }, 16), b.isOpen = !0, b.updateSize(k), y(m), c
@@ -1179,35 +1073,35 @@
             }, b.st.removalDelay)) : b._close())
         }, _close: function () {
             y(h);
-            let c = r + " " + q + " ";
+            var c = r + " " + q + " ";
             if (b.bgOverlay.detach(), b.wrap.detach(), b.container.empty(), b.st.mainClass && (c += b.st.mainClass + " "), b._removeClassFromMFP(c), b.fixedContentPos) {
-                let e = {marginRight: ""};
+                var e = {marginRight: ""};
                 b.isIE7 ? a("body, html").css("overflow", "") : e.overflow = "", a("html").css(e)
             }
             d.off("keyup" + p + " focusin" + p), b.ev.off(p), b.wrap.attr("class", "mfp-wrap").removeAttr("style"), b.bgOverlay.attr("class", "mfp-bg"), b.container.attr("class", "mfp-container"), !b.st.showCloseBtn || b.st.closeBtnInside && b.currTemplate[b.currItem.type] !== !0 || b.currTemplate.closeBtn && b.currTemplate.closeBtn.detach(), b.st.autoFocusLast && b._lastFocusedEl && a(b._lastFocusedEl).focus(), b.currItem = null, b.content = null, b.currTemplate = null, b.prevHeight = 0, y(j)
         }, updateSize: function (a) {
             if (b.isIOS) {
-                let c = document.documentElement.clientWidth / window.innerWidth, d = window.innerHeight * c;
+                var c = document.documentElement.clientWidth / window.innerWidth, d = window.innerHeight * c;
                 b.wrap.css("height", d), b.wH = d
             } else b.wH = a || v.height();
             b.fixedContentPos || b.wrap.css("height", b.wH), y("Resize")
         }, updateItemHTML: function () {
-            let c = b.items[b.index];
+            var c = b.items[b.index];
             b.contentContainer.detach(), b.content && b.content.detach(), c.parsed || (c = b.parseEl(b.index));
-            let d = c.type;
+            var d = c.type;
             if (y("BeforeChange", [b.currItem ? b.currItem.type : "", d]), b.currItem = c, !b.currTemplate[d]) {
-                let f = b.st[d] ? b.st[d].markup : !1;
+                var f = b.st[d] ? b.st[d].markup : !1;
                 y("FirstMarkupParse", f), f ? b.currTemplate[d] = a(f) : b.currTemplate[d] = !0
             }
             e && e !== c.type && b.container.removeClass("mfp-" + e + "-holder");
-            let g = b["get" + d.charAt(0).toUpperCase() + d.slice(1)](c, b.currTemplate[d]);
+            var g = b["get" + d.charAt(0).toUpperCase() + d.slice(1)](c, b.currTemplate[d]);
             b.appendContent(g, d), c.preloaded = !0, y(n, c), e = c.type, b.container.prepend(b.contentContainer), y("AfterChange")
         }, appendContent: function (a, c) {
             b.content = a, a ? b.st.showCloseBtn && b.st.closeBtnInside && b.currTemplate[c] === !0 ? b.content.find(".mfp-close").length || b.content.append(z()) : b.content = a : b.content = "", y(k), b.container.addClass("mfp-" + c + "-holder"), b.contentContainer.append(b.content)
         }, parseEl: function (c) {
-            let d, e = b.items[c];
+            var d, e = b.items[c];
             if (e.tagName ? e = {el: a(e)} : (d = e.type, e = {data: e, src: e.src}), e.el) {
-                for (let f = b.types, g = 0; g < f.length; g++) if (e.el.hasClass("mfp-" + f[g])) {
+                for (var f = b.types, g = 0; g < f.length; g++) if (e.el.hasClass("mfp-" + f[g])) {
                     d = f[g];
                     break
                 }
@@ -1215,16 +1109,16 @@
             }
             return e.type = d || b.st.type || "inline", e.index = c, e.parsed = !0, b.items[c] = e, y("ElementParse", e), b.items[c]
         }, addGroup: function (a, c) {
-            let d = function (d) {
+            var d = function (d) {
                 d.mfpEl = this, b._openClick(d, a, c)
             };
             c || (c = {});
-            let e = "click.magnificPopup";
+            var e = "click.magnificPopup";
             c.mainEl = a, c.items ? (c.isObj = !0, a.off(e).on(e, d)) : (c.isObj = !1, c.delegate ? a.off(e).on(e, c.delegate, d) : (c.items = a, a.off(e).on(e, d)))
         }, _openClick: function (c, d, e) {
-            let f = void 0 !== e.midClick ? e.midClick : a.magnificPopup.defaults.midClick;
+            var f = void 0 !== e.midClick ? e.midClick : a.magnificPopup.defaults.midClick;
             if (f || !(2 === c.which || c.ctrlKey || c.metaKey || c.altKey || c.shiftKey)) {
-                let g = void 0 !== e.disableOn ? e.disableOn : a.magnificPopup.defaults.disableOn;
+                var g = void 0 !== e.disableOn ? e.disableOn : a.magnificPopup.defaults.disableOn;
                 if (g) if (a.isFunction(g)) {
                     if (!g.call(b)) return !0
                 } else if (v.width() < g) return !0;
@@ -1233,14 +1127,14 @@
         }, updateStatus: function (a, d) {
             if (b.preloader) {
                 c !== a && b.container.removeClass("mfp-s-" + c), d || "loading" !== a || (d = b.st.tLoading);
-                let e = {status: a, text: d};
+                var e = {status: a, text: d};
                 y("UpdateStatus", e), a = e.status, d = e.text, b.preloader.html(d), b.preloader.find("a").on("click", function (a) {
                     a.stopImmediatePropagation()
                 }), b.container.addClass("mfp-s-" + a), c = a
             }
         }, _checkIfClose: function (c) {
             if (!a(c).hasClass(s)) {
-                let d = b.st.closeOnContentClick, e = b.st.closeOnBgClick;
+                var d = b.st.closeOnContentClick, e = b.st.closeOnBgClick;
                 if (d && e) return !0;
                 if (!b.content || a(c).hasClass("mfp-close") || b.preloader && c === b.preloader[0]) return !0;
                 if (c === b.content[0] || a.contains(b.content[0], c)) {
@@ -1259,20 +1153,20 @@
         }, _onFocusIn: function (c) {
             return c.target === b.wrap[0] || a.contains(b.wrap[0], c.target) ? void 0 : (b._setFocus(), !1)
         }, _parseMarkup: function (b, c, d) {
-            let e;
+            var e;
             d.data && (c = a.extend(d.data, c)), y(l, [b, c, d]), a.each(c, function (c, d) {
                 if (void 0 === d || d === !1) return !0;
                 if (e = c.split("_"), e.length > 1) {
-                    let f = b.find(p + "-" + e[0]);
+                    var f = b.find(p + "-" + e[0]);
                     if (f.length > 0) {
-                        let g = e[1];
+                        var g = e[1];
                         "replaceWith" === g ? f[0] !== d[0] && f.replaceWith(d) : "img" === g ? f.is("img") ? f.attr("src", d) : f.replaceWith(a("<img>").attr("src", d).attr("class", f.attr("class"))) : f.attr(e[1], d)
                     }
                 } else b.find(p + "-" + c).html(d)
             })
         }, _getScrollbarSize: function () {
             if (void 0 === b.scrollbarSize) {
-                let a = document.createElement("div");
+                var a = document.createElement("div");
                 a.style.cssText = "width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;", document.body.appendChild(a), b.scrollbarSize = a.offsetWidth - a.clientWidth, document.body.removeChild(a)
             }
             return b.scrollbarSize
@@ -1316,14 +1210,14 @@
         }
     }, a.fn.magnificPopup = function (c) {
         A();
-        let d = a(this);
+        var d = a(this);
         if ("string" == typeof c) if ("open" === c) {
-            let e, f = u ? d.data("magnificPopup") : d[0].magnificPopup, g = parseInt(arguments[1], 10) || 0;
+            var e, f = u ? d.data("magnificPopup") : d[0].magnificPopup, g = parseInt(arguments[1], 10) || 0;
             f.items ? e = f.items[g] : (e = d, f.delegate && (e = e.find(f.delegate)), e = e.eq(g)), b._openClick({mfpEl: e}, d, f)
         } else b.isOpen && b[c].apply(b, Array.prototype.slice.call(arguments, 1)); else c = a.extend(!0, {}, c), u ? d.data("magnificPopup", c) : d[0].magnificPopup = c, b.addGroup(d, c);
         return d
     };
-    let C, D, E, F = "inline", G = function () {
+    var C, D, E, F = "inline", G = function () {
         E && (D.after(E.addClass(C)).detach(), E = null)
     };
     a.magnificPopup.registerModule(F, {
@@ -1335,9 +1229,9 @@
                 })
             }, getInline: function (c, d) {
                 if (G(), c.src) {
-                    let e = b.st.inline, f = a(c.src);
+                    var e = b.st.inline, f = a(c.src);
                     if (f.length) {
-                        let g = f[0].parentNode;
+                        var g = f[0].parentNode;
                         g && g.tagName && (D || (C = e.hiddenClass, D = x(C), C = "mfp-" + C), E = f.after(D).detach().removeClass(C)), b.updateStatus("ready")
                     } else b.updateStatus("error", e.tNotFound), f = a("<div>");
                     return c.inlineElement = f, f
@@ -1346,7 +1240,7 @@
             }
         }
     });
-    let H, I = "ajax", J = function () {
+    var H, I = "ajax", J = function () {
         H && a(document.body).removeClass(H)
     }, K = function () {
         J(), b.req && b.req.abort()
@@ -1361,9 +1255,9 @@
                 b.types.push(I), H = b.st.ajax.cursor, w(h + "." + I, K), w("BeforeChange." + I, K)
             }, getAjax: function (c) {
                 H && a(document.body).addClass(H), b.updateStatus("loading");
-                let d = a.extend({
+                var d = a.extend({
                     url: c.src, success: function (d, e, f) {
-                        let g = {data: d, xhr: f};
+                        var g = {data: d, xhr: f};
                         y("ParseAjax", g), b.appendContent(a(g.data), I), c.finished = !0, J(), b._setFocus(), setTimeout(function () {
                             b.wrap.addClass(q)
                         }, 16), b.updateStatus("ready"), y("AjaxContentAdded")
@@ -1375,9 +1269,9 @@
             }
         }
     });
-    let L, M = function (c) {
+    var L, M = function (c) {
         if (c.data && void 0 !== c.data.title) return c.data.title;
-        let d = b.st.image.titleSrc;
+        var d = b.st.image.titleSrc;
         if (d) {
             if (a.isFunction(d)) return d.call(b, c);
             if (c.el) return c.el.attr(d) || ""
@@ -1393,35 +1287,35 @@
             tError: '<a href="%url%">The image</a> could not be loaded.'
         }, proto: {
             initImage: function () {
-                let c = b.st.image, d = ".image";
+                var c = b.st.image, d = ".image";
                 b.types.push("image"), w(m + d, function () {
                     "image" === b.currItem.type && c.cursor && a(document.body).addClass(c.cursor)
                 }), w(h + d, function () {
                     c.cursor && a(document.body).removeClass(c.cursor), v.off("resize" + p)
                 }), w("Resize" + d, b.resizeImage), b.isLowIE && w("AfterChange", b.resizeImage)
             }, resizeImage: function () {
-                let a = b.currItem;
+                var a = b.currItem;
                 if (a && a.img && b.st.image.verticalFit) {
-                    let c = 0;
+                    var c = 0;
                     b.isLowIE && (c = parseInt(a.img.css("padding-top"), 10) + parseInt(a.img.css("padding-bottom"), 10)), a.img.css("max-height", b.wH - c)
                 }
             }, _onImageHasSize: function (a) {
                 a.img && (a.hasSize = !0, L && clearInterval(L), a.isCheckingImgSize = !1, y("ImageHasSize", a), a.imgHidden && (b.content && b.content.removeClass("mfp-loading"), a.imgHidden = !1))
             }, findImageSize: function (a) {
-                let c = 0, d = a.img[0], e = function (f) {
+                var c = 0, d = a.img[0], e = function (f) {
                     L && clearInterval(L), L = setInterval(function () {
                         return d.naturalWidth > 0 ? void b._onImageHasSize(a) : (c > 200 && clearInterval(L), c++, void (3 === c ? e(10) : 40 === c ? e(50) : 100 === c && e(500)))
                     }, f)
                 };
                 e(1)
             }, getImage: function (c, d) {
-                let e = 0, f = function () {
+                var e = 0, f = function () {
                     c && (c.img[0].complete ? (c.img.off(".mfploader"), c === b.currItem && (b._onImageHasSize(c), b.updateStatus("ready")), c.hasSize = !0, c.loaded = !0, y("ImageLoadComplete")) : (e++, 200 > e ? setTimeout(f, 100) : g()))
                 }, g = function () {
                     c && (c.img.off(".mfploader"), c === b.currItem && (b._onImageHasSize(c), b.updateStatus("error", h.tError.replace("%url%", c.src))), c.hasSize = !0, c.loaded = !0, c.loadError = !0)
                 }, h = b.st.image, i = d.find(".mfp-img");
                 if (i.length) {
-                    let j = document.createElement("img");
+                    var j = document.createElement("img");
                     j.className = "mfp-img", c.el && c.el.find("img").length && (j.alt = c.el.find("img").attr("alt")), c.img = a(j).on("load.mfploader", f).on("error.mfploader", g), j.src = c.src, i.is("img") && (c.img = c.img.clone()), j = c.img[0], j.naturalWidth > 0 ? c.hasSize = !0 : j.width || (c.hasSize = !1)
                 }
                 return b._parseMarkup(d, {
@@ -1431,7 +1325,7 @@
             }
         }
     });
-    let N, O = function () {
+    var N, O = function () {
         return void 0 === N && (N = void 0 !== document.createElement("p").style.MozTransform), N
     };
     a.magnificPopup.registerModule("zoom", {
@@ -1441,10 +1335,10 @@
             }
         }, proto: {
             initZoom: function () {
-                let a, c = b.st.zoom, d = ".zoom";
+                var a, c = b.st.zoom, d = ".zoom";
                 if (c.enabled && b.supportsTransition) {
-                    let e, f, g = c.duration, j = function (a) {
-                        let b = a.clone().removeAttr("style").removeAttr("class").addClass("mfp-animated-image"),
+                    var e, f, g = c.duration, j = function (a) {
+                        var b = a.clone().removeAttr("style").removeAttr("class").addClass("mfp-animated-image"),
                             d = "all " + c.duration / 1e3 + "s " + c.easing, e = {
                                 position: "fixed",
                                 zIndex: 9999,
@@ -1486,18 +1380,18 @@
             }, _getItemToZoom: function () {
                 return b.currItem.hasSize ? b.currItem.img : !1
             }, _getOffset: function (c) {
-                let d;
+                var d;
                 d = c ? b.currItem.img : b.st.zoom.opener(b.currItem.el || b.currItem);
-                let e = d.offset(), f = parseInt(d.css("padding-top"), 10), g = parseInt(d.css("padding-bottom"), 10);
+                var e = d.offset(), f = parseInt(d.css("padding-top"), 10), g = parseInt(d.css("padding-bottom"), 10);
                 e.top -= a(window).scrollTop() - f;
-                let h = {width: d.width(), height: (u ? d.innerHeight() : d[0].offsetHeight) - g - f};
+                var h = {width: d.width(), height: (u ? d.innerHeight() : d[0].offsetHeight) - g - f};
                 return O() ? h["-moz-transform"] = h.transform = "translate(" + e.left + "px," + e.top + "px)" : (h.left = e.left, h.top = e.top), h
             }
         }
     });
-    let P = "iframe", Q = "//about:blank", R = function (a) {
+    var P = "iframe", Q = "//about:blank", R = function (a) {
         if (b.currTemplate[P]) {
-            let c = b.currTemplate[P].find("iframe");
+            var c = b.currTemplate[P].find("iframe");
             c.length && (a || (c[0].src = Q), b.isIE8 && c.css("display", a ? "block" : "none"))
         }
     };
@@ -1518,17 +1412,17 @@
                     R()
                 })
             }, getIframe: function (c, d) {
-                let e = c.src, f = b.st.iframe;
+                var e = c.src, f = b.st.iframe;
                 a.each(f.patterns, function () {
                     return e.indexOf(this.index) > -1 ? (this.id && (e = "string" == typeof this.id ? e.substr(e.lastIndexOf(this.id) + this.id.length, e.length) : this.id.call(this, e)), e = this.src.replace("%id%", e), !1) : void 0
                 });
-                let g = {};
+                var g = {};
                 return f.srcAction && (g[f.srcAction] = e), b._parseMarkup(d, g, c), b.updateStatus("ready"), d
             }
         }
     });
-    let S = function (a) {
-        let c = b.items.length;
+    var S = function (a) {
+        var c = b.items.length;
         return a > c - 1 ? a - c : 0 > a ? c + a : a
     }, T = function (a, b, c) {
         return a.replace(/%curr%/gi, b + 1).replace(/%total%/gi, c)
@@ -1545,7 +1439,7 @@
             tCounter: "%curr% of %total%"
         }, proto: {
             initGallery: function () {
-                let c = b.st.gallery, e = ".mfp-gallery";
+                var c = b.st.gallery, e = ".mfp-gallery";
                 return b.direction = !0, c && c.enabled ? (f += " mfp-gallery", w(m + e, function () {
                     c.navigateByImgClick && b.wrap.on("click" + e, ".mfp-img", function () {
                         return b.items.length > 1 ? (b.next(), !1) : void 0
@@ -1555,11 +1449,11 @@
                 }), w("UpdateStatus" + e, function (a, c) {
                     c.text && (c.text = T(c.text, b.currItem.index, b.items.length))
                 }), w(l + e, function (a, d, e, f) {
-                    let g = b.items.length;
+                    var g = b.items.length;
                     e.counter = g > 1 ? T(c.tCounter, f.index, g) : ""
                 }), w("BuildControls" + e, function () {
                     if (b.items.length > 1 && c.arrows && !b.arrowLeft) {
-                        let d = c.arrowMarkup,
+                        var d = c.arrowMarkup,
                             e = b.arrowLeft = a(d.replace(/%title%/gi, c.tPrev).replace(/%dir%/gi, "left")).addClass(s),
                             f = b.arrowRight = a(d.replace(/%title%/gi, c.tNext).replace(/%dir%/gi, "right")).addClass(s);
                         e.click(function () {
@@ -1582,12 +1476,12 @@
             }, goTo: function (a) {
                 b.direction = a >= b.index, b.index = a, b.updateItemHTML()
             }, preloadNearbyImages: function () {
-                let a, c = b.st.gallery.preload, d = Math.min(c[0], b.items.length), e = Math.min(c[1], b.items.length);
+                var a, c = b.st.gallery.preload, d = Math.min(c[0], b.items.length), e = Math.min(c[1], b.items.length);
                 for (a = 1; a <= (b.direction ? e : d); a++) b._preloadItem(b.index + a);
                 for (a = 1; a <= (b.direction ? d : e); a++) b._preloadItem(b.index - a)
             }, _preloadItem: function (c) {
                 if (c = S(c), !b.items[c].preloaded) {
-                    let d = b.items[c];
+                    var d = b.items[c];
                     d.parsed || (d = b.parseEl(c)), y("LazyLoad", d), "image" === d.type && (d.img = a('<img class="mfp-img" />').on("load.mfploader", function () {
                         d.hasSize = !0
                     }).on("error.mfploader", function () {
@@ -1597,7 +1491,7 @@
             }
         }
     });
-    let U = "retina";
+    var U = "retina";
     a.magnificPopup.registerModule(U, {
         options: {
             replaceSrc: function (a) {
@@ -1608,7 +1502,7 @@
         }, proto: {
             initRetina: function () {
                 if (window.devicePixelRatio > 1) {
-                    let a = b.st.retina, c = a.ratio;
+                    var a = b.st.retina, c = a.ratio;
                     c = isNaN(c) ? c() : c, c > 1 && (w("ImageHasSize." + U, function (a, b) {
                         b.img.css({"max-width": b.img[0].naturalWidth / c, width: "100%"})
                     }), w("ElementParse." + U, function (b, d) {
@@ -1627,8 +1521,8 @@ Licensed under the MIT license.
 https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 */
 (function () {
-    let t = [].indexOf || function (t) {
-        for (let e = 0, n = this.length; e < n; e++) {
+    var t = [].indexOf || function (t) {
+        for (var e = 0, n = this.length; e < n; e++) {
             if (e in this && this[e] === t) return e
         }
         return -1
@@ -1642,7 +1536,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             return e(t.jQuery, t)
         }
     })(window, function (n, r) {
-        let i, o, l, s, f, u, c, a, h, d, p, y, v, w, g, m;
+        var i, o, l, s, f, u, c, a, h, d, p, y, v, w, g, m;
         i = n(r);
         a = t.call(r, "ontouchstart") >= 0;
         s = {horizontal: {}, vertical: {}};
@@ -1657,7 +1551,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         m = "waypoints";
         o = function () {
             function t(t) {
-                let e = this;
+                var e = this;
                 this.$element = t;
                 this.element = t[0];
                 this.didResize = false;
@@ -1668,7 +1562,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 this.element[u] = this.id;
                 c[this.id] = this;
                 t.bind(y, function () {
-                    let t;
+                    var t;
                     if (!(e.didScroll || a)) {
                         e.didScroll = true;
                         t = function () {
@@ -1679,7 +1573,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     }
                 });
                 t.bind(p, function () {
-                    let t;
+                    var t;
                     if (!e.didResize) {
                         e.didResize = true;
                         t = function () {
@@ -1692,7 +1586,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
 
             t.prototype.doScroll = function () {
-                let t, e = this;
+                var t, e = this;
                 t = {
                     horizontal: {
                         newScroll: this.$element.scrollLeft(),
@@ -1711,12 +1605,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     n[m]("refresh")
                 }
                 n.each(t, function (t, r) {
-                    let i, o, l;
+                    var i, o, l;
                     l = [];
                     o = r.newScroll > r.oldScroll;
                     i = o ? r.forward : r.backward;
                     n.each(e.waypoints[t], function (t, e) {
-                        let n, i;
+                        var n, i;
                         if (r.oldScroll < (n = e.offset) && n <= r.newScroll) {
                             return l.push(e)
                         } else if (r.newScroll < (i = e.offset) && i <= r.oldScroll) {
@@ -1738,7 +1632,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 return this.oldScroll = {x: t.horizontal.newScroll, y: t.vertical.newScroll}
             };
             t.prototype.refresh = function () {
-                let t, e, r, i = this;
+                var t, e, r, i = this;
                 r = n.isWindow(this.element);
                 e = this.$element.offset();
                 this.doScroll();
@@ -1764,7 +1658,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 };
                 return n.each(t, function (t, e) {
                     return n.each(i.waypoints[t], function (t, r) {
-                        let i, o, l, s, f;
+                        var i, o, l, s, f;
                         i = r.options.offset;
                         l = r.offset;
                         o = n.isWindow(r.element) ? 0 : r.$element.offset()[e.offsetProp];
@@ -1800,10 +1694,10 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }();
         l = function () {
             function t(t, e, r) {
-                let i, o;
+                var i, o;
                 if (r.offset === "bottom-in-view") {
                     r.offset = function () {
-                        let t;
+                        var t;
                         t = n[m]("viewportHeight");
                         if (!n.isWindow(e.element)) {
                             t = e.$element.height()
@@ -1851,7 +1745,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 return this.context.checkEmpty()
             };
             t.getWaypointsByElement = function (t) {
-                let e, r;
+                var e, r;
                 r = t[w];
                 if (!r) {
                     return []
@@ -1865,13 +1759,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }();
         d = {
             init: function (t, e) {
-                let r;
+                var r;
                 e = n.extend({}, n.fn[g].defaults, e);
                 if ((r = e.handler) == null) {
                     e.handler = t
                 }
                 this.each(function () {
-                    let t, r, i, s;
+                    var t, r, i, s;
                     t = n(this);
                     i = (s = e.context) != null ? s : n.fn[g].defaults.context;
                     if (!n.isWindow(i)) {
@@ -1905,7 +1799,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     }
                 })
             }, _traverse: function (t, e, i) {
-                let o, l;
+                var o, l;
                 if (t == null) {
                     t = "vertical"
                 }
@@ -1915,14 +1809,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 l = h.aggregate(e);
                 o = [];
                 this.each(function () {
-                    let e;
+                    var e;
                     e = n.inArray(this, l[t]);
                     return i(o, e, l[t])
                 });
                 return this.pushStack(o)
             }, _invoke: function (t) {
                 this.each(function () {
-                    let e;
+                    var e;
                     e = l.getWaypointsByElement(this);
                     return n.each(e, function (e, n) {
                         n[t]();
@@ -1933,7 +1827,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
         };
         n.fn[g] = function () {
-            let t, r;
+            var t, r;
             r = arguments[0], t = 2 <= arguments.length ? e.call(arguments, 1) : [];
             if (d[r]) {
                 return d[r].apply(this, t)
@@ -1961,10 +1855,10 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     return e.refresh()
                 })
             }, viewportHeight: function () {
-                let t;
+                var t;
                 return (t = r.innerHeight) != null ? t : i.height()
             }, aggregate: function (t) {
-                let e, r, i;
+                var e, r, i;
                 e = s;
                 if (t) {
                     e = (i = c[n(t)[0][u]]) != null ? i.waypoints : void 0
@@ -2023,14 +1917,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }, extendFn: function (t, e) {
                 return d[t] = e
             }, _invoke: function (t) {
-                let e;
+                var e;
                 e = n.extend({}, s.vertical, s.horizontal);
                 return n.each(e, function (e, n) {
                     n[t]();
                     return true
                 })
             }, _filter: function (t, e, r) {
-                let i, o;
+                var i, o;
                 i = c[n(t)[0][u]];
                 if (!i) {
                     return []
@@ -2050,7 +1944,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
         };
         n[m] = function () {
-            let t, n;
+            var t, n;
             n = arguments[0], t = 2 <= arguments.length ? e.call(arguments, 1) : [];
             if (h[n]) {
                 return h[n].apply(null, t)
@@ -2075,21 +1969,21 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 (function (e) {
     "use strict";
     e.fn.counterUp = function (t) {
-        let n = e.extend({time: 400, delay: 10}, t);
+        var n = e.extend({time: 400, delay: 10}, t);
         return this.each(function () {
-            let t = e(this), r = n, i = function () {
-                let e = [], n = r.time / r.delay, i = t.text(), s = /[0-9]+,[0-9]+/.test(i);
+            var t = e(this), r = n, i = function () {
+                var e = [], n = r.time / r.delay, i = t.text(), s = /[0-9]+,[0-9]+/.test(i);
                 i = i.replace(/,/g, "");
-                let o = /^[0-9]+$/.test(i), u = /^[0-9]+\.[0-9]+$/.test(i), a = u ? (i.split(".")[1] || []).length : 0;
-                for (let f = n; f >= 1; f--) {
-                    let l = parseInt(i / n * f);
+                var o = /^[0-9]+$/.test(i), u = /^[0-9]+\.[0-9]+$/.test(i), a = u ? (i.split(".")[1] || []).length : 0;
+                for (var f = n; f >= 1; f--) {
+                    var l = parseInt(i / n * f);
                     u && (l = parseFloat(i / n * f).toFixed(a));
                     if (s) while (/(\d+)(\d{3})/.test(l.toString())) l = l.toString().replace(/(\d+)(\d{3})/, "$1,$2");
                     e.unshift(l)
                 }
                 t.data("counterup-nums", e);
                 t.text("0");
-                let c = function () {
+                var c = function () {
                     t.text(t.data("counterup-nums").shift());
                     if (t.data("counterup-nums").length) setTimeout(t.data("counterup-func"), r.delay); else {
                         delete t.data("counterup-nums");
@@ -2116,30 +2010,30 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     function e() {
     }
 
-    let t = e.prototype;
+    var t = e.prototype;
     return t.on = function (e, t) {
         if (e && t) {
-            let i = this._events = this._events || {}, n = i[e] = i[e] || [];
+            var i = this._events = this._events || {}, n = i[e] = i[e] || [];
             return n.indexOf(t) == -1 && n.push(t), this
         }
     }, t.once = function (e, t) {
         if (e && t) {
             this.on(e, t);
-            let i = this._onceEvents = this._onceEvents || {}, n = i[e] = i[e] || {};
+            var i = this._onceEvents = this._onceEvents || {}, n = i[e] = i[e] || {};
             return n[t] = !0, this
         }
     }, t.off = function (e, t) {
-        let i = this._events && this._events[e];
+        var i = this._events && this._events[e];
         if (i && i.length) {
-            let n = i.indexOf(t);
+            var n = i.indexOf(t);
             return n != -1 && i.splice(n, 1), this
         }
     }, t.emitEvent = function (e, t) {
-        let i = this._events && this._events[e];
+        var i = this._events && this._events[e];
         if (i && i.length) {
             i = i.slice(0), t = t || [];
-            for (let n = this._onceEvents && this._onceEvents[e], o = 0; o < i.length; o++) {
-                let r = i[o], s = n && n[r];
+            for (var n = this._onceEvents && this._onceEvents[e], o = 0; o < i.length; o++) {
+                var r = i[o], s = n && n[r];
                 s && (this.off(e, r), delete n[r]), r.apply(this, t)
             }
             return this
@@ -2154,19 +2048,19 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }) : "object" == typeof module && module.exports ? module.exports = t(e, require("ev-emitter")) : e.imagesLoaded = t(e, e.EvEmitter)
 }("undefined" != typeof window ? window : this, function (e, t) {
     function i(e, t) {
-        for (let i in t) e[i] = t[i];
+        for (var i in t) e[i] = t[i];
         return e
     }
 
     function n(e) {
         if (Array.isArray(e)) return e;
-        let t = "object" == typeof e && "number" == typeof e.length;
+        var t = "object" == typeof e && "number" == typeof e.length;
         return t ? d.call(e) : [e]
     }
 
     function o(e, t, r) {
         if (!(this instanceof o)) return new o(e, t, r);
-        let s = e;
+        var s = e;
         return "string" == typeof e && (s = document.querySelectorAll(e)), s ? (this.elements = n(s), this.options = i({}, this.options), "function" == typeof t ? r = t : i(this.options, t), r && this.on("always", r), this.getImages(), h && (this.jqDeferred = new h.Deferred), void setTimeout(this.check.bind(this))) : void a.error("Bad element for imagesLoaded " + (s || e))
     }
 
@@ -2178,38 +2072,38 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.url = e, this.element = t, this.img = new Image
     }
 
-    let h = e.jQuery, a = e.console, d = Array.prototype.slice;
+    var h = e.jQuery, a = e.console, d = Array.prototype.slice;
     o.prototype = Object.create(t.prototype), o.prototype.options = {}, o.prototype.getImages = function () {
         this.images = [], this.elements.forEach(this.addElementImages, this)
     }, o.prototype.addElementImages = function (e) {
         "IMG" == e.nodeName && this.addImage(e), this.options.background === !0 && this.addElementBackgroundImages(e);
-        let t = e.nodeType;
+        var t = e.nodeType;
         if (t && u[t]) {
-            for (let i = e.querySelectorAll("img"), n = 0; n < i.length; n++) {
-                let o = i[n];
+            for (var i = e.querySelectorAll("img"), n = 0; n < i.length; n++) {
+                var o = i[n];
                 this.addImage(o)
             }
             if ("string" == typeof this.options.background) {
-                let r = e.querySelectorAll(this.options.background);
+                var r = e.querySelectorAll(this.options.background);
                 for (n = 0; n < r.length; n++) {
-                    let s = r[n];
+                    var s = r[n];
                     this.addElementBackgroundImages(s)
                 }
             }
         }
     };
-    let u = {1: !0, 9: !0, 11: !0};
+    var u = {1: !0, 9: !0, 11: !0};
     return o.prototype.addElementBackgroundImages = function (e) {
-        let t = getComputedStyle(e);
-        if (t) for (let i = /url\((['"])?(.*?)\1\)/gi, n = i.exec(t.backgroundImage); null !== n;) {
-            let o = n && n[2];
+        var t = getComputedStyle(e);
+        if (t) for (var i = /url\((['"])?(.*?)\1\)/gi, n = i.exec(t.backgroundImage); null !== n;) {
+            var o = n && n[2];
             o && this.addBackground(o, e), n = i.exec(t.backgroundImage)
         }
     }, o.prototype.addImage = function (e) {
-        let t = new r(e);
+        var t = new r(e);
         this.images.push(t)
     }, o.prototype.addBackground = function (e, t) {
-        let i = new s(e, t);
+        var i = new s(e, t);
         this.images.push(i)
     }, o.prototype.check = function () {
         function e(e, i, n) {
@@ -2218,27 +2112,27 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             })
         }
 
-        let t = this;
+        var t = this;
         return this.progressedCount = 0, this.hasAnyBroken = !1, this.images.length ? void this.images.forEach(function (t) {
             t.once("progress", e), t.check()
         }) : void this.complete()
     }, o.prototype.progress = function (e, t, i) {
         this.progressedCount++, this.hasAnyBroken = this.hasAnyBroken || !e.isLoaded, this.emitEvent("progress", [this, e, t]), this.jqDeferred && this.jqDeferred.notify && this.jqDeferred.notify(this, e), this.progressedCount == this.images.length && this.complete(), this.options.debug && a && a.log("progress: " + i, e, t)
     }, o.prototype.complete = function () {
-        let e = this.hasAnyBroken ? "fail" : "done";
+        var e = this.hasAnyBroken ? "fail" : "done";
         if (this.isComplete = !0, this.emitEvent(e, [this]), this.emitEvent("always", [this]), this.jqDeferred) {
-            let t = this.hasAnyBroken ? "reject" : "resolve";
+            var t = this.hasAnyBroken ? "reject" : "resolve";
             this.jqDeferred[t](this)
         }
     }, r.prototype = Object.create(t.prototype), r.prototype.check = function () {
-        let e = this.getIsImageComplete();
+        var e = this.getIsImageComplete();
         return e ? void this.confirm(0 !== this.img.naturalWidth, "naturalWidth") : (this.proxyImage = new Image, this.proxyImage.addEventListener("load", this), this.proxyImage.addEventListener("error", this), this.img.addEventListener("load", this), this.img.addEventListener("error", this), void (this.proxyImage.src = this.img.src))
     }, r.prototype.getIsImageComplete = function () {
         return this.img.complete && this.img.naturalWidth
     }, r.prototype.confirm = function (e, t) {
         this.isLoaded = e, this.emitEvent("progress", [this, this.img, t])
     }, r.prototype.handleEvent = function (e) {
-        let t = "on" + e.type;
+        var t = "on" + e.type;
         this[t] && this[t](e)
     }, r.prototype.onload = function () {
         this.confirm(!0, "onload"), this.unbindEvents()
@@ -2248,7 +2142,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.proxyImage.removeEventListener("load", this), this.proxyImage.removeEventListener("error", this), this.img.removeEventListener("load", this), this.img.removeEventListener("error", this)
     }, s.prototype = Object.create(r.prototype), s.prototype.check = function () {
         this.img.addEventListener("load", this), this.img.addEventListener("error", this), this.img.src = this.url;
-        let e = this.getIsImageComplete();
+        var e = this.getIsImageComplete();
         e && (this.confirm(0 !== this.img.naturalWidth, "naturalWidth"), this.unbindEvents())
     }, s.prototype.unbindEvents = function () {
         this.img.removeEventListener("load", this), this.img.removeEventListener("error", this)
@@ -2256,7 +2150,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.isLoaded = e, this.emitEvent("progress", [this, this.element, t])
     }, o.makeJQueryPlugin = function (t) {
         t = t || e.jQuery, t && (h = t, h.fn.imagesLoaded = function (e, t) {
-            let i = new o(this, e, t);
+            var i = new o(this, e, t);
             return i.jqDeferred.promise(h(this))
         })
     }, o.makeJQueryPlugin(), o
@@ -2280,20 +2174,20 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
     function i(i, s, a) {
         function u(t, e, o) {
-            let n, s = "$()." + i + '("' + e + '")';
+            var n, s = "$()." + i + '("' + e + '")';
             return t.each(function (t, u) {
-                let h = a.data(u, i);
+                var h = a.data(u, i);
                 if (!h) return void r(i + " not initialized. Cannot call methods, i.e. " + s);
-                let d = h[e];
+                var d = h[e];
                 if (!d || "_" == e.charAt(0)) return void r(s + " is not a valid method");
-                let l = d.apply(h, o);
+                var l = d.apply(h, o);
                 n = void 0 === n ? l : n
             }), void 0 !== n ? n : t
         }
 
         function h(t, e) {
             t.each(function (t, o) {
-                let n = a.data(o, i);
+                var n = a.data(o, i);
                 n ? (n.option(e), n._init()) : (n = new s(o, e), a.data(o, i, n))
             })
         }
@@ -2302,7 +2196,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             a.isPlainObject(t) && (this.options = a.extend(!0, this.options, t))
         }), a.fn[i] = function (t) {
             if ("string" == typeof t) {
-                let e = n.call(arguments, 1);
+                var e = n.call(arguments, 1);
                 return u(this, t, e)
             }
             return h(this, t), this
@@ -2313,7 +2207,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         !t || t && t.bridget || (t.bridget = i)
     }
 
-    let n = Array.prototype.slice, s = t.console, r = "undefined" == typeof s ? function () {
+    var n = Array.prototype.slice, s = t.console, r = "undefined" == typeof s ? function () {
     } : function (t) {
         s.error(t)
     };
@@ -2324,30 +2218,30 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     function t() {
     }
 
-    let e = t.prototype;
+    var e = t.prototype;
     return e.on = function (t, e) {
         if (t && e) {
-            let i = this._events = this._events || {}, o = i[t] = i[t] || [];
+            var i = this._events = this._events || {}, o = i[t] = i[t] || [];
             return o.indexOf(e) == -1 && o.push(e), this
         }
     }, e.once = function (t, e) {
         if (t && e) {
             this.on(t, e);
-            let i = this._onceEvents = this._onceEvents || {}, o = i[t] = i[t] || {};
+            var i = this._onceEvents = this._onceEvents || {}, o = i[t] = i[t] || {};
             return o[e] = !0, this
         }
     }, e.off = function (t, e) {
-        let i = this._events && this._events[t];
+        var i = this._events && this._events[t];
         if (i && i.length) {
-            let o = i.indexOf(e);
+            var o = i.indexOf(e);
             return o != -1 && i.splice(o, 1), this
         }
     }, e.emitEvent = function (t, e) {
-        let i = this._events && this._events[t];
+        var i = this._events && this._events[t];
         if (i && i.length) {
             i = i.slice(0), e = e || [];
-            for (let o = this._onceEvents && this._onceEvents[t], n = 0; n < i.length; n++) {
-                let s = i[n], r = o && o[s];
+            for (var o = this._onceEvents && this._onceEvents[t], n = 0; n < i.length; n++) {
+                var s = i[n], r = o && o[s];
                 r && (this.off(t, s), delete o[s]), s.apply(this, e)
             }
             return this
@@ -2361,7 +2255,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "use strict";
 
     function t(t) {
-        let e = parseFloat(t), i = t.indexOf("%") == -1 && !isNaN(e);
+        var e = parseFloat(t), i = t.indexOf("%") == -1 && !isNaN(e);
         return i && e
     }
 
@@ -2369,7 +2263,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }
 
     function i() {
-        for (let t = {
+        for (var t = {
             width: 0,
             height: 0,
             innerWidth: 0,
@@ -2377,50 +2271,50 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             outerWidth: 0,
             outerHeight: 0
         }, e = 0; e < h; e++) {
-            let i = u[e];
+            var i = u[e];
             t[i] = 0
         }
         return t
     }
 
     function o(t) {
-        let e = getComputedStyle(t);
+        var e = getComputedStyle(t);
         return e || a("Style returned " + e + ". Are you running this code in a hidden iframe on Firefox? See https://bit.ly/getsizebug1"), e
     }
 
     function n() {
         if (!d) {
             d = !0;
-            let e = document.createElement("div");
+            var e = document.createElement("div");
             e.style.width = "200px", e.style.padding = "1px 2px 3px 4px", e.style.borderStyle = "solid", e.style.borderWidth = "1px 2px 3px 4px", e.style.boxSizing = "border-box";
-            let i = document.body || document.documentElement;
+            var i = document.body || document.documentElement;
             i.appendChild(e);
-            let n = o(e);
+            var n = o(e);
             r = 200 == Math.round(t(n.width)), s.isBoxSizeOuter = r, i.removeChild(e)
         }
     }
 
     function s(e) {
         if (n(), "string" == typeof e && (e = document.querySelector(e)), e && "object" == typeof e && e.nodeType) {
-            let s = o(e);
+            var s = o(e);
             if ("none" == s.display) return i();
-            let a = {};
+            var a = {};
             a.width = e.offsetWidth, a.height = e.offsetHeight;
-            for (let d = a.isBorderBox = "border-box" == s.boxSizing, l = 0; l < h; l++) {
-                let f = u[l], c = s[f], m = parseFloat(c);
+            for (var d = a.isBorderBox = "border-box" == s.boxSizing, l = 0; l < h; l++) {
+                var f = u[l], c = s[f], m = parseFloat(c);
                 a[f] = isNaN(m) ? 0 : m
             }
-            let p = a.paddingLeft + a.paddingRight, y = a.paddingTop + a.paddingBottom,
+            var p = a.paddingLeft + a.paddingRight, y = a.paddingTop + a.paddingBottom,
                 g = a.marginLeft + a.marginRight, v = a.marginTop + a.marginBottom,
                 _ = a.borderLeftWidth + a.borderRightWidth, z = a.borderTopWidth + a.borderBottomWidth, I = d && r,
                 x = t(s.width);
             x !== !1 && (a.width = x + (I ? 0 : p + _));
-            let S = t(s.height);
+            var S = t(s.height);
             return S !== !1 && (a.height = S + (I ? 0 : y + z)), a.innerWidth = a.width - (p + _), a.innerHeight = a.height - (y + z), a.outerWidth = a.width + g, a.outerHeight = a.height + v, a
         }
     }
 
-    let r, a = "undefined" == typeof console ? e : function (t) {
+    var r, a = "undefined" == typeof console ? e : function (t) {
             console.error(t)
         },
         u = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "marginLeft", "marginRight", "marginTop", "marginBottom", "borderLeftWidth", "borderRightWidth", "borderTopWidth", "borderBottomWidth"],
@@ -2431,12 +2325,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "function" == typeof define && define.amd ? define("desandro-matches-selector/matches-selector", e) : "object" == typeof module && module.exports ? module.exports = e() : t.matchesSelector = e()
 }(window, function () {
     "use strict";
-    let t = function () {
-        let t = window.Element.prototype;
+    var t = function () {
+        var t = window.Element.prototype;
         if (t.matches) return "matches";
         if (t.matchesSelector) return "matchesSelector";
-        for (let e = ["webkit", "moz", "ms", "o"], i = 0; i < e.length; i++) {
-            let o = e[i], n = o + "MatchesSelector";
+        for (var e = ["webkit", "moz", "ms", "o"], i = 0; i < e.length; i++) {
+            var o = e[i], n = o + "MatchesSelector";
             if (t[n]) return n
         }
     }();
@@ -2448,72 +2342,72 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         return e(t, i)
     }) : "object" == typeof module && module.exports ? module.exports = e(t, require("desandro-matches-selector")) : t.fizzyUIUtils = e(t, t.matchesSelector)
 }(window, function (t, e) {
-    let i = {};
+    var i = {};
     i.extend = function (t, e) {
-        for (let i in e) t[i] = e[i];
+        for (var i in e) t[i] = e[i];
         return t
     }, i.modulo = function (t, e) {
         return (t % e + e) % e
     };
-    let o = Array.prototype.slice;
+    var o = Array.prototype.slice;
     i.makeArray = function (t) {
         if (Array.isArray(t)) return t;
         if (null === t || void 0 === t) return [];
-        let e = "object" == typeof t && "number" == typeof t.length;
+        var e = "object" == typeof t && "number" == typeof t.length;
         return e ? o.call(t) : [t]
     }, i.removeFrom = function (t, e) {
-        let i = t.indexOf(e);
+        var i = t.indexOf(e);
         i != -1 && t.splice(i, 1)
     }, i.getParent = function (t, i) {
         for (; t.parentNode && t != document.body;) if (t = t.parentNode, e(t, i)) return t
     }, i.getQueryElement = function (t) {
         return "string" == typeof t ? document.querySelector(t) : t
     }, i.handleEvent = function (t) {
-        let e = "on" + t.type;
+        var e = "on" + t.type;
         this[e] && this[e](t)
     }, i.filterFindElements = function (t, o) {
         t = i.makeArray(t);
-        let n = [];
+        var n = [];
         return t.forEach(function (t) {
             if (t instanceof HTMLElement) {
                 if (!o) return void n.push(t);
                 e(t, o) && n.push(t);
-                for (let i = t.querySelectorAll(o), s = 0; s < i.length; s++) n.push(i[s])
+                for (var i = t.querySelectorAll(o), s = 0; s < i.length; s++) n.push(i[s])
             }
         }), n
     }, i.debounceMethod = function (t, e, i) {
         i = i || 100;
-        let o = t.prototype[e], n = e + "Timeout";
+        var o = t.prototype[e], n = e + "Timeout";
         t.prototype[e] = function () {
-            let t = this[n];
+            var t = this[n];
             clearTimeout(t);
-            let e = arguments, s = this;
+            var e = arguments, s = this;
             this[n] = setTimeout(function () {
                 o.apply(s, e), delete s[n]
             }, i)
         }
     }, i.docReady = function (t) {
-        let e = document.readyState;
+        var e = document.readyState;
         "complete" == e || "interactive" == e ? setTimeout(t) : document.addEventListener("DOMContentLoaded", t)
     }, i.toDashed = function (t) {
         return t.replace(/(.)([A-Z])/g, function (t, e, i) {
             return e + "-" + i
         }).toLowerCase()
     };
-    let n = t.console;
+    var n = t.console;
     return i.htmlInit = function (e, o) {
         i.docReady(function () {
-            let s = i.toDashed(o), r = "data-" + s, a = document.querySelectorAll("[" + r + "]"),
+            var s = i.toDashed(o), r = "data-" + s, a = document.querySelectorAll("[" + r + "]"),
                 u = document.querySelectorAll(".js-" + s), h = i.makeArray(a).concat(i.makeArray(u)),
                 d = r + "-options", l = t.jQuery;
             h.forEach(function (t) {
-                let i, s = t.getAttribute(r) || t.getAttribute(d);
+                var i, s = t.getAttribute(r) || t.getAttribute(d);
                 try {
                     i = s && JSON.parse(s)
                 } catch (a) {
                     return void (n && n.error("Error parsing " + r + " on " + t.className + ": " + a))
                 }
-                let u = new e(t, i);
+                var u = new e(t, i);
                 l && l.data(t, o, u)
             })
         })
@@ -2524,7 +2418,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "use strict";
 
     function i(t) {
-        for (let e in t) return !1;
+        for (var e in t) return !1;
         return e = null, !0
     }
 
@@ -2538,7 +2432,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         })
     }
 
-    let s = document.documentElement.style, r = "string" == typeof s.transition ? "transition" : "WebkitTransition",
+    var s = document.documentElement.style, r = "string" == typeof s.transition ? "transition" : "WebkitTransition",
         a = "string" == typeof s.transform ? "transform" : "WebkitTransform",
         u = {WebkitTransition: "webkitTransitionEnd", transition: "transitionend"}[r], h = {
             transform: a,
@@ -2550,47 +2444,47 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     d.constructor = o, d._create = function () {
         this._transn = {ingProperties: {}, clean: {}, onEnd: {}}, this.css({position: "absolute"})
     }, d.handleEvent = function (t) {
-        let e = "on" + t.type;
+        var e = "on" + t.type;
         this[e] && this[e](t)
     }, d.getSize = function () {
         this.size = e(this.element)
     }, d.css = function (t) {
-        let e = this.element.style;
-        for (let i in t) {
-            let o = h[i] || i;
+        var e = this.element.style;
+        for (var i in t) {
+            var o = h[i] || i;
             e[o] = t[i]
         }
     }, d.getPosition = function () {
-        let t = getComputedStyle(this.element), e = this.layout._getOption("originLeft"),
+        var t = getComputedStyle(this.element), e = this.layout._getOption("originLeft"),
             i = this.layout._getOption("originTop"), o = t[e ? "left" : "right"], n = t[i ? "top" : "bottom"],
             s = parseFloat(o), r = parseFloat(n), a = this.layout.size;
         o.indexOf("%") != -1 && (s = s / 100 * a.width), n.indexOf("%") != -1 && (r = r / 100 * a.height), s = isNaN(s) ? 0 : s, r = isNaN(r) ? 0 : r, s -= e ? a.paddingLeft : a.paddingRight, r -= i ? a.paddingTop : a.paddingBottom, this.position.x = s, this.position.y = r
     }, d.layoutPosition = function () {
-        let t = this.layout.size, e = {}, i = this.layout._getOption("originLeft"),
+        var t = this.layout.size, e = {}, i = this.layout._getOption("originLeft"),
             o = this.layout._getOption("originTop"), n = i ? "paddingLeft" : "paddingRight", s = i ? "left" : "right",
             r = i ? "right" : "left", a = this.position.x + t[n];
         e[s] = this.getXValue(a), e[r] = "";
-        let u = o ? "paddingTop" : "paddingBottom", h = o ? "top" : "bottom", d = o ? "bottom" : "top",
+        var u = o ? "paddingTop" : "paddingBottom", h = o ? "top" : "bottom", d = o ? "bottom" : "top",
             l = this.position.y + t[u];
         e[h] = this.getYValue(l), e[d] = "", this.css(e), this.emitEvent("layout", [this])
     }, d.getXValue = function (t) {
-        let e = this.layout._getOption("horizontal");
+        var e = this.layout._getOption("horizontal");
         return this.layout.options.percentPosition && !e ? t / this.layout.size.width * 100 + "%" : t + "px"
     }, d.getYValue = function (t) {
-        let e = this.layout._getOption("horizontal");
+        var e = this.layout._getOption("horizontal");
         return this.layout.options.percentPosition && e ? t / this.layout.size.height * 100 + "%" : t + "px"
     }, d._transitionTo = function (t, e) {
         this.getPosition();
-        let i = this.position.x, o = this.position.y, n = t == this.position.x && e == this.position.y;
+        var i = this.position.x, o = this.position.y, n = t == this.position.x && e == this.position.y;
         if (this.setPosition(t, e), n && !this.isTransitioning) return void this.layoutPosition();
-        let s = t - i, r = e - o, a = {};
+        var s = t - i, r = e - o, a = {};
         a.transform = this.getTranslate(s, r), this.transition({
             to: a,
             onTransitionEnd: {transform: this.layoutPosition},
             isCleaning: !0
         })
     }, d.getTranslate = function (t, e) {
-        let i = this.layout._getOption("originLeft"), o = this.layout._getOption("originTop");
+        var i = this.layout._getOption("originLeft"), o = this.layout._getOption("originTop");
         return t = i ? t : -t, e = o ? e : -e, "translate3d(" + t + "px, " + e + "px, 0)"
     }, d.goTo = function (t, e) {
         this.setPosition(t, e), this.layoutPosition()
@@ -2598,23 +2492,23 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.position.x = parseFloat(t), this.position.y = parseFloat(e)
     }, d._nonTransition = function (t) {
         this.css(t.to), t.isCleaning && this._removeStyles(t.to);
-        for (let e in t.onTransitionEnd) t.onTransitionEnd[e].call(this)
+        for (var e in t.onTransitionEnd) t.onTransitionEnd[e].call(this)
     }, d.transition = function (t) {
         if (!parseFloat(this.layout.options.transitionDuration)) return void this._nonTransition(t);
-        let e = this._transn;
-        for (let i in t.onTransitionEnd) e.onEnd[i] = t.onTransitionEnd[i];
+        var e = this._transn;
+        for (var i in t.onTransitionEnd) e.onEnd[i] = t.onTransitionEnd[i];
         for (i in t.to) e.ingProperties[i] = !0, t.isCleaning && (e.clean[i] = !0);
         if (t.from) {
             this.css(t.from);
-            let o = this.element.offsetHeight;
+            var o = this.element.offsetHeight;
             o = null
         }
         this.enableTransition(t.to), this.css(t.to), this.isTransitioning = !0
     };
-    let l = "opacity," + n(a);
+    var l = "opacity," + n(a);
     d.enableTransition = function () {
         if (!this.isTransitioning) {
-            let t = this.layout.options.transitionDuration;
+            var t = this.layout.options.transitionDuration;
             t = "number" == typeof t ? t + "ms" : t, this.css({
                 transitionProperty: l,
                 transitionDuration: t,
@@ -2626,12 +2520,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, d.onotransitionend = function (t) {
         this.ontransitionend(t)
     };
-    let f = {"-webkit-transform": "transform"};
+    var f = {"-webkit-transform": "transform"};
     d.ontransitionend = function (t) {
         if (t.target === this.element) {
-            let e = this._transn, o = f[t.propertyName] || t.propertyName;
+            var e = this._transn, o = f[t.propertyName] || t.propertyName;
             if (delete e.ingProperties[o], i(e.ingProperties) && this.disableTransition(), o in e.clean && (this.element.style[t.propertyName] = "", delete e.clean[o]), o in e.onEnd) {
-                let n = e.onEnd[o];
+                var n = e.onEnd[o];
                 n.call(this), delete e.onEnd[o]
             }
             this.emitEvent("transitionEnd", [this])
@@ -2639,11 +2533,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, d.disableTransition = function () {
         this.removeTransitionStyles(), this.element.removeEventListener(u, this, !1), this.isTransitioning = !1
     }, d._removeStyles = function (t) {
-        let e = {};
-        for (let i in t) e[i] = "";
+        var e = {};
+        for (var i in t) e[i] = "";
         this.css(e)
     };
-    let c = {transitionProperty: "", transitionDuration: "", transitionDelay: ""};
+    var c = {transitionProperty: "", transitionDuration: "", transitionDelay: ""};
     return d.removeTransitionStyles = function () {
         this.css(c)
     }, d.stagger = function (t) {
@@ -2656,7 +2550,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }), void this.hide()) : void this.removeElem()
     }, d.reveal = function () {
         delete this.isHidden, this.css({display: ""});
-        let t = this.layout.options, e = {}, i = this.getHideRevealTransitionEndProperty("visibleStyle");
+        var t = this.layout.options, e = {}, i = this.getHideRevealTransitionEndProperty("visibleStyle");
         e[i] = this.onRevealTransitionEnd, this.transition({
             from: t.hiddenStyle,
             to: t.visibleStyle,
@@ -2666,12 +2560,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, d.onRevealTransitionEnd = function () {
         this.isHidden || this.emitEvent("reveal")
     }, d.getHideRevealTransitionEndProperty = function (t) {
-        let e = this.layout.options[t];
+        var e = this.layout.options[t];
         if (e.opacity) return "opacity";
-        for (let i in e) return i
+        for (var i in e) return i
     }, d.hide = function () {
         this.isHidden = !0, this.css({display: ""});
-        let t = this.layout.options, e = {}, i = this.getHideRevealTransitionEndProperty("hiddenStyle");
+        var t = this.layout.options, e = {}, i = this.getHideRevealTransitionEndProperty("hiddenStyle");
         e[i] = this.onHideTransitionEnd, this.transition({
             from: t.visibleStyle,
             to: t.hiddenStyle,
@@ -2692,12 +2586,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "use strict";
 
     function s(t, e) {
-        let i = o.getQueryElement(t);
+        var i = o.getQueryElement(t);
         if (!i) return void (u && u.error("Bad element for " + this.constructor.namespace + ": " + (i || t)));
         this.element = i, h && (this.$element = h(this.element)), this.options = o.extend({}, this.constructor.defaults), this.option(e);
-        let n = ++l;
+        var n = ++l;
         this.element.outlayerGUID = n, f[n] = this, this._create();
-        let s = this._getOption("initLayout");
+        var s = this._getOption("initLayout");
         s && this.layout()
     }
 
@@ -2711,14 +2605,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
     function a(t) {
         if ("number" == typeof t) return t;
-        let e = t.match(/(^\d*\.?\d*)(\w*)/), i = e && e[1], o = e && e[2];
+        var e = t.match(/(^\d*\.?\d*)(\w*)/), i = e && e[1], o = e && e[2];
         if (!i.length) return 0;
         i = parseFloat(i);
-        let n = m[o] || 1;
+        var n = m[o] || 1;
         return i * n
     }
 
-    let u = t.console, h = t.jQuery, d = function () {
+    var u = t.console, h = t.jQuery, d = function () {
     }, l = 0, f = {};
     s.namespace = "outlayer", s.Item = n, s.defaults = {
         containerStyle: {position: "relative"},
@@ -2731,11 +2625,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         hiddenStyle: {opacity: 0, transform: "scale(0.001)"},
         visibleStyle: {opacity: 1, transform: "scale(1)"}
     };
-    let c = s.prototype;
+    var c = s.prototype;
     o.extend(c, e.prototype), c.option = function (t) {
         o.extend(this.options, t)
     }, c._getOption = function (t) {
-        let e = this.constructor.compatOptions[t];
+        var e = this.constructor.compatOptions[t];
         return e && void 0 !== this.options[e] ? this.options[e] : this.options[t]
     }, s.compatOptions = {
         initLayout: "isInitLayout",
@@ -2747,13 +2641,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         resizeContainer: "isResizingContainer"
     }, c._create = function () {
         this.reloadItems(), this.stamps = [], this.stamp(this.options.stamp), o.extend(this.element.style, this.options.containerStyle);
-        let t = this._getOption("resize");
+        var t = this._getOption("resize");
         t && this.bindResize()
     }, c.reloadItems = function () {
         this.items = this._itemize(this.element.children)
     }, c._itemize = function (t) {
-        for (let e = this._filterFindItemElements(t), i = this.constructor.Item, o = [], n = 0; n < e.length; n++) {
-            let s = e[n], r = new i(s, this);
+        for (var e = this._filterFindItemElements(t), i = this.constructor.Item, o = [], n = 0; n < e.length; n++) {
+            var s = e[n], r = new i(s, this);
             o.push(r)
         }
         return o
@@ -2765,14 +2659,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         })
     }, c.layout = function () {
         this._resetLayout(), this._manageStamps();
-        let t = this._getOption("layoutInstant"), e = void 0 !== t ? t : !this._isLayoutInited;
+        var t = this._getOption("layoutInstant"), e = void 0 !== t ? t : !this._isLayoutInited;
         this.layoutItems(this.items, e), this._isLayoutInited = !0
     }, c._init = c.layout, c._resetLayout = function () {
         this.getSize()
     }, c.getSize = function () {
         this.size = i(this.element)
     }, c._getMeasurement = function (t, e) {
-        let o, n = this.options[t];
+        var o, n = this.options[t];
         n ? ("string" == typeof n ? o = this.element.querySelector(n) : n instanceof HTMLElement && (o = n), this[t] = o ? i(o)[e] : n) : this[t] = 0
     }, c.layoutItems = function (t, e) {
         t = this._getItemsForLayout(t), this._layoutItems(t, e), this._postLayout()
@@ -2782,9 +2676,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         })
     }, c._layoutItems = function (t, e) {
         if (this._emitCompleteOnItems("layout", t), t && t.length) {
-            let i = [];
+            var i = [];
             t.forEach(function (t) {
-                let o = this._getItemLayoutPosition(t);
+                var o = this._getItemLayoutPosition(t);
                 o.item = t, o.isInstant = e || t.isLayoutInstant, i.push(o)
             }, this), this._processLayoutQueue(i)
         }
@@ -2795,21 +2689,21 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             this._positionItem(t.item, t.x, t.y, t.isInstant, e)
         }, this)
     }, c.updateStagger = function () {
-        let t = this.options.stagger;
+        var t = this.options.stagger;
         return null === t || void 0 === t ? void (this.stagger = 0) : (this.stagger = a(t), this.stagger)
     }, c._positionItem = function (t, e, i, o, n) {
         o ? t.goTo(e, i) : (t.stagger(n * this.stagger), t.moveTo(e, i))
     }, c._postLayout = function () {
         this.resizeContainer()
     }, c.resizeContainer = function () {
-        let t = this._getOption("resizeContainer");
+        var t = this._getOption("resizeContainer");
         if (t) {
-            let e = this._getContainerSize();
+            var e = this._getContainerSize();
             e && (this._setContainerMeasure(e.width, !0), this._setContainerMeasure(e.height, !1))
         }
     }, c._getContainerSize = d, c._setContainerMeasure = function (t, e) {
         if (void 0 !== t) {
-            let i = this.size;
+            var i = this.size;
             i.isBorderBox && (t += e ? i.paddingLeft + i.paddingRight + i.borderLeftWidth + i.borderRightWidth : i.paddingBottom + i.paddingTop + i.borderTopWidth + i.borderBottomWidth), t = Math.max(t, 0), this.element.style[e ? "width" : "height"] = t + "px"
         }
     }, c._emitCompleteOnItems = function (t, e) {
@@ -2821,23 +2715,23 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             r++, r == s && i()
         }
 
-        let n = this, s = e.length;
+        var n = this, s = e.length;
         if (!e || !s) return void i();
-        let r = 0;
+        var r = 0;
         e.forEach(function (e) {
             e.once(t, o)
         })
     }, c.dispatchEvent = function (t, e, i) {
-        let o = e ? [e].concat(i) : i;
+        var o = e ? [e].concat(i) : i;
         if (this.emitEvent(t, o), h) if (this.$element = this.$element || h(this.element), e) {
-            let n = h.Event(e);
+            var n = h.Event(e);
             n.type = t, this.$element.trigger(n, i)
         } else this.$element.trigger(t, i)
     }, c.ignore = function (t) {
-        let e = this.getItem(t);
+        var e = this.getItem(t);
         e && (e.isIgnored = !0)
     }, c.unignore = function (t) {
-        let e = this.getItem(t);
+        var e = this.getItem(t);
         e && delete e.isIgnored
     }, c.stamp = function (t) {
         t = this._find(t), t && (this.stamps = this.stamps.concat(t), t.forEach(this.ignore, this))
@@ -2850,7 +2744,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, c._manageStamps = function () {
         this.stamps && this.stamps.length && (this._getBoundingRect(), this.stamps.forEach(this._manageStamp, this))
     }, c._getBoundingRect = function () {
-        let t = this.element.getBoundingClientRect(), e = this.size;
+        var t = this.element.getBoundingClientRect(), e = this.size;
         this._boundingRect = {
             left: t.left + e.paddingLeft + e.borderLeftWidth,
             top: t.top + e.paddingTop + e.borderTopWidth,
@@ -2858,7 +2752,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             bottom: t.bottom - (e.paddingBottom + e.borderBottomWidth)
         }
     }, c._manageStamp = d, c._getElementOffset = function (t) {
-        let e = t.getBoundingClientRect(), o = this._boundingRect, n = i(t), s = {
+        var e = t.getBoundingClientRect(), o = this._boundingRect, n = i(t), s = {
             left: e.left - o.left - n.marginLeft,
             top: e.top - o.top - n.marginTop,
             right: o.right - e.right - n.marginRight,
@@ -2874,73 +2768,73 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, o.debounceMethod(s, "onresize", 100), c.resize = function () {
         this.isResizeBound && this.needsResizeLayout() && this.layout()
     }, c.needsResizeLayout = function () {
-        let t = i(this.element), e = this.size && t;
+        var t = i(this.element), e = this.size && t;
         return e && t.innerWidth !== this.size.innerWidth
     }, c.addItems = function (t) {
-        let e = this._itemize(t);
+        var e = this._itemize(t);
         return e.length && (this.items = this.items.concat(e)), e
     }, c.appended = function (t) {
-        let e = this.addItems(t);
+        var e = this.addItems(t);
         e.length && (this.layoutItems(e, !0), this.reveal(e))
     }, c.prepended = function (t) {
-        let e = this._itemize(t);
+        var e = this._itemize(t);
         if (e.length) {
-            let i = this.items.slice(0);
+            var i = this.items.slice(0);
             this.items = e.concat(i), this._resetLayout(), this._manageStamps(), this.layoutItems(e, !0), this.reveal(e), this.layoutItems(i)
         }
     }, c.reveal = function (t) {
         if (this._emitCompleteOnItems("reveal", t), t && t.length) {
-            let e = this.updateStagger();
+            var e = this.updateStagger();
             t.forEach(function (t, i) {
                 t.stagger(i * e), t.reveal()
             })
         }
     }, c.hide = function (t) {
         if (this._emitCompleteOnItems("hide", t), t && t.length) {
-            let e = this.updateStagger();
+            var e = this.updateStagger();
             t.forEach(function (t, i) {
                 t.stagger(i * e), t.hide()
             })
         }
     }, c.revealItemElements = function (t) {
-        let e = this.getItems(t);
+        var e = this.getItems(t);
         this.reveal(e)
     }, c.hideItemElements = function (t) {
-        let e = this.getItems(t);
+        var e = this.getItems(t);
         this.hide(e)
     }, c.getItem = function (t) {
-        for (let e = 0; e < this.items.length; e++) {
-            let i = this.items[e];
+        for (var e = 0; e < this.items.length; e++) {
+            var i = this.items[e];
             if (i.element == t) return i
         }
     }, c.getItems = function (t) {
         t = o.makeArray(t);
-        let e = [];
+        var e = [];
         return t.forEach(function (t) {
-            let i = this.getItem(t);
+            var i = this.getItem(t);
             i && e.push(i)
         }, this), e
     }, c.remove = function (t) {
-        let e = this.getItems(t);
+        var e = this.getItems(t);
         this._emitCompleteOnItems("remove", e), e && e.length && e.forEach(function (t) {
             t.remove(), o.removeFrom(this.items, t)
         }, this)
     }, c.destroy = function () {
-        let t = this.element.style;
+        var t = this.element.style;
         t.height = "", t.position = "", t.width = "", this.items.forEach(function (t) {
             t.destroy()
         }), this.unbindResize();
-        let e = this.element.outlayerGUID;
+        var e = this.element.outlayerGUID;
         delete f[e], delete this.element.outlayerGUID, h && h.removeData(this.element, this.constructor.namespace)
     }, s.data = function (t) {
         t = o.getQueryElement(t);
-        let e = t && t.outlayerGUID;
+        var e = t && t.outlayerGUID;
         return e && f[e]
     }, s.create = function (t, e) {
-        let i = r(s);
+        var i = r(s);
         return i.defaults = o.extend({}, s.defaults), o.extend(i.defaults, e), i.compatOptions = o.extend({}, s.compatOptions), i.namespace = t, i.data = s.data, i.Item = r(n), o.htmlInit(i, t), h && h.bridget && h.bridget(t, i), i
     };
-    let m = {ms: 1, s: 1e3};
+    var m = {ms: 1, s: 1e3};
     return s.Item = n, s
 }), function (t, e) {
     "function" == typeof define && define.amd ? define("isotope-layout/js/item", ["outlayer/outlayer"], e) : "object" == typeof module && module.exports ? module.exports = e(require("outlayer")) : (t.Isotope = t.Isotope || {}, t.Isotope.Item = e(t.Outlayer))
@@ -2951,20 +2845,20 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         t.Item.apply(this, arguments)
     }
 
-    let i = e.prototype = Object.create(t.Item.prototype), o = i._create;
+    var i = e.prototype = Object.create(t.Item.prototype), o = i._create;
     i._create = function () {
         this.id = this.layout.itemGUID++, o.call(this), this.sortData = {}
     }, i.updateSortData = function () {
         if (!this.isIgnored) {
             this.sortData.id = this.id, this.sortData["original-order"] = this.id, this.sortData.random = Math.random();
-            let t = this.layout.options.getSortData, e = this.layout._sorters;
-            for (let i in t) {
-                let o = e[i];
+            var t = this.layout.options.getSortData, e = this.layout._sorters;
+            for (var i in t) {
+                var o = e[i];
                 this.sortData[i] = o(this.element, this)
             }
         }
     };
-    let n = i.destroy;
+    var n = i.destroy;
     return i.destroy = function () {
         n.apply(this, arguments), this.css({display: ""})
     }, e
@@ -2977,14 +2871,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         this.isotope = t, t && (this.options = t.options[this.namespace], this.element = t.element, this.items = t.filteredItems, this.size = t.size)
     }
 
-    let o = i.prototype,
+    var o = i.prototype,
         n = ["_resetLayout", "_getItemLayoutPosition", "_manageStamp", "_getContainerSize", "_getElementOffset", "needsResizeLayout", "_getOption"];
     return n.forEach(function (t) {
         o[t] = function () {
             return e.prototype[t].apply(this.isotope, arguments)
         }
     }), o.needsVerticalResizeLayout = function () {
-        let e = t(this.isotope.element), i = this.isotope.size && e;
+        var e = t(this.isotope.element), i = this.isotope.size && e;
         return i && e.innerHeight != this.isotope.size.innerHeight
     }, o._getMeasurement = function () {
         this.isotope._getMeasurement.apply(this, arguments)
@@ -2993,13 +2887,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, o.getRowHeight = function () {
         this.getSegmentSize("row", "Height")
     }, o.getSegmentSize = function (t, e) {
-        let i = t + e, o = "outer" + e;
+        var i = t + e, o = "outer" + e;
         if (this._getMeasurement(i, o), !this[i]) {
-            let n = this.getFirstItemSize();
+            var n = this.getFirstItemSize();
             this[i] = n && n[o] || this.isotope.size["inner" + e]
         }
     }, o.getFirstItemSize = function () {
-        let e = this.isotope.filteredItems[0];
+        var e = this.isotope.filteredItems[0];
         return e && e.element && t(e.element)
     }, o.layout = function () {
         this.isotope.layout.apply(this.isotope, arguments)
@@ -3015,79 +2909,79 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }), function (t, e) {
     "function" == typeof define && define.amd ? define("masonry-layout/masonry", ["outlayer/outlayer", "get-size/get-size"], e) : "object" == typeof module && module.exports ? module.exports = e(require("outlayer"), require("get-size")) : t.Masonry = e(t.Outlayer, t.getSize)
 }(window, function (t, e) {
-    let i = t.create("masonry");
+    var i = t.create("masonry");
     i.compatOptions.fitWidth = "isFitWidth";
-    let o = i.prototype;
+    var o = i.prototype;
     return o._resetLayout = function () {
         this.getSize(), this._getMeasurement("columnWidth", "outerWidth"), this._getMeasurement("gutter", "outerWidth"), this.measureColumns(), this.colYs = [];
-        for (let t = 0; t < this.cols; t++) this.colYs.push(0);
+        for (var t = 0; t < this.cols; t++) this.colYs.push(0);
         this.maxY = 0, this.horizontalColIndex = 0
     }, o.measureColumns = function () {
         if (this.getContainerWidth(), !this.columnWidth) {
-            let t = this.items[0], i = t && t.element;
+            var t = this.items[0], i = t && t.element;
             this.columnWidth = i && e(i).outerWidth || this.containerWidth
         }
-        let o = this.columnWidth += this.gutter, n = this.containerWidth + this.gutter, s = n / o, r = o - n % o,
+        var o = this.columnWidth += this.gutter, n = this.containerWidth + this.gutter, s = n / o, r = o - n % o,
             a = r && r < 1 ? "round" : "floor";
         s = Math[a](s), this.cols = Math.max(s, 1)
     }, o.getContainerWidth = function () {
-        let t = this._getOption("fitWidth"), i = t ? this.element.parentNode : this.element, o = e(i);
+        var t = this._getOption("fitWidth"), i = t ? this.element.parentNode : this.element, o = e(i);
         this.containerWidth = o && o.innerWidth
     }, o._getItemLayoutPosition = function (t) {
         t.getSize();
-        let e = t.size.outerWidth % this.columnWidth, i = e && e < 1 ? "round" : "ceil",
+        var e = t.size.outerWidth % this.columnWidth, i = e && e < 1 ? "round" : "ceil",
             o = Math[i](t.size.outerWidth / this.columnWidth);
         o = Math.min(o, this.cols);
-        for (let n = this.options.horizontalOrder ? "_getHorizontalColPosition" : "_getTopColPosition", s = this[n](o, t), r = {
+        for (var n = this.options.horizontalOrder ? "_getHorizontalColPosition" : "_getTopColPosition", s = this[n](o, t), r = {
             x: this.columnWidth * s.col,
             y: s.y
         }, a = s.y + t.size.outerHeight, u = o + s.col, h = s.col; h < u; h++) this.colYs[h] = a;
         return r
     }, o._getTopColPosition = function (t) {
-        let e = this._getTopColGroup(t), i = Math.min.apply(Math, e);
+        var e = this._getTopColGroup(t), i = Math.min.apply(Math, e);
         return {col: e.indexOf(i), y: i}
     }, o._getTopColGroup = function (t) {
         if (t < 2) return this.colYs;
-        for (let e = [], i = this.cols + 1 - t, o = 0; o < i; o++) e[o] = this._getColGroupY(o, t);
+        for (var e = [], i = this.cols + 1 - t, o = 0; o < i; o++) e[o] = this._getColGroupY(o, t);
         return e
     }, o._getColGroupY = function (t, e) {
         if (e < 2) return this.colYs[t];
-        let i = this.colYs.slice(t, t + e);
+        var i = this.colYs.slice(t, t + e);
         return Math.max.apply(Math, i)
     }, o._getHorizontalColPosition = function (t, e) {
-        let i = this.horizontalColIndex % this.cols, o = t > 1 && i + t > this.cols;
+        var i = this.horizontalColIndex % this.cols, o = t > 1 && i + t > this.cols;
         i = o ? 0 : i;
-        let n = e.size.outerWidth && e.size.outerHeight;
+        var n = e.size.outerWidth && e.size.outerHeight;
         return this.horizontalColIndex = n ? i + t : this.horizontalColIndex, {col: i, y: this._getColGroupY(i, t)}
     }, o._manageStamp = function (t) {
-        let i = e(t), o = this._getElementOffset(t), n = this._getOption("originLeft"), s = n ? o.left : o.right,
+        var i = e(t), o = this._getElementOffset(t), n = this._getOption("originLeft"), s = n ? o.left : o.right,
             r = s + i.outerWidth, a = Math.floor(s / this.columnWidth);
         a = Math.max(0, a);
-        let u = Math.floor(r / this.columnWidth);
+        var u = Math.floor(r / this.columnWidth);
         u -= r % this.columnWidth ? 0 : 1, u = Math.min(this.cols - 1, u);
-        for (let h = this._getOption("originTop"), d = (h ? o.top : o.bottom) + i.outerHeight, l = a; l <= u; l++) this.colYs[l] = Math.max(d, this.colYs[l])
+        for (var h = this._getOption("originTop"), d = (h ? o.top : o.bottom) + i.outerHeight, l = a; l <= u; l++) this.colYs[l] = Math.max(d, this.colYs[l])
     }, o._getContainerSize = function () {
         this.maxY = Math.max.apply(Math, this.colYs);
-        let t = {height: this.maxY};
+        var t = {height: this.maxY};
         return this._getOption("fitWidth") && (t.width = this._getContainerFitWidth()), t
     }, o._getContainerFitWidth = function () {
-        for (let t = 0, e = this.cols; --e && 0 === this.colYs[e];) t++;
+        for (var t = 0, e = this.cols; --e && 0 === this.colYs[e];) t++;
         return (this.cols - t) * this.columnWidth - this.gutter
     }, o.needsResizeLayout = function () {
-        let t = this.containerWidth;
+        var t = this.containerWidth;
         return this.getContainerWidth(), t != this.containerWidth
     }, i
 }), function (t, e) {
     "function" == typeof define && define.amd ? define("isotope-layout/js/layout-modes/masonry", ["../layout-mode", "masonry-layout/masonry"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode"), require("masonry-layout")) : e(t.Isotope.LayoutMode, t.Masonry)
 }(window, function (t, e) {
     "use strict";
-    let i = t.create("masonry"), o = i.prototype, n = {_getElementOffset: !0, layout: !0, _getMeasurement: !0};
-    for (let s in e.prototype) n[s] || (o[s] = e.prototype[s]);
-    let r = o.measureColumns;
+    var i = t.create("masonry"), o = i.prototype, n = {_getElementOffset: !0, layout: !0, _getMeasurement: !0};
+    for (var s in e.prototype) n[s] || (o[s] = e.prototype[s]);
+    var r = o.measureColumns;
     o.measureColumns = function () {
         this.items = this.isotope.filteredItems, r.call(this)
     };
-    let a = o._getOption;
+    var a = o._getOption;
     return o._getOption = function (t) {
         return "fitWidth" == t ? void 0 !== this.options.isFitWidth ? this.options.isFitWidth : this.options.fitWidth : a.apply(this.isotope, arguments)
     }, i
@@ -3095,14 +2989,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "function" == typeof define && define.amd ? define("isotope-layout/js/layout-modes/fit-rows", ["../layout-mode"], e) : "object" == typeof exports ? module.exports = e(require("../layout-mode")) : e(t.Isotope.LayoutMode)
 }(window, function (t) {
     "use strict";
-    let e = t.create("fitRows"), i = e.prototype;
+    var e = t.create("fitRows"), i = e.prototype;
     return i._resetLayout = function () {
         this.x = 0, this.y = 0, this.maxY = 0, this._getMeasurement("gutter", "outerWidth")
     }, i._getItemLayoutPosition = function (t) {
         t.getSize();
-        let e = t.size.outerWidth + this.gutter, i = this.isotope.size.innerWidth + this.gutter;
+        var e = t.size.outerWidth + this.gutter, i = this.isotope.size.innerWidth + this.gutter;
         0 !== this.x && e + this.x > i && (this.x = 0, this.y = this.maxY);
-        let o = {x: this.x, y: this.y};
+        var o = {x: this.x, y: this.y};
         return this.maxY = Math.max(this.maxY, this.y + t.size.outerHeight), this.x += e, o
     }, i._getContainerSize = function () {
         return {height: this.maxY}
@@ -3111,12 +3005,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "function" == typeof define && define.amd ? define("isotope-layout/js/layout-modes/vertical", ["../layout-mode"], e) : "object" == typeof module && module.exports ? module.exports = e(require("../layout-mode")) : e(t.Isotope.LayoutMode)
 }(window, function (t) {
     "use strict";
-    let e = t.create("vertical", {horizontalAlignment: 0}), i = e.prototype;
+    var e = t.create("vertical", {horizontalAlignment: 0}), i = e.prototype;
     return i._resetLayout = function () {
         this.y = 0
     }, i._getItemLayoutPosition = function (t) {
         t.getSize();
-        let e = (this.isotope.size.innerWidth - t.size.outerWidth) * this.options.horizontalAlignment, i = this.y;
+        var e = (this.isotope.size.innerWidth - t.size.outerWidth) * this.options.horizontalAlignment, i = this.y;
         return this.y += t.size.outerHeight, {x: e, y: i}
     }, i._getContainerSize = function () {
         return {height: this.y}
@@ -3128,10 +3022,10 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }(window, function (t, e, i, o, n, s, r) {
     function a(t, e) {
         return function (i, o) {
-            for (let n = 0; n < t.length; n++) {
-                let s = t[n], r = i.sortData[s], a = o.sortData[s];
+            for (var n = 0; n < t.length; n++) {
+                var s = t[n], r = i.sortData[s], a = o.sortData[s];
                 if (r > a || r < a) {
-                    let u = void 0 !== e[s] ? e[s] : e, h = u ? 1 : -1;
+                    var u = void 0 !== e[s] ? e[s] : e, h = u ? 1 : -1;
                     return (r > a ? 1 : -1) * h
                 }
             }
@@ -3139,47 +3033,47 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }
     }
 
-    let u = t.jQuery, h = String.prototype.trim ? function (t) {
+    var u = t.jQuery, h = String.prototype.trim ? function (t) {
         return t.trim()
     } : function (t) {
         return t.replace(/^\s+|\s+$/g, "")
     }, d = e.create("isotope", {layoutMode: "masonry", isJQueryFiltering: !0, sortAscending: !0});
     d.Item = s, d.LayoutMode = r;
-    let l = d.prototype;
+    var l = d.prototype;
     l._create = function () {
         this.itemGUID = 0, this._sorters = {}, this._getSorters(), e.prototype._create.call(this), this.modes = {}, this.filteredItems = this.items, this.sortHistory = ["original-order"];
-        for (let t in r.modes) this._initLayoutMode(t)
+        for (var t in r.modes) this._initLayoutMode(t)
     }, l.reloadItems = function () {
         this.itemGUID = 0, e.prototype.reloadItems.call(this)
     }, l._itemize = function () {
-        for (let t = e.prototype._itemize.apply(this, arguments), i = 0; i < t.length; i++) {
-            let o = t[i];
+        for (var t = e.prototype._itemize.apply(this, arguments), i = 0; i < t.length; i++) {
+            var o = t[i];
             o.id = this.itemGUID++
         }
         return this._updateItemsSortData(t), t
     }, l._initLayoutMode = function (t) {
-        let e = r.modes[t], i = this.options[t] || {};
+        var e = r.modes[t], i = this.options[t] || {};
         this.options[t] = e.options ? n.extend(e.options, i) : i, this.modes[t] = new e(this)
     }, l.layout = function () {
         return !this._isLayoutInited && this._getOption("initLayout") ? void this.arrange() : void this._layout()
     }, l._layout = function () {
-        let t = this._getIsInstant();
+        var t = this._getIsInstant();
         this._resetLayout(), this._manageStamps(), this.layoutItems(this.filteredItems, t), this._isLayoutInited = !0
     }, l.arrange = function (t) {
         this.option(t), this._getIsInstant();
-        let e = this._filter(this.items);
+        var e = this._filter(this.items);
         this.filteredItems = e.matches, this._bindArrangeComplete(), this._isInstant ? this._noTransition(this._hideReveal, [e]) : this._hideReveal(e), this._sort(), this._layout()
     }, l._init = l.arrange, l._hideReveal = function (t) {
         this.reveal(t.needReveal), this.hide(t.needHide)
     }, l._getIsInstant = function () {
-        let t = this._getOption("layoutInstant"), e = void 0 !== t ? t : !this._isLayoutInited;
+        var t = this._getOption("layoutInstant"), e = void 0 !== t ? t : !this._isLayoutInited;
         return this._isInstant = e, e
     }, l._bindArrangeComplete = function () {
         function t() {
             e && i && o && n.dispatchEvent("arrangeComplete", null, [n.filteredItems])
         }
 
-        let e, i, o, n = this;
+        var e, i, o, n = this;
         this.once("layoutComplete", function () {
             e = !0, t()
         }), this.once("hideComplete", function () {
@@ -3188,12 +3082,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             o = !0, t()
         })
     }, l._filter = function (t) {
-        let e = this.options.filter;
+        var e = this.options.filter;
         e = e || "*";
-        for (let i = [], o = [], n = [], s = this._getFilterTest(e), r = 0; r < t.length; r++) {
-            let a = t[r];
+        for (var i = [], o = [], n = [], s = this._getFilterTest(e), r = 0; r < t.length; r++) {
+            var a = t[r];
             if (!a.isIgnored) {
-                let u = s(a);
+                var u = s(a);
                 u && i.push(a), u && a.isHidden ? o.push(a) : u || a.isHidden || n.push(a)
             }
         }
@@ -3207,24 +3101,24 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             return o(e.element, t)
         }
     }, l.updateSortData = function (t) {
-        let e;
+        var e;
         t ? (t = n.makeArray(t), e = this.getItems(t)) : e = this.items, this._getSorters(), this._updateItemsSortData(e)
     }, l._getSorters = function () {
-        let t = this.options.getSortData;
-        for (let e in t) {
-            let i = t[e];
+        var t = this.options.getSortData;
+        for (var e in t) {
+            var i = t[e];
             this._sorters[e] = f(i)
         }
     }, l._updateItemsSortData = function (t) {
-        for (let e = t && t.length, i = 0; e && i < e; i++) {
-            let o = t[i];
+        for (var e = t && t.length, i = 0; e && i < e; i++) {
+            var o = t[i];
             o.updateSortData()
         }
     };
-    let f = function () {
+    var f = function () {
         function t(t) {
             if ("string" != typeof t) return t;
-            let i = h(t).split(" "), o = i[0], n = o.match(/^\[(.+)\]$/), s = n && n[1], r = e(s, o),
+            var i = h(t).split(" "), o = i[0], n = o.match(/^\[(.+)\]$/), s = n && n[1], r = e(s, o),
                 a = d.sortDataParsers[i[1]];
             return t = a ? function (t) {
                 return t && a(r(t))
@@ -3237,7 +3131,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             return t ? function (e) {
                 return e.getAttribute(t)
             } : function (t) {
-                let i = t.querySelector(e);
+                var i = t.querySelector(e);
                 return i && i.textContent
             }
         }
@@ -3252,16 +3146,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }
     }, l._sort = function () {
         if (this.options.sortBy) {
-            let t = n.makeArray(this.options.sortBy);
+            var t = n.makeArray(this.options.sortBy);
             this._getIsSameSortBy(t) || (this.sortHistory = t.concat(this.sortHistory));
-            let e = a(this.sortHistory, this.options.sortAscending);
+            var e = a(this.sortHistory, this.options.sortAscending);
             this.filteredItems.sort(e)
         }
     }, l._getIsSameSortBy = function (t) {
-        for (let e = 0; e < t.length; e++) if (t[e] != this.sortHistory[e]) return !1;
+        for (var e = 0; e < t.length; e++) if (t[e] != this.sortHistory[e]) return !1;
         return !0
     }, l._mode = function () {
-        let t = this.options.layoutMode, e = this.modes[t];
+        var t = this.options.layoutMode, e = this.modes[t];
         if (!e) throw new Error("No layout mode: " + t);
         return e.options = this.options[t], e
     }, l._resetLayout = function () {
@@ -3275,51 +3169,51 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, l.needsResizeLayout = function () {
         return this._mode().needsResizeLayout()
     }, l.appended = function (t) {
-        let e = this.addItems(t);
+        var e = this.addItems(t);
         if (e.length) {
-            let i = this._filterRevealAdded(e);
+            var i = this._filterRevealAdded(e);
             this.filteredItems = this.filteredItems.concat(i)
         }
     }, l.prepended = function (t) {
-        let e = this._itemize(t);
+        var e = this._itemize(t);
         if (e.length) {
             this._resetLayout(), this._manageStamps();
-            let i = this._filterRevealAdded(e);
+            var i = this._filterRevealAdded(e);
             this.layoutItems(this.filteredItems), this.filteredItems = i.concat(this.filteredItems), this.items = e.concat(this.items)
         }
     }, l._filterRevealAdded = function (t) {
-        let e = this._filter(t);
+        var e = this._filter(t);
         return this.hide(e.needHide), this.reveal(e.matches), this.layoutItems(e.matches, !0), e.matches
     }, l.insert = function (t) {
-        let e = this.addItems(t);
+        var e = this.addItems(t);
         if (e.length) {
-            let i, o, n = e.length;
+            var i, o, n = e.length;
             for (i = 0; i < n; i++) o = e[i], this.element.appendChild(o.element);
-            let s = this._filter(e).matches;
+            var s = this._filter(e).matches;
             for (i = 0; i < n; i++) e[i].isLayoutInstant = !0;
             for (this.arrange(), i = 0; i < n; i++) delete e[i].isLayoutInstant;
             this.reveal(s)
         }
     };
-    let c = l.remove;
+    var c = l.remove;
     return l.remove = function (t) {
         t = n.makeArray(t);
-        let e = this.getItems(t);
+        var e = this.getItems(t);
         c.call(this, t);
-        for (let i = e && e.length, o = 0; i && o < i; o++) {
-            let s = e[o];
+        for (var i = e && e.length, o = 0; i && o < i; o++) {
+            var s = e[o];
             n.removeFrom(this.filteredItems, s)
         }
     }, l.shuffle = function () {
-        for (let t = 0; t < this.items.length; t++) {
-            let e = this.items[t];
+        for (var t = 0; t < this.items.length; t++) {
+            var e = this.items[t];
             e.sortData.random = Math.random()
         }
         this.options.sortBy = "random", this._sort(), this._layout()
     }, l._noTransition = function (t, e) {
-        let i = this.options.transitionDuration;
+        var i = this.options.transitionDuration;
         this.options.transitionDuration = 0;
-        let o = t.apply(this, e);
+        var o = t.apply(this, e);
         return this.options.transitionDuration = i, o
     }, l.getFilteredItemElements = function () {
         return this.filteredItems.map(function (t) {
@@ -3334,11 +3228,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
  * GitHub  : https://github.com/nk-o/jarallax
  */
 !function (o) {
-    let n = {};
+    var n = {};
 
     function i(e) {
         if (n[e]) return n[e].exports;
-        let t = n[e] = {i: e, l: !1, exports: {}};
+        var t = n[e] = {i: e, l: !1, exports: {}};
         return o[e].call(t.exports, t, t.exports, i), t.l = !0, t.exports
     }
 
@@ -3349,16 +3243,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, i.t = function (t, e) {
         if (1 & e && (t = i(t)), 8 & e) return t;
         if (4 & e && "object" == typeof t && t && t.__esModule) return t;
-        let o = Object.create(null);
+        var o = Object.create(null);
         if (i.r(o), Object.defineProperty(o, "default", {
             enumerable: !0,
             value: t
-        }), 2 & e && "string" != typeof t) for (let n in t) i.d(o, n, function (e) {
+        }), 2 & e && "string" != typeof t) for (var n in t) i.d(o, n, function (e) {
             return t[e]
         }.bind(null, n));
         return o
     }, i.n = function (e) {
-        let t = e && e.__esModule ? function () {
+        var t = e && e.__esModule ? function () {
             return e.default
         } : function () {
             return e
@@ -3377,12 +3271,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }, , function (o, e, t) {
     "use strict";
     (function (e) {
-        let t;
+        var t;
         t = "undefined" != typeof window ? window : void 0 !== e ? e : "undefined" != typeof self ? self : {}, o.exports = t
     }).call(this, t(5))
 }, function (e, t, o) {
     "use strict";
-    let n, i = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
+    var n, i = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
         return typeof e
     } : function (e) {
         return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e
@@ -3400,7 +3294,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     e.exports = o(12)
 }, function (e, t, o) {
     "use strict";
-    let n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
+    var n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
         return typeof e
     } : function (e) {
         return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e
@@ -3410,18 +3304,18 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         return e && e.__esModule ? e : {default: e}
     }
 
-    let s = a.window.jarallax;
+    var s = a.window.jarallax;
     if (a.window.jarallax = r.default, a.window.jarallax.noConflict = function () {
         return a.window.jarallax = s, this
     }, void 0 !== a.jQuery) {
-        let c = function () {
-            let e = arguments || [];
+        var c = function () {
+            var e = arguments || [];
             Array.prototype.unshift.call(e, this);
-            let t = r.default.apply(a.window, e);
+            var t = r.default.apply(a.window, e);
             return "object" !== (void 0 === t ? "undefined" : n(t)) ? t : this
         };
         c.constructor = r.default.constructor;
-        let u = a.jQuery.fn.jarallax;
+        var u = a.jQuery.fn.jarallax;
         a.jQuery.fn.jarallax = c, a.jQuery.fn.jarallax.noConflict = function () {
             return a.jQuery.fn.jarallax = u, this
         }
@@ -3433,12 +3327,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     "use strict";
     (function (e) {
         Object.defineProperty(j, "__esModule", {value: !0});
-        let d = function (e, t) {
+        var d = function (e, t) {
             if (Array.isArray(e)) return e;
             if (Symbol.iterator in Object(e)) return function (e, t) {
-                let o = [], n = !0, i = !1, a = void 0;
+                var o = [], n = !0, i = !1, a = void 0;
                 try {
-                    for (let r, l = e[Symbol.iterator](); !(n = (r = l.next()).done) && (o.push(r.value), !t || o.length !== t); n = !0) ;
+                    for (var r, l = e[Symbol.iterator](); !(n = (r = l.next()).done) && (o.push(r.value), !t || o.length !== t); n = !0) ;
                 } catch (e) {
                     i = !0, a = e
                 } finally {
@@ -3453,8 +3347,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             throw new TypeError("Invalid attempt to destructure non-iterable instance")
         }, t = function () {
             function n(e, t) {
-                for (let o = 0; o < t.length; o++) {
-                    let n = t[o];
+                for (var o = 0; o < t.length; o++) {
+                    var n = t[o];
                     n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(e, n.key, n)
                 }
             }
@@ -3472,9 +3366,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             return e && e.__esModule ? e : {default: e}
         }
 
-        let s = -1 < navigator.userAgent.indexOf("MSIE ") || -1 < navigator.userAgent.indexOf("Trident/") || -1 < navigator.userAgent.indexOf("Edge/"),
+        var s = -1 < navigator.userAgent.indexOf("MSIE ") || -1 < navigator.userAgent.indexOf("Trident/") || -1 < navigator.userAgent.indexOf("Edge/"),
             r = function () {
-                for (let e = "transform WebkitTransform MozTransform".split(" "), t = document.createElement("div"), o = 0; o < e.length; o++) if (t && void 0 !== t.style[e[o]]) return e[o];
+                for (var e = "transform WebkitTransform MozTransform".split(" "), t = document.createElement("div"), o = 0; o < e.length; o++) if (t && void 0 !== t.style[e[o]]) return e[o];
                 return !1
             }(), b = void 0, v = void 0, l = void 0, c = !1, u = !1;
 
@@ -3485,19 +3379,19 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         m(), i.window.addEventListener("resize", m), i.window.addEventListener("orientationchange", m), i.window.addEventListener("load", m), (0, o.default)(function () {
             m({type: "dom-loaded"})
         });
-        let f = [], y = !1;
+        var f = [], y = !1;
 
         function g() {
             if (f.length) {
                 l = void 0 !== i.window.pageYOffset ? i.window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-                let t = c || !y || y.width !== b || y.height !== v, o = u || t || !y || y.y !== l;
+                var t = c || !y || y.width !== b || y.height !== v, o = u || t || !y || y.y !== l;
                 u = c = !1, (t || o) && (f.forEach(function (e) {
                     t && e.onResize(), o && e.onScroll()
                 }), y = {width: b, height: v, y: l}), (0, n.default)(g)
             }
         }
 
-        let h = !!e.ResizeObserver && new e.ResizeObserver(function (e) {
+        var h = !!e.ResizeObserver && new e.ResizeObserver(function (e) {
             e && e.length && (0, n.default)(function () {
                 e.forEach(function (e) {
                     e.target && e.target.jarallax && (c || e.target.jarallax.onResize(), u = !0)
@@ -3508,7 +3402,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 !function (e, t) {
                     if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
                 }(this, u);
-                let o = this;
+                var o = this;
                 o.instanceID = x++, o.$item = e, o.defaults = {
                     type: "scroll",
                     speed: .5,
@@ -3533,16 +3427,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     onDestroy: null,
                     onCoverImage: null
                 };
-                let n = o.$item.getAttribute("data-jarallax"), i = JSON.parse(n || "{}");
+                var n = o.$item.getAttribute("data-jarallax"), i = JSON.parse(n || "{}");
                 n && console.warn("Detected usage of deprecated data-jarallax JSON options, you should use pure data-attribute options. See info here - https://github.com/nk-o/jarallax/issues/53");
-                let a = o.$item.dataset || {}, r = {};
+                var a = o.$item.dataset || {}, r = {};
                 if (Object.keys(a).forEach(function (e) {
-                    let t = e.substr(0, 1).toLowerCase() + e.substr(1);
+                    var t = e.substr(0, 1).toLowerCase() + e.substr(1);
                     t && void 0 !== o.defaults[t] && (r[t] = a[e])
                 }), o.options = o.extend({}, o.defaults, i, r, t), o.pureOptions = o.extend({}, o.options), Object.keys(o.options).forEach(function (e) {
                     "true" === o.options[e] ? o.options[e] = !0 : "false" === o.options[e] && (o.options[e] = !1)
                 }), o.options.speed = Math.min(2, Math.max(-1, parseFloat(o.options.speed))), (o.options.noAndroid || o.options.noIos) && (console.warn("Detected usage of deprecated noAndroid or noIos options, you should use disableParallax option. See info here - https://github.com/nk-o/jarallax/#disable-on-mobile-devices"), o.options.disableParallax || (o.options.noIos && o.options.noAndroid ? o.options.disableParallax = /iPad|iPhone|iPod|Android/ : o.options.noIos ? o.options.disableParallax = /iPad|iPhone|iPod/ : o.options.noAndroid && (o.options.disableParallax = /Android/))), "string" == typeof o.options.disableParallax && (o.options.disableParallax = new RegExp(o.options.disableParallax)), o.options.disableParallax instanceof RegExp) {
-                    let l = o.options.disableParallax;
+                    var l = o.options.disableParallax;
                     o.options.disableParallax = function () {
                         return l.test(navigator.userAgent)
                     }
@@ -3550,7 +3444,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 if ("function" != typeof o.options.disableParallax && (o.options.disableParallax = function () {
                     return !1
                 }), "string" == typeof o.options.disableVideo && (o.options.disableVideo = new RegExp(o.options.disableVideo)), o.options.disableVideo instanceof RegExp) {
-                    let s = o.options.disableVideo;
+                    var s = o.options.disableVideo;
                     o.options.disableVideo = function () {
                         return s.test(navigator.userAgent)
                     }
@@ -3558,7 +3452,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 "function" != typeof o.options.disableVideo && (o.options.disableVideo = function () {
                     return !1
                 });
-                let c = o.options.elementInViewport;
+                var c = o.options.elementInViewport;
                 c && "object" === (void 0 === c ? "undefined" : p(c)) && void 0 !== c.length && (c = d(c, 1)[0]);
                 c instanceof Element || (c = null), o.options.elementInViewport = c, o.image = {
                     src: o.options.imgSrc || null,
@@ -3576,7 +3470,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 }
             }, {
                 key: "extend", value: function (o) {
-                    let n = arguments;
+                    var n = arguments;
                     return o = o || {}, Object.keys(arguments).forEach(function (t) {
                         n[t] && Object.keys(n[t]).forEach(function (e) {
                             o[e] = n[t][e]
@@ -3589,7 +3483,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 }
             }, {
                 key: "initImg", value: function () {
-                    let e = this, t = e.options.imgElement;
+                    var e = this, t = e.options.imgElement;
                     return t && "string" == typeof t && (t = e.$item.querySelector(t)), t instanceof Element || (t = null), t && (e.options.keepImg ? e.image.$item = t.cloneNode(!0) : (e.image.$item = t, e.image.$itemParent = t.parentNode), e.image.useImgTag = !0), !!e.image.$item || (null === e.image.src && (e.image.src = e.css(e.$item, "background-image").replace(/^url\(['"]?/g, "").replace(/['"]?\)$/g, "")), !(!e.image.src || "none" === e.image.src))
                 }
             }, {
@@ -3598,7 +3492,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 }
             }, {
                 key: "init", value: function () {
-                    let e = this, t = {
+                    var e = this, t = {
                         position: "absolute",
                         top: 0,
                         left: 0,
@@ -3608,9 +3502,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                         pointerEvents: "none"
                     }, o = {};
                     if (!e.options.keepImg) {
-                        let n = e.$item.getAttribute("style");
+                        var n = e.$item.getAttribute("style");
                         if (n && e.$item.setAttribute("data-jarallax-original-styles", n), e.image.useImgTag) {
-                            let i = e.image.$item.getAttribute("style");
+                            var i = e.image.$item.getAttribute("style");
                             i && e.image.$item.setAttribute("data-jarallax-original-styles", i)
                         }
                     }
@@ -3624,8 +3518,8 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                         "background-size": e.options.imgSize,
                         "background-repeat": e.options.imgRepeat,
                         "background-image": 'url("' + e.image.src + '")'
-                    }, t, o))), "opacity" !== e.options.type && "scale" !== e.options.type && "scale-opacity" !== e.options.type && 1 !== e.options.speed || (e.image.position = "absolute"), "fixed" === e.image.position) for (let a = 0, r = e.$item; null !== r && r !== document && 0 === a;) {
-                        let l = e.css(r, "-webkit-transform") || e.css(r, "-moz-transform") || e.css(r, "transform");
+                    }, t, o))), "opacity" !== e.options.type && "scale" !== e.options.type && "scale-opacity" !== e.options.type && 1 !== e.options.speed || (e.image.position = "absolute"), "fixed" === e.image.position) for (var a = 0, r = e.$item; null !== r && r !== document && 0 === a;) {
+                        var l = e.css(r, "-webkit-transform") || e.css(r, "-moz-transform") || e.css(r, "transform");
                         l && "none" !== l && (a = 1, e.image.position = "absolute"), r = r.parentNode
                     }
                     o.position = e.image.position, e.css(e.image.$item, o), e.image.$container.appendChild(e.image.$item), e.onResize(), e.onScroll(!0), e.options.automaticResize && h && h.observe(e.$item), e.options.onInit && e.options.onInit.call(e), "none" !== e.css(e.$item, "background-image") && e.css(e.$item, {"background-image": "none"}), e.addToParallaxList()
@@ -3636,18 +3530,18 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 }
             }, {
                 key: "removeFromParallaxList", value: function () {
-                    let o = this;
+                    var o = this;
                     f.forEach(function (e, t) {
                         e.instanceID === o.instanceID && f.splice(t, 1)
                     })
                 }
             }, {
                 key: "destroy", value: function () {
-                    let e = this;
+                    var e = this;
                     e.removeFromParallaxList();
-                    let t = e.$item.getAttribute("data-jarallax-original-styles");
+                    var t = e.$item.getAttribute("data-jarallax-original-styles");
                     if (e.$item.removeAttribute("data-jarallax-original-styles"), t ? e.$item.setAttribute("style", t) : e.$item.removeAttribute("style"), e.image.useImgTag) {
-                        let o = e.image.$item.getAttribute("data-jarallax-original-styles");
+                        var o = e.image.$item.getAttribute("data-jarallax-original-styles");
                         e.image.$item.removeAttribute("data-jarallax-original-styles"), o ? e.image.$item.setAttribute("style", t) : e.image.$item.removeAttribute("style"), e.image.$itemParent && e.image.$itemParent.appendChild(e.image.$item)
                     }
                     e.$clipStyles && e.$clipStyles.parentNode.removeChild(e.$clipStyles), e.image.$container && e.image.$container.parentNode.removeChild(e.image.$container), e.options.onDestroy && e.options.onDestroy.call(e), delete e.$item.jarallax
@@ -3655,15 +3549,15 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }, {
                 key: "clipContainer", value: function () {
                     if ("fixed" === this.image.position) {
-                        let e = this, t = e.image.$container.getBoundingClientRect(), o = t.width, n = t.height;
+                        var e = this, t = e.image.$container.getBoundingClientRect(), o = t.width, n = t.height;
                         if (!e.$clipStyles) e.$clipStyles = document.createElement("style"), e.$clipStyles.setAttribute("type", "text/css"), e.$clipStyles.setAttribute("id", "jarallax-clip-" + e.instanceID), (document.head || document.getElementsByTagName("head")[0]).appendChild(e.$clipStyles);
-                        let i = "#jarallax-container-" + e.instanceID + " {\n           clip: rect(0 " + o + "px " + n + "px 0);\n           clip: rect(0, " + o + "px, " + n + "px, 0);\n        }";
+                        var i = "#jarallax-container-" + e.instanceID + " {\n           clip: rect(0 " + o + "px " + n + "px 0);\n           clip: rect(0, " + o + "px, " + n + "px, 0);\n        }";
                         e.$clipStyles.styleSheet ? e.$clipStyles.styleSheet.cssText = i : e.$clipStyles.innerHTML = i
                     }
                 }
             }, {
                 key: "coverImage", value: function () {
-                    let e = this, t = e.image.$container.getBoundingClientRect(), o = t.height, n = e.options.speed,
+                    var e = this, t = e.image.$container.getBoundingClientRect(), o = t.height, n = e.options.speed,
                         i = "scroll" === e.options.type || "scroll-opacity" === e.options.type, a = 0, r = o, l = 0;
                     return i && (n < 0 ? (a = n * Math.max(o, v), v < o && (a -= n * (o - v))) : a = n * (o + v), 1 < n ? r = Math.abs(a - v) : n < 0 ? r = a / n + Math.abs(a) : r += (v - o) * (1 - n), a /= 2), e.parallaxScrollDistance = a, l = i ? (v - r) / 2 : (o - r) / 2, e.css(e.image.$item, {
                         height: r + "px",
@@ -3681,17 +3575,17 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 }
             }, {
                 key: "onScroll", value: function (e) {
-                    let t = this, o = t.$item.getBoundingClientRect(), n = o.top, i = o.height, a = {}, r = o;
+                    var t = this, o = t.$item.getBoundingClientRect(), n = o.top, i = o.height, a = {}, r = o;
                     if (t.options.elementInViewport && (r = t.options.elementInViewport.getBoundingClientRect()), t.isElementInViewport = 0 <= r.bottom && 0 <= r.right && r.top <= v && r.left <= b, e || t.isElementInViewport) {
-                        let l = Math.max(0, n), s = Math.max(0, i + n), c = Math.max(0, -n), u = Math.max(0, n + i - v),
+                        var l = Math.max(0, n), s = Math.max(0, i + n), c = Math.max(0, -n), u = Math.max(0, n + i - v),
                             d = Math.max(0, i - (n + i - v)), p = Math.max(0, -n + v - i),
                             m = 1 - 2 * (v - n) / (v + i), f = 1;
                         if (i < v ? f = 1 - (c || u) / i : s <= v ? f = s / v : d <= v && (f = d / v), "opacity" !== t.options.type && "scale-opacity" !== t.options.type && "scroll-opacity" !== t.options.type || (a.transform = "translate3d(0,0,0)", a.opacity = f), "scale" === t.options.type || "scale-opacity" === t.options.type) {
-                            let y = 1;
+                            var y = 1;
                             t.options.speed < 0 ? y -= t.options.speed * f : y += t.options.speed * (1 - f), a.transform = "scale(" + y + ") translate3d(0,0,0)"
                         }
                         if ("scroll" === t.options.type || "scroll-opacity" === t.options.type) {
-                            let g = t.parallaxScrollDistance * m;
+                            var g = t.parallaxScrollDistance * m;
                             "absolute" === t.image.position && (g -= n), a.transform = "translate3d(0," + g + "px,0)"
                         }
                         t.css(t.image.$item, a), t.options.onScroll && t.options.onScroll.call(t, {
@@ -3714,19 +3608,19 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }]), u
         }(), $ = function (e) {
             ("object" === ("undefined" == typeof HTMLElement ? "undefined" : p(HTMLElement)) ? e instanceof HTMLElement : e && "object" === (void 0 === e ? "undefined" : p(e)) && null !== e && 1 === e.nodeType && "string" == typeof e.nodeName) && (e = [e]);
-            for (let t = arguments[1], o = Array.prototype.slice.call(arguments, 2), n = e.length, i = 0, a = void 0; i < n; i++) if ("object" === (void 0 === t ? "undefined" : p(t)) || void 0 === t ? e[i].jarallax || (e[i].jarallax = new w(e[i], t)) : e[i].jarallax && (a = e[i].jarallax[t].apply(e[i].jarallax, o)), void 0 !== a) return a;
+            for (var t = arguments[1], o = Array.prototype.slice.call(arguments, 2), n = e.length, i = 0, a = void 0; i < n; i++) if ("object" === (void 0 === t ? "undefined" : p(t)) || void 0 === t ? e[i].jarallax || (e[i].jarallax = new w(e[i], t)) : e[i].jarallax && (a = e[i].jarallax[t].apply(e[i].jarallax, o)), void 0 !== a) return a;
             return e
         };
         $.constructor = w, j.default = $
     }).call(this, S(5))
 }, function (e, t, o) {
     "use strict";
-    let n = o(4),
+    var n = o(4),
         i = n.requestAnimationFrame || n.webkitRequestAnimationFrame || n.mozRequestAnimationFrame || function (e) {
-            let t = +new Date, o = Math.max(0, 16 - (t - a)), n = setTimeout(e, o);
+            var t = +new Date, o = Math.max(0, 16 - (t - a)), n = setTimeout(e, o);
             return a = t, n
         }, a = +new Date;
-    let r = n.cancelAnimationFrame || n.webkitCancelAnimationFrame || n.mozCancelAnimationFrame || clearTimeout;
+    var r = n.cancelAnimationFrame || n.webkitCancelAnimationFrame || n.mozCancelAnimationFrame || clearTimeout;
     Function.prototype.bind && (i = i.bind(n), r = r.bind(n)), (e.exports = i).cancel = r
 }]);
 //# sourceMappingURL=jarallax.min.js.map
@@ -3738,11 +3632,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
  * GitHub  : https://github.com/nk-o/jarallax
  */
 !function (o) {
-    let i = {};
+    var i = {};
 
     function n(e) {
         if (i[e]) return i[e].exports;
-        let t = i[e] = {i: e, l: !1, exports: {}};
+        var t = i[e] = {i: e, l: !1, exports: {}};
         return o[e].call(t.exports, t, t.exports, n), t.l = !0, t.exports
     }
 
@@ -3753,16 +3647,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }, n.t = function (t, e) {
         if (1 & e && (t = n(t)), 8 & e) return t;
         if (4 & e && "object" == typeof t && t && t.__esModule) return t;
-        let o = Object.create(null);
+        var o = Object.create(null);
         if (n.r(o), Object.defineProperty(o, "default", {
             enumerable: !0,
             value: t
-        }), 2 & e && "string" != typeof t) for (let i in t) n.d(o, i, function (e) {
+        }), 2 & e && "string" != typeof t) for (var i in t) n.d(o, i, function (e) {
             return t[e]
         }.bind(null, i));
         return o
     }, n.n = function (e) {
-        let t = e && e.__esModule ? function () {
+        var t = e && e.__esModule ? function () {
             return e.default
         } : function () {
             return e
@@ -3781,12 +3675,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }, , function (o, e, t) {
     "use strict";
     (function (e) {
-        let t;
+        var t;
         t = "undefined" != typeof window ? window : void 0 !== e ? e : "undefined" != typeof self ? self : {}, o.exports = t
     }).call(this, t(5))
 }, function (e, t, o) {
     "use strict";
-    let i, n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
+    var i, n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
         return typeof e
     } : function (e) {
         return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e
@@ -3804,7 +3698,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     e.exports = o(7)
 }, function (e, t, o) {
     "use strict";
-    let i = l(o(8)), n = l(o(4)), a = l(o(2)), r = l(o(10));
+    var i = l(o(8)), n = l(o(4)), a = l(o(2)), r = l(o(10));
 
     function l(e) {
         return e && e.__esModule ? e : {default: e}
@@ -3819,14 +3713,14 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }, function (e, t, o) {
     "use strict";
     Object.defineProperty(t, "__esModule", {value: !0});
-    let n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
+    var n = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) {
         return typeof e
     } : function (e) {
         return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e
     }, a = function () {
         function i(e, t) {
-            for (let o = 0; o < t.length; o++) {
-                let i = t[o];
+            for (var o = 0; o < t.length; o++) {
+                var i = t[o];
                 i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i)
             }
         }
@@ -3842,7 +3736,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
     i.prototype = {
         execute: function (e, t) {
-            let o = e.length;
+            var o = e.length;
             for (t = Array.prototype.slice.call(t); o--;) e[o].apply(null, t)
         }, resolve: function () {
             this.execute(this._done, arguments)
@@ -3854,12 +3748,12 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             this._fail.push(e)
         }
     };
-    let r = 0, l = 0, u = 0, p = 0, s = 0, d = new i, y = new i, c = function () {
+    var r = 0, l = 0, u = 0, p = 0, s = 0, d = new i, y = new i, c = function () {
         function i(e, t) {
             !function (e, t) {
                 if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function")
             }(this, i);
-            let o = this;
+            var o = this;
             o.url = e, o.options_default = {
                 autoplay: !1,
                 loop: !1,
@@ -3873,7 +3767,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         return a(i, [{
             key: "extend", value: function (o) {
-                let i = arguments;
+                var i = arguments;
                 return o = o || {}, Object.keys(arguments).forEach(function (t) {
                     i[t] && Object.keys(i[t]).forEach(function (e) {
                         o[e] = i[t][e]
@@ -3882,11 +3776,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
         }, {
             key: "parseURL", value: function (e) {
-                let t, o, i, n, a,
+                var t, o, i, n, a,
                     r = !(!(t = e.match(/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/)) || 11 !== t[1].length) && t[1],
                     l = !(!(o = e.match(/https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/)) || !o[3]) && o[3],
                     u = (i = e.split(/,(?=mp4\:|webm\:|ogv\:|ogg\:)/), n = {}, a = 0, i.forEach(function (e) {
-                        let t = e.match(/^(mp4|webm|ogv|ogg)\:(.*)/);
+                        var t = e.match(/^(mp4|webm|ogv|ogg)\:(.*)/);
                         t && t[1] && t[2] && (n["ogv" === t[1] ? "ogg" : t[1]] = t[2], a = 1)
                     }), !!a && n);
                 return r ? (this.type = "youtube", r) : l ? (this.type = "vimeo", l) : !!u && (this.type = "local", u)
@@ -3901,76 +3795,76 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
         }, {
             key: "off", value: function (o, i) {
-                let n = this;
+                var n = this;
                 this.userEventsList && this.userEventsList[o] && (i ? this.userEventsList[o].forEach(function (e, t) {
                     e === i && (n.userEventsList[o][t] = !1)
                 }) : delete this.userEventsList[o])
             }
         }, {
             key: "fire", value: function (e) {
-                let t = this, o = [].slice.call(arguments, 1);
+                var t = this, o = [].slice.call(arguments, 1);
                 this.userEventsList && void 0 !== this.userEventsList[e] && this.userEventsList[e].forEach(function (e) {
                     e && e.apply(t, o)
                 })
             }
         }, {
             key: "play", value: function (e) {
-                let t = this;
+                var t = this;
                 t.player && ("youtube" === t.type && t.player.playVideo && (void 0 !== e && t.player.seekTo(e || 0), YT.PlayerState.PLAYING !== t.player.getPlayerState() && t.player.playVideo()), "vimeo" === t.type && (void 0 !== e && t.player.setCurrentTime(e), t.player.getPaused().then(function (e) {
                     e && t.player.play()
                 })), "local" === t.type && (void 0 !== e && (t.player.currentTime = e), t.player.paused && t.player.play()))
             }
         }, {
             key: "pause", value: function () {
-                let t = this;
+                var t = this;
                 t.player && ("youtube" === t.type && t.player.pauseVideo && YT.PlayerState.PLAYING === t.player.getPlayerState() && t.player.pauseVideo(), "vimeo" === t.type && t.player.getPaused().then(function (e) {
                     e || t.player.pause()
                 }), "local" === t.type && (t.player.paused || t.player.pause()))
             }
         }, {
             key: "mute", value: function () {
-                let e = this;
+                var e = this;
                 e.player && ("youtube" === e.type && e.player.mute && e.player.mute(), "vimeo" === e.type && e.player.setVolume && e.player.setVolume(0), "local" === e.type && (e.$video.muted = !0))
             }
         }, {
             key: "unmute", value: function () {
-                let e = this;
+                var e = this;
                 e.player && ("youtube" === e.type && e.player.mute && e.player.unMute(), "vimeo" === e.type && e.player.setVolume && e.player.setVolume(e.options.volume), "local" === e.type && (e.$video.muted = !1))
             }
         }, {
             key: "setVolume", value: function () {
-                let e = 0 < arguments.length && void 0 !== arguments[0] && arguments[0], t = this;
+                var e = 0 < arguments.length && void 0 !== arguments[0] && arguments[0], t = this;
                 t.player && e && ("youtube" === t.type && t.player.setVolume && t.player.setVolume(e), "vimeo" === t.type && t.player.setVolume && t.player.setVolume(e), "local" === t.type && (t.$video.volume = e / 100))
             }
         }, {
             key: "getVolume", value: function (t) {
-                let e = this;
+                var e = this;
                 e.player ? ("youtube" === e.type && e.player.getVolume && t(e.player.getVolume()), "vimeo" === e.type && e.player.getVolume && e.player.getVolume().then(function (e) {
                     t(e)
                 }), "local" === e.type && t(100 * e.$video.volume)) : t(!1)
             }
         }, {
             key: "getMuted", value: function (t) {
-                let e = this;
+                var e = this;
                 e.player ? ("youtube" === e.type && e.player.isMuted && t(e.player.isMuted()), "vimeo" === e.type && e.player.getVolume && e.player.getVolume().then(function (e) {
                     t(!!e)
                 }), "local" === e.type && t(e.$video.muted)) : t(null)
             }
         }, {
             key: "getImageURL", value: function (t) {
-                let o = this;
+                var o = this;
                 if (o.videoImage) t(o.videoImage); else {
                     if ("youtube" === o.type) {
-                        let e = ["maxresdefault", "sddefault", "hqdefault", "0"], i = 0, n = new Image;
+                        var e = ["maxresdefault", "sddefault", "hqdefault", "0"], i = 0, n = new Image;
                         n.onload = function () {
                             120 !== (this.naturalWidth || this.width) || i === e.length - 1 ? (o.videoImage = "https://img.youtube.com/vi/" + o.videoID + "/" + e[i] + ".jpg", t(o.videoImage)) : (i++, this.src = "https://img.youtube.com/vi/" + o.videoID + "/" + e[i] + ".jpg")
                         }, n.src = "https://img.youtube.com/vi/" + o.videoID + "/" + e[i] + ".jpg"
                     }
                     if ("vimeo" === o.type) {
-                        let a = new XMLHttpRequest;
+                        var a = new XMLHttpRequest;
                         a.open("GET", "https://vimeo.com/api/v2/video/" + o.videoID + ".json", !0), a.onreadystatechange = function () {
                             if (4 === this.readyState && 200 <= this.status && this.status < 400) {
-                                let e = JSON.parse(this.responseText);
+                                var e = JSON.parse(this.responseText);
                                 o.videoImage = e[0].thumbnail_large, t(o.videoImage)
                             }
                         }, a.send(), a = null
@@ -3983,9 +3877,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
         }, {
             key: "getVideo", value: function (u) {
-                let p = this;
+                var p = this;
                 p.$video ? u(p.$video) : p.onAPIready(function () {
-                    let e = void 0;
+                    var e = void 0;
                     if (p.$video || ((e = document.createElement("div")).style.display = "none"), "youtube" === p.type) {
                         p.playerOptions = {}, p.playerOptions.videoId = p.videoID, p.playerOptions.playerVars = {
                             autohide: 1,
@@ -3993,7 +3887,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                             autoplay: 0,
                             playsinline: 1
                         }, p.options.showContols || (p.playerOptions.playerVars.iv_load_policy = 3, p.playerOptions.playerVars.modestbranding = 1, p.playerOptions.playerVars.controls = 0, p.playerOptions.playerVars.showinfo = 0, p.playerOptions.playerVars.disablekb = 1);
-                        let t = void 0, o = void 0;
+                        var t = void 0, o = void 0;
                         p.playerOptions.events = {
                             onReady: function (t) {
                                 p.options.mute ? t.target.mute() : p.options.volume && t.target.setVolume(p.options.volume), p.options.autoplay && p.play(p.options.startTime), p.fire("ready", t), setInterval(function () {
@@ -4007,9 +3901,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                                 }, 150) : clearInterval(o)
                             }
                         };
-                        let i = !p.$video;
+                        var i = !p.$video;
                         if (i) {
-                            let n = document.createElement("div");
+                            var n = document.createElement("div");
                             n.setAttribute("id", p.playerID), e.appendChild(n), document.body.appendChild(e)
                         }
                         p.player = p.player || new window.YT.Player(p.playerID, p.playerOptions), i && (p.$video = document.getElementById(p.playerID), p.videoWidth = parseInt(p.$video.getAttribute("width"), 10) || 1280, p.videoHeight = parseInt(p.$video.getAttribute("height"), 10) || 720)
@@ -4023,7 +3917,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                             loop: p.options.loop ? 1 : 0,
                             muted: p.options.mute ? 1 : 0
                         }, p.options.volume && (p.playerOptions.volume = p.options.volume), p.options.showContols || (p.playerOptions.badge = 0, p.playerOptions.byline = 0, p.playerOptions.portrait = 0, p.playerOptions.title = 0), !p.$video) {
-                            let a = "";
+                            var a = "";
                             Object.keys(p.playerOptions).forEach(function (e) {
                                 "" !== a && (a += "&"), a += e + "=" + encodeURIComponent(p.playerOptions[e])
                             }), p.$video = document.createElement("iframe"), p.$video.setAttribute("id", p.playerID), p.$video.setAttribute("src", "https://player.vimeo.com/video/" + p.videoID + "?" + a), p.$video.setAttribute("frameborder", "0"), p.$video.setAttribute("mozallowfullscreen", ""), p.$video.setAttribute("allowfullscreen", ""), e.appendChild(p.$video), document.body.appendChild(e)
@@ -4033,7 +3927,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                         }), p.player.getVideoHeight().then(function (e) {
                             p.videoHeight = e || 720
                         });
-                        let r = void 0;
+                        var r = void 0;
                         p.player.on("timeupdate", function (e) {
                             r || (p.fire("started", e), r = 1), p.fire("timeupdate", e), p.options.endTime && p.options.endTime && e.seconds >= p.options.endTime && (p.options.loop ? p.play(p.options.startTime) : p.pause())
                         }), p.player.on("play", function (e) {
@@ -4050,10 +3944,10 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     }
                     if ("local" === p.type) {
                         p.$video || (p.$video = document.createElement("video"), p.options.showContols && (p.$video.controls = !0), p.options.mute ? p.$video.muted = !0 : p.$video.volume && (p.$video.volume = p.options.volume / 100), p.options.loop && (p.$video.loop = !0), p.$video.setAttribute("playsinline", ""), p.$video.setAttribute("webkit-playsinline", ""), p.$video.setAttribute("id", p.playerID), e.appendChild(p.$video), document.body.appendChild(e), Object.keys(p.videoID).forEach(function (e) {
-                            let t, o, i, n;
+                            var t, o, i, n;
                             t = p.$video, o = p.videoID[e], i = "video/" + e, (n = document.createElement("source")).src = o, n.type = i, t.appendChild(n)
                         })), p.player = p.player || p.$video;
-                        let l = void 0;
+                        var l = void 0;
                         p.player.addEventListener("playing", function (e) {
                             l || p.fire("started", e), l = 1
                         }), p.player.addEventListener("timeupdate", function (e) {
@@ -4082,9 +3976,9 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
         }, {
             key: "loadAPI", value: function () {
                 if (!l || !u) {
-                    let e = "";
+                    var e = "";
                     if ("youtube" !== this.type || l || (l = 1, e = "https://www.youtube.com/iframe_api"), "vimeo" !== this.type || u || (u = 1, e = "https://player.vimeo.com/api/player.js"), e) {
-                        let t = document.createElement("script"), o = document.getElementsByTagName("head")[0];
+                        var t = document.createElement("script"), o = document.getElementsByTagName("head")[0];
                         t.src = e, o.appendChild(t), t = o = null
                     }
                 }
@@ -4099,7 +3993,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     e()
                 }); else {
                     s = 1;
-                    let t = setInterval(function () {
+                    var t = setInterval(function () {
                         "undefined" != typeof Vimeo && (clearInterval(t), y.resolve("done"), e())
                     }, 20)
                 }
@@ -4111,13 +4005,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 }, function (e, t, o) {
     "use strict";
     Object.defineProperty(t, "__esModule", {value: !0}), t.default = function () {
-        let e = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : u.default.jarallax;
+        var e = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : u.default.jarallax;
         if (void 0 === e) return;
-        let t = e.constructor, i = t.prototype.init;
+        var t = e.constructor, i = t.prototype.init;
         t.prototype.init = function () {
-            let o = this;
+            var o = this;
             i.apply(o), o.video && !o.options.disableVideo() && o.video.getVideo(function (e) {
-                let t = e.parentNode;
+                var t = e.parentNode;
                 o.css(e, {
                     position: o.image.position,
                     top: "0px",
@@ -4133,11 +4027,11 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 }), o.$video = e, o.image.$container.appendChild(e), t.parentNode.removeChild(t)
             })
         };
-        let l = t.prototype.coverImage;
+        var l = t.prototype.coverImage;
         t.prototype.coverImage = function () {
-            let e = this, t = l.apply(e), o = !!e.image.$item && e.image.$item.nodeName;
+            var e = this, t = l.apply(e), o = !!e.image.$item && e.image.$item.nodeName;
             if (t && e.video && o && ("IFRAME" === o || "VIDEO" === o)) {
-                let i = t.image.height, n = i * e.image.width / e.image.height, a = (t.container.width - n) / 2,
+                var i = t.image.height, n = i * e.image.width / e.image.height, a = (t.container.width - n) / 2,
                     r = t.image.marginTop;
                 t.container.width > n && (n = t.container.width, i = n * e.image.height / e.image.width, a = 0, r += (t.image.height - i) / 2), "IFRAME" === o && (i += 400, r -= 200), e.css(e.$video, {
                     width: n + "px",
@@ -4148,16 +4042,16 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             }
             return t
         };
-        let o = t.prototype.initImg;
+        var o = t.prototype.initImg;
         t.prototype.initImg = function () {
-            let e = this, t = o.apply(e);
+            var e = this, t = o.apply(e);
             return e.options.videoSrc || (e.options.videoSrc = e.$item.getAttribute("data-jarallax-video") || null), e.options.videoSrc ? (e.defaultInitImgResult = t, !0) : t
         };
-        let n = t.prototype.canInitParallax;
+        var n = t.prototype.canInitParallax;
         t.prototype.canInitParallax = function () {
-            let o = this, e = n.apply(o);
+            var o = this, e = n.apply(o);
             if (!o.options.videoSrc) return e;
-            let t = new r.default(o.options.videoSrc, {
+            var t = new r.default(o.options.videoSrc, {
                 autoplay: !0,
                 loop: !0,
                 showContols: !1,
@@ -4169,7 +4063,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             if (t.isValid()) if (e) {
                 if (t.on("ready", function () {
                     if (o.options.videoPlayOnlyVisible) {
-                        let e = o.onScroll;
+                        var e = o.onScroll;
                         o.onScroll = function () {
                             e.apply(o), o.isVisible() ? t.play() : t.pause()
                         }
@@ -4180,7 +4074,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                     o.image.src = e, o.init()
                 }), !1) : (o.image.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", !0)
             } else o.defaultInitImgResult || t.getImageURL(function (e) {
-                let t = o.$item.getAttribute("style");
+                var t = o.$item.getAttribute("style");
                 t && o.$item.setAttribute("data-jarallax-original-styles", t), o.css(o.$item, {
                     "background-image": 'url("' + e + '")',
                     "background-position": "center",
@@ -4189,13 +4083,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             });
             return e
         };
-        let a = t.prototype.destroy;
+        var a = t.prototype.destroy;
         t.prototype.destroy = function () {
-            let e = this;
+            var e = this;
             e.image.$default_item && (e.image.$item = e.image.$default_item, delete e.image.$default_item), a.apply(e)
         }
     };
-    let r = i(o(8)), u = i(o(4));
+    var r = i(o(8)), u = i(o(4));
 
     function i(e) {
         return e && e.__esModule ? e : {default: e}
@@ -4214,7 +4108,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     l.fn.scrollUp = function (o) {
         l.data(e.body, "scrollUp") || (l.data(e.body, "scrollUp", !0), l.fn.scrollUp.init(o))
     }, l.fn.scrollUp.init = function (r) {
-        let s, t, c, i, n, a, d, p = l.fn.scrollUp.settings = l.extend({}, l.fn.scrollUp.defaults, r), f = !1;
+        var s, t, c, i, n, a, d, p = l.fn.scrollUp.settings = l.extend({}, l.fn.scrollUp.defaults, r), f = !1;
         switch (d = p.scrollTrigger ? l(p.scrollTrigger) : l("<a/>", {
             id: p.scrollName,
             href: "#top"
@@ -4297,15 +4191,15 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }
 
     function c(a) {
-        let b = a.toString().replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+        var b = a.toString().replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
         return new RegExp(b)
     }
 
     function d(a) {
         return function (b) {
-            let d = b.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
-            if (d) for (let f = 0, g = d.length; f < g; ++f) {
-                let h = d[f].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/), j = c(h[0]), k = h[1] || "", l = h[3] || "",
+            var d = b.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
+            if (d) for (var f = 0, g = d.length; f < g; ++f) {
+                var h = d[f].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/), j = c(h[0]), k = h[1] || "", l = h[3] || "",
                     m = null;
                 h = h[2], i.hasOwnProperty(h) && (m = i[h], m = Number(a[m])), null !== m && ("!" === k && (m = e(l, m)), "" === k && m < 10 && (m = "0" + m.toString()), b = b.replace(j, m.toString()))
             }
@@ -4314,13 +4208,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     }
 
     function e(a, b) {
-        let c = "s", d = "";
+        var c = "s", d = "";
         return a && (a = a.replace(/(:|;|\s)/gi, "").split(/\,/), 1 === a.length ? c = a[0] : (d = a[0], c = a[1])), Math.abs(b) > 1 ? c : d
     }
 
-    let f = [], g = [], h = {precision: 100, elapse: !1, defer: !1};
+    var f = [], g = [], h = {precision: 100, elapse: !1, defer: !1};
     g.push(/^[0-9]*$/.source), g.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source), g = new RegExp(g.join("|"));
-    let i = {
+    var i = {
         Y: "years",
         m: "months",
         n: "daysToMonth",
@@ -4340,7 +4234,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
     a.extend(j.prototype, {
         start: function () {
             null !== this.interval && clearInterval(this.interval);
-            let a = this;
+            var a = this;
             this.update(), this.interval = setInterval(function () {
                 a.update.call(a)
             }, this.options.precision)
@@ -4358,7 +4252,7 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
             this.finalDate = b(a)
         }, update: function () {
             if (0 === this.$el.closest("html").length) return void this.remove();
-            let b, c = void 0 !== a._data(this.el, "events"), d = new Date;
+            var b, c = void 0 !== a._data(this.el, "events"), d = new Date;
             b = this.finalDate.getTime() - d.getTime(), b = Math.ceil(b / 1e3), b = !this.options.elapse && b < 0 ? 0 : Math.abs(b), this.totalSecsLeft !== b && c && (this.totalSecsLeft = b, this.elapsed = d >= this.finalDate, this.offset = {
                 seconds: this.totalSecsLeft % 60,
                 minutes: Math.floor(this.totalSecsLeft / 60) % 60,
@@ -4376,15 +4270,15 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
                 totalSeconds: this.totalSecsLeft
             }, this.options.elapse || 0 !== this.totalSecsLeft ? this.dispatchEvent("update") : (this.stop(), this.dispatchEvent("finish")))
         }, dispatchEvent: function (b) {
-            let c = a.Event(b + ".countdown");
+            var c = a.Event(b + ".countdown");
             c.finalDate = this.finalDate, c.elapsed = this.elapsed, c.offset = a.extend({}, this.offset), c.strftime = d(this.offset), this.$el.trigger(c)
         }
     }), a.fn.countdown = function () {
-        let b = Array.prototype.slice.call(arguments, 0);
+        var b = Array.prototype.slice.call(arguments, 0);
         return this.each(function () {
-            let c = a(this).data("countdown-instance");
+            var c = a(this).data("countdown-instance");
             if (void 0 !== c) {
-                let d = f[c], e = b[0];
+                var d = f[c], e = b[0];
                 j.prototype.hasOwnProperty(e) ? d[e].apply(d, b.slice(1)) : null === String(e).match(/^[$A-Z_][0-9A-Z_$]*$/i) ? (d.setFinalDate.call(d, e), d.start()) : a.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi, e))
             } else new j(this, b[0], b[1])
         })

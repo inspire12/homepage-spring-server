@@ -12,15 +12,6 @@
             $(this).remove();
         });
     });
-
-    // ****************************
-    // :: 2.0 ClassyNav Active Code
-    // ****************************
-
-    if ($.fn.classyNav) {
-        $('#alimeNav').classyNav();
-    }
-
     // *********************************
     // :: 3.0 Welcome Slides Active Code
     // *********************************
@@ -123,7 +114,7 @@
     // ***********************************
     // :: 6.0 Portfolio Button Active Code
     // ***********************************
-    
+
     $('.portfolio-menu button.btn').on('click', function () {
         $('.portfolio-menu button.btn').removeClass('active');
         $(this).addClass('active');

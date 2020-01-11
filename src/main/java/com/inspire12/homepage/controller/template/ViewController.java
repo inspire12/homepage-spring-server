@@ -4,7 +4,6 @@ import com.inspire12.homepage.exception.NotAuthException;
 import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.User;
-import com.inspire12.homepage.repository.UserRepository;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import com.inspire12.homepage.service.user.UserService;
@@ -14,15 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -160,9 +155,9 @@ public class ViewController {
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
-    @GetMapping("/gif")
+    @GetMapping("/test")
     public String getGifView() {
-        return "lab/gif";
+        return "lab/test";
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
