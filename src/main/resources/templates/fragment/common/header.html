@@ -46,12 +46,20 @@
                                     </div>
                                 </div>
                                 <div sec:authorize="isAuthenticated()">
-                                    <div class="display-flex-center">
-                                        <img height="150px" th:src="@{/img/user-img/common-user.jpg}">
+                                    <div style="display:flex; justify-content: center">
+                                        <img style="border-radius: 50%; width:150px; height: 150px" src="/img/user-img/common-user.jpg">
                                     </div>
-                                    <div class="flex-md-wrap-reverse">
-                                        <a href="/profile">Profile</a>
-                                        <a href="/logout">Logout</a>
+                                    <div class="" style="display:flex; justify-content: flex-end">
+                                        <div class="margin-10">
+                                            <a href="#"><i class="fa fa-user-circle-o"
+                                                           onclick="window.location.href='/profile'">
+                                                Profile
+                                            </i></a>
+                                            <a href="#"><i class="fa fa-user-circle-o"
+                                                           onclick="window.location.href='/logout'">
+                                                Logout
+                                            </i></a>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -112,7 +120,7 @@
                                         Login
                                     </i></a>
                                 </li>
-                                <li sec:authorize="isAuthenticated()">
+                                <li sec:authorize="isAuthenticated()" id="headerLoginAfter">
                                     <a href="#"><i class="fa fa-user-circle-o form-submit">
                                         User</i>
                                     </a>

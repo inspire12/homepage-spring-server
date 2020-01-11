@@ -46,7 +46,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row clearfix">
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-3" id="profilePannel">
                 <div class="card profile-card">
                     <div class="profile-header">&nbsp;</div>
                     <div class="profile-body">
@@ -54,76 +54,19 @@
                             <img class="profile-img" src="img/user-img/common-user.jpg" alt="AdminBSB - Profile Image" />
                         </div>
                         <div class="content-area">
-                            <h3>Marc K. Hammond</h3>
-                            <p>Web Software Developer</p>
+                            <h3>inspire12</h3>
+                            <p>Junior</p>
                             <p>Administrator</p>
                         </div>
                     </div>
                     <div class="profile-footer">
                         <ul>
                             <li>
-                                <span>Followers</span>
-                                <span>1.234</span>
-                            </li>
-                            <li>
-                                <span>Following</span>
-                                <span>1.201</span>
-                            </li>
-                            <li>
                                 <span>Friends</span>
-                                <span>14.252</span>
+                                <span>0</span>
                             </li>
                         </ul>
                         <button class="btn btn-primary btn-lg waves-effect btn-block">FOLLOW</button>
-                    </div>
-                </div>
-
-                <div class="card card-about-me">
-                    <div class="header">
-                        <h2>ABOUT ME</h2>
-                    </div>
-                    <div class="body">
-                        <ul>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">library_books</i>
-                                    Education
-                                </div>
-                                <div class="content">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">location_on</i>
-                                    Location
-                                </div>
-                                <div class="content">
-                                    Malibu, California
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">edit</i>
-                                    Skills
-                                </div>
-                                <div class="content">
-                                    <span class="label bg-red">UI Design</span>
-                                    <span class="label bg-teal">JavaScript</span>
-                                    <span class="label bg-blue">PHP</span>
-                                    <span class="label bg-amber">Node.js</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="title">
-                                    <i class="material-icons">notes</i>
-                                    Description
-                                </div>
-                                <div class="content">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -132,13 +75,13 @@
                     <div class="body">
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-                                <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Profile Settings</a></li>
-                                <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
+                                <li class="nav-item active"><a href="#home" class="nav-link" data-toggle="tab">Home</a></li>
+                                <li class="nav-item"><a href="#profile_settings" class="nav-link" data-toggle="tab">Profile Settings</a></li>
+                                <li class="nav-item"><a href="#change_password_settings" class="nav-link" data-toggle="tab">Change Password</a></li>
                             </ul>
 
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                <div class="tab-pane fade in active" id="home">
                                     <div class="panel panel-default panel-post">
                                         <div class="panel-heading">
                                             <div class="media">
@@ -251,7 +194,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade in" id="profile_settings">
+                                <div class="tab-pane fade in" id="profile_settings">
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="NameSurname" class="col-sm-2 control-label">Name Surname</label>
@@ -301,7 +244,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
+                                <div class="tab-pane fade in" id="change_password_settings">
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="OldPassword" class="col-sm-3 control-label">Old Password</label>
@@ -359,9 +302,6 @@
 <!-- Common CUSTOM -->
 <script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
-<script th:src="@{js/custom/templates/about.js}"></script>
-
-<script th:src="@{js/custom/templates/home.js}"></script>
 <script th:inline="javascript">
 
 
@@ -376,7 +316,7 @@
 <!-- All Plugins -->
 <script th:src="@{js/plugin/alime.bundle.js}"></script>
 <!-- Active -->
-<script th:src="@{js/default-assets/active.js}"></script>
+<script th:src="@{js/default-assets/classy-nav.js}"></script>
 
 </body>
 

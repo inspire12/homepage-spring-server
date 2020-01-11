@@ -7,18 +7,41 @@
 
     </style>
 
-    <link rel="stylesheet" th:href="@{css/plugin/dropzone.css}">
-    <script th:src="@{js/plugin/dropzone.js}"></script>
+    <link href="css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <!-- Waves Effect Css -->
+    <link href="css/plugin/waves.css" rel="stylesheet"/>
+
+    <!-- Animation Css -->
+    <link href="css/plugin/animate.css" rel="stylesheet"/>
+    <!-- bsb style Css -->
+    <link href="css/bsb-style.css" rel="stylesheet"/>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
 </head>
 <body>
+<ul class="nav nav-tabs">
+    <li><a href="#a" data-toggle="tab">a</a></li>
+    <li><a href="#b" data-toggle="tab">b</a></li>
+    <li><a href="#c" data-toggle="tab">c</a></li>
+    <li><a href="#d" data-toggle="tab">d</a></li>
+</ul>
 
-<p>
-    This is the most minimal example of Dropzone. The upload in this example
-    doesn't work, because there is no actual server to handle the file upload.
-</p>
+<div class="tab-content">
+    <div class="tab-pane active" id="a">AAA</div>
+    <div class="tab-pane" id="b">BBB</div>
+    <div class="tab-pane" id="c">CCC</div>
+    <div class="tab-pane" id="d">DDD</div>
+</div>
+<!-- jQuery 2.2.4 -->
+<script th:src="@{js/plugin/jquery.min.js}"></script>
+<!-- Popper -->
+<script th:src="@{js/plugin/popper.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{js/plugin/bootstrap.min.js}"></script>
 
-<!-- Change /upload-target to your upload address -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<img src="/upload-dir/2.jpg" alt=""/>
 </body>
 </html>
