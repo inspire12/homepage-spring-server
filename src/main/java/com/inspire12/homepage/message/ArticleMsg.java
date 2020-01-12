@@ -52,10 +52,17 @@ public class ArticleMsg {
 
     List<Recommend> like;
 
+    @JsonProperty("is_my_like")
+    Boolean isMyLike;
+
     @JsonProperty("is_deleted")
     Boolean isDeleted;
 
-
+    public static ArticleMsg create(Article article, boolean isMyLike){
+        ArticleMsg articleMsg = create(article);
+        articleMsg.setIsMyLike(isMyLike);
+        return articleMsg;
+    }
 
     public static ArticleMsg create(Article article){
         ArticleMsg articleMsg = new ArticleMsg();

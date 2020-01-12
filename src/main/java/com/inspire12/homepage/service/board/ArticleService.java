@@ -5,9 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.message.CommentMsg;
-import com.inspire12.homepage.model.entity.Article;
-import com.inspire12.homepage.model.entity.Comment;
-import com.inspire12.homepage.model.entity.User;
+import com.inspire12.homepage.model.entity.*;
+import com.inspire12.homepage.repository.ArticleLikeRepository;
 import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.CommentRepository;
 import com.inspire12.homepage.repository.UserRepository;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleService {
@@ -31,21 +31,26 @@ public class ArticleService {
     UserRepository userRepository;
 
     @Autowired
+    ArticleLikeRepository articleLikeRepository;
+
+    @Autowired
     CommentRepository commentRepository;
 
-    public ArticleMsg showArticleMsgById(int id) {
+    public ArticleMsg showArticleMsgById(Long postId) {
 
-        articleRepository.increaseHit(id);
-        return getArticleMsgById(id);
+        articleRepository.increaseHit(postId);
+        return getArticleMsgById(postId);
     }
 
 
-    public ArticleMsg getArticleMsgById(int id) {
-        Article article = articleRepository.findById(id).get();
+    public ArticleMsg getArticleMsgById(Long postId) {
+        Article article = articleRepository.findById(postId).get();
+        Optional<ArticleLike> articleLike = articleLikeRepository.findById(new ArticleLikePk(postId, (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
         if(article.getIsDeleted()) {
 
         }
-        return ArticleMsg.create(article);
+
+         return ArticleMsg.create(article, articleLike.isPresent());
     }
 
     public List<ArticleMsg> showArticleMsgsWithCount(int type, int pageNum, int articleCount) {
@@ -60,7 +65,7 @@ public class ArticleService {
     }
     public Article updateArticle(ObjectNode objectNode) {
         // 데이터 검증
-        int id = objectNode.get("id").asInt();
+        long id = objectNode.get("id").asLong();
 
         Article article = articleRepository.findById(id).get();
         article.setSubject(objectNode.get("title").asText());
@@ -86,7 +91,7 @@ public class ArticleService {
 
 
     @Transactional
-    public boolean saveArticleReply(int parentId, Article childArticle) {
+    public boolean saveArticleReply(Long parentId, Article childArticle) {
         Article parentArticle = articleRepository.findById(parentId).get();
         articleRepository.updateReplyOrder(parentArticle.getGrpno(), parentArticle.getGrpord());
 
@@ -103,7 +108,7 @@ public class ArticleService {
         return true;
     }
 
-    public boolean deleteArticle(int articleId) {
+    public boolean deleteArticle(Long articleId) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (username.equals(articleRepository.getOne(articleId).getUsername())) {
             articleRepository.updateIsDeletedArticle(articleId);

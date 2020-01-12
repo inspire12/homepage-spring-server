@@ -12,7 +12,7 @@ import javax.persistence.Tuple;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface ArticleRepository extends JpaRepository<Article, Integer> {
+public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findTop30ByBoardIdOrderByGrpnoDesc(int boardId);
 
     @Query(value = "select * from article where is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
@@ -39,12 +39,23 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     @Modifying
     @Transactional
     @Query(value = "update `article` set hit = hit+1 where id =:id", nativeQuery = true)
-    void increaseHit(@Param("id") int id);
+    void increaseHit(@Param("id") long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update `article` set likes = likes+1 where id =:id", nativeQuery = true)
+    void increaseLikes(@Param("id") long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update `article` set likes = likes-1 where id =:id", nativeQuery = true)
+    void decreaseLikes(@Param("id") long id);
+
 
     @Modifying
     @Transactional
     @Query(value = "update `article` set is_deleted = true where id =:id", nativeQuery = true)
-    int updateIsDeletedArticle(@Param("id") int id);
+    int updateIsDeletedArticle(@Param("id") long id);
 
 
     // 답글을 추가할 때

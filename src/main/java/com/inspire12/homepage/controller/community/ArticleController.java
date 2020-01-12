@@ -37,7 +37,8 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")
-    public ArticleMsg showArticleList(@PathVariable int id) {
+    public ArticleMsg showArticleList(@PathVariable Long id) {
+
         return articleService.getArticleMsgById(id);
     }
 
@@ -74,14 +75,14 @@ public class ArticleController {
     @PutMapping("/articles/replies")
     public boolean insertArticleReply(@RequestBody ObjectNode requestBody) {
         Article article = Article.createFromRequest(requestBody);
-        int parentId = requestBody.get("parent_id").asInt();
+        long parentId = requestBody.get("parent_id").asLong();
         articleService.saveArticleReply(parentId, article);
         return true;
     }
 
 
     @DeleteMapping("/articles")
-    public boolean deleteArticle(@RequestParam int id, @RequestHeader HttpHeaders headers) {
+    public boolean deleteArticle(@RequestParam Long id, @RequestHeader HttpHeaders headers) {
         // httpheader;
         return articleService.deleteArticle(id);
     }

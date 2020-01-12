@@ -107,7 +107,7 @@ public class ViewController {
     }
 
     @GetMapping("/article")
-    public String getSingleBlogView(@RequestParam(defaultValue = "1") int id, Model model) {
+    public String getSingleBlogView(@RequestParam(defaultValue = "1") Long id, Model model) {
         ArticleMsg article;
         try {
             article = articleService.showArticleMsgById(id);
@@ -126,7 +126,7 @@ public class ViewController {
     @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/writing")
     public String getWriteView(Model model,
-                               @RequestParam(name = "id", defaultValue = "0") Integer id) throws NotAuthException {
+                               @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthException {
         if (id != 0){
             ArticleMsg articleMsg = articleService.getArticleMsgById(id);
 //            if (! SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(articleMsg.getAuthor().getUsername())){
