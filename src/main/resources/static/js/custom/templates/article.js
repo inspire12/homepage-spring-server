@@ -26,6 +26,33 @@ function main(article, user) {
     let commentSize = comments.length;
     commentTitle.textContent = commentSize + " Comments";
     appendComments(comments, commentsArea);
+
+    let btnLike = document.getElementById("btnLike");
+    btnLike.addEventListener("click", function(){
+        postRequest("/likes/"+ article.id, {}, function (response) {
+            turnBtn(response.status, btnLike, btnDisLike)
+        })
+    });
+    let btnDisLike = document.getElementById("btnDisLike");
+    btnDisLike.addEventListener("click", function(){
+        deleteRequest("/likes/"+ article.id, function (response) {
+            turnBtn(response.status, btnLike, btnDisLike)
+        })
+    });
+
+    turnBtn(! article.is_my_like, btnLike, btnDisLike);
+}
+let toggle = function (elem) {
+    elem.classList.toggle('is-visible');
+};
+
+function turnBtn(is_my_like, btnLike, btnDislike) {
+    if (is_my_like) {
+        toggle(btnLike);
+        toggle(btnDislike);
+    } else {
+        // 에러
+    }
 }
 
 function editArticle () {
@@ -39,7 +66,7 @@ function editArticle () {
             if (willEdit) {
                 let id = getParameter("id");
                 window.location.href = "/writing?id="+ id;
-            } 
+            }
         });
 }
 

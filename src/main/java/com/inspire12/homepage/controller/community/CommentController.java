@@ -25,7 +25,7 @@ public class CommentController {
 
         commentService.saveByRequest(requestBody);
         ObjectNode responseBody = objectMapper.createObjectNode();
-        List<CommentMsg> comments = commentService.getComments(requestBody.get("article_id").asInt());
+        List<CommentMsg> comments = commentService.getComments(requestBody.get("article_id").asLong());
         responseBody.putPOJO("comments", comments);
         return new ResponseEntity<ObjectNode>(responseBody, HttpStatus.OK);
     }

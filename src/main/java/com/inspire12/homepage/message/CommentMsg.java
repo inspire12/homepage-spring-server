@@ -18,7 +18,7 @@ public class CommentMsg {
     int id;
 
     @JsonProperty("article_id")
-    int articleId;
+    Long articleId;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User author;

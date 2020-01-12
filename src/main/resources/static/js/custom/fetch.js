@@ -18,7 +18,7 @@ function postRequest(url, body, func) {
     let headers = {
             'Content-Type': 'application/json',
     };
-    postRequest(url, headers, body, func);
+    postRequestWithHeader(url, headers, body, func);
 }
 
 function postRequestWithHeader(url, header, body, func) {
@@ -32,6 +32,7 @@ function postRequestWithHeader(url, header, body, func) {
         __swalStatusMessage(status);
         return response.json();
     }).then(body => {
+        console.dir(body);
         func(body)
     }).catch(e => {
         console.dir(e);

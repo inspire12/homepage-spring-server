@@ -18,7 +18,7 @@ public class FileMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    Long id;
 
     @Column(name = "filename")
     String filename;
@@ -29,7 +29,7 @@ public class FileMeta {
 
     @Column(name = "article_id")
     @JsonProperty("article_id")
-    int articleId;
+    Long articleId;
 
     @Column(name = "username")
     String username;

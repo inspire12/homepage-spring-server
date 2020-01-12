@@ -84,7 +84,7 @@ public class ArticleService {
     public boolean saveArticle(Article article) {
         // 데이터 검증
         articleRepository.save(article);
-        article.setGrpno(article.getId());
+        article.setGrpno(article.getGrpno());
         articleRepository.save(article);
         return true;
     }

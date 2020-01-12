@@ -19,14 +19,14 @@ public class CommentService {
     @Autowired
     UserRepository userRepository;
 
-    public List<CommentMsg> getComments(int articleId) {
+    public List<CommentMsg> getComments(Long articleId) {
         List<Comment> comments = commentRepository.selectCommentByArticleOrder(articleId);
         return convertToCommentMsgs(comments);
     }
 
     public void saveByRequest(ObjectNode request) {
         String userId = request.get("username").asText();
-        int articleId = request.get("article_id").asInt();
+        Long articleId = request.get("article_id").asLong();
         String content = request.get("content").asText();
         Comment comment = Comment.create(userId, articleId, content);
         try{
@@ -38,7 +38,7 @@ public class CommentService {
 
     public void saveReplyByRequest(ObjectNode request) {
         String userId = request.get("username").asText();
-        int articleId = request.get("article_id").asInt();
+        Long articleId = request.get("article_id").asLong();
         String content = request.get("content").asText();
         int parentCommentId = request.get("parent_id").asInt();
 

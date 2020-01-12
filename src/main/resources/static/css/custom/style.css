@@ -7,6 +7,13 @@
 .cust-grid-col {
     float: none;
 }
+.toggle-content {
+    display: none;
+}
+
+.toggle-content.is-visible {
+    display: block;
+}
 
 .flex-vertical-center {
     display: flex;
@@ -17,7 +24,7 @@
 .flex-vertical-right {
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-end;
 }
 .display-inline-block{
     display: inline-block !important;

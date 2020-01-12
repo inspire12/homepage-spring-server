@@ -21,7 +21,7 @@ import java.util.List;
 @ToString
 public class ArticleMsg {
 
-    int id;
+    Long id;
     int no;
     int depth;
     String category;

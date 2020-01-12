@@ -22,7 +22,7 @@ public class Comment {
     int id;
     @Column(name = "article_id")
     @JsonProperty("article_id")
-    int articleId;
+    Long articleId;
 
     @JsonProperty("username")
     String username;
@@ -52,7 +52,7 @@ public class Comment {
     @JoinColumn(name = "username", insertable = false, updatable = false)
     private User user = new User();
 
-    public static Comment create(String username, int articleId, String content) {
+    public static Comment create(String username, Long articleId, String content) {
         Comment comment = new Comment();
         comment.setArticleId(articleId);
         comment.setUsername(username);

@@ -28,7 +28,7 @@ public class Article implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Integer id;
+    Long id;
 
     @Generated(GenerationTime.INSERT)
     @Column(name = "no")
@@ -97,7 +97,7 @@ public class Article implements Serializable {
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
         if (requestBody.has("id")) {
-            article.setId(requestBody.get("id").asInt());
+            article.setId(requestBody.get("id").asLong());
             article.setGrpno(requestBody.get("id").asInt());
         } else {
             article.setCreatedAt(LocalDateTime.now());

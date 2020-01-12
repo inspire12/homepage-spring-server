@@ -1,11 +1,14 @@
 package com.inspire12.homepage.service.board;
 
+import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.model.entity.ArticleLike;
 import com.inspire12.homepage.model.entity.ArticleLikePk;
 import com.inspire12.homepage.repository.ArticleLikeRepository;
 import com.inspire12.homepage.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class ArticleLikeService {
@@ -15,17 +18,25 @@ public class ArticleLikeService {
     @Autowired
     ArticleRepository articleRepository;
 
+    @Transactional
     public boolean incArticleLike(Long postId, String username){
-        articleLikeRepository.save(new ArticleLike(postId, username));
+        ArticleLike articleLike = new ArticleLike(postId, username);
+        if (articleLikeRepository.existsById(new ArticleLikePk(articleLike.getPostId(), articleLike.getUsername()))){
+            return false;
+        }
+        articleLikeRepository.save(articleLike);
         articleRepository.increaseLikes(postId);
         return true;
     }
 
 
     public boolean decArticleLike(Long postId, String username){
-        articleLikeRepository.delete(new ArticleLike(postId, username));
-        articleRepository.decreaseLikes(postId);
-        return true;
+        if (articleLikeRepository.existsById(new ArticleLikePk(postId, username))){
+            articleLikeRepository.delete(new ArticleLike(postId, username));
+            articleRepository.decreaseLikes(postId);
+            return true;
+        }
+        return false;
     }
 
 
