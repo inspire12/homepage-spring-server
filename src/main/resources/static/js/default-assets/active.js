@@ -165,12 +165,18 @@
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    // ***********************
-    // :: 11.0 WOW Active Code
-    // ***********************
-    if (alime_window.width() > 767) {
-        new WOW().init();
-    }
+    // // ***********************
+    // // :: 11.0 WOW Active Code
+    // // ***********************
+    //
+    // this.WOW = function () {
+    //     function e(a) {
+    //         null == a && (a = {}), this.scrollCallback = f(this.scrollCallback, this), this.scrollHandler = f(this.scrollHandler, this), this.resetAnimation = f(this.resetAnimation, this), this.start = f(this.start, this), this.scrolled = !0, this.config = this.util().extend(a, this.defaults), null != a.scrollContainer && (this.config.scrollContainer = document.querySelector(a.scrollContainer)), this.animationNameCache = new c, this.wowEvent = this.util().createEvent(this.config.boxClass)
+    //     }
+    // }
+    // if (alime_window.width() > 767) {
+    //     new WOW().init();
+    // }
 
     // ****************************
     // :: 12.0 Jarallax Active Code

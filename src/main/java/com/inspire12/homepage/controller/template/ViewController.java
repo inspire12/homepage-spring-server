@@ -172,4 +172,16 @@ public class ViewController {
         return "lab/kakao-login";
     }
 
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @GetMapping("/video")
+    public String getVideoLabView() {
+        return "lab/video";
+    }
+
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @GetMapping("/facebook-login")
+    public String getFacebookLabView() {
+        return "lab/facebook-login";
+    }
+
 }

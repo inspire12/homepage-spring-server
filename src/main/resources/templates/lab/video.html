@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
+    <link href="//vjs.zencdn.net/7.3.0/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/7.3.0/video.min.js"></script>
+    <script>window.HELP_IMPROVE_VIDEOJS = false;</script>
+</head>
+
+<body>
+<!-- Preloader -->
+<th:block th:include="@{fragment/common/pre-loader.html}"></th:block>
+<!-- /Preloader -->
+
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
+<section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
+    <video
+            id="my-player"
+            class="video-js"
+            controls
+            preload="auto"
+            poster="//vjs.zencdn.net/v/oceans.png"
+            data-setup='{}'>
+        <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
+        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+        <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank">
+                supports HTML5 video
+            </a>
+        </p>
+    </video>
+</section>
+
+
+<!-- Footer Area Start -->
+<th:block th:include="fragment/common/footer-area"></th:block>
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<!-- jQuery 2.2.4 -->
+<script th:src="@{js/plugin/jquery.min.js}"></script>
+<!-- Popper -->
+<script th:src="@{js/plugin/popper.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{js/plugin/bootstrap.min.js}"></script>
+<!-- Common CUSTOM -->
+<script th:src="@{js/plugin/custom/components.js}"></script>
+
+<script th:inline="javascript">
+
+    function main () {
+        var options = {};
+
+        var player = videojs('my-player', options, function onPlayerReady() {
+            videojs.log('Your player is ready!');
+
+            // In this context, `this` is the player that was created by Video.js.
+            this.play();
+
+            // How about an event listener?
+            this.on('ended', function() {
+                videojs.log('Awww...over so soon?!');
+            });
+        });
+
+    }
+
+    main();
+</script>
+
+<!-- Active -->
+<script th:src="@{js/default-assets/classy-nav.js}"></script>
+<script th:src="@{js/default-assets/active.js}"></script>
+
+</body>
+
+</html>
