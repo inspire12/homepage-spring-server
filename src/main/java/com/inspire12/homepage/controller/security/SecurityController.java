@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.model.entity.User;
+import com.inspire12.homepage.model.request.Signup;
 import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
 
@@ -17,18 +18,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -50,12 +50,12 @@ public class SecurityController implements ErrorController {
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ObjectNode> registerUser(@RequestBody Map<String, String> requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
-        String username = requestBody.get("username");
-        String password = requestBody.get("password");
-        String email = requestBody.get("email");
-        Integer studentId = Integer.parseInt(requestBody.get("student_id"));
-        String realName = requestBody.get("realname");
+    public ResponseEntity<ObjectNode> registerUser(@Valid @RequestBody final Signup requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
+        String username = requestBody.getUsername();
+        String password = requestBody.getPassword();
+        String email = requestBody.getEmail();
+        Integer studentId = Integer.parseInt(requestBody.getStudentId());
+        String realName = requestBody.getRealName();
 
         String encryptedPassword = authProvider.encrypt(username, password);
         User user = User.create(username, email, encryptedPassword, studentId, realName);

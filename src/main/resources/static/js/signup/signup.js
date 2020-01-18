@@ -42,14 +42,17 @@ function validateFromForm(form) {
     let username = document.getElementById("username");
     let password = document.getElementById("password");
     let repassword = document.getElementById("repassword");
-    let studentId = document.getElementById("studentId");
+    let studentId = document.getElementById("student_id");
     let email = document.getElementById("email");
     let agreeTerm = document.getElementById("agreeTerm");
-
+    if (agreeTerm) {
+        swal("개인정보 취급 방식에 동의해주세요.","danger");
+        return;
+    }
     let requestBody = {
         username: username.value,
         password: password.value, repassword: repassword.value,
-        studentId: studentId.value, email: email.value
+        student_id: studentId.value, email: email.value
     };
     let validatedMap = validate(requestBody, constraints);
 
@@ -72,7 +75,7 @@ function validateFromForm(form) {
             let popperId = "popup" + key
 
             let domStr = "<div id='" + popperId + "' class='popper'> " + message + "</div>";
-            document.body.append(createElementFromStr(domStr))
+            document.body.append(createElementFromStr(domStr));
             poppers.push(new Popper(document.getElementById(key), document.getElementById(popperId), {
                 placement: 'right'
             }))

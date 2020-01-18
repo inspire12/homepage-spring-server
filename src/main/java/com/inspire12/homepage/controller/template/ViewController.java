@@ -106,6 +106,12 @@ public class ViewController {
         return "board";
     }
 
+
+    @GetMapping("/privatepolicy")
+    public String getPrivatePolicy() {
+        return "auth/privatepolicy";
+    }
+
     @GetMapping("/article")
     public String getSingleBlogView(@RequestParam(defaultValue = "1") Long id, Model model) {
         ArticleMsg article;

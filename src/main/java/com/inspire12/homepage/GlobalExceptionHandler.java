@@ -6,9 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.xml.transform.Result;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
@@ -33,5 +37,12 @@ public class GlobalExceptionHandler {
         model.addAttribute("msg", "에러가 발생했씁니다.");
         model.addAttribute("timestamp", LocalDateTime.now());
         return "auth/error";
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleMethodArgumentException(MethodArgumentNotValidException e) {
+        return e.getMessage();
     }
 }

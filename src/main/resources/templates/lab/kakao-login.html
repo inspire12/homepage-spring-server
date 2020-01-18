@@ -28,9 +28,9 @@
         success: function(authObj) {
 
             alert(JSON.stringify(authObj));
-            let header =
-            postRequestWithHeader("http://localhost:8080/oauth").then(res => {
 
+            postRequestWithHeader("http://localhost:8080/oauth").then(res => {
+                console.log(res)
             }).catch(e => {
 
             })
