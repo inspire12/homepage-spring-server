@@ -39,10 +39,5 @@ public class GlobalExceptionHandler {
         return "auth/error";
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public String handleMethodArgumentException(MethodArgumentNotValidException e) {
-        return e.getMessage();
-    }
+
 }

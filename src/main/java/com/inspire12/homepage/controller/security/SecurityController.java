@@ -133,19 +133,19 @@ public class SecurityController implements ErrorController {
         return ResponseEntity.ok().build();
     }
 //
-//    @UserLevel(allow = UserLevel.UserRole.GUEST)
-//    @RequestMapping(value = "/oauth", method = RequestMethod.POST)
-//    public ResponseEntity<ObjectNode> loginFromKakao() {
-//        ObjectNode response = objectMapper.createObjectNode();
-//        return ResponseEntity.unprocessableEntity().body(response);
-//    }
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @RequestMapping(value = "/oauth", method = RequestMethod.POST)
+    public ResponseEntity<ObjectNode> loginFromKakao() {
+        ObjectNode response = objectMapper.createObjectNode();
+        return ResponseEntity.ok().body(response);
+    }
 //
-//    @UserLevel(allow = UserLevel.UserRole.GUEST)
-//    @RequestMapping(value = "/oauth", method = RequestMethod.GET)
-//    public ResponseEntity<ObjectNode> loginFromKakao2() {
-//        ObjectNode response = objectMapper.createObjectNode();
-//        return ResponseEntity.unprocessableEntity().body(response);
-//    }
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @RequestMapping(value = "/oauth", method = RequestMethod.GET)
+    public ResponseEntity<ObjectNode> loginFromKakao2() {
+        ObjectNode response = objectMapper.createObjectNode();
+        return ResponseEntity.ok().body(response);
+    }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping("/error")

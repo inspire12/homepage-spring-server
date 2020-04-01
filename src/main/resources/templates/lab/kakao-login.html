@@ -25,11 +25,12 @@
     // 카카오 로그인 버튼을 생성합니다.
     Kakao.Auth.createLoginButton({
         container: '#kakao-login-btn',
+        scope: "talk_message",
         success: function(authObj) {
 
             alert(JSON.stringify(authObj));
-
-            postRequestWithHeader("http://localhost:8080/oauth").then(res => {
+            console.dir(authObj);
+            postRequest("/oauth", authObj, {}).then(res => {
                 console.log(res)
             }).catch(e => {
 

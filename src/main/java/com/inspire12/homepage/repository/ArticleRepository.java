@@ -7,11 +7,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Tuple;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findTop30ByBoardIdOrderByGrpnoDesc(int boardId);
 
