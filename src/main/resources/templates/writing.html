@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" th:href="@{css/plugin/dropzone.css}">
     <link rel="stylesheet" th:href="@{css/custom/writing.css}">
+    <link rel="stylesheet" th:href="@{css/custom/tagging/tag.css}">
 
     <link
             rel="stylesheet"
@@ -56,6 +57,14 @@
                             </div>
                         </div>
                     </form>
+                    <div class="row clearfix">
+                        <div class="tag-container">
+                            <h1>태그 ( / 로 name과 value 를 구분해주세요)</h1>
+                            <ul id="list"></ul>
+                            <input type="text" id="txt" placeholder="type and Enter ...">
+                        </div>
+
+                    </div>
                     <div class="row mt-15 file-list" id="file-list">
                         <ul>
 
@@ -115,14 +124,11 @@
                                     <i class="glyphicon glyphicon-ban-circle"></i>
                                     <span>Cancel</span>
                                 </button>
-<!--                                <button data-dz-remove class="btn btn-danger delete">-->
-<!--                                    <i class="glyphicon glyphicon-trash"></i>-->
-<!--                                    <span>Delete</span>-->
-<!--                                </button>-->
+
                             </div>
                         </div>
-
                     </div>
+
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-3">
@@ -162,6 +168,8 @@
 <script th:src="@{js/custom/components.js}"></script>
 <!-- CUSTOM -->
 <script th:src="@{js/custom/templates/writing.js}"></script>
+
+<script th:src="@{js/custom/tagging/tag.js}"></script>
 <script th:inline="javascript">
 
     let article = /*[[${article}]]*/ '';
