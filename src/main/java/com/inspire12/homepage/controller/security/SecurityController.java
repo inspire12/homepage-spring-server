@@ -45,7 +45,7 @@ public class SecurityController implements ErrorController {
     @Autowired
     UserDetailService userDetailService;
 
-    Logger logger = LoggerFactory.getLogger(SecurityController.class);
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/signup", method = RequestMethod.POST)

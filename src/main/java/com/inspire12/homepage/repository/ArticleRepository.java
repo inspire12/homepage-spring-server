@@ -2,6 +2,7 @@ package com.inspire12.homepage.repository;
 
 
 import com.inspire12.homepage.model.entity.Article;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,8 +30,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> showArticlesWithArticleByTypeCount(@Param("boardType")int type, @Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
-    @Query(value = "select * from `article` order by `no` desc limit 1,:limit", nativeQuery = true)
-    List<Article> selectArticles(@Param("limit") int limit);
+    @Query(value = "select a from Article a")
+    List<Article> selectArticles(PageRequest pageRequest);
 
     @Modifying
     @Transactional

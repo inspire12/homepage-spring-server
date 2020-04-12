@@ -1,8 +1,8 @@
 package com.inspire12.homepage.config;
 
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Configuration;
 
-@Configurable
+@Configuration
 public class RestConfig {
-    
+
 }

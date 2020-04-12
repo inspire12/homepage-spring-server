@@ -98,6 +98,7 @@ function submitWriting(choice, myDropzone, id) {
         "username": user,
         "title": title,
         "content": content,
+        "tag": items,
         "files": successFiles
     };
 

@@ -1,17 +1,20 @@
 package com.inspire12.homepage.service.board;
 
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.message.CommentMsg;
 import com.inspire12.homepage.model.entity.*;
+import com.inspire12.homepage.model.request.ArticleRequest;
 import com.inspire12.homepage.repository.ArticleLikeRepository;
 import com.inspire12.homepage.repository.ArticleRepository;
 import com.inspire12.homepage.repository.CommentRepository;
 import com.inspire12.homepage.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -63,21 +66,21 @@ public class ArticleService {
         }
         return convertArticles(articles);
     }
-    public Article updateArticle(ObjectNode objectNode) {
+
+    public Article updateArticle(ArticleRequest articleRequest) {
         // 데이터 검증
-        long id = objectNode.get("id").asLong();
+        long id = articleRequest.getId();
 
         Article article = articleRepository.findById(id).get();
-        article.setSubject(objectNode.get("title").asText());
-        article.setContent(objectNode.get("content").asText());
-        article.setBoardId(objectNode.get("type").asInt());
+        article.setSubject(articleRequest.getTitle());
+        article.setContent(articleRequest.getContent());
+        article.setBoardId(articleRequest.getType());
         articleRepository.save(article);
-
         return article;
     }
 
-    public List<ArticleMsg> showArticleMsgs() {
-        List<Article> articles = articleRepository.selectArticles(30);
+    public List<ArticleMsg> showArticleMsgs(int size) {
+        List<Article> articles = articleRepository.selectArticles(PageRequest.of(0, size));
         return convertArticles(articles);
     }
 

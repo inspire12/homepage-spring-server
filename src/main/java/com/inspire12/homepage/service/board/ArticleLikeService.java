@@ -1,6 +1,5 @@
 package com.inspire12.homepage.service.board;
 
-import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.model.entity.ArticleLike;
 import com.inspire12.homepage.model.entity.ArticleLikePk;
 import com.inspire12.homepage.repository.ArticleLikeRepository;
@@ -12,11 +11,15 @@ import javax.transaction.Transactional;
 
 @Service
 public class ArticleLikeService {
-    @Autowired
-    ArticleLikeRepository articleLikeRepository;
 
-    @Autowired
+    ArticleLikeRepository articleLikeRepository;
     ArticleRepository articleRepository;
+
+
+    public ArticleLikeService(ArticleLikeRepository articleLikeRepository, ArticleRepository articleRepository) {
+        this.articleLikeRepository = articleLikeRepository;
+        this.articleRepository = articleRepository;
+    }
 
     @Transactional
     public boolean incArticleLike(Long postId, String username){

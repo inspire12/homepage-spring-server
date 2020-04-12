@@ -1,13 +1,10 @@
 package com.inspire12.homepage.controller.community;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.Article;
-import com.inspire12.homepage.model.entity.FileMeta;
-import com.inspire12.homepage.model.entity.User;
-import com.inspire12.homepage.repository.UserRepository;
+import com.inspire12.homepage.model.request.ArticleRequest;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.service.user.UserService;
@@ -16,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +30,7 @@ public class ArticleController {
 
     @GetMapping("/boards")
     public List<ArticleMsg> showArticle() {
-        return articleService.showArticleMsgs();
+        return articleService.showArticleMsgs(30);
     }
 
     @GetMapping("/articles/{id}")
@@ -43,32 +40,20 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
-    public boolean updateArticle(@RequestBody ObjectNode requestBody) {
-        Article article = articleService.updateArticle(requestBody);
-        ArrayNode files = (ArrayNode) requestBody.get("files");
-
-        saveFileMetas(files, article);
+    public boolean updateArticle(@Valid @RequestBody ArticleRequest articleRequest) {
+        Article article = articleService.updateArticle(articleRequest);
+        ArrayNode files = articleRequest.getFiles();
+        fileMetaService.saveFileMetas(files, article);
         return true;
     }
-
-    private boolean saveFileMetas(ArrayNode files, Article article) {
-        List<FileMeta> fileMetas = new ArrayList<>();
-        for(JsonNode file: files){
-            FileMeta fileMeta = FileMeta.create(file, article);
-            fileMetas.add(fileMeta);
-        }
-        fileMetaService.saveFileMetas(fileMetas);
-        return true;
-    }
-
 
     @PutMapping("/articles")
     @Transactional
-    public boolean insertArticle(@RequestBody ObjectNode requestBody) {
-        Article article = Article.createFromRequest(requestBody);
+    public boolean insertArticle(@RequestBody ObjectNode articleRequest) {
+        Article article = Article.createFromRequest(articleRequest);
         articleService.saveArticle(article);
-        ArrayNode files = (ArrayNode) requestBody.get("files");
-        saveFileMetas(files, article);
+        ArrayNode files = (ArrayNode) articleRequest.get("files");
+        fileMetaService.saveFileMetas(files, article);
         return true;
     }
 
@@ -79,7 +64,6 @@ public class ArticleController {
         articleService.saveArticleReply(parentId, article);
         return true;
     }
-
 
     @DeleteMapping("/articles")
     public boolean deleteArticle(@RequestParam Long id, @RequestHeader HttpHeaders headers) {

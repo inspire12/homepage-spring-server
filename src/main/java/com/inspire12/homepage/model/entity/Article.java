@@ -77,22 +77,27 @@ public class Article implements Serializable {
     @Column(name = "hit")
     Integer hit = 0;
 
+
+    @org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "article_id")
     List<Recommend> likes;
 
+    @org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "article_id")
     private List<Comment> comments = new ArrayList<>();
 
+
+    @org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "article_id")
     private List<FileMeta> fileMetas = new ArrayList<>();
 
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = true, insertable = false, updatable = false)
     private User user;
+
 
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
@@ -120,6 +125,8 @@ public class Article implements Serializable {
 
         return article;
     }
+
+
 
 }
 
