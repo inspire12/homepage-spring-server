@@ -29,8 +29,8 @@ public class ArticleController {
     FileMetaService fileMetaService;
 
     @GetMapping("/boards")
-    public List<ArticleMsg> showArticle() {
-        return articleService.showArticleMsgs(30);
+    public List<ArticleMsg> showArticle(@RequestParam(value = "size", required = true) int size) {
+        return articleService.showArticleMsgs(size);
     }
 
     @GetMapping("/articles/{id}")

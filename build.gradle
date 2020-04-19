@@ -47,4 +47,13 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.4'
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+
+	// mail server
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+	implementation ("org.springframework:spring-context-support")
+	implementation ("com.sun.mail:javax.mail")
+	implementation ("com.github.ulisesbocchio:jasypt-spring-boot-starter:1.17")
+
+
 }
