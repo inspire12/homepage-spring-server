@@ -1,4 +1,4 @@
-package com.inspire12.homepage.storage;
+package com.inspire12.homepage.exception;
 
 
 public class StorageException extends RuntimeException {

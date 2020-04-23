@@ -24,4 +24,8 @@ public class ArticleLikePk implements Serializable {
         return Objects.equals(getPostId(), o1.getPostId()) && Objects.equals(getUsername(), o1.getUsername()) ;
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

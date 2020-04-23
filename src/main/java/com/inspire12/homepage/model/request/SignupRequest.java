@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class Signup {
+public class SignupRequest {
 
     @JsonProperty("username")
     @NotNull
@@ -25,10 +26,14 @@ public class Signup {
     @JsonProperty("realname")
     String realName;
     @NotNull
+    @Email
     String email;
 
-    public static Signup create() {
-        Signup signup = new Signup();
+    @NotNull
+    @JsonProperty("email-token")
+    String emailToken;
+    public static SignupRequest create() {
+        SignupRequest signup = new SignupRequest();
         signup.setUsername("서영학");
 
         return signup;

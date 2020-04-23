@@ -1,22 +1,30 @@
 package com.inspire12.homepage.controller;
 
-import com.inspire12.homepage.model.request.Signup;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.service.ResponseMessage;
+import com.inspire12.homepage.model.request.SignupRequest;
+import com.inspire12.homepage.service.EmailService;
 
-@Controller
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class TestController {
+
+    @Autowired
+    EmailService emailService;
 
     public interface MyFunctionalInterface {
         public void method(int x);
     }
 
-    public Signup testSignup () {
-        return Signup.create();
+    public SignupRequest testSignup () {
+        return SignupRequest.create();
+    }
+
+    @PostMapping("/test")
+    public void sendEmail () {
+        emailService.getCertifyTokenByMail("ox4443@naver.com");
     }
 }
 

@@ -7,7 +7,7 @@ import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.model.entity.FileMeta;
 import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.storage.FileSystemStorageService;
-import com.inspire12.homepage.storage.StorageFileNotFoundException;
+import com.inspire12.homepage.exception.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

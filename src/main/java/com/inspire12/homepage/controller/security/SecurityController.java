@@ -3,16 +3,20 @@ package com.inspire12.homepage.controller.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.inspire12.homepage.exception.ResponseMessage;
 import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.model.entity.User;
-import com.inspire12.homepage.model.request.Signup;
+import com.inspire12.homepage.model.request.EmailRequest;
+import com.inspire12.homepage.model.request.SignupRequest;
 import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
 
+import com.inspire12.homepage.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,21 +49,48 @@ public class SecurityController implements ErrorController {
     @Autowired
     UserDetailService userDetailService;
 
+    @Autowired
+    EmailService emailService;
+
+    @Autowired
+    RedisTemplate<String, String> redisTemplate;
+
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @PostMapping(value = "/valid-email")
+    @ResponseBody
+    public ResponseEntity<String> registerUser(@Valid @RequestBody final EmailRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
+        String email = requestBody.getEmail();
+        String token = emailService.getCertifyTokenByMail(email);
+
+        redisTemplate.opsForValue().set(email, token);
+
+        return ResponseEntity.ok().body(token);
+    }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<ObjectNode> registerUser(@Valid @RequestBody final Signup requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
+    public ResponseEntity<ObjectNode> registerUser(@Valid @RequestBody final SignupRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
         String username = requestBody.getUsername();
         String password = requestBody.getPassword();
         String email = requestBody.getEmail();
         Integer studentId = Integer.parseInt(requestBody.getStudentId());
         String realName = requestBody.getRealName();
 
+        ObjectNode response = objectMapper.createObjectNode();
+
+        if (redisTemplate.opsForValue().get(email).equals(requestBody.getEmailToken()) == false){
+            response.put("name", "siginup");
+            response.put("status", "fail");
+            response.put("status_detail", "email_valid");
+            return ResponseEntity.badRequest().body(response);
+        }
+
         String encryptedPassword = authProvider.encrypt(username, password);
         User user = User.create(username, email, encryptedPassword, studentId, realName);
-        ObjectNode response = objectMapper.createObjectNode();
+
         try {
             // 중복 체크 추가
             if (userDetailService.isExistUser(user)) {
@@ -69,8 +100,8 @@ public class SecurityController implements ErrorController {
                 return ResponseEntity.unprocessableEntity().body(response);
             }
             userDetailService.saveUser(user);
-            response.put("status", "signup");
             response.put("name", "index");
+            response.put("status", "signup");
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             response.put("status", "fail");
