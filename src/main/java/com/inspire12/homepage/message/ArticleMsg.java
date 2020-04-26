@@ -84,7 +84,6 @@ public class ArticleMsg {
         articleMsg.setHit(article.getHit());
         articleMsg.setLike(article.getLikes());
         articleMsg.setIsDeleted(article.getIsDeleted());
-
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (Comment comment : article.getComments()){
             commentMsgs.add(CommentMsg.create(comment));
