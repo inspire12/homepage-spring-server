@@ -35,7 +35,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotAuthException.class)
     public String handleNotFound(Model model, Exception e) {
-        System.err.println();
         logger.error("["+e.getClass() + "] " + e.getMessage() + " from user:"+ SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("code", 401);
         model.addAttribute("msg", "에러가 발생했습니다.");
@@ -49,10 +48,11 @@ public class GlobalExceptionHandler {
      * 주로 @RequestBody, @RequestPart 어노테이션에서 발생
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ResponseMessage> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    protected String handleMethodArgumentNotValidException(Model model, MethodArgumentNotValidException e) {
         logger.error("handleMethodArgumentNotValidException", e);
         final ResponseMessage response = ResponseMessage.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
+        return "auth/error";
     }
 
     /**
@@ -60,10 +60,11 @@ public class GlobalExceptionHandler {
      * ref https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-modelattrib-method-args
      */
     @ExceptionHandler(BindException.class)
-    protected ResponseEntity<ResponseMessage> handleBindException(BindException e) {
+    protected String handleBindException(Model model, BindException e) {
         logger.error("handleBindException", e);
         final ResponseMessage response = ResponseMessage.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
+        return "auth/error";
     }
 
     /**
@@ -71,30 +72,34 @@ public class GlobalExceptionHandler {
      * 주로 @RequestParam enum으로 binding 못했을 경우 발생
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    protected ResponseEntity<ResponseMessage> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    protected String handleMethodArgumentTypeMismatchException(Model model, MethodArgumentTypeMismatchException e) {
         logger.error("handleMethodArgumentTypeMismatchException", e);
         final ResponseMessage response = ResponseMessage.of(ErrorCode.INVALID_INPUT_VALUE);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
+        return "auth/error";
     }
 
     /**
      * 지원하지 않은 HTTP method 호출 할 경우 발생
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    protected ResponseEntity<ResponseMessage> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    protected String handleHttpRequestMethodNotSupportedException(Model model, HttpRequestMethodNotSupportedException e) {
         logger.error("handleHttpRequestMethodNotSupportedException", e);
         final ResponseMessage response = ResponseMessage.of(ErrorCode.METHOD_NOT_ALLOWED);
-        return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+
+        model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED));
+        return "auth/error";
     }
 
     /**
      * Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생합
      */
     @ExceptionHandler(AccessDeniedException.class)
-    protected ResponseEntity<ResponseMessage> handleAccessDeniedException(AccessDeniedException e) {
+    protected String handleAccessDeniedException(Model model, AccessDeniedException e) {
         logger.error("handleAccessDeniedException", e);
         final ResponseMessage response = ResponseMessage.of(ErrorCode.HANDLE_ACCESS_DENIED);
-        return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
+        model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE));
+        return "auth/error";
     }
 
 

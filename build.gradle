@@ -25,6 +25,13 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenCentral()
 }
+
+task print() {
+	doLast {
+		print "github push complete"
+	}
+}
+
 test {
 	useJUnitPlatform()
 }

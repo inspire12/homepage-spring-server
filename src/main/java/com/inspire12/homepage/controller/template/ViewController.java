@@ -190,4 +190,11 @@ public class ViewController {
         return "lab/facebook-login";
     }
 
+
+    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @GetMapping("/table")
+    public String getTableView() {
+        return "lab/table";
+    }
+
 }

@@ -25,14 +25,7 @@ public class HomepageApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor();
-        pbeEnc.setAlgorithm("PBEWithMD5AndDES");
-        pbeEnc.setPassword("ant"); //2번 설정의 암호화 키를 입력
-        String enc = pbeEnc.encrypt("1q2w3e4r1!"); //암호화 할 내용
-        System.out.println("enc = " + enc); //암호화 한 내용을 출력
-        //테스트용 복호화
-        String des = pbeEnc.decrypt(enc);
-        System.out.println("des = " + des);
+       
     }
 
 

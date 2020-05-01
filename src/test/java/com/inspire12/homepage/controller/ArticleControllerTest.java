@@ -41,6 +41,8 @@ public class ArticleControllerTest extends SpringTestSupport{
     @Autowired
     protected MockMvc mockMvc;
 
+
+
     @Test
     public void testArticleController () throws Exception {
         String url = "/boards";
