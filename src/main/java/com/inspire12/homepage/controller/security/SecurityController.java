@@ -3,7 +3,6 @@ package com.inspire12.homepage.controller.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.inspire12.homepage.exception.ResponseMessage;
 import com.inspire12.homepage.interceptor.UserLevel;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.model.request.EmailRequest;
