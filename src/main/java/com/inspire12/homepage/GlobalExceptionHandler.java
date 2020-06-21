@@ -1,7 +1,7 @@
 package com.inspire12.homepage;
 
 import com.inspire12.homepage.exception.ErrorCode;
-import com.inspire12.homepage.exception.ResponseMessage;
+import com.inspire12.homepage.exception.ErrorMessage;
 import com.inspire12.homepage.exception.NotAuthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.time.LocalDateTime;
 
-@ControllerAdvice
+@ControllerAdvice("com.inspire12.homepage.controller.template.*")
 public class GlobalExceptionHandler {
     Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
@@ -50,10 +50,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected String handleMethodArgumentNotValidException(Model model, MethodArgumentNotValidException e) {
         logger.error("handleMethodArgumentNotValidException", e);
-        final ResponseMessage response = ResponseMessage.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
+        final ErrorMessage response = ErrorMessage.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
         model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
         return "auth/error";
     }
+
 
     /**
      * @ModelAttribute 으로 binding error 발생시 BindException 발생한다.
@@ -62,7 +63,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     protected String handleBindException(Model model, BindException e) {
         logger.error("handleBindException", e);
-        final ResponseMessage response = ResponseMessage.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
+        final ErrorMessage response = ErrorMessage.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
         model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
         return "auth/error";
     }
@@ -74,7 +75,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected String handleMethodArgumentTypeMismatchException(Model model, MethodArgumentTypeMismatchException e) {
         logger.error("handleMethodArgumentTypeMismatchException", e);
-        final ResponseMessage response = ResponseMessage.of(ErrorCode.INVALID_INPUT_VALUE);
+        final ErrorMessage response = ErrorMessage.of(ErrorCode.INVALID_INPUT_VALUE);
         model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.BAD_REQUEST));
         return "auth/error";
     }
@@ -85,7 +86,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     protected String handleHttpRequestMethodNotSupportedException(Model model, HttpRequestMethodNotSupportedException e) {
         logger.error("handleHttpRequestMethodNotSupportedException", e);
-        final ResponseMessage response = ResponseMessage.of(ErrorCode.METHOD_NOT_ALLOWED);
+        final ErrorMessage response = ErrorMessage.of(ErrorCode.METHOD_NOT_ALLOWED);
 
         model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED));
         return "auth/error";
@@ -97,7 +98,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     protected String handleAccessDeniedException(Model model, AccessDeniedException e) {
         logger.error("handleAccessDeniedException", e);
-        final ResponseMessage response = ResponseMessage.of(ErrorCode.HANDLE_ACCESS_DENIED);
+        final ErrorMessage response = ErrorMessage.of(ErrorCode.HANDLE_ACCESS_DENIED);
         model.addAttribute("response", new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE));
         return "auth/error";
     }

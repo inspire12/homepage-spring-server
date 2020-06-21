@@ -2,6 +2,7 @@ package com.inspire12.homepage.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.inspire12.homepage.model.request.ArticleRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -98,7 +99,13 @@ public class Article implements Serializable {
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = true, insertable = false, updatable = false)
     private User user;
 
+    public static Article createFromRequest(ArticleRequest requestBody) {
+        Article article = new Article();
+        article.setId(requestBody.getId());
+        article.setContent(requestBody.getContent());
 
+        return article;
+    }
     public static Article createFromRequest(ObjectNode requestBody) {
         Article article = new Article();
         if (requestBody.has("id")) {
@@ -121,8 +128,6 @@ public class Article implements Serializable {
 //        article.setTags();
         article.setBoardId(boardId);
         article.setUpdatedAt(LocalDateTime.now());
-
-
         return article;
     }
 

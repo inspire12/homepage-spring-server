@@ -12,6 +12,7 @@ public enum ErrorCode {
 
     // Member
     EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
+
     LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid"),
 
     INTERNAL_SERVER_ERROR (500, "M002", "Internal error"),

@@ -10,6 +10,7 @@ import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -40,20 +41,19 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
-    public boolean updateArticle(@Valid @RequestBody ArticleRequest articleRequest) {
-        Article article = articleService.updateArticle(articleRequest);
-        ArrayNode files = articleRequest.getFiles();
-        fileMetaService.saveFileMetas(files, article);
+    public boolean updateArticle(@Validated @RequestBody ArticleRequest articleRequest2) {
+        Article article = articleService.updateArticle(articleRequest2);
+//        ArrayNode files = articleRequest2.getFiles();
+//        fileMetaService.saveFileMetas(files, article);
         return true;
     }
 
     @PutMapping("/articles")
     @Transactional
-    public boolean insertArticle(@RequestBody ObjectNode articleRequest) {
+    public boolean insertArticle(@RequestBody ArticleRequest articleRequest) {
         Article article = Article.createFromRequest(articleRequest);
         articleService.saveArticle(article);
-        ArrayNode files = (ArrayNode) articleRequest.get("files");
-        fileMetaService.saveFileMetas(files, article);
+
         return true;
     }
 
