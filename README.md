@@ -5,6 +5,11 @@ DEMO: http://cnuant.iptime.org:8080/
 
 REF: http://cnuant.iptime.org:8080/opensource
 
+### Issue 
+1. 테스트 코드 추가 
+2. 글 포맷 정정 - 프론트 작업 필요
+3. 캐시 추가  
+
 ### Learn
 #### Goal 
 1. 읽기 쉬운 코드 
