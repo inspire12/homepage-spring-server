@@ -1,4 +1,4 @@
-package com.inspire12.homepage.storage;
+package com.inspire12.homepage.service.storage;
 
 import com.inspire12.homepage.exception.StorageException;
 import com.inspire12.homepage.exception.StorageFileNotFoundException;

@@ -1,17 +1,14 @@
 package com.inspire12.homepage;
 
-import com.inspire12.homepage.factory.MsgFactory;
+import com.inspire12.homepage.model.factory.MsgFactory;
 import com.inspire12.homepage.model.entity.ArticleLike;
 import com.inspire12.homepage.repository.ArticleLikeRepository;
 import com.inspire12.homepage.service.board.ArticleService;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest

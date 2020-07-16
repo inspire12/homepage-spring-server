@@ -1,8 +1,7 @@
 package com.inspire12.homepage.controller.community;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.model.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.model.request.ArticleRequest;
 import com.inspire12.homepage.service.board.ArticleService;
@@ -14,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

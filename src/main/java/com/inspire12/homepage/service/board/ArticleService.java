@@ -1,11 +1,8 @@
 package com.inspire12.homepage.service.board;
 
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import com.inspire12.homepage.message.ArticleMsg;
-import com.inspire12.homepage.message.CommentMsg;
+import com.inspire12.homepage.model.message.ArticleMsg;
+import com.inspire12.homepage.model.message.CommentMsg;
 import com.inspire12.homepage.model.entity.*;
 import com.inspire12.homepage.model.request.ArticleRequest;
 import com.inspire12.homepage.repository.ArticleLikeRepository;
@@ -17,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
