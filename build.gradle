@@ -4,10 +4,12 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath('se.transmode.gradle:gradle-docker:1.2')
+		classpath 'io.github.robwin:jgitflow-gradle-plugin:0.6.0'
 	}
 }
 
@@ -17,6 +19,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 apply plugin: 'docker'
+apply plugin: 'io.github.robwin.jgitflow'
 
 group = 'com.inspire12'
 version = '0.0.1-SNAPSHOT'
