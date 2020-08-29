@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/plugin/popper.css">
+    <!-- Popper -->
+    <script th:src="@{js/plugin/popper.min.js}"></script>
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/signup/style.css">
+</head>
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+<script type="text/javascript" sec:authorize="isAuthenticated()">
+    location.href = "/index";
+</script>
+<div class="main">
+
+    <!-- Sign up form -->
+    <section class="signup" id="signUpForm">
+
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Sign up</h2>
+                    <form method="POST" class="register-form" id="registerForm"
+                          onsubmit="validateFromForm(registerForm)" action="javascript:void(0);">
+                        <div class="form-group">
+                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="username" id="username" placeholder="ID"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="repassword"><i class="zmdi zmdi-lock-outline"></i></label>
+                            <input type="password" name="repassword" id="repassword"
+                                   placeholder="Repeat your password"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="student_id"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="student-id" id="student_id" placeholder="학번"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="realname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="realname" id="realname" placeholder="이름"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="zmdi zmdi-email"></i></label>
+                            <input type="email" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agreeTerm" class="agree-term"/>
+                            <label for="agreeTerm" class="label-agree-term"><span><span></span></span>I agree all
+                                statements in <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="sign-up" id="signup" class="form-submit" value="Register"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="signup-image">
+                    <figure><img src="img/outline-img/signup-image.jpg" alt="sign up image"></figure>
+                    <a href="/privatepolicy" class="signup-image-link">I am already member</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sing in  Form -->
+    <section class="signin" id="signInForm">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="img/outline-img/signin-image.jpg" alt="sign up image"></figure>
+                    <a href="#signUpForm" class="signup-image-link">Create an account</a>
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Sign in</h2>
+                    <form method="POST" action="/login" class="register-form" id="loginForm">
+                        <div class="form-group">
+                            <label for="your_username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="your_username" id="your_username" placeholder="Your Name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="your_password"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="your_password" id="your_password" placeholder="Password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term"/>
+                            <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                me</label>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="sign-in" id="signin" class="form-submit" value="Log in"/>
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <span class="social-label">Or login with</span>
+                        <ul class="socials">
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- JS -->
+
+<script th:src="@{js/custom/fetch.js}"></script>
+<script th:src="@{js/custom/components.js}"></script>
+<script src="js/plugin/jquery.min.js"></script>
+<script src="js/signup/signup.js"></script>
+<script th:inline="javascript">
+
+</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

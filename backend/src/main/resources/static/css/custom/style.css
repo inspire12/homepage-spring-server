@@ -1,0 +1,56 @@
+.cust-grid {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.cust-grid-col {
+    float: none;
+}
+
+.toggle-content {
+    display: none;
+}
+
+.toggle-content.is-visible {
+    display: block;
+}
+
+.flex-vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-vertical-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.display-inline-block {
+    display: inline-block !important;
+}
+
+.text-logout {
+    color: cornsilk;
+}
+
+.profile-img {
+    width: 120px;
+}
+
+.margin-10 {
+    margin: 10px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.no-shadow {
+    box-shadow: none !important;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+

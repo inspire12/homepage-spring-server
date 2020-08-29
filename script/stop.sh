@@ -1,1 +1,0 @@
-kill $(cat application.pid)

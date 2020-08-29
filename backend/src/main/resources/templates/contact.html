@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:include="@{fragment/common/head.html}"></th:block>
+
+</head>
+
+<body>
+<!-- Preloader -->
+<th:block th:include="@{fragment/common/pre-loader.html}"></th:block>
+<!-- /Preloader -->
+
+<th:block th:include="@{fragment/common/top-search-area.html}"></th:block>
+<th:block th:include="@{fragment/common/header.html}"></th:block>
+
+<!-- Breadcrumb Area Start -->
+<section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url(img/bg-img/38.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center">
+                    <h2 class="page-title">Contact</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="icon_house_alt"></i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<!-- Contact Area Start -->
+<div class="contact-area section-padding-80-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <h2 class="contact-title mb-30">Let’s Work <br>Together</h2>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <!-- Contact Info -->
+                <div class="contact-info mb-30">
+                    <p>Email</p>
+                    <a href="mailto:mjh991016@cnu.ac.kr">mjh991016@cnu.ac.kr</a>
+                </div>
+                <!-- Contact Info -->
+                <div class="contact-info mb-30">
+                    <p>Call Us</p>
+                    <a href="#">+10 5379 4606</a>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <!-- Contact Info -->
+                <div class="contact-info mb-30">
+                    <p>Visit Us</p>
+                    <a href="#">충남대(대전광역시 유성구 대학로 99) 공대5호관 306호</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Area End -->
+
+<!-- Map Area Start -->
+<div class="map-area section-padding-0-80">
+    <div class="container">
+        <div id="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d803.1890070315251!2d127.34395335707657!3d36.366687986662264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35654ba199f47a8d%3A0x6b06ec01aff83a18!2z64yA7ZWc66-86rWtIOuMgOyghOq0keyXreyLnCDqtoHrj5kg7Lap64Ko64yA7ZWZ6rWQIOqzteqzvOq1kOycoeyLpOyKteq0gA!5e0!3m2!1sko!2sua!4v1577777124194!5m2!1sko!2sua"
+                    frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
+<!-- Map Area End -->
+
+<!-- Follow Area Start -->
+<th:block th:include="fragment/home/follow-area.html"></th:block>
+<!-- Follow Area End -->
+
+<!-- Footer Area Start -->
+<th:block th:include="fragment/common/footer-area"></th:block>
+
+<!-- Footer Area End -->
+
+<!-- **** All JS Files ***** -->
+<!-- jQuery 2.2.4 -->
+<script th:src="@{js/plugin/jquery.min.js}"></script>
+<!-- Popper -->
+<script th:src="@{js/plugin/popper.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{js/plugin/bootstrap.min.js}"></script>
+
+<!-- Active -->
+<script th:src="@{js/default-assets/classy-nav.js}"></script>
+<script th:src="@{js/default-assets/active.js}"></script>
+
+</body>
+
+</html>
