@@ -45,9 +45,6 @@ public class ArticleService {
     public ArticleMsg getArticleMsgById(Long postId) {
         Article article = articleRepository.findById(postId).get();
         Optional<ArticleLike> articleLike = articleLikeRepository.findById(new ArticleLikePk(postId, (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
-        if (article.getIsDeleted()) {
-
-        }
 
         return ArticleMsg.create(article, articleLike.isPresent());
     }

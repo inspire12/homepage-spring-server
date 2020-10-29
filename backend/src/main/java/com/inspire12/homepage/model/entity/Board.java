@@ -18,10 +18,10 @@ public class Board {
     @Column(name = "id")
     int id;
 
-    @Column(name = "name")
+    @Column(name = "username")
     String name;
 
-    @Column(name = "type")
+    @Column(name = "board_type")
     String type;
 
 

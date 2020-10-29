@@ -28,17 +28,9 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final DataSource dataSource;
+
     @Value("${env.dev:}")
     String dev;
-
-    @Autowired
-    public SecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    @Autowired
-    public RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -74,7 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity.httpBasic().disable();
@@ -85,8 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/signup", "/", "/index", "/about").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/*.js").permitAll();
-        httpSecurity
-                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+//        httpSecurity
+//                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
         httpSecurity
 //                .formLogin()
 //                .loginPage("/login").permitAll()
@@ -106,7 +97,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/board").authenticated()
                 .antMatchers("/article").authenticated();
 //                .antMatchers("/resources/**").permitAll().anyRequest().permitAll();
-
-
     }
 }

@@ -47,7 +47,7 @@ public class CommentMsg {
         commentMsg.setGrpno(comment.getGrpno());
         commentMsg.setGrpord(comment.getGrpord());
         commentMsg.setDepth(comment.getDepth());
-        commentMsg.setLike(comment.getLike());
+        commentMsg.setLike(comment.getLikes());
         commentMsg.setCreatedAt(comment.getCreatedAt());
         commentMsg.setUpdatedAt(comment.getUpdatedAt());
         return commentMsg;

@@ -34,10 +34,10 @@ public class FileMetaService {
     }
 
     public void deleteFileMeta(Integer id) {
-        fileMetaRepository.deleteById(id);
+        fileMetaRepository.deleteById(id.longValue());
     }
 
     public FileMeta getFileMeta(Integer id) {
-        return fileMetaRepository.findById(id).get();
+        return fileMetaRepository.findById(id.longValue()).get();
     }
 }

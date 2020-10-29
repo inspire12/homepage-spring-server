@@ -32,7 +32,7 @@ public class Article implements Serializable {
     Long id;
 
     @Generated(GenerationTime.INSERT)
-    @Column(name = "no")
+    @Column(name = "grpno")
     int grpno;
 
     @Column(name = "grpord")
@@ -45,13 +45,12 @@ public class Article implements Serializable {
     @JsonProperty(value = "is_deleted")
     Boolean isDeleted = false;
 
-    @Column(name = "subject")
+    @Column(name = "title")
     String subject;
 
     @Column(name = "content")  // html 으로
             String content;
 
-    //    @Transient
     @Column(name = "username")
     @JsonProperty("username")
     String username;
@@ -61,7 +60,6 @@ public class Article implements Serializable {
     @JsonProperty("created_at")
     LocalDateTime createdAt = LocalDateTime.now();
 
-
     @Column(name = "updated_at")
     @UpdateTimestamp
     @JsonProperty("updated_at")
@@ -70,10 +68,6 @@ public class Article implements Serializable {
     @Column(name = "board_id")
     @JsonProperty("board_id")
     int boardId;
-
-    @Column(name = "tags", nullable = true)
-    String tags;
-
 
     @Column(name = "hit")
     Integer hit = 0;
@@ -96,7 +90,7 @@ public class Article implements Serializable {
     private List<FileMeta> fileMetas = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "username", referencedColumnName = "username", nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = "username", referencedColumnName = "realname", nullable = true, insertable = false, updatable = false)
     private User user;
 
     public static Article createFromRequest(ArticleRequest requestBody) {
@@ -131,7 +125,5 @@ public class Article implements Serializable {
         article.setUpdatedAt(LocalDateTime.now());
         return article;
     }
-
-
 }
 

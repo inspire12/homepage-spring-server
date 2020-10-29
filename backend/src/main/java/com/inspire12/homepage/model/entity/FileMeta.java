@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "files_meta")
+@Table(name = "file_meta")
 @Getter
 @Setter
 public class FileMeta {

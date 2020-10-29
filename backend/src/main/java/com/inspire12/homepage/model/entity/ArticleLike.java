@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Setter
 public class ArticleLike {
     @Id
-    @Column(name = "post_id")
+    @Column(name = "article_id")
     Long postId;
     @Id
     @Column(name = "username")

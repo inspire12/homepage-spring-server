@@ -39,7 +39,6 @@ public class ViewController {
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
     public String index(Model model, HttpSession session) throws Exception {
-
         User user = (User) session.getAttribute("user");
         model.addAttribute("userInfo", user);
         model.addAttribute("adminUsers", userService.getAdminUsers());

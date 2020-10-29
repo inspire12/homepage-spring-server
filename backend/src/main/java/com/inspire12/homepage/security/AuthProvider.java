@@ -30,15 +30,13 @@ import java.util.Optional;
 public class AuthProvider implements AuthenticationProvider {
 
     private Logger logger = LoggerFactory.getLogger(AuthProvider.class);
+    private final Environment env;
+    private final UserRepository repository;
 
-//    @Autowired
-//    BCryptPasswordEncoder encoder;
-
-    @Autowired
-    private Environment env;
-
-    @Autowired
-    private UserRepository repository;
+    public AuthProvider(Environment env, UserRepository repository) {
+        this.env = env;
+        this.repository = repository;
+    }
 
     public String encrypt(String key, String salt) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");

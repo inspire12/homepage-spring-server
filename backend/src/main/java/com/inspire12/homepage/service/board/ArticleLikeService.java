@@ -28,7 +28,7 @@ public class ArticleLikeService {
             return false;
         }
         articleLikeRepository.save(articleLike);
-        articleRepository.increaseLikes(postId);
+//        articleRepository.increaseLikes(postId);
         return true;
     }
 
@@ -36,7 +36,7 @@ public class ArticleLikeService {
     public boolean decArticleLike(Long postId, String username) {
         if (articleLikeRepository.existsById(new ArticleLikePk(postId, username))) {
             articleLikeRepository.delete(new ArticleLike(postId, username));
-            articleRepository.decreaseLikes(postId);
+//            articleRepository.decreaseLikes(postId);
             return true;
         }
         return false;

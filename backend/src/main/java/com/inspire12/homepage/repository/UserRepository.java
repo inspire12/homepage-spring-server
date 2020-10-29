@@ -18,11 +18,11 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE users SET last_logined_at = NOW() where username=:username", nativeQuery = true)
+    @Query(value = "UPDATE users SET last_logined_at = NOW() where realname=:username", nativeQuery = true)
     void updateUserLastLoginTime(@Param("username") String username);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE users SET password=:password where username=:username", nativeQuery = true)
+    @Query(value = "UPDATE users SET password=:password where realname=:username", nativeQuery = true)
     int updateNewPassword(@Param("username") String username, @Param("password") String password);
 }

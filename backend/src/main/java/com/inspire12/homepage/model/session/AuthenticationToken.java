@@ -1,4 +1,4 @@
-package com.inspire12.homepage.model.entity;
+package com.inspire12.homepage.model.session;
 
 import java.util.Collection;
 
@@ -19,5 +19,4 @@ public class AuthenticationToken {
         this.authorities = collection;
         this.token = token;
     }
-
 }

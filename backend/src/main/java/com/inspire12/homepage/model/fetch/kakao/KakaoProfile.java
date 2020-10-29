@@ -1,4 +1,4 @@
-package com.inspire12.homepage.model.kakao;
+package com.inspire12.homepage.model.fetch.kakao;
 
 import lombok.Getter;
 import lombok.Setter;

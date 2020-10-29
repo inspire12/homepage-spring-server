@@ -17,23 +17,28 @@ public class Comment {
     @Id
     @Column(name = "id")
     int id;
+
     @Column(name = "article_id")
     @JsonProperty("article_id")
     Long articleId;
 
     @JsonProperty("username")
     String username;
-    @Column(name = "no")
+
+    @Column(name = "grpno")
     int grpno;
+
     @Column(name = "grpord")
     int grpord;
+
     @Column(name = "depth")
     int depth;
 
     @Column(name = "content")
     @JsonProperty("content")
     String content;
-    int like = 0;
+    @Column(name = "likes")
+    int likes = 0;
     @Column(name = "created_at")
     @CreationTimestamp
     @JsonProperty("created_at")
@@ -43,7 +48,6 @@ public class Comment {
     @UpdateTimestamp
     @JsonProperty("updated_at")
     LocalDateTime updatedAt;
-
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "username", insertable = false, updatable = false)

@@ -1,13 +1,7 @@
 package com.inspire12.homepage.service;
 
-import com.inspire12.homepage.model.kakao.KakaoAuth;
-import com.inspire12.homepage.model.kakao.KakaoProfile;
-import lombok.Value;
 import org.springframework.core.env.Environment;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service

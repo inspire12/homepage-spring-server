@@ -1,6 +1,6 @@
 package com.inspire12.homepage;
 
-import com.inspire12.homepage.model.factory.MsgFactory;
+import com.inspire12.homepage.assembler.MsgFactory;
 import com.inspire12.homepage.model.entity.ArticleLike;
 import com.inspire12.homepage.repository.ArticleLikeRepository;
 import com.inspire12.homepage.service.board.ArticleService;

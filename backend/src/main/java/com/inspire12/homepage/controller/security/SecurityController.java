@@ -11,11 +11,9 @@ import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
 
 import com.inspire12.homepage.service.EmailService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,23 +36,19 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class SecurityController implements ErrorController {
-    @Autowired
-    AuthProvider authProvider;
+    private final AuthProvider authProvider;
+    private final ObjectMapper objectMapper;
+    private final UserDetailService userDetailService;
+    private final EmailService emailService;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
-    @Autowired
-    UserDetailService userDetailService;
-
-    @Autowired
-    EmailService emailService;
-
-    @Autowired
-    RedisTemplate<String, String> redisTemplate;
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    public SecurityController(AuthProvider authProvider, ObjectMapper objectMapper, UserDetailService userDetailService, EmailService emailService) {
+        this.authProvider = authProvider;
+        this.objectMapper = objectMapper;
+        this.userDetailService = userDetailService;
+        this.emailService = emailService;
+    }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @PostMapping(value = "/valid-email")
@@ -62,9 +56,7 @@ public class SecurityController implements ErrorController {
     public ResponseEntity<String> registerUser(@Valid @RequestBody final EmailRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
         String email = requestBody.getEmail();
         String token = emailService.getCertifyTokenByMail(email);
-
-        redisTemplate.opsForValue().set(email, token);
-
+//        redisTemplate.opsForValue().set(email, token);
         return ResponseEntity.ok().body(token);
     }
 
@@ -80,12 +72,12 @@ public class SecurityController implements ErrorController {
 
         ObjectNode response = objectMapper.createObjectNode();
 
-        if (redisTemplate.opsForValue().get(email).equals(requestBody.getEmailToken()) == false) {
-            response.put("name", "siginup");
-            response.put("status", "fail");
-            response.put("status_detail", "email_valid");
-            return ResponseEntity.badRequest().body(response);
-        }
+//        if (redisTemplate.opsForValue().get(email).equals(requestBody.getEmailToken()) == false) {
+//            response.put("name", "siginup");
+//            response.put("status", "fail");
+//            response.put("status_detail", "email_valid");
+//            return ResponseEntity.badRequest().body(response);
+//        }
 
         String encryptedPassword = authProvider.encrypt(username, password);
         User user = User.create(username, email, encryptedPassword, studentId, realName);
@@ -133,7 +125,7 @@ public class SecurityController implements ErrorController {
                 SecurityContextHolder.getContext());
 
         User user = userDetailService.readUser(username);
-        userDetailService.setLastLoginedAt(username);
+        userDetailService.setLastLoggedInAt(username);
 
         session.setAttribute("user", user);
         redirectAttributes.addFlashAttribute("name", "index");
@@ -204,7 +196,6 @@ public class SecurityController implements ErrorController {
 
     @Override
     public String getErrorPath() {
-
         return "auth/error";
     }
 }

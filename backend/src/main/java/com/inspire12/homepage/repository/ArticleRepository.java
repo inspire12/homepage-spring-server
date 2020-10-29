@@ -18,15 +18,11 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findTop30ByBoardIdOrderByGrpnoDesc(int boardId);
 
-    @Query(value = "select * from article where is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
+    @Query(value = "select * from article where is_deleted = false order by `grpno` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
     List<Article> showArticlesWithArticleCount(@Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
-    @Query(value = "update `article` set `no`=id where id:id", nativeQuery = true)
-    void updateArticleNo(@Param("id") int id);
-
-
-    @Query(value = "select * from article where `board_id`=:boardType and is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
+    @Query(value = "select * from article where `board_id`=:boardType and is_deleted = false order by grpno desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
     List<Article> showArticlesWithArticleByTypeCount(@Param("boardType") int type, @Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
@@ -35,7 +31,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO `article` (`subject`, `content`,`username`) VALUES (:subject, :content, :username)", nativeQuery = true)
+    @Query(value = "INSERT INTO `article` (`title`, `content`,`username`) VALUES (:subject, :content, :username)", nativeQuery = true)
     void saveArticle(@Param("subject") String subject, @Param("content") String content, @Param("username") String username);
 
 
@@ -44,15 +40,15 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(value = "update `article` set hit = hit+1 where id =:id", nativeQuery = true)
     void increaseHit(@Param("id") long id);
 
-    @Modifying
-    @Transactional
-    @Query(value = "update `article` set likes = likes+1 where id =:id", nativeQuery = true)
-    void increaseLikes(@Param("id") long id);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "update `article` set likes = likes+1 where id =:id", nativeQuery = true)
+//    void increaseLikes(@Param("id") long id);
 
-    @Modifying
-    @Transactional
-    @Query(value = "update `article` set likes = likes-1 where id =:id", nativeQuery = true)
-    void decreaseLikes(@Param("id") long id);
+//    @Modifying
+//    @Transactional
+//    @Query(value = "update `article` set likes = likes-1 where id =:id", nativeQuery = true)
+//    void decreaseLikes(@Param("id") long id);
 
 
     @Modifying
@@ -64,12 +60,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     // 답글을 추가할 때
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO `article` (`subject`, `content`, `username`, `no`, `grpord`, `depth`) VALUES (:subject, :content, :username, :no, :grpord, :depth)", nativeQuery = true)
+    @Query(value = "INSERT INTO `article` (`title`, `content`, `username`, `grpno`, `grpord`, `depth`) VALUES (:subject, :content, :username, :no, :grpord, :depth)", nativeQuery = true)
     void saveReplyArticle(@Param("subject") String subject, @Param("content") String content, @Param("username") String username, @Param("no") int no, @Param("grpord") int grpord, @Param("depth") int depth);
 
     @Modifying
     @Transactional
-    @Query(value = "update article set grpord = grpord + 1 where `no` = :no and grpord > :grpord", nativeQuery = true)
+    @Query(value = "update article set grpord = grpord + 1 where `grpno` = :no and grpord > :grpord", nativeQuery = true)
     void updateReplyOrder(@Param("no") int no, @Param("grpord") int grpord);
     //
 }

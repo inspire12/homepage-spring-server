@@ -50,7 +50,7 @@ public class UserDetailService implements UserDetailsService {
 
     }
 
-    public void setLastLoginedAt(String username) {
+    public void setLastLoggedInAt(String username) {
         userRepository.updateUserLastLoginTime(username);
     }
 

@@ -1,4 +1,4 @@
-package com.inspire12.homepage.model.factory;
+package com.inspire12.homepage.assembler;
 
 import org.springframework.stereotype.Service;
 

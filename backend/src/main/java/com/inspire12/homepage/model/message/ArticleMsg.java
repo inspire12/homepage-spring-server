@@ -75,8 +75,8 @@ public class ArticleMsg {
         articleMsg.setCreatedAt((article.getCreatedAt()));
         articleMsg.setUpdatedAt((article.getUpdatedAt()));
         articleMsg.setBoardId(article.getBoardId());
-        if (article.getTags() != null && !article.getTags().equals(""))
-            articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
+//        if (article.getTags() != null && !article.getTags().equals(""))
+//            articleMsg.setTags(Arrays.asList(article.getTags().split(",")));
         articleMsg.setAuthor(article.getUser());
 
         articleMsg.setFiles(article.getFileMetas());

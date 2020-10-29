@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.inspire12.homepage.aspect.TextContentAspect;
 import com.inspire12.homepage.model.Constant;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,10 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
 @Valid
 @ToString
+@Data
 public class ArticleRequest {
     @JsonProperty("id")
     Long id;
