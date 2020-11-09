@@ -1,0 +1,1 @@
+Spring은 캐시 추상화를 통해서 쉽게 캐시를 사용할 수 있게 해준다. CacheManager를 잘 구현한다면 @Cacheable, @CachePut, @CacheEvict

@@ -2,7 +2,7 @@ package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.exception.NotAuthException;
 import com.inspire12.homepage.interceptor.UserLevel;
-import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.model.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.User;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
@@ -22,6 +22,7 @@ import java.util.List;
 
 @Controller
 @EnableWebMvc
+
 public class ViewController {
     @Autowired
     HeaderService headerService;

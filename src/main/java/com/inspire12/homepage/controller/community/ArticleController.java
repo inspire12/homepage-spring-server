@@ -1,8 +1,7 @@
 package com.inspire12.homepage.controller.community;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.inspire12.homepage.message.ArticleMsg;
+import com.inspire12.homepage.model.message.ArticleMsg;
 import com.inspire12.homepage.model.entity.Article;
 import com.inspire12.homepage.model.request.ArticleRequest;
 import com.inspire12.homepage.service.board.ArticleService;
@@ -10,10 +9,10 @@ import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,20 +39,19 @@ public class ArticleController {
     }
 
     @PostMapping("/articles")
-    public boolean updateArticle(@Valid @RequestBody ArticleRequest articleRequest) {
-        Article article = articleService.updateArticle(articleRequest);
-        ArrayNode files = articleRequest.getFiles();
-        fileMetaService.saveFileMetas(files, article);
+    public boolean updateArticle(@Validated @RequestBody ArticleRequest articleRequest2) {
+        Article article = articleService.updateArticle(articleRequest2);
+//        ArrayNode files = articleRequest2.getFiles();
+//        fileMetaService.saveFileMetas(files, article);
         return true;
     }
 
     @PutMapping("/articles")
     @Transactional
-    public boolean insertArticle(@RequestBody ObjectNode articleRequest) {
+    public boolean insertArticle(@RequestBody ArticleRequest articleRequest) {
         Article article = Article.createFromRequest(articleRequest);
         articleService.saveArticle(article);
-        ArrayNode files = (ArrayNode) articleRequest.get("files");
-        fileMetaService.saveFileMetas(files, article);
+
         return true;
     }
 

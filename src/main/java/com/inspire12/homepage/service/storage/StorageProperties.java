@@ -1,4 +1,4 @@
-package com.inspire12.homepage.storage;
+package com.inspire12.homepage.service.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

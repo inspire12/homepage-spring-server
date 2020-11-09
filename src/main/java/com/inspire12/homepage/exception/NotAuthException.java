@@ -1,8 +1,8 @@
 package com.inspire12.homepage.exception;
 
-public class NotAuthException extends Exception {
+public class NotAuthException extends RuntimeException {
     public NotAuthException() {
-        super("회원가입을 먼저 해주세요~");
+        super("회원가입을 먼저 해주세요!");
     }
 
     public NotAuthException(String message) {

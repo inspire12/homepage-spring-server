@@ -1,7 +1,7 @@
 package com.inspire12.homepage.service.board;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.inspire12.homepage.message.CommentMsg;
+import com.inspire12.homepage.model.message.CommentMsg;
 import com.inspire12.homepage.model.entity.Comment;
 import com.inspire12.homepage.repository.CommentRepository;
 import com.inspire12.homepage.repository.UserRepository;

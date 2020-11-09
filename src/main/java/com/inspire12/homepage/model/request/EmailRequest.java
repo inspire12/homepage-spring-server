@@ -8,4 +8,5 @@ public class EmailRequest {
 
     @JsonProperty("email")
     String email;
+
 }

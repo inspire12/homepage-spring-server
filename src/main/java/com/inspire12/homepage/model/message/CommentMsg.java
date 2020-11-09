@@ -1,4 +1,4 @@
-package com.inspire12.homepage.message;
+package com.inspire12.homepage.model.message;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
