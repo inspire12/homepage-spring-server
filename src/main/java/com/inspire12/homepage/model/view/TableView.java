@@ -1,4 +1,4 @@
-package com.inspire12.homepage.view_model;
+package com.inspire12.homepage.model.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ObjectNode;
