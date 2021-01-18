@@ -3,16 +3,16 @@ package com.inspire12.homepage.controller.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.inspire12.homepage.common.DefaultValue;
+import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.interceptor.UserLevel;
-import com.inspire12.homepage.model.entity.User;
-import com.inspire12.homepage.model.request.EmailRequest;
-import com.inspire12.homepage.model.request.SignupRequest;
+import com.inspire12.homepage.message.request.AuthenticationRequest;
+import com.inspire12.homepage.message.request.EmailRequest;
+import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.security.AuthProvider;
 import com.inspire12.homepage.security.UserDetailService;
-
 import com.inspire12.homepage.service.EmailService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,7 +25,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.RequestDispatcher;
@@ -38,23 +43,19 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class SecurityController implements ErrorController {
-    @Autowired
-    AuthProvider authProvider;
+
+    private final AuthProvider authProvider;
 
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired
-    UserDetailService userDetailService;
+    private final UserDetailService userDetailService;
 
-    @Autowired
-    EmailService emailService;
+    private final EmailService emailService;
 
-    @Autowired
-    RedisTemplate<String, String> redisTemplate;
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final RedisTemplate<String, String> redisTemplate; // TODO
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @PostMapping(value = "/valid-email")
@@ -80,7 +81,7 @@ public class SecurityController implements ErrorController {
 
         ObjectNode response = objectMapper.createObjectNode();
 
-        if (redisTemplate.opsForValue().get(email).equals(requestBody.getEmailToken()) == false){
+        if (redisTemplate.opsForValue().get(email).equals(requestBody.getEmailToken()) == false) {
             response.put("name", "siginup");
             response.put("status", "fail");
             response.put("status_detail", "email_valid");
@@ -88,7 +89,7 @@ public class SecurityController implements ErrorController {
         }
 
         String encryptedPassword = authProvider.encrypt(username, password);
-        User user = User.create(username, email, encryptedPassword, studentId, realName);
+        AppUser user = AppUser.create(username, email, encryptedPassword, studentId, realName);
 
         try {
             // 중복 체크 추가
@@ -120,11 +121,11 @@ public class SecurityController implements ErrorController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public String login(
-            @RequestParam Map<String, String> authenticationRequest,
+            @RequestParam AuthenticationRequest authenticationRequest,
             HttpSession session, RedirectAttributes redirectAttributes
     ) {
-        String username = (String)authenticationRequest.get("your_username");
-        String password = (String)authenticationRequest.get("your_password");
+        String username = authenticationRequest.getUsername();
+        String password = authenticationRequest.getPassword();
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = authProvider.authenticate(token);
@@ -132,8 +133,8 @@ public class SecurityController implements ErrorController {
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext());
 
-        User user = userDetailService.readUser(username);
-        userDetailService.setLastLoginedAt(username);
+        AppUser user = userDetailService.findByUsername(username).orElseGet(() -> DefaultValue.defaultUser());
+        userDetailService.setLastLoginAt(username);
 
         session.setAttribute("user", user);
         redirectAttributes.addFlashAttribute("name", "index");
@@ -147,29 +148,31 @@ public class SecurityController implements ErrorController {
             @RequestParam Map<String, String> authenticationRequest,
             HttpSession session, RedirectAttributes redirectAttributes
     ) throws Exception {
-        String username = (String)authenticationRequest.get("username");
-        String password = (String)authenticationRequest.get("password");
-        String newPassword = (String)authenticationRequest.get("new_password");
+        String username = (String) authenticationRequest.get("username");
+        String password = (String) authenticationRequest.get("password");
+        String newPassword = (String) authenticationRequest.get("new_password");
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = authProvider.authenticate(token);
-        if (! authentication.isAuthenticated()) {
+        if (!authentication.isAuthenticated()) {
             throw new Exception();
         }
         String encryptedPassword = authProvider.encrypt(username, newPassword);
-        if (userDetailService.setNewPassword(username, encryptedPassword) != 1){
+        if (userDetailService.setNewPassword(username, encryptedPassword) != 1) {
             throw new Exception();
         }
         return ResponseEntity.ok().build();
     }
-//
+
+    //
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/oauth", method = RequestMethod.POST)
     public ResponseEntity<ObjectNode> loginFromKakao() {
         ObjectNode response = objectMapper.createObjectNode();
         return ResponseEntity.ok().body(response);
     }
-//
+
+    //
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @RequestMapping(value = "/oauth", method = RequestMethod.GET)
     public ResponseEntity<ObjectNode> loginFromKakao2() {

@@ -2,8 +2,8 @@ package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.exception.NotAuthException;
 import com.inspire12.homepage.interceptor.UserLevel;
-import com.inspire12.homepage.model.message.ArticleMsg;
-import com.inspire12.homepage.model.entity.User;
+import com.inspire12.homepage.dto.message.ArticleMsg;
+import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import com.inspire12.homepage.service.user.UserService;
@@ -40,7 +40,7 @@ public class ViewController {
     @GetMapping({"/", "/index"})
     public String index(Model model, HttpSession session) throws Exception {
 
-        User user = (User) session.getAttribute("user");
+        AppUser user = (AppUser) session.getAttribute("user");
         model.addAttribute("userInfo", user);
         model.addAttribute("adminUsers", userService.getAdminUsers());
         model.addAttribute("name", "index");

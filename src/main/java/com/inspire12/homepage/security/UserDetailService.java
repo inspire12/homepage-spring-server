@@ -1,39 +1,34 @@
 package com.inspire12.homepage.security;
 
-import com.inspire12.homepage.model.entity.User;
-import com.inspire12.homepage.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.inspire12.homepage.domain.model.AppUser;
+import com.inspire12.homepage.domain.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserDetailService implements UserDetailsService {
+@RequiredArgsConstructor
+public class UserDetailService {//implements UserDetailsService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (userRepository.existsById(username)) {
-            return userRepository.findById(username).get();
-        }
-        throw new UsernameNotFoundException("유저를 찾을 수 없습니다.");
+//    @Override
+//    public UserDetails loadUserByUsername(String username) {
+//        return userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다."));
+//    }
+
+    public boolean isExistUser(AppUser user) {
+        return userRepository.existsByUsername(user.getUsername());
     }
 
-    public boolean isExistUser(User user) {
-        return userRepository.existsById(user.getUsername());
-    }
-
-    public User readUser(String username){
-        return userRepository.findById(username).get();
+    public Optional<AppUser> findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
     private static List<GrantedAuthority> getAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -44,12 +39,11 @@ public class UserDetailService implements UserDetailsService {
     }
 
     @Transactional
-    public void saveUser(User user) {
+    public void saveUser(AppUser user) {
         userRepository.save(user);
-
     }
 
-    public void setLastLoginedAt(String username){
+    public void setLastLoginAt(String username){
         userRepository.updateUserLastLoginTime(username);
     }
 

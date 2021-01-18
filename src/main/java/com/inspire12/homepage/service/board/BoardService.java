@@ -1,17 +1,18 @@
 package com.inspire12.homepage.service.board;
 
-import com.inspire12.homepage.model.entity.Board;
-import com.inspire12.homepage.repository.BoardRepository;
+import com.inspire12.homepage.domain.model.Board;
+import com.inspire12.homepage.domain.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
-    @Autowired
-    BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     public List<Board> findBoardList(){
         return boardRepository.findAll();

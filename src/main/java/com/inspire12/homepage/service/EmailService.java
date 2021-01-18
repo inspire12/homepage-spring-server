@@ -1,8 +1,6 @@
 package com.inspire12.homepage.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -11,12 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-@RequiredArgsConstructor(staticName = "of")
+@RequiredArgsConstructor
 public class EmailService {
 
-    @Autowired
-    public JavaMailSender javaMailSender;
-
+    private final JavaMailSender javaMailSender;
 
     @Async
     public String getCertifyTokenByMail(String email) {

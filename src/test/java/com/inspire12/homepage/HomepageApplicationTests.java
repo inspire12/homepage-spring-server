@@ -1,8 +1,8 @@
 package com.inspire12.homepage;
 
-import com.inspire12.homepage.model.factory.MsgFactory;
-import com.inspire12.homepage.model.entity.ArticleLike;
-import com.inspire12.homepage.repository.ArticleLikeRepository;
+import com.inspire12.homepage.dto.factory.MsgFactory;
+import com.inspire12.homepage.domain.model.ArticleLike;
+import com.inspire12.homepage.domain.repository.ArticleLikeRepository;
 import com.inspire12.homepage.service.board.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

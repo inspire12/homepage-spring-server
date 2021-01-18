@@ -1,31 +1,36 @@
 package com.inspire12.homepage.controller.community;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.inspire12.homepage.model.message.ArticleMsg;
-import com.inspire12.homepage.model.entity.Article;
-import com.inspire12.homepage.model.request.ArticleRequest;
+import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.domain.model.Article;
+import com.inspire12.homepage.dto.message.ArticleMsg;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class ArticleController {
 
-    @Autowired
-    ArticleService articleService;
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    FileMetaService fileMetaService;
+    private final ArticleService articleService;
+    private final UserService userService;
+    private final FileMetaService fileMetaService;
 
     @GetMapping("/boards")
     public List<ArticleMsg> showArticle(@RequestParam(value = "size", required = true) int size) {
@@ -41,8 +46,6 @@ public class ArticleController {
     @PostMapping("/articles")
     public boolean updateArticle(@Validated @RequestBody ArticleRequest articleRequest2) {
         Article article = articleService.updateArticle(articleRequest2);
-//        ArrayNode files = articleRequest2.getFiles();
-//        fileMetaService.saveFileMetas(files, article);
         return true;
     }
 
@@ -51,14 +54,13 @@ public class ArticleController {
     public boolean insertArticle(@RequestBody ArticleRequest articleRequest) {
         Article article = Article.createFromRequest(articleRequest);
         articleService.saveArticle(article);
-
         return true;
     }
 
     @PutMapping("/articles/replies")
-    public boolean insertArticleReply(@RequestBody ObjectNode requestBody) {
+    public boolean insertArticleReply(@RequestBody ArticleRequest requestBody) {
         Article article = Article.createFromRequest(requestBody);
-        long parentId = requestBody.get("parent_id").asLong();
+        long parentId = requestBody.getParentId();
         articleService.saveArticleReply(parentId, article);
         return true;
     }

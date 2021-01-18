@@ -1,8 +1,7 @@
 package com.inspire12.homepage.controller;
 
 import com.inspire12.homepage.controller.community.ArticleController;
-import com.inspire12.homepage.model.entity.Article;
-import com.inspire12.homepage.model.request.ArticleRequest;
+import com.inspire12.homepage.message.request.ArticleRequest;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.service.user.UserService;

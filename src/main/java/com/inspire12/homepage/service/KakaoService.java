@@ -8,8 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class KakaoService {
     private RestTemplate restTemplate;
     private Environment env;
-<<<<<<< HEAD
-=======
+
 //    private Gson gson;
 //    @Value("${spring.url.base}")
 //    private String baseUrl;
@@ -53,5 +52,4 @@ public class KakaoService {
 //        }
 //        return null;
     }
->>>>>>> refs/heads/releases/0.0.1
 }

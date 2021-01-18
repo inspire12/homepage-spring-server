@@ -1,12 +1,11 @@
 package com.inspire12.homepage.controller;
 
-import com.inspire12.homepage.model.request.ArticleRequest;
-import com.inspire12.homepage.model.request.SignupRequest;
+import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.service.EmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

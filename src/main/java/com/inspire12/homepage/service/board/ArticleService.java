@@ -1,42 +1,42 @@
 package com.inspire12.homepage.service.board;
 
 
-import com.inspire12.homepage.model.message.ArticleMsg;
-import com.inspire12.homepage.model.message.CommentMsg;
-import com.inspire12.homepage.model.entity.*;
-import com.inspire12.homepage.model.request.ArticleRequest;
-import com.inspire12.homepage.repository.ArticleLikeRepository;
-import com.inspire12.homepage.repository.ArticleRepository;
-import com.inspire12.homepage.repository.CommentRepository;
-import com.inspire12.homepage.repository.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.inspire12.homepage.common.DefaultValue;
+import com.inspire12.homepage.domain.model.AppUser;
+import com.inspire12.homepage.domain.model.Article;
+import com.inspire12.homepage.domain.model.ArticleLike;
+import com.inspire12.homepage.domain.model.ArticleLikeId;
+import com.inspire12.homepage.domain.model.Comment;
+import com.inspire12.homepage.domain.repository.ArticleLikeRepository;
+import com.inspire12.homepage.domain.repository.ArticleRepository;
+import com.inspire12.homepage.domain.repository.CommentRepository;
+import com.inspire12.homepage.domain.repository.UserRepository;
+import com.inspire12.homepage.dto.message.ArticleMsg;
+import com.inspire12.homepage.dto.message.CommentMsg;
+import com.inspire12.homepage.message.request.ArticleRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ArticleService {
+    private final ArticleRepository articleRepository;
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    private final ArticleLikeRepository articleLikeRepository;
 
-    @Autowired
-    ArticleLikeRepository articleLikeRepository;
+    private final CommentRepository commentRepository;
 
-    @Autowired
-    CommentRepository commentRepository;
-
+    @Transactional()
     public ArticleMsg showArticleMsgById(Long postId) {
-
         articleRepository.increaseHit(postId);
         return getArticleMsgById(postId);
     }
@@ -44,12 +44,12 @@ public class ArticleService {
 
     public ArticleMsg getArticleMsgById(Long postId) {
         Article article = articleRepository.findById(postId).get();
-        Optional<ArticleLike> articleLike = articleLikeRepository.findById(new ArticleLikePk(postId, (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
-        if(article.getIsDeleted()) {
+        Optional<ArticleLike> articleLike = articleLikeRepository.findById(new ArticleLikeId(postId, (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+        if (article.getIsDeleted()) {
 
         }
 
-         return ArticleMsg.create(article, articleLike.isPresent());
+        return ArticleMsg.create(article, articleLike.isPresent());
     }
 
     public List<ArticleMsg> showArticleMsgsWithCount(int type, int pageNum, int articleCount) {
@@ -132,7 +132,7 @@ public class ArticleService {
         List<ArticleMsg> articleMsgs = new ArrayList<>();
         for (Article article : articles) {
             try {
-                User author = userRepository.findById(article.getUsername()).get();
+                AppUser author = userRepository.findById(article.getId()).get();
                 List<Comment> comments = commentRepository.selectCommentByArticleOrder(article.getId());
                 articleMsgs.add(ArticleMsg.createWithComments(article, author, convertToMsg(comments)));
             } catch (Exception e) {
@@ -146,7 +146,7 @@ public class ArticleService {
         List<CommentMsg> commentMsgs = new ArrayList<>();
         for (Comment comment : comments) {
             try {
-                commentMsgs.add(CommentMsg.createCommentMsg(comment, userRepository.getOne(comment.getUsername())));
+                commentMsgs.add(CommentMsg.createCommentMsg(comment, userRepository.findById(comment.getId()).orElseGet(DefaultValue::defaultUser)));
             } catch (Exception e) {
                 e.printStackTrace();
             }

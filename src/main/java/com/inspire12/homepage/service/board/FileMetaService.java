@@ -2,20 +2,20 @@ package com.inspire12.homepage.service.board;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.inspire12.homepage.model.entity.Article;
-import com.inspire12.homepage.model.entity.FileMeta;
-import com.inspire12.homepage.repository.FileMetaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.inspire12.homepage.domain.model.Article;
+import com.inspire12.homepage.domain.model.FileMeta;
+import com.inspire12.homepage.domain.repository.FileMetaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FileMetaService {
 
-    @Autowired
-    FileMetaRepository fileMetaRepository;
+    private final FileMetaRepository fileMetaRepository;
 
     private void saveFileMetas(List<FileMeta> fileMetas) {
         for(FileMeta fileMeta : fileMetas) {
@@ -33,10 +33,10 @@ public class FileMetaService {
         return true;
     }
 
-    public void deleteFileMeta(Integer id) {
+    public void deleteFileMeta(Long id) {
         fileMetaRepository.deleteById(id);
     }
-    public FileMeta getFileMeta(Integer id) {
+    public FileMeta getFileMeta(Long id) {
         return fileMetaRepository.findById(id).get();
     }
 }
