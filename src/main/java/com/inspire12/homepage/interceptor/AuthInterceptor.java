@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         HttpSession session = request.getSession();
 //        LoginVO loginVO = (LoginVO) session.getAttribute("loginVO");
 //

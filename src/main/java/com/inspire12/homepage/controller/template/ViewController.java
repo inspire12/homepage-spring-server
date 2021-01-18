@@ -1,50 +1,43 @@
 package com.inspire12.homepage.controller.template;
 
-import com.inspire12.homepage.exception.NotAuthException;
-import com.inspire12.homepage.interceptor.UserLevel;
-import com.inspire12.homepage.dto.message.ArticleMsg;
 import com.inspire12.homepage.domain.model.AppUser;
+import com.inspire12.homepage.dto.message.ArticleMsg;
+import com.inspire12.homepage.exception.NotAuthException;
+import com.inspire12.homepage.aspect.UserLevel;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import com.inspire12.homepage.service.user.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@Slf4j
 @Controller
-@EnableWebMvc
-
+@RequiredArgsConstructor
 public class ViewController {
-    @Autowired
-    HeaderService headerService;
 
-    @Autowired
-    ArticleService articleService;
-
-    @Autowired
-    UserService userService;
-
-    Logger logger = LoggerFactory.getLogger(ViewController.class);
-
+    private final HeaderService headerService;
+    private final ArticleService articleService;
+    private final UserService userService;
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
-    public String index(Model model, HttpSession session) throws Exception {
+    public ModelAndView index(ModelAndView model, HttpSession session) {
 
         AppUser user = (AppUser) session.getAttribute("user");
-        model.addAttribute("userInfo", user);
-        model.addAttribute("adminUsers", userService.getAdminUsers());
-        model.addAttribute("name", "index");
-        return "index";
+        model.setViewName("index");
+        model.addObject("userInfo", user);
+        model.addObject("adminUsers", userService.getAdminUsers());
+        model.addObject("name", "index");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)

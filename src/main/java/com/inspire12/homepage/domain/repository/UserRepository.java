@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository <AppUser, Long>{
@@ -24,6 +25,7 @@ public interface UserRepository extends JpaRepository <AppUser, Long>{
     int updateNewPassword(@Param("username") String username, @Param("password")String password);
 
     Optional<AppUser> findByUsername(String username);
+    List<AppUser> findAllByUsernameIn(List<String> username);
 
     Boolean existsByUsername(String username);
 }

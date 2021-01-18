@@ -56,9 +56,10 @@ servlet:
 
 logging:
   level:
-    web: trace
-    sql: trace
+    web: INFO
+    sql: INFO
     root: WARN
+    tomcat: INFO
 
   file: logs/homepage.log
   path: logs/

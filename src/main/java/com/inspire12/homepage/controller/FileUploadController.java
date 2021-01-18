@@ -1,7 +1,7 @@
 package com.inspire12.homepage.controller;
 
 
-import com.inspire12.homepage.interceptor.UserLevel;
+import com.inspire12.homepage.aspect.UserLevel;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.domain.model.FileMeta;
 import com.inspire12.homepage.service.board.FileMetaService;

@@ -1,6 +1,6 @@
 package com.inspire12.homepage.controller.community;
 
-import com.inspire12.homepage.interceptor.UserLevel;
+import com.inspire12.homepage.aspect.UserLevel;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.service.board.RecommendService;
 import lombok.RequiredArgsConstructor;

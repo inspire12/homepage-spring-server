@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
-import com.inspire12.homepage.interceptor.UserLevel;
+import com.inspire12.homepage.aspect.UserLevel;
 import com.inspire12.homepage.message.request.AuthenticationRequest;
 import com.inspire12.homepage.message.request.EmailRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
