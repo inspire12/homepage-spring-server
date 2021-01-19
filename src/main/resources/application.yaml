@@ -8,7 +8,7 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create-drop # update valid
+      ddl-auto: update # update valid
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -18,7 +18,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
   datasource:
-    url: jdbc:mysql://localhost:3306/homepage?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/homepage?useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul
     username: manager
     password: 1q2w3e4r!@
     driver-class-name: com.mysql.cj.jdbc.Driver

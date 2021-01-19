@@ -1,9 +1,9 @@
 package com.inspire12.homepage.controller.template;
 
+import com.inspire12.homepage.aspect.UserLevel;
 import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.dto.message.ArticleMsg;
 import com.inspire12.homepage.exception.NotAuthException;
-import com.inspire12.homepage.aspect.UserLevel;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import com.inspire12.homepage.service.user.UserService;
@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,8 +29,7 @@ public class ViewController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping({"/", "/index"})
-    public ModelAndView index(ModelAndView model, HttpSession session) {
-
+    public ModelAndView index(HttpSession session, ModelAndView model) {
         AppUser user = (AppUser) session.getAttribute("user");
         model.setViewName("index");
         model.addObject("userInfo", user);
@@ -42,72 +40,72 @@ public class ViewController {
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/signup")
-    public String getSignup(Model model) {
-        model.addAttribute("name", "signup");
-        return "auth/signup";
+    public ModelAndView getSignup(HttpSession session, ModelAndView model) {
+        model.setViewName("signup");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/profile")
-    public String getProfile(Model model) {
-        model.addAttribute("name", "profiles");
-        return "profiles";
+    public ModelAndView getProfile(HttpSession session, ModelAndView model) {
+        model.addObject("name", "profiles");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/introduce")
-    public String getIntroduceView() {
+    public String getIntroduceView(HttpSession session, ModelAndView model) {
         return "introduce";
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/contact")
-    public String getContactView() {
+    public String getContactView(HttpSession session, ModelAndView model) {
         return "contact";
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/about")
-    public String getAboutView(Model model) {
-        model.addAttribute("adminUsers", userService.getAdminUsers());
+    public String getAboutView(HttpSession session, ModelAndView model) {
+        model.addObject("adminUsers", userService.getAdminUsers());
         return "about";
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/blog")
-    public String getBlogView() {
+    public String getBlogView(HttpSession session, ModelAndView model) {
         return "blog";
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/gallery")
-    public String getGalleryView() {
+    public String getGalleryView(HttpSession session, ModelAndView model) {
         return "gallery";
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/board")
-    public String getBoardView(@RequestParam(defaultValue = "0") Integer type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum, Model model) {
+    public ModelAndView getBoardView(HttpSession session, ModelAndView model, @RequestParam(defaultValue = "0") Integer type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum) {
         // board 종류
         try {
             List<ArticleMsg> articles = articleService.showArticleMsgsWithCount(type, pageNum, articleCount);
-            model.addAttribute("articles", articles);
+            model.addObject("articles", articles);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        model.addAttribute("name", "board");
-        return "board";
+        model.addObject("name", "board");
+        model.setViewName("board");
+        return model;
     }
 
 
     @GetMapping("/privatepolicy")
-    public String getPrivatePolicy() {
+    public String getPrivatePolicy(HttpSession session, ModelAndView model) {
         return "auth/privatepolicy";
     }
 
     @GetMapping("/article")
-    public String getSingleBlogView(@RequestParam(defaultValue = "1") Long id, Model model) {
+    public String getSingleBlogView(HttpSession session, ModelAndView model, @RequestParam(defaultValue = "1") Long id) {
         ArticleMsg article;
         try {
             article = articleService.showArticleMsgById(id);
@@ -118,77 +116,86 @@ public class ViewController {
             article = new ArticleMsg();
             e.printStackTrace();
         }
-        model.addAttribute("article", article);
-        model.addAttribute("name", "article");
+        model.addObject("article", article);
+        model.addObject("name", "article");
         return "article";
     }
 
     @UserLevel(allow = UserLevel.UserRole.USER)
     @GetMapping("/writing")
-    public String getWriteView(Model model,
+    public ModelAndView getWriteView(HttpSession session, ModelAndView model,
                                @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthException {
         if (id != 0){
             ArticleMsg articleMsg = articleService.getArticleMsgById(id);
 //            if (! SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(articleMsg.getAuthor().getUsername())){
 //                throw new NotAuthException("작성자만 글을 수정할 수 있습니다.");
 //            }
-            model.addAttribute("article", articleMsg);
+            model.addObject("article", articleMsg);
         }
-        model.addAttribute("name", "write");
-        return "writing";
+        model.addObject("name", "write");
+        return model;
     }
 
 
     @GetMapping("/algorithm")
-    public String getAlgorithmView() {
-        return "lab/algorithm";
+    public ModelAndView getAlgorithmView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/algorithm");
+        return model;
     }
 
     @GetMapping("/gan-style")
-    public String getGanView(Model model) {
-        return "lab/gan-styles";
+    public ModelAndView getGanView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/gan-styles");
+        return model;
     }
 
     @GetMapping("/ai")
-    public String getAiView() {
-        return "lab/ai";
+    public ModelAndView getAiView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/ai");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/test")
-    public String getGifView() {
-        return "lab/test";
+    public ModelAndView getGifView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/test");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/opensource")
-    public String getOpensourceView() {
-        return "opensource";
+    public ModelAndView getOpensourceView(HttpSession session, ModelAndView model) {
+        model.setViewName("opensource");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/kakao")
-    public String getKakaoLabView() {
-        return "lab/kakao-login";
+    public ModelAndView getKakaoLabView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/kakao-login");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/video")
-    public String getVideoLabView() {
-        return "lab/video";
+    public ModelAndView getVideoLabView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/video");
+        return model;
     }
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/facebook-login")
-    public String getFacebookLabView() {
-        return "lab/facebook-login";
+    public ModelAndView getFacebookLabView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/facebook-login");
+        return model;
     }
 
 
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/table")
-    public String getTableView() {
-        return "lab/table";
+    public ModelAndView getTableView(HttpSession session, ModelAndView model) {
+        model.setViewName("lab/table");
+        return model;
     }
 
 }

@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public String handleNull(Model model, Exception e) {
         System.err.println(e.getClass());
-        logger.error("["+e.getClass() + "] " + e.getMessage() + " from user:"+ SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.error("[{}] from user {}", e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("code", 500);
         model.addAttribute("msg", "에러가 발생했니다.");
         model.addAttribute("timestamp", LocalDateTime.now());
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotAuthException.class)
     public String handleNotFound(Model model, Exception e) {
-        logger.error("["+e.getClass() + "] " + e.getMessage() + " from user:"+ SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.error("[{}] from user {}", e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("code", 401);
         model.addAttribute("msg", "에러가 발생했습니다.");
         model.addAttribute("timestamp", LocalDateTime.now());
