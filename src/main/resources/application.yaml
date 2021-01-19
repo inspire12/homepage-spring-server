@@ -8,7 +8,7 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: update # update valid
+      ddl-auto: validate # update valid
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -34,7 +34,6 @@ spring:
           starttls:
             required: true
             enable: true
-
   devtools:
     livereload:
       enabled: true
@@ -47,6 +46,17 @@ spring:
         min-idle: 2
     host: 127.0.0.1
     port: 6379
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: <your client id>
+            client-secret: <your client secret>
+          facebook:
+            client-id: <your client id>
+            client-secret: <your client secret>
 
 servlet:
   multipart:

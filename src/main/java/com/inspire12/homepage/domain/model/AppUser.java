@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
@@ -21,6 +23,7 @@ import java.util.List;
 public class AppUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(unique = true)
@@ -54,6 +57,7 @@ public class AppUser {
 
     public static AppUser create(String username, String email, String password) {
         AppUser user = new AppUser();
+        user.setId(null);
         user.setUsername(username);
         user.setNickname(username);
         user.setEmail(email);

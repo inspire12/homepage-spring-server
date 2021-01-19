@@ -41,7 +41,7 @@ public class ViewController {
     @UserLevel(allow = UserLevel.UserRole.GUEST)
     @GetMapping("/signup")
     public ModelAndView getSignup(HttpSession session, ModelAndView model) {
-        model.setViewName("signup");
+        model.setViewName("auth/signup");
         return model;
     }
 
