@@ -2,14 +2,12 @@ package com.inspire12.homepage.domain.repository;
 
 
 import com.inspire12.homepage.domain.model.Article;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
@@ -19,27 +17,17 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> showArticlesWithArticleCount(@Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
 
-    @Query(value = "update `article` set `no`=id where id:id", nativeQuery = true)
+    @Query(value = "update `article` set `no`=id where id=:id", nativeQuery = true)
     void updateArticleNo(@Param("id")int id);
 
 
     @Query(value = "select * from article where `board_id`=:boardType and is_deleted = false order by `no` desc, `grpord` asc limit :start, :articleCount", nativeQuery = true)
     List<Article> showArticlesWithArticleByTypeCount(@Param("boardType")int type, @Param(value = "start") int start, @Param(value = "articleCount") int articleCount);
 
-
-    @Query(value = "select a from Article a")
-    List<Article> selectArticles(PageRequest pageRequest);
-
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO `article` (`subject`, `content`,`username`) VALUES (:subject, :content, :username)", nativeQuery = true)
     void saveArticle(@Param("subject") String subject, @Param("content") String content, @Param("username") String username);
-
-
-    @Modifying
-    @Transactional
-    @Query(value = "update `article` set hit = hit+1 where id =:id", nativeQuery = true)
-    void increaseHit(@Param("id") long id);
 
     @Modifying
     @Transactional

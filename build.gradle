@@ -54,6 +54,9 @@ dependencies {
 	// web
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE')
+
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
+//	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	// aop
 	implementation('org.springframework.boot:spring-boot-starter-aop')
 
@@ -68,7 +71,7 @@ dependencies {
 	// security
 	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
-
+	implementation ('org.springframework.boot:spring-boot-starter-oauth2-client')
 	// lombok
 	implementation 'org.projectlombok:lombok:1.18.16'
 	implementation 'io.springfox:springfox-swagger2:2.9.2'

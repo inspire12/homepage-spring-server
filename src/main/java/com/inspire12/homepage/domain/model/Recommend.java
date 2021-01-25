@@ -4,17 +4,20 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
 @Data
 public class Recommend {
     @Id
-    Integer id;
+    private Integer id;
 
-    String username;
+    private String username;
 
-    Long articleId;
+    private Long articleId;
 
+    @Version
+    private Long version;
 
     public static Recommend create(Long articleId, String username) {
         Recommend recommend = new Recommend();

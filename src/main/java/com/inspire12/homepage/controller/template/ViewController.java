@@ -1,6 +1,7 @@
 package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.aspect.UserLevel;
+import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.dto.message.ArticleMsg;
 import com.inspire12.homepage.exception.NotAuthException;
@@ -105,10 +106,11 @@ public class ViewController {
     }
 
     @GetMapping("/article")
-    public String getSingleBlogView(HttpSession session, ModelAndView model, @RequestParam(defaultValue = "1") Long id) {
+    public String getSingleBlogView(HttpSession session, ModelAndView model,
+                                    @RequestParam(defaultValue = "1") Long id) {
         ArticleMsg article;
         try {
-            article = articleService.showArticleMsgById(id);
+            article = articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
             if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
 
             }
@@ -126,7 +128,7 @@ public class ViewController {
     public ModelAndView getWriteView(HttpSession session, ModelAndView model,
                                @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthException {
         if (id != 0){
-            ArticleMsg articleMsg = articleService.getArticleMsgById(id);
+            ArticleMsg articleMsg = articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
 //            if (! SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(articleMsg.getAuthor().getUsername())){
 //                throw new NotAuthException("작성자만 글을 수정할 수 있습니다.");
 //            }

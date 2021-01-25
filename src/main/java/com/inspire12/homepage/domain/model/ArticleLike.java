@@ -25,6 +25,8 @@ public class ArticleLike {
     @Id
     String username;
 
+    Boolean isLike;
+
     @CreationTimestamp
     LocalDateTime createdAt;
 

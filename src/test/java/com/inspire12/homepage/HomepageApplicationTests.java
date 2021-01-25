@@ -1,9 +1,8 @@
 package com.inspire12.homepage;
 
-import com.inspire12.homepage.dto.factory.MsgFactory;
 import com.inspire12.homepage.domain.model.ArticleLike;
 import com.inspire12.homepage.domain.repository.ArticleLikeRepository;
-import com.inspire12.homepage.service.board.ArticleService;
+import com.inspire12.homepage.dto.factory.MsgFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,10 +33,8 @@ public class HomepageApplicationTests {
 
 		articleLikeRepository.save(articleLike);
 		ArticleLikeRepository articleLikeRepository = Mockito.mock(ArticleLikeRepository.class);
-		ArticleService articleService = new ArticleService();
+//		ArticleService articleService = new ArticleService();
 
 	}
-
-
 }
 

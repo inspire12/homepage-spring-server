@@ -1,13 +1,15 @@
 package com.inspire12.homepage.controller.community;
 
-import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.dto.message.ArticleMsg;
+import com.inspire12.homepage.message.request.ArticleRequest;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.board.FileMetaService;
 import com.inspire12.homepage.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RestController
@@ -39,21 +40,20 @@ public class ArticleController {
 
     @GetMapping("/articles/{id}")
     public ArticleMsg showArticleList(@PathVariable Long id) {
-
-        return articleService.getArticleMsgById(id);
+        return articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
     }
 
     @PostMapping("/articles")
-    public boolean updateArticle(@Validated @RequestBody ArticleRequest articleRequest2) {
-        Article article = articleService.updateArticle(articleRequest2);
+    public boolean updateArticle(@Validated @RequestBody ArticleRequest articleRequest) {
+        Article article = articleService.updateArticle(articleRequest);
         return true;
     }
 
     @PutMapping("/articles")
     @Transactional
     public boolean insertArticle(@RequestBody ArticleRequest articleRequest) {
-        Article article = Article.createFromRequest(articleRequest);
-        articleService.saveArticle(article);
+
+        articleService.saveArticle(articleRequest);
         return true;
     }
 

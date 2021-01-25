@@ -1,5 +1,6 @@
 package com.inspire12.homepage.domain.model;
 
+import com.inspire12.homepage.domain.converter.StringToListConverter;
 import com.inspire12.homepage.message.request.ArticleRequest;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,11 +9,14 @@ import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,7 +27,7 @@ public class Article {
     private Long id;
 
     @Generated(GenerationTime.INSERT)
-    @Column(name = "no")//, columnDefinition = "default '0'")
+    @Column(name = "no")
     private Integer grpno;
 
     private Integer grpord;
@@ -36,9 +40,19 @@ public class Article {
 
     private String content;
 
-    private String username;
+    private String authorName;
 
-    private Long userId;
+    private Long authorId;
+
+    private Integer boardId;
+
+    @Convert(converter = StringToListConverter.class)
+    private List<String> tags;
+
+    Integer hit;
+
+    @CreationTimestamp
+    private LocalDateTime modifiedAt;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -46,31 +60,8 @@ public class Article {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private Integer boardId;
-
-    private String tags;
-
-    Integer hit;
-
-//    @org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
-//    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-//    @JoinColumn(name = "articleId")
-//    List<Recommend> likes;
-//
-//    @org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
-//    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-//    @JoinColumn(name = "articleId")
-//    private List<Comment> comments = new ArrayList<>();
-//
-//
-//    @org.hibernate.annotations.Fetch(FetchMode.SUBSELECT)
-//    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-//    @JoinColumn(name = "articleId")
-//    private List<FileMeta> fileMetas = new ArrayList<>();
-
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "userId", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
-//    private AppUser user;
+    @Version
+    private Long version;
 
     public static Article createFromRequest(ArticleRequest requestBody) {
         Article article = new Article();
@@ -79,29 +70,5 @@ public class Article {
 
         return article;
     }
-//    public static Article createFromRequest(ObjectNode requestBody) {
-//        Article article = new Article();
-//        if (requestBody.has("id")) {
-//            article.setId(requestBody.get("id").asLong());
-//            article.setGrpno(requestBody.get("id").asInt());
-//        } else {
-//            article.setCreatedAt(LocalDateTime.now());
-//            article.setHit(0);
-//        }
-//        String username = requestBody.get("username").asText();
-//        String title = requestBody.get("title").asText();
-//        String content = requestBody.get("content").asText();
-//        int boardId = 1;
-//        if (requestBody.has("type")){
-//            boardId = requestBody.get("type").asInt();
-//        }
-//        article.setUsername(username);
-//        article.setSubject(title);
-//        article.setContent(content);
-////        article.setTags();
-//        article.setBoardId(boardId);
-//        article.setUpdatedAt(LocalDateTime.now());
-//        return article;
-//    }
 }
 
