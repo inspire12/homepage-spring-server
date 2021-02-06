@@ -1,7 +1,9 @@
 package com.inspire12.homepage.domain.model;
 
 import com.inspire12.homepage.domain.converter.StringToListConverter;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -20,6 +22,8 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppUser {
 
     @Id

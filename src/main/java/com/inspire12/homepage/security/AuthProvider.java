@@ -3,6 +3,7 @@ package com.inspire12.homepage.security;
 
 import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.domain.repository.UserRepository;
+import com.inspire12.homepage.exception.CommonException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -21,7 +22,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @Slf4j
@@ -49,15 +49,13 @@ public class AuthProvider implements AuthenticationProvider {
             String name = authentication.getName();
             String password = encrypt(name, authentication.getCredentials().toString());
 
-            Optional<AppUser> user = repository.findByUsernameAndPassword(name, password);
-            repository.updateUserLastLoginTime(name);
+            AppUser user = repository.findByUsernameAndPassword(name, password).orElseThrow(CommonException::new);
+            repository.save(user);
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole().get(0))); // TODO
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().get(0))); // TODO
 
-            Authentication auth = new UsernamePasswordAuthenticationToken(user.get().getUsername(), user.get().getPassword(), grantedAuthorities);
-            return auth;
-
+            return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), grantedAuthorities);
         } catch (Exception e) {
             log.error("{} : {}", e.getClass().getSimpleName(), e.getMessage());
             return null;

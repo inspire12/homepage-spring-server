@@ -2,14 +2,15 @@ package com.inspire12.homepage.service.board;
 
 
 import com.inspire12.homepage.assembler.ArticleAssembler;
-import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.domain.model.Article;
-import com.inspire12.homepage.domain.model.Comment;
 import com.inspire12.homepage.domain.service.ArticleDomainService;
-import com.inspire12.homepage.dto.message.ArticleMsg;
-import com.inspire12.homepage.dto.message.CommentMsg;
+import com.inspire12.homepage.domain.service.UserDomainService;
+import com.inspire12.homepage.dto.user.AppUserInfo;
+import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.message.request.ArticleWritingRequest;
+import com.inspire12.homepage.message.response.ArticleInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,24 +20,34 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class ArticleService {
     private final ArticleDomainService articleDomainService;
+    private final UserDomainService userDomainService;
 
     @Transactional
-    public ArticleMsg showArticleMsgById(Long postId, Long userId) {
+    public ArticleInfo showArticleMsgById(Long postId, Long userId) {
         Article article = articleDomainService.getArticleById(postId);
-        article.setHit(article.getHit() + 1);
+        article.setHits(article.getHits() + 1);
         Boolean articleLike = articleDomainService.getArticleLike(postId, userId);
-        return ArticleMsg.create(article, articleLike);
+        return ArticleInfo.create(article, articleLike);
     }
 
-    public List<ArticleMsg> showArticleMsgsWithCount(int type, int pageNum, int articleCount) {
+    public List<ArticleInfo> showArticleMsgsWithCount(int type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles = articleDomainService.getArticlesByType(type, start, articleCount);
-        return ArticleAssembler.convertArticles(articles);
+        List<Long> userIds = new ArrayList<>(articleCount);
+        for (Article article: articles) {
+            userIds.add(article.getAuthorId());
+        }
+        Map<Long, AppUserInfo> appUserInfoMap = userDomainService.getUserInfoMap(userIds);
+
+        return articles.stream()
+                .map(a -> ArticleAssembler.toInfo(a, appUserInfoMap.get(a.getAuthorId())))
+                .collect(Collectors.toList());
     }
 
     public Article updateArticle(ArticleRequest articleRequest) {
@@ -45,9 +56,17 @@ public class ArticleService {
         return articleDomainService.saveArticleById(id, articleRequest);
     }
 
-    public List<ArticleMsg> showArticleMsgs(int size) {
-        List<Article> articles = articleDomainService.selectArticles(PageRequest.of(0, size));
-        return ArticleAssembler.convertArticles(articles);
+    public List<ArticleInfo> showArticleMsgs(int size) {
+        List<Article> articles = articleDomainService.selectArticleList(PageRequest.of(0, size));
+        List<Long> userIds = new ArrayList<>(size);
+        for (Article article: articles) {
+            userIds.add(article.getAuthorId());
+        }
+        Map<Long, AppUserInfo> appUserInfoMap = userDomainService.getUserInfoMap(userIds);
+
+        return articles.stream()
+                .map(a -> ArticleAssembler.toInfo(a, appUserInfoMap.get(a.getAuthorId())))
+                .collect(Collectors.toList());
     }
 
 
@@ -58,23 +77,26 @@ public class ArticleService {
 
     public boolean deleteArticle(Long articleId) {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        articleDomainService.deleteArticle(articleId, username);
+        AppUser appUser = userDomainService.findByUsername(username).orElseThrow(CommonException::new);
+        articleDomainService.deleteArticle(articleId, appUser.getId());
         return false;
     }
 
-    public ArticleMsg saveArticle(ArticleRequest articleRequest) {
-        return ArticleMsg.create(articleDomainService.saveArticle(Article.createFromRequest(articleRequest)));
-    }
-
-    private List<CommentMsg> convertToMsg(List<Comment> comments, Map<Long, AppUser> userMap) {
-        List<CommentMsg> commentMsgs = new ArrayList<>();
-        for (Comment comment : comments) {
-            try {
-                commentMsgs.add(CommentMsg.createCommentMsg(comment, userMap.getOrDefault(comment.getArticleId(), DefaultValue.defaultUser())));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return commentMsgs;
+    public ArticleInfo saveArticle(Long userId, ArticleWritingRequest articleRequest) {
+        Article article = new Article(null, 0, 0, 0,
+                articleRequest.getTitle(),
+                articleRequest.getContent(),
+                userId,
+                articleRequest.getType(),
+                new ArrayList<>(),
+                0,
+                0,
+                false,
+                null,
+                null,
+                null,
+                null
+                );
+        return ArticleInfo.create(articleDomainService.saveArticle(article));
     }
 }

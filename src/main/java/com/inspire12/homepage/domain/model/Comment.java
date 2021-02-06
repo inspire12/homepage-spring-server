@@ -21,12 +21,12 @@ public class Comment {
     private Long articleId;
 
     private String username;
-    private Integer grpno;
-    private Integer grpord;
+    private Integer grpNo;
+    private Integer grpOrd;
     private Integer depth;
 
     private String content;
-    private Integer likeCount;
+    private Integer likes;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -106,11 +106,13 @@ function submitWriting(choice, myDropzone, id) {
         // 글 수정인 경우
         body["id"] = id;
         postRequest("/articles", body, (data) => {
+            console.dir(data)
             window.location.href = "/board"
         });
     } else {
         // 글 쓰기인 경우
         putRequest("/articles", body, (data) => {
+            console.dir(data)
             window.location.href = "/board"
         });
     }

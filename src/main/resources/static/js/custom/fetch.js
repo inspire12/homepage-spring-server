@@ -51,7 +51,7 @@ function putRequest(url, body, func) {
         console.dir(response);
         let status = response.status;
         __swalStatusMessage(status);
-        return response.json();
+        return response.body;
     }).then(body => {
         func(body)
     }).catch(e => {

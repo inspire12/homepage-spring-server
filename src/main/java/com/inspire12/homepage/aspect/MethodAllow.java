@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Target(value = ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface UserLevel {
-    public enum UserRole {
+public @interface MethodAllow {
+    enum UserRole {
         USER, GUEST, SHARE
     }
 

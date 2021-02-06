@@ -1,7 +1,7 @@
 package com.inspire12.homepage.controller;
 
 
-import com.inspire12.homepage.aspect.UserLevel;
+import com.inspire12.homepage.aspect.MethodAllow;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.domain.model.FileMeta;
 import com.inspire12.homepage.service.board.FileMetaService;
@@ -39,7 +39,7 @@ public class FileUploadController {
 //        return "uploadForm";
 //    }
 
-    @UserLevel(allow = UserLevel.UserRole.USER)
+    @MethodAllow(allow = MethodAllow.UserRole.USER)
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -49,7 +49,7 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @UserLevel(allow = UserLevel.UserRole.USER)
+    @MethodAllow(allow = MethodAllow.UserRole.USER)
     @GetMapping("/images/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
@@ -58,7 +58,7 @@ public class FileUploadController {
         return ResponseEntity.ok().body(file);
     }
 
-    @UserLevel(allow = UserLevel.UserRole.USER)
+    @MethodAllow(allow = MethodAllow.UserRole.USER)
     @PostMapping("/files")
     public ResponseEntity<CommonResponse<String>> handleFileUpload(@RequestParam("file") MultipartFile file,
                                                            RedirectAttributes redirectAttributes) {
@@ -70,7 +70,7 @@ public class FileUploadController {
         return ResponseEntity.ok().body(new CommonResponse<>(1, uploadUrl));
     }
 
-    @UserLevel(allow = UserLevel.UserRole.USER)
+    @MethodAllow(allow = MethodAllow.UserRole.USER)
     @DeleteMapping("/files")
     public ResponseEntity deleteFileUpload( @RequestParam("id") Long id,
                                             RedirectAttributes redirectAttributes) {

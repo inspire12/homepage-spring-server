@@ -1,13 +1,12 @@
 package com.inspire12.homepage.domain.service;
 
+import com.inspire12.homepage.common.LikeType;
 import com.inspire12.homepage.domain.model.Article;
-import com.inspire12.homepage.domain.model.ArticleLike;
-import com.inspire12.homepage.domain.model.ArticleLikeId;
-import com.inspire12.homepage.domain.repository.ArticleLikeRepository;
+import com.inspire12.homepage.domain.model.UserLike;
+import com.inspire12.homepage.domain.model.UserLikeId;
 import com.inspire12.homepage.domain.repository.ArticleRepository;
-import com.inspire12.homepage.domain.repository.CommentRepository;
-import com.inspire12.homepage.domain.repository.UserRepository;
-import com.inspire12.homepage.exception.CustomException;
+import com.inspire12.homepage.domain.repository.UserLikeRepository;
+import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.ArticleRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -20,36 +19,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleDomainService {
     private final ArticleRepository articleRepository;
-    private final UserRepository userRepository;
-    private final ArticleLikeRepository articleLikeRepository;
-    private final CommentRepository commentRepository;
+    private final UserLikeRepository userLikeRepository;
 
-
-    public Article getArticleById(Long postId) {
-        return articleRepository.findById(postId).orElseThrow(CustomException::new);
+    public Article getArticleById(Long articleId) {
+        return articleRepository.findById(articleId).orElseThrow(CommonException::new);
     }
 
-    public List<Article> showArticlesWithCount(int type, int pageNum, int articleCount) {
+    public List<Article> showArticleListWithCount(int type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles;
         if (type == 0) {
-            articles = articleRepository.showArticlesWithArticleCount(start, articleCount);
+            articles = articleRepository.findByDeletedIsFalse(PageRequest.of(start, articleCount)).getContent();
         } else {
-            articles = articleRepository.showArticlesWithArticleByTypeCount(type, start, articleCount);
+            articles = articleRepository.findByBoardIdAndDeletedIsFalse(type, PageRequest.of(pageNum, articleCount)).getContent();
         }
         return articles;
-    }
-
-    public Article updateArticle(ArticleRequest articleRequest) {
-        // 데이터 검증
-        Long id = articleRequest.getId();
-
-        Article article = getArticleById(id);
-        article.setSubject(articleRequest.getTitle());
-        article.setContent(articleRequest.getContent());
-        article.setBoardId(articleRequest.getType());
-        articleRepository.save(article);
-        return article;
     }
 
     public Article saveArticle(Article article) {
@@ -59,46 +43,50 @@ public class ArticleDomainService {
     @Transactional
     public boolean saveArticleReply(Long parentId, Article childArticle) {
         Article parentArticle = getArticleById(parentId);
-        articleRepository.updateReplyOrder(parentArticle.getGrpno(), parentArticle.getGrpord());
-
-        childArticle.setGrpno(parentArticle.getGrpno());
-        childArticle.setGrpord(parentArticle.getGrpord() + 1);
+        List<Article> articles = articleRepository.findByGrpNoAndGrpOrderBefore(parentArticle.getGrpNo(), parentArticle.getGrpOrder());
+        for (Article article: articles) {
+            article.setGrpOrder(article.getGrpOrder() + 1);
+        }
+        parentArticle.setGrpOrder(parentArticle.getGrpOrder() + 1);
+        childArticle.setGrpNo(parentArticle.getGrpNo());
+        childArticle.setGrpOrder(parentArticle.getGrpOrder() + 1);
         childArticle.setDepth(parentArticle.getDepth() + 1);
 
         articleRepository.save(childArticle);
         return true;
     }
 
-    public boolean deleteArticle(Long articleId, String username) {
-         if (username.equals(getArticleById(articleId).getAuthorName())) {
-            articleRepository.updateIsDeletedArticle(articleId);
+    public boolean deleteArticle(Long articleId, Long userId) {
+        Article article = getArticleById(articleId);
+        if (userId.equals(article.getAuthorId())) {
+            article.setDeleted(true);
             return true;
         }
         return false;
     }
 
     public Boolean getArticleLike(Long postId, Long userId) {
-        return articleLikeRepository.findById(new ArticleLikeId(postId, userId))
-                .map(ArticleLike::getIsLike).orElse(false);
+        return userLikeRepository.findById(new UserLikeId(postId, userId, LikeType.ARTICLE))
+                .map(UserLike::isLiked).orElse(false);
     }
 
     public List<Article> getArticlesByType(int type, int start, int articleCount) {
         if (type == 0) {
-            return articleRepository.showArticlesWithArticleCount(start, articleCount);
+            return articleRepository.findByDeletedIsFalse(PageRequest.of(start, articleCount)).getContent();
         } else {
-            return articleRepository.showArticlesWithArticleByTypeCount(type, start, articleCount);
+            return articleRepository.findByBoardIdAndDeletedIsFalse(type, PageRequest.of(start, articleCount)).getContent();
         }
     }
 
     public Article saveArticleById(long id, ArticleRequest articleRequest) {
         Article article = getArticleById(id);
-        article.setSubject(articleRequest.getTitle());
+        article.setTitle(articleRequest.getTitle());
         article.setContent(articleRequest.getContent());
         article.setBoardId(articleRequest.getType());
         return article;
     }
 
-    public List<Article> selectArticles(PageRequest of) {
-        return articleRepository.findAll(of).getContent();
+    public List<Article> selectArticleList(PageRequest pageRequest) {
+        return articleRepository.findAll(pageRequest).getContent();
     }
 }
