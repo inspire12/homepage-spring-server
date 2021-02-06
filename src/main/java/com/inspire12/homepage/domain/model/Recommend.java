@@ -14,7 +14,7 @@ public class Recommend {
 
     private String username;
 
-    private Long articleId;
+    private Long targetId;
 
     @Version
     private Long version;
@@ -22,7 +22,7 @@ public class Recommend {
     public static Recommend create(Long articleId, String username) {
         Recommend recommend = new Recommend();
         recommend.setUsername(username);
-        recommend.setArticleId(articleId);
+        recommend.setTargetId(articleId);
         return recommend;
     }
 }

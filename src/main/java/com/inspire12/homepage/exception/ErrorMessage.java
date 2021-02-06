@@ -18,25 +18,25 @@ public class ErrorMessage {
     private String message;
     private int status;
     private List<FieldError> errors;
-    private String code;
+    private Integer code;
 
     private String view;
 
 
-    public static ErrorMessage of(String message, int status, String code) {
+    public static ErrorMessage of(String message, int status, Integer code) {
         return new ErrorMessage(message, status, null, code, "auth");
     }
 
     public static ErrorMessage of(String message, HttpStatus httpStatus) {
-        return new ErrorMessage(message, httpStatus.value(), null, httpStatus.getReasonPhrase(),"auth");
+        return new ErrorMessage(message, httpStatus.value(), null, httpStatus.value(),"auth");
     }
 
     public static ErrorMessage of(ErrorCode errorCode) {
-        return new ErrorMessage(errorCode.getMessage(), errorCode.getStatus(), null, errorCode.getCode(), "auth");
+        return new ErrorMessage(errorCode.getMessage(), errorCode.getHttpStatus().value(), null, errorCode.getCode(), "auth");
     }
 
     public static ErrorMessage of(ErrorCode errorCode, BindingResult bindingResult) {
-        return new ErrorMessage(errorCode.getMessage(), errorCode.getStatus(), bindingResult.getFieldErrors(), errorCode.getCode(), "auth");
+        return new ErrorMessage(errorCode.getMessage(), errorCode.getHttpStatus().value(), bindingResult.getFieldErrors(), errorCode.getCode(), "auth");
     }
 
 }

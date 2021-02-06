@@ -13,7 +13,6 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 import javax.sql.DataSource;
 
-
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity

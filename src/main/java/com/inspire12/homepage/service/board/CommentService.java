@@ -1,49 +1,34 @@
 package com.inspire12.homepage.service.board;
 
+import com.inspire12.homepage.domain.service.CommentDomainService;
+import com.inspire12.homepage.domain.service.UserDomainService;
+import com.inspire12.homepage.dto.article.CommentInfo;
+import com.inspire12.homepage.dto.user.AppUserInfo;
 import com.inspire12.homepage.message.request.CommentRequest;
-import com.inspire12.homepage.domain.model.Comment;
-import com.inspire12.homepage.dto.message.CommentMsg;
-import com.inspire12.homepage.domain.repository.CommentRepository;
-import com.inspire12.homepage.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CommentService {
 
-    private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
+    private final CommentDomainService commentDomainService;
+    private final UserDomainService userDomainService;
 
-    public List<CommentMsg> getComments(Long articleId) {
-        List<Comment> comments = commentRepository.selectCommentByArticleOrder(articleId);
-        return convertToCommentMsgs(comments);
+    public List<CommentInfo> getComments(Long articleId, Integer count) {
+        return commentDomainService.getComments(articleId, count).stream()
+                .map(c -> CommentInfo.create(c, AppUserInfo.create(userDomainService.findByUsername(c.getUsername()).get())))
+                .collect(Collectors.toList());
     }
 
     public void saveByRequest(CommentRequest request) {
-        commentRepository.insertByRequest(request.getArticleId(), request.getUsername(), request.getContent());
+        commentDomainService.saveByRequest(request);
     }
 
     public void saveReplyByRequest(CommentRequest request) {
-        try {
-            Comment parentComment = commentRepository.findById(request.getParentId()).get();
-            commentRepository.updateReplyOrder(parentComment.getGrpno(), parentComment.getGrpord());
-            commentRepository.insertByRequest(request.getArticleId(), request.getUsername(), request.getContent());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        commentDomainService.saveByRequest(request);
     }
-
-    private List<CommentMsg> convertToCommentMsgs(List<Comment> comments) {
-        List<CommentMsg> commentMsgs = new ArrayList<>();
-        for (Comment comment : comments) {
-            CommentMsg commentMsg = CommentMsg.createCommentMsg(comment, userRepository.findByUsername(comment.getUsername()).get());
-            commentMsgs.add(commentMsg);
-        }
-        return commentMsgs;
     }
-
-}

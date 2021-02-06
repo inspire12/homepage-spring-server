@@ -1,14 +1,12 @@
 package com.inspire12.homepage.domain.model;
 
 import com.inspire12.homepage.domain.converter.StringToListConverter;
-import com.inspire12.homepage.message.request.ArticleRequest;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,27 +18,23 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Generated(GenerationTime.INSERT)
-    @Column(name = "no")
-    private Integer grpno;
+    private Integer grpNo;
 
-    private Integer grpord;
+    private Integer grpOrder;
 
     private Integer depth;
 
-    private Boolean isDeleted;
-
-    private String subject;
+    private String title;
 
     private String content;
-
-    private String authorName;
 
     private Long authorId;
 
@@ -49,7 +43,11 @@ public class Article {
     @Convert(converter = StringToListConverter.class)
     private List<String> tags;
 
-    Integer hit;
+    private Integer hits;
+
+    private Integer likes;
+
+    private boolean deleted;
 
     @CreationTimestamp
     private LocalDateTime modifiedAt;
@@ -63,12 +61,5 @@ public class Article {
     @Version
     private Long version;
 
-    public static Article createFromRequest(ArticleRequest requestBody) {
-        Article article = new Article();
-        article.setId(requestBody.getId());
-        article.setContent(requestBody.getContent());
-
-        return article;
-    }
 }
 

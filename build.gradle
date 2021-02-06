@@ -1,22 +1,25 @@
+
 buildscript {
-	ext {
-		springBootVersion = '2.1.6.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-		jcenter()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath('se.transmode.gradle:gradle-docker:1.2')
-		classpath('io.github.robwin:jgitflow-gradle-plugin:0.6.0')
-	}
+    ext {
+        springBootVersion = '2.1.6.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+        classpath('io.github.robwin:jgitflow-gradle-plugin:0.6.0')
+    }
 }
 
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+plugins {
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'org.asciidoctor.convert' version '1.5.6'
+}
 
 apply plugin: 'docker'
 apply plugin: 'io.github.robwin.jgitflow'
@@ -25,61 +28,78 @@ group = 'com.inspire12'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-initJGitflow{
-	feature = "features/"
-	release = "releases/"
-	versiontag = 'v'
+asciidoctor {
+    sourceDir 'src/main/asciidoc'
+    attributes 'snippets': file('target/snippets')
+}
+
+initJGitflow {
+    feature = "features/"
+    release = "releases/"
+    versiontag = 'v'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 task print() {
-	doLast {
-		print "github push complete"
-	}
+    doLast {
+        print "github push complete"
+    }
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 dependencies {
-	// db
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'mysql:mysql-connector-java'
-	// cache
-	implementation ('org.springframework.boot:spring-boot-starter-data-redis')
-	// web
-	implementation('org.springframework.boot:spring-boot-starter-web')
-	implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE')
+    // web
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE')
+    implementation('org.springframework.boot:spring-boot-configuration-processor')
 
-	implementation 'org.springframework.boot:spring-boot-configuration-processor'
-//	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-	// aop
-	implementation('org.springframework.boot:spring-boot-starter-aop')
+    // aop
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.projectlombok:lombok:1.18.16')
 
-	// test
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude module: 'junit'
-	}
-	testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
-	testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
-	testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+    // db
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('mysql:mysql-connector-java')
+    implementation 'org.springframework.retry:spring-retry:1.1.5.RELEASE'
 
-	// security
-	implementation('org.springframework.boot:spring-boot-starter-security')
-	implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
-	implementation ('org.springframework.boot:spring-boot-starter-oauth2-client')
-	// lombok
-	implementation 'org.projectlombok:lombok:1.18.16'
-	implementation 'io.springfox:springfox-swagger2:2.9.2'
-	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    // cache
+    implementation('org.springframework.boot:spring-boot-starter-data-redis')
 
-	// mail server
-	implementation("org.springframework.boot:spring-boot-starter-mail")
-	implementation ("org.springframework:spring-context-support")
-	implementation ("com.sun.mail:javax.mail")
-	implementation ("com.github.ulisesbocchio:jasypt-spring-boot-starter:1.17")
+    // log, nosql
+    implementation('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+//    implementation('net.logstash.logback:logstash-logback-encoder:4.11')
+
+    // test
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude module: 'junit'
+    }
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.4.RELEASE'
+
+    // security
+    implementation('org.springframework.security:spring-security-test')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+
+    // document
+    implementation('io.springfox:springfox-swagger2:2.9.2')
+    implementation('io.springfox:springfox-swagger-ui:2.9.2')
+
+    // mail server
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    implementation("org.springframework:spring-context-support")
+    implementation("com.sun.mail:javax.mail")
+    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:1.17")
 }

@@ -2,8 +2,9 @@ package com.inspire12.homepage.domain.model;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,8 +16,9 @@ import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class FileMeta {
 
     Long articleId;
 
-    String username;
+    Long userId;
 
     String fileType;
 
@@ -44,7 +46,7 @@ public class FileMeta {
     public static FileMeta create(JsonNode file, Article article) {
         FileMeta fileMeta = new FileMeta();
         fileMeta.setArticleId(article.getId());
-        fileMeta.setUsername(article.getUsername());
+        fileMeta.setUserId(article.getAuthorId());
         fileMeta.setFileType(file.get("type").asText());
         fileMeta.setFilename(file.get("filename").asText());
         fileMeta.setFileUrl(file.get("file-url").asText());

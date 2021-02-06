@@ -1,6 +1,6 @@
 package com.inspire12.homepage.interceptor;
 
-import com.inspire12.homepage.aspect.UserLevel;
+import com.inspire12.homepage.aspect.MethodAllow;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,15 +34,15 @@ public class SecurityInterceptor implements HandlerInterceptor {
         if (this.env.equals("local")){
             return true;
         }
-        UserLevel userLevel = ((HandlerMethod) handler).getMethodAnnotation(UserLevel.class);
+        MethodAllow methodAllow = ((HandlerMethod) handler).getMethodAnnotation(MethodAllow.class);
 
-        if (userLevel == null || userLevel.allow().equals(UserLevel.UserRole.USER)) {
+        if (methodAllow == null || methodAllow.allow().equals(MethodAllow.UserRole.USER)) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if(authentication.getPrincipal().equals("anonymousUser")){
                 throw new AccessDeniedException("가입한 후 사용해주세요");
             }
             return true;
-        } else if (userLevel.allow().equals(UserLevel.UserRole.GUEST)) {
+        } else if (methodAllow.allow().equals(MethodAllow.UserRole.GUEST)) {
             return true;
         }
         throw new Exception();

@@ -1,31 +1,36 @@
 package com.inspire12.homepage.domain.model;
 
+import com.inspire12.homepage.common.LikeType;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 @Entity
-@IdClass(ArticleLikeId.class)
+@IdClass(UserLikeId.class)
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class ArticleLike {
+public class UserLike {
     @Id
-    Long postId;
+    Long targetId;
     @Id
-    String username;
+    Long userId;
 
-    Boolean isLike;
+    @Id
+    @Enumerated(EnumType.STRING)
+    LikeType likeType;
+
+    boolean liked;
 
     @CreationTimestamp
     LocalDateTime createdAt;

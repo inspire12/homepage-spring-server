@@ -1,11 +1,12 @@
 package com.inspire12.homepage.aspect;
 
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Service;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 @Constraint(validatedBy = TextContentValidator.class)
 @Target({ ElementType.FIELD })
@@ -13,7 +14,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface TextContentAspect {
 
-    String message() default "18세 미만인 경우 운전면허번호를 가지고 있을수 없습니다.";
+    String message() default "";
 
     Class<?>[] groups() default {};
 

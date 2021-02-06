@@ -1,19 +1,17 @@
 package com.inspire12.homepage.controller.security;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inspire12.homepage.aspect.UserLevel;
+import com.inspire12.homepage.aspect.MethodAllow;
 import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
+import com.inspire12.homepage.domain.service.UserDomainService;
 import com.inspire12.homepage.message.request.AuthenticationRequest;
 import com.inspire12.homepage.message.request.EmailRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.security.AuthProvider;
-import com.inspire12.homepage.security.UserDetailService;
 import com.inspire12.homepage.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,16 +44,12 @@ public class SecurityController implements ErrorController {
 
     private final AuthProvider authProvider;
 
-    @Autowired
-    ObjectMapper objectMapper;
-
-    private final UserDetailService userDetailService;
-
+    private final UserDomainService userDomainService;
     private final EmailService emailService;
 
 //    private final RedisTemplate<String, String> redisTemplate; // TODO
 
-    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @PostMapping(value = "/valid-email")
     @ResponseBody
     public ResponseEntity<String> registerUser(@Valid @RequestBody final EmailRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
@@ -64,7 +58,7 @@ public class SecurityController implements ErrorController {
         return ResponseEntity.ok().body(token);
     }
 
-    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @PostMapping(value = "/signup")
     @ResponseBody
     public ResponseEntity<CommonResponse<String>> registerUser(@RequestBody SignupRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
@@ -79,27 +73,25 @@ public class SecurityController implements ErrorController {
 
         try {
             // 중복 체크 추가
-            if (userDetailService.isExistUser(user)) {
+            if (userDomainService.isExistUser(user)) {
                 return ResponseEntity.unprocessableEntity().body(new CommonResponse<>(2, "중복 체크"));
             }
-            userDetailService.saveUser(user);
+            userDomainService.saveUser(user);
             return ResponseEntity.ok().body(new CommonResponse<>(1, "성공"));
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body(new CommonResponse<>(3, "실패"));
         }
     }
 
-    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginView(Model model) {
         return "auth/login";
     }
 
-    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @PostMapping(value = "/login")
-    public String doLogin(HttpSession session, @RequestParam AuthenticationRequest authenticationRequest, RedirectAttributes redirectAttributes
-
-    ) {
+    public String doLogin(HttpSession session, @RequestParam AuthenticationRequest authenticationRequest, RedirectAttributes redirectAttributes) {
         String username = authenticationRequest.getUsername();
         String password = authenticationRequest.getPassword();
 
@@ -109,8 +101,9 @@ public class SecurityController implements ErrorController {
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext());
 
-        AppUser user = userDetailService.findByUsername(username).orElseGet(() -> DefaultValue.defaultUser());
-        userDetailService.setLastLoginAt(username);
+        AppUser user = userDomainService.findByUsername(username).orElseGet(DefaultValue::defaultUser);
+        user.setLastAccessAt(LocalDateTime.now());
+        userDomainService.saveUser(user);
 
         session.setAttribute("user", user);
         redirectAttributes.addFlashAttribute("name", "index");
@@ -133,19 +126,16 @@ public class SecurityController implements ErrorController {
             throw new Exception();
         }
         String encryptedPassword = authProvider.encrypt(username, newPassword);
-        if (userDetailService.setNewPassword(username, encryptedPassword) != 1) {
-            throw new Exception();
-        }
+
+        userDomainService.setNewPassword(username, encryptedPassword);
         return ResponseEntity.ok().build();
     }
 
-    @UserLevel(allow = UserLevel.UserRole.GUEST)
+    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-//        logger.error("Exception during execution of SpringSecurity application", throwable);
-//        String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
-//        model.addAttribute("errorMessage", errorMessage);
+
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.parseInt(status.toString()));
         model.addAttribute("code", status.toString());
 

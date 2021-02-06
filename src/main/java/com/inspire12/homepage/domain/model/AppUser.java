@@ -1,7 +1,9 @@
 package com.inspire12.homepage.domain.model;
 
 import com.inspire12.homepage.domain.converter.StringToListConverter;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -20,6 +22,8 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppUser {
 
     @Id
@@ -29,14 +33,14 @@ public class AppUser {
     @Column(unique = true)
     String username;
 
-    @Email(message="Please provide a valid Email")
+    @Email(message = "Please provide a valid Email")
     String email;
 
     String nickname;
 
     String name;
 
-    @Length(min=5, message = "Password must have at least 5 characters")
+    @Length(min = 5, message = "Password must have at least 5 characters")
     String password;
 
     @Convert(converter = StringToListConverter.class)

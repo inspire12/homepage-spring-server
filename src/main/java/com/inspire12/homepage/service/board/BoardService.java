@@ -1,9 +1,8 @@
 package com.inspire12.homepage.service.board;
 
 import com.inspire12.homepage.domain.model.Board;
-import com.inspire12.homepage.domain.repository.BoardRepository;
+import com.inspire12.homepage.domain.service.BoardDomainService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +11,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
-    private final BoardRepository boardRepository;
+    private final BoardDomainService boardDomainService;
 
     public List<Board> findBoardList(){
-        return boardRepository.findAll();
+        return boardDomainService.findBoardList();
     }
 
     public Board save(Board board){
-        return boardRepository.save(board);
+        return boardDomainService.save(board);
     }
 }

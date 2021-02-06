@@ -1,31 +1,34 @@
 package com.inspire12.homepage.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
+@AllArgsConstructor
 public enum ErrorCode {
 
     // Common
-    INVALID_INPUT_VALUE(400, "C001", " Invalid Input Value"),
-    METHOD_NOT_ALLOWED(405, "C002", " Invalid Input Value"),
-    HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
+    INVALID_INPUT_VALUE(400, "Invalid Input Value", HttpStatus.INTERNAL_SERVER_ERROR),
+    METHOD_NOT_ALLOWED(405, "Invalid Input Value"),
+    HANDLE_ACCESS_DENIED(403, "Access is Denied"),
 
-    // Member
-    EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
+    // Signup Login
+    EMAIL_DUPLICATION(200, "Email is Duplication"),
+    LOGIN_INPUT_INVALID(201, "Login input is invalid"),
 
-    LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid"),
-
-    INTERNAL_SERVER_ERROR (500, "M002", "Internal error"),
-
+    INTERNAL_SERVER_ERROR(500, "Internal error"),
     ;
-    private final String code;
-    private final String message;
-    private int status;
 
-    ErrorCode(final int status, final String code, final String message) {
-        this.status = status;
+    private Integer code;
+    private String message;
+    private HttpStatus httpStatus;
+
+
+    ErrorCode(int code, String message) {
         this.message = message;
         this.code = code;
+        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 }
 

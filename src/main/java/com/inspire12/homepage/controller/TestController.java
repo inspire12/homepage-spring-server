@@ -3,24 +3,22 @@ package com.inspire12.homepage.controller;
 import com.inspire12.homepage.message.request.ArticleRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.service.EmailService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/")
+@RequiredArgsConstructor
 public class TestController {
-
-    @Autowired
-    EmailService emailService;
-
+    private final EmailService emailService;
 
     public SignupRequest testSignup () {
         return SignupRequest.create();
@@ -41,7 +39,6 @@ public class TestController {
 
         return (articleRequest.getContent());
     }
-
 }
 
 
