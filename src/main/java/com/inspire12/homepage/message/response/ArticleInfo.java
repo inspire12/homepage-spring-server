@@ -86,7 +86,7 @@ public class ArticleInfo {
 
     public static ArticleInfo createWithComments(Article article, AppUser user, List<CommentInfo> commentRespons) {
 
-        ArticleInfo articleInfo = createWithUser(article, user);
+        ArticleInfo articleInfo = createWithUser(article, AppUserInfo.create(user));
         articleInfo.setComments(commentRespons);
         return articleInfo;
     }

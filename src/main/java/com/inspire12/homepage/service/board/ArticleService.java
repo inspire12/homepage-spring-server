@@ -1,7 +1,6 @@
 package com.inspire12.homepage.service.board;
 
 
-import com.inspire12.homepage.assembler.ArticleAssembler;
 import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.domain.service.ArticleDomainService;
@@ -46,7 +45,7 @@ public class ArticleService {
         Map<Long, AppUserInfo> appUserInfoMap = userDomainService.getUserInfoMap(userIds);
 
         return articles.stream()
-                .map(a -> ArticleAssembler.toInfo(a, appUserInfoMap.get(a.getAuthorId())))
+                .map(a -> ArticleInfo.createWithUser(a, appUserInfoMap.get(a.getAuthorId())))
                 .collect(Collectors.toList());
     }
 
@@ -65,7 +64,7 @@ public class ArticleService {
         Map<Long, AppUserInfo> appUserInfoMap = userDomainService.getUserInfoMap(userIds);
 
         return articles.stream()
-                .map(a -> ArticleAssembler.toInfo(a, appUserInfoMap.get(a.getAuthorId())))
+                .map(a -> ArticleInfo.createWithUser(a, appUserInfoMap.get(a.getAuthorId())))
                 .collect(Collectors.toList());
     }
 

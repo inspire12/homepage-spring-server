@@ -23,7 +23,7 @@ public class ArticleLikeController {
 
     @PostMapping("/likes/{postId}")
     public ResponseEntity<CommonResponse<Boolean>> incArticleLike(@PathVariable(name = "postId") Long postId) throws NotAuthException {
-        if(! SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+        if (!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
             throw new NotAuthException();
         }
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -33,7 +33,7 @@ public class ArticleLikeController {
 
     @DeleteMapping("/likes/{postId}")
     public ResponseEntity<CommonResponse<Boolean>> decArticleLike(@PathVariable(name = "postId") Long postId) throws NotAuthException {
-        if(! SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+        if (!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
             throw new NotAuthException();
         }
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

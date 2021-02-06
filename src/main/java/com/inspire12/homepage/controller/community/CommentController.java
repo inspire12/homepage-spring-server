@@ -25,8 +25,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PutMapping("/comments")
-    public ResponseEntity<CommonResponse<CommentListResponse>> saveComment(@RequestBody CommentRequest commentRequest,
-                                                                           @RequestParam(defaultValue = "10") @Max(30) Integer count) {
+    public ResponseEntity<CommonResponse<CommentListResponse>> saveComment(@RequestBody CommentRequest commentRequest, @RequestParam(defaultValue = "10") @Max(30) Integer count) {
         commentService.saveByRequest(commentRequest);
         List<CommentInfo> comments = commentService.getComments(commentRequest.getArticleId(), count);
         return ResponseEntity.ok(new CommonResponse<>(Constant.SUCCESS, new CommentListResponse(comments)));

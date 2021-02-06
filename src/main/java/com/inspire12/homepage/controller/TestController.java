@@ -39,7 +39,6 @@ public class TestController {
 
         return (articleRequest.getContent());
     }
-
 }
 
 

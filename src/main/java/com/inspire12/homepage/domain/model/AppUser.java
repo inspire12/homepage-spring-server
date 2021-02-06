@@ -33,14 +33,14 @@ public class AppUser {
     @Column(unique = true)
     String username;
 
-    @Email(message="Please provide a valid Email")
+    @Email(message = "Please provide a valid Email")
     String email;
 
     String nickname;
 
     String name;
 
-    @Length(min=5, message = "Password must have at least 5 characters")
+    @Length(min = 5, message = "Password must have at least 5 characters")
     String password;
 
     @Convert(converter = StringToListConverter.class)
