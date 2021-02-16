@@ -61,7 +61,7 @@ dependencies {
 
     // aop
     implementation('org.springframework.boot:spring-boot-starter-aop')
-    implementation('org.projectlombok:lombok:1.18.16')
+    implementation('org.projectlombok:lombok:1.16.18')
 
     // db
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')

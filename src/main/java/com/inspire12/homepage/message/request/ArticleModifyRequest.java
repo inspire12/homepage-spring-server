@@ -8,7 +8,7 @@ import javax.validation.Valid;
 
 @Valid
 @Value
-public class ArticleRequest {
+public class ArticleModifyRequest {
     @JsonProperty("id")
     Long id;
 
@@ -17,7 +17,7 @@ public class ArticleRequest {
 
     String content;
 
-    Integer type;
+    Integer boardId;
 
     Long parentId;
 }

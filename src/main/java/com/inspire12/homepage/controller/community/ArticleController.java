@@ -2,14 +2,12 @@ package com.inspire12.homepage.controller.community;
 
 import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.Article;
-import com.inspire12.homepage.message.request.ArticleRequest;
-import com.inspire12.homepage.message.request.ArticleWritingRequest;
+import com.inspire12.homepage.message.request.ArticleModifyRequest;
+import com.inspire12.homepage.message.request.ArticleWriteRequest;
 import com.inspire12.homepage.message.response.ArticleInfo;
 import com.inspire12.homepage.service.board.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,19 +36,18 @@ public class ArticleController {
         return articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
     }
 
-    @PostMapping("/articles")
-    public void updateArticle(@Validated @RequestBody ArticleRequest articleRequest) {
-        articleService.updateArticle(articleRequest);
-    }
-
-    @PutMapping("/articles")
-    @Transactional
-    public void insertArticle(@RequestBody ArticleWritingRequest articleRequest) {
+    @PostMapping("/articles/write")
+    public void writeArticle(@RequestBody ArticleWriteRequest articleRequest) {
         articleService.saveArticle(1L, articleRequest);
     }
 
+    @PostMapping("/articles/modify")
+    public void modifyArticle(@RequestBody ArticleModifyRequest articleModifyRequest) {
+        articleService.updateArticle(articleModifyRequest);
+    }
+
     @PutMapping("/articles/replies")
-    public void insertArticleReply(@RequestBody ArticleRequest requestBody) {
+    public void insertArticleReply(@RequestBody ArticleModifyRequest requestBody) {
         Article article = new Article();
         long parentId = requestBody.getParentId();
         articleService.saveArticleReply(parentId, article);

@@ -1,6 +1,6 @@
 package com.inspire12.homepage.controller;
 
-import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.service.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +31,13 @@ public class TestController {
 
     @PostMapping("/valid")
     @ResponseBody
-    public String validTest (@Valid ArticleRequest articleRequest) {
+    public String validTest (@Valid ArticleModifyRequest articleModifyRequest) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
 
-        Set<ConstraintViolation<ArticleRequest>> constraintViolations = validator.validate(articleRequest);
+        Set<ConstraintViolation<ArticleModifyRequest>> constraintViolations = validator.validate(articleModifyRequest);
 
-        return (articleRequest.getContent());
+        return (articleModifyRequest.getContent());
     }
 }
 

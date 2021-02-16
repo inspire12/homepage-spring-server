@@ -59,7 +59,6 @@ public class ArticleInfo {
         articleInfo.setId(article.getId());
         articleInfo.setNo(article.getGrpNo());
         articleInfo.setCategory(ArticleUtil.getArticleCategory(article.getBoardId()));
-        articleInfo.setDepth(article.getDepth());
         articleInfo.setSubject(article.getTitle());
         articleInfo.setContent(article.getContent());
         articleInfo.setCreatedAt((article.getCreatedAt()));
@@ -70,10 +69,6 @@ public class ArticleInfo {
         articleInfo.setHit(article.getHits());
         articleInfo.setIsDeleted(article.isDeleted());
         List<CommentInfo> commentResponse = new ArrayList<>();
-//        for (Comment comment : article.getComments()){
-//            commentMsgs.add(CommentMsg.create(comment));
-//        }
-
         articleInfo.setComments(commentResponse);
         return articleInfo;
     }
