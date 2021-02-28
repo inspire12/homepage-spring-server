@@ -14,7 +14,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
   datasource:
-    url: jdbc:mysql://localhost:3306/homepage?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/homepage?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
     username: manager
     password: 1q2w3e4r!@
     driver-class-name: com.mysql.cj.jdbc.Driver
