@@ -69,11 +69,15 @@ dependencies {
     implementation 'org.springframework.retry:spring-retry:1.1.5.RELEASE'
 
     // cache
-    implementation('org.springframework.boot:spring-boot-starter-data-redis')
+//    implementation('org.springframework.boot:spring-boot-starter-data-redis')
 
     // log, nosql
-    implementation('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+//    implementation('org.springframework.boot:spring-boot-starter-data-elasticsearch')
 //    implementation('net.logstash.logback:logstash-logback-encoder:4.11')
+
+    // actuator
+//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    implementation 'io.micrometer:micrometer-registry-prometheus'
 
     // test
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -98,8 +102,8 @@ dependencies {
     implementation('io.springfox:springfox-swagger-ui:2.9.2')
 
     // mail server
-    implementation("org.springframework.boot:spring-boot-starter-mail")
-    implementation("org.springframework:spring-context-support")
-    implementation("com.sun.mail:javax.mail")
-    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:1.17")
+//    implementation("org.springframework.boot:spring-boot-starter-mail")
+//    implementation("org.springframework:spring-context-support")
+//    implementation("com.sun.mail:javax.mail")
+//    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:1.17")
 }

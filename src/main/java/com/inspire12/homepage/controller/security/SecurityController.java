@@ -10,7 +10,6 @@ import com.inspire12.homepage.message.request.EmailRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.security.AuthProvider;
-import com.inspire12.homepage.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -45,7 +44,7 @@ public class SecurityController implements ErrorController {
     private final AuthProvider authProvider;
 
     private final UserDomainService userDomainService;
-    private final EmailService emailService;
+//    private final EmailService emailService;
 
 //    private final RedisTemplate<String, String> redisTemplate; // TODO
 
@@ -54,8 +53,9 @@ public class SecurityController implements ErrorController {
     @ResponseBody
     public ResponseEntity<String> registerUser(@Valid @RequestBody final EmailRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
         String email = requestBody.getEmail();
-        String token = emailService.getCertifyTokenByMail(email);
-        return ResponseEntity.ok().body(token);
+//TODO
+        //        String token = emailService.getCertifyTokenByMail(email);
+        return ResponseEntity.ok().build();
     }
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)

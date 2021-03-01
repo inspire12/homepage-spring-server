@@ -6,9 +6,13 @@ import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.domain.service.ArticleDomainService;
 import com.inspire12.homepage.domain.service.UserDomainService;
 import com.inspire12.homepage.message.request.ArticleWriteRequest;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.inspire12.homepage.service.board.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,12 +23,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -43,6 +49,8 @@ public class ArticleControllerTest extends SpringTestSupport {
 
     @Autowired
     protected MockMvc mockMvc;
+    @Autowired
+    ObjectMapper mapper;
 
     @Test
     @DisplayName("게시글 보기")
@@ -79,12 +87,6 @@ public class ArticleControllerTest extends SpringTestSupport {
         given(articleDomainService.saveArticle(any()))
                 .willReturn(ArticleBase.createDefaultArticle());
 
-        mockMvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(articleRequest))
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().is(HttpStatus.OK.value()));
     }
 
     @Test
