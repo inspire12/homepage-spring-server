@@ -51,4 +51,8 @@ public class UserDomainService {
         appUser.setPassword(encryptedPassword);
         return true;
     }
+
+    public AppUserInfo getSecedeUser() {
+        return new AppUserInfo(0L, "탈퇴한 유저", "탈퇴한 유저", new ArrayList<>());
+    }
 }

@@ -53,7 +53,7 @@ public class AuthProvider implements AuthenticationProvider {
             repository.save(user);
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().get(0))); // TODO
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().get(0).name())); // TODO
 
             return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), grantedAuthorities);
         } catch (Exception e) {

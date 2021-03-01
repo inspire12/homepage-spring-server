@@ -2,7 +2,6 @@ server:
   port: 8080
   tomcat:
     accesslog:
-#      pattern: %{yyyy-MM-dd HH:mm:ss}t\t%s\t%r\t%{User-Agent}i\t%{Referer}i\t%a\t%b
       enabled: true
     basedir: /logs/accesslog
 
@@ -27,18 +26,7 @@ spring:
     username: manager
     password: 1q2w3e4r!@
     driver-class-name: com.mysql.cj.jdbc.Driver
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: seo.yeonghak.1992@gmail.com
-    password: ENC(xShDDxLAewa+JYvmdwWuVsGHzC8oXr1h)
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            required: true
-            enable: true
+
   devtools:
     livereload:
       enabled: true
@@ -89,4 +77,14 @@ social:
 
 env:
   dev: local
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+
+  health:
+    elasticsearch:
+      enabled: false
 

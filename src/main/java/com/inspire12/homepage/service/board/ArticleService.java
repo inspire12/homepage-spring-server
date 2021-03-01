@@ -7,8 +7,8 @@ import com.inspire12.homepage.domain.service.ArticleDomainService;
 import com.inspire12.homepage.domain.service.UserDomainService;
 import com.inspire12.homepage.dto.user.AppUserInfo;
 import com.inspire12.homepage.exception.CommonException;
-import com.inspire12.homepage.message.request.ArticleRequest;
-import com.inspire12.homepage.message.request.ArticleWritingRequest;
+import com.inspire12.homepage.message.request.ArticleModifyRequest;
+import com.inspire12.homepage.message.request.ArticleWriteRequest;
 import com.inspire12.homepage.message.response.ArticleInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -49,14 +49,14 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-    public Article updateArticle(ArticleRequest articleRequest) {
+    public Article updateArticle(ArticleModifyRequest articleModifyRequest) {
         // 데이터 검증
-        long id = articleRequest.getId();
-        return articleDomainService.saveArticleById(id, articleRequest);
+        long id = articleModifyRequest.getId();
+        return articleDomainService.saveArticleById(id, articleModifyRequest);
     }
 
     public List<ArticleInfo> showArticleMsgs(int size) {
-        List<Article> articles = articleDomainService.selectArticleList(PageRequest.of(0, size));
+        List<Article> articles = articleDomainService.getArticleList(PageRequest.of(0, size));
         List<Long> userIds = new ArrayList<>(size);
         for (Article article: articles) {
             userIds.add(article.getAuthorId());
@@ -64,7 +64,7 @@ public class ArticleService {
         Map<Long, AppUserInfo> appUserInfoMap = userDomainService.getUserInfoMap(userIds);
 
         return articles.stream()
-                .map(a -> ArticleInfo.createWithUser(a, appUserInfoMap.get(a.getAuthorId())))
+                .map(a -> ArticleInfo.createWithUser(a, appUserInfoMap.getOrDefault(a.getAuthorId(), userDomainService.getSecedeUser())))
                 .collect(Collectors.toList());
     }
 
@@ -81,21 +81,13 @@ public class ArticleService {
         return false;
     }
 
-    public ArticleInfo saveArticle(Long userId, ArticleWritingRequest articleRequest) {
-        Article article = new Article(null, 0, 0, 0,
+    public ArticleInfo saveArticle(Long userId, ArticleWriteRequest articleRequest) {
+        Article article = Article.of(0, 0,
                 articleRequest.getTitle(),
                 articleRequest.getContent(),
                 userId,
-                articleRequest.getType(),
-                new ArrayList<>(),
-                0,
-                0,
-                false,
-                null,
-                null,
-                null,
-                null
-                );
+                articleRequest.getBoardId(),
+                new ArrayList<>());
         return ArticleInfo.create(articleDomainService.saveArticle(article));
     }
 }

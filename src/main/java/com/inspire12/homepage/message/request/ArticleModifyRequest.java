@@ -4,11 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.inspire12.homepage.aspect.TextContentAspect;
 import lombok.Value;
 
-import javax.validation.Valid;
-
-@Valid
 @Value
-public class ArticleRequest {
+public class ArticleModifyRequest {
     @JsonProperty("id")
     Long id;
 
@@ -17,7 +14,7 @@ public class ArticleRequest {
 
     String content;
 
-    Integer type;
+    Integer boardId;
 
     Long parentId;
 }

@@ -14,7 +14,18 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       temp:
         use_jdbc_metadata_defaults: false
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: seo.yeonghak.1992@gmail.com
+    password: ENC(xShDDxLAewa+JYvmdwWuVsGHzC8oXr1h)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            required: true
+            enable: true
   redis:
     lettuce:
       pool:

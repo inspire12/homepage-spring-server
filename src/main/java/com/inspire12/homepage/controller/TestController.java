@@ -1,8 +1,7 @@
 package com.inspire12.homepage.controller;
 
-import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
-import com.inspire12.homepage.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,26 +17,26 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 public class TestController {
-    private final EmailService emailService;
+//    private final EmailService emailService;
 
     public SignupRequest testSignup () {
         return SignupRequest.create();
     }
 
-    @PostMapping("/test")
-    public void sendEmail () {
-        emailService.getCertifyTokenByMail("ox4443@naver.com");
-    }
+//    @PostMapping("/test")
+//    public void sendEmail () {
+//        emailService.getCertifyTokenByMail("ox4443@naver.com");
+//    }
 
     @PostMapping("/valid")
     @ResponseBody
-    public String validTest (@Valid ArticleRequest articleRequest) {
+    public String validTest (@Valid ArticleModifyRequest articleModifyRequest) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
 
-        Set<ConstraintViolation<ArticleRequest>> constraintViolations = validator.validate(articleRequest);
+        Set<ConstraintViolation<ArticleModifyRequest>> constraintViolations = validator.validate(articleModifyRequest);
 
-        return (articleRequest.getContent());
+        return (articleModifyRequest.getContent());
     }
 }
 

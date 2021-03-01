@@ -1,5 +1,6 @@
 package com.inspire12.homepage.dto.user;
 
+import com.inspire12.homepage.common.AuthType;
 import com.inspire12.homepage.domain.model.AppUser;
 import lombok.Value;
 
@@ -11,7 +12,7 @@ public class AppUserInfo {
     String username;
     String nickname;
 
-    List<String> role;
+    List<AuthType> role;
 
     public static AppUserInfo create(AppUser user) {
         return new AppUserInfo(user.getId(),

@@ -1,5 +1,6 @@
 package com.inspire12.homepage.domain.model;
 
+import com.inspire12.homepage.common.AuthType;
 import com.inspire12.homepage.domain.converter.StringToListConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,7 +45,7 @@ public class AppUser {
     String password;
 
     @Convert(converter = StringToListConverter.class)
-    List<String> role;
+    List<AuthType> role;
 
     String profile;
 
@@ -66,7 +67,7 @@ public class AppUser {
         user.setNickname(username);
         user.setEmail(email);
         user.setPassword(password);
-        user.setRole(Collections.singletonList("USER"));
+        user.setRole(Collections.singletonList(AuthType.USER));
         return user;
     }
 

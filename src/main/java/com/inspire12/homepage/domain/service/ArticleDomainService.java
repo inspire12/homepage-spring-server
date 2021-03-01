@@ -7,7 +7,7 @@ import com.inspire12.homepage.domain.model.UserLikeId;
 import com.inspire12.homepage.domain.repository.ArticleRepository;
 import com.inspire12.homepage.domain.repository.UserLikeRepository;
 import com.inspire12.homepage.exception.CommonException;
-import com.inspire12.homepage.message.request.ArticleRequest;
+import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class ArticleDomainService {
         parentArticle.setGrpOrder(parentArticle.getGrpOrder() + 1);
         childArticle.setGrpNo(parentArticle.getGrpNo());
         childArticle.setGrpOrder(parentArticle.getGrpOrder() + 1);
-        childArticle.setDepth(parentArticle.getDepth() + 1);
+//        childArticle.setDepth(parentArticle.getDepth() + 1);
 
         articleRepository.save(childArticle);
         return true;
@@ -78,15 +78,15 @@ public class ArticleDomainService {
         }
     }
 
-    public Article saveArticleById(long id, ArticleRequest articleRequest) {
+    public Article saveArticleById(long id, ArticleModifyRequest articleModifyRequest) {
         Article article = getArticleById(id);
-        article.setTitle(articleRequest.getTitle());
-        article.setContent(articleRequest.getContent());
-        article.setBoardId(articleRequest.getType());
+        article.setTitle(articleModifyRequest.getTitle());
+        article.setContent(articleModifyRequest.getContent());
+        article.setBoardId(articleModifyRequest.getBoardId());
         return article;
     }
 
-    public List<Article> selectArticleList(PageRequest pageRequest) {
+    public List<Article> getArticleList(PageRequest pageRequest) {
         return articleRepository.findAll(pageRequest).getContent();
     }
 }
