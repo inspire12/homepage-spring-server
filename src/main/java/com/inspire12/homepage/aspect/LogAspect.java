@@ -18,9 +18,9 @@ public class LogAspect {
 //        HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
 //        log.info("log method: {}", methodName);
 
-        log.warn("start - {} / {}", pjp.getSignature().getDeclaringTypeName(), pjp.getSignature().getName());
+//        log.warn("start - {} / {}", pjp.getSignature().getDeclaringTypeName(), pjp.getSignature().getName());
         Object result = pjp.proceed();
-        log.warn("finished - {} / {}", pjp.getSignature().getDeclaringTypeName(), pjp.getSignature().getName());
+//        log.warn("finished - {} / {}", pjp.getSignature().getDeclaringTypeName(), pjp.getSignature().getName());
         return result;
     }
 }

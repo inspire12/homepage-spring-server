@@ -3,7 +3,7 @@ server:
   tomcat:
     accesslog:
       enabled: true
-    basedir: /logs/accesslog
+    basedir: logs/accesslog
 
 spring:
   banner:
@@ -12,7 +12,7 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: validate # update valid
+      ddl-auto: validate
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -26,10 +26,6 @@ spring:
     username: manager
     password: 1q2w3e4r!@
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  devtools:
-    livereload:
-      enabled: true
 
   redis:
     lettuce:
@@ -66,10 +62,6 @@ logging:
 
   file: logs/homepage.log
   path: logs/
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%"
-
 
 social:
   kakao:
