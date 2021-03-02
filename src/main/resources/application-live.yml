@@ -1,9 +1,4 @@
-server:
-  port: 8080
-
 spring:
-  banner:
-    location: classpath:/META-INF/banner.txt
   jpa:
     database: mysql
     show-sql: false
@@ -19,21 +14,14 @@ spring:
     password: 1q2w3e4r!@
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-servlet:
-  multipart:
-    max-file-size: 128MB
-    max-request-size: 128MB
-
 logging:
   level:
     web: trace
     sql: trace
-    root: WARN
-  file: logs/homepage.log
-  path: logs/
+    root: INFO
+    tomcat: INFO
+    org.hibernate.type: trace
 
 social:
   kakao:
     client_id: 6e358349e45f9b78dd992396d4da0368
-env:
-  dev: live

@@ -26,7 +26,6 @@
 /.nb-gradle/
 
 /upload-dir
-nohub.out
+/nohub.out
 
-
-logs/**
+/logs/**
