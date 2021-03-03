@@ -1,22 +1,16 @@
-
-
 function getRequest(url, f) {
-    // let request = {
-    //     "url":url,
-    // };
-
     fetch(url).then(response => {
-        __swalStatusMessage(status);
+        swalStatusMessage(status);
         let data = JSON.stringify(response);
         f(data)
     }).catch(e => {
-        console.dir (e);
+        console.dir(e);
     })
 }
 
 function postRequest(url, body, func) {
     let headers = {
-            'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
     };
     postRequestWithHeader(url, headers, body, func);
 }
@@ -29,7 +23,7 @@ function postRequestWithHeader(url, header, body, func) {
     }).then(response => {
         console.dir(response);
         let status = response.status;
-        __swalStatusMessage(status);
+        swalStatusMessage(status);
         return response.json();
     }).then(body => {
         console.dir(body);
@@ -50,7 +44,7 @@ function putRequest(url, body, func) {
     }).then(response => {
         console.dir(response);
         let status = response.status;
-        __swalStatusMessage(status);
+        swalStatusMessage(status);
         return response.body;
     }).then(body => {
         func(body)
@@ -70,7 +64,7 @@ function deleteRequest(url, func) {
     }).then(response => {
         console.dir(response);
         let status = response.status;
-        __swalStatusMessage(status);
+        swalStatusMessage(status);
         return response.json();
     }).then(body => {
         func(body)
@@ -80,8 +74,8 @@ function deleteRequest(url, func) {
 }
 
 
-function __swalStatusMessage(status) {
+function swalStatusMessage(status) {
     if (status !== 200) {
-        swal("문제가 발생했습니다.","임원진들에게 알려주세요." ,"warning")
+        swal("문제가 발생했습니다.", "임원진들에게 알려주세요.", "warning")
     }
 }

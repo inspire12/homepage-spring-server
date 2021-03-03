@@ -25,13 +25,13 @@ public class ArticleDomainService {
         return articleRepository.findById(articleId).orElseThrow(CommonException::new);
     }
 
-    public List<Article> showArticleListWithCount(int type, int pageNum, int articleCount) {
+    public List<Article> showArticleListWithCount(String type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles;
-        if (type == 0) {
+        if (type == null) {
             articles = articleRepository.findByDeletedIsFalse(PageRequest.of(start, articleCount)).getContent();
         } else {
-            articles = articleRepository.findByBoardIdAndDeletedIsFalse(type, PageRequest.of(pageNum, articleCount)).getContent();
+            articles = articleRepository.findByBoardTypeAndDeleted(type, false, PageRequest.of(pageNum, articleCount)).getContent();
         }
         return articles;
     }
@@ -70,11 +70,11 @@ public class ArticleDomainService {
                 .map(UserLike::isLiked).orElse(false);
     }
 
-    public List<Article> getArticlesByType(int type, int start, int articleCount) {
-        if (type == 0) {
+    public List<Article> getArticlesByType(String type, int start, int articleCount) {
+        if (type == null) {
             return articleRepository.findByDeletedIsFalse(PageRequest.of(start, articleCount)).getContent();
         } else {
-            return articleRepository.findByBoardIdAndDeletedIsFalse(type, PageRequest.of(start, articleCount)).getContent();
+            return articleRepository.findByBoardTypeAndDeleted(type, false, PageRequest.of(start, articleCount)).getContent();
         }
     }
 
@@ -82,7 +82,7 @@ public class ArticleDomainService {
         Article article = getArticleById(id);
         article.setTitle(articleModifyRequest.getTitle());
         article.setContent(articleModifyRequest.getContent());
-        article.setBoardId(articleModifyRequest.getBoardId());
+        article.setBoardType(articleModifyRequest.getBoardType());
         return article;
     }
 

@@ -33,7 +33,7 @@ public class AuthProvider implements AuthenticationProvider {
 
     private final Environment env;
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     public String encrypt(String key, String salt) throws NoSuchAlgorithmException, InvalidKeyException {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -49,15 +49,15 @@ public class AuthProvider implements AuthenticationProvider {
             String name = authentication.getName();
             String password = encrypt(name, authentication.getCredentials().toString());
 
-            AppUser user = repository.findByUsernameAndPassword(name, password).orElseThrow(CommonException::new);
-            repository.save(user);
+            AppUser user = userRepository.findByUsernameAndPassword(name, password).orElseThrow(CommonException::new);
+            userRepository.save(user);
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().get(0).name())); // TODO
+            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().name())); // TODO
 
             return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), grantedAuthorities);
         } catch (Exception e) {
-            log.error("{} : {}", e.getClass().getSimpleName(), e.getMessage());
+            log.error("auth exception: {} , {}", e.getClass().getSimpleName(), e.getMessage());
             return null;
         }
     }

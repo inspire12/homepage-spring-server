@@ -62,6 +62,11 @@ function validateFromForm(form) {
     if (validatedMap === undefined) {
         postRequest("/signup", requestBody, function (response) {
             console.dir(response)
+            if (response.code === 1) {
+                window.location.href = "/index?signup=true"
+            } else {
+                swal("회원가입에 실패했습니다.", "임원진들에게 문의 주세요", "warning");
+            }
         })
     } else {
         let prevPoppersSize = poppers.length

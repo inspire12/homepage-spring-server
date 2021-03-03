@@ -7,7 +7,6 @@ import com.inspire12.homepage.domain.model.FileMeta;
 import com.inspire12.homepage.dto.article.CommentInfo;
 import com.inspire12.homepage.dto.article.RecommendInfo;
 import com.inspire12.homepage.dto.user.AppUserInfo;
-import com.inspire12.homepage.util.ArticleUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,18 +38,18 @@ public class ArticleInfo {
 
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
-    int boardId;
+    String boardType;
     List<String> tags;
     Integer hit;
 
     List<RecommendInfo> like;
 
-    Boolean isMyLike;
-    Boolean isDeleted;
+    boolean myLike;
+    boolean deleted;
 
     public static ArticleInfo create(Article article, boolean isMyLike){
         ArticleInfo articleInfo = create(article);
-        articleInfo.setIsMyLike(isMyLike);
+        articleInfo.setMyLike(isMyLike);
         return articleInfo;
     }
 
@@ -58,18 +57,19 @@ public class ArticleInfo {
         ArticleInfo articleInfo = new ArticleInfo();
         articleInfo.setId(article.getId());
         articleInfo.setNo(article.getGrpNo());
-        articleInfo.setCategory(ArticleUtil.getArticleCategory(article.getBoardId()));
+        articleInfo.setCategory(article.getBoardType());
         articleInfo.setSubject(article.getTitle());
         articleInfo.setContent(article.getContent());
         articleInfo.setCreatedAt((article.getCreatedAt()));
         articleInfo.setUpdatedAt((article.getUpdatedAt()));
-        articleInfo.setBoardId(article.getBoardId());
+        articleInfo.setBoardType(article.getBoardType());
         articleInfo.setTags(article.getTags());
 
         articleInfo.setHit(article.getHits());
-        articleInfo.setIsDeleted(article.isDeleted());
+        articleInfo.setDeleted(article.isDeleted());
         List<CommentInfo> commentResponse = new ArrayList<>();
         articleInfo.setComments(commentResponse);
+        articleInfo.setLike(new ArrayList<>());
         return articleInfo;
     }
 

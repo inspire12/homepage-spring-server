@@ -94,30 +94,27 @@ function submitWriting(choice, myDropzone, id) {
 
     }
     let body = {
-        "type": choice.getValue(true),
-        "username": user,
+        "boardType": choice.getValue(true),
         "title": title,
         "content": content,
         "tag": items,
         "files": successFiles
     };
-
     if (id!== undefined && id !== 0){
         // 글 수정인 경우
         body["id"] = id;
-        postRequest("/articles", body, (data) => {
+
+        postRequest("/articles/modify", body, (data) => {
             console.dir(data)
             window.location.href = "/board"
         });
     } else {
         // 글 쓰기인 경우
-        putRequest("/articles", body, (data) => {
+        postRequest("/articles/write", body, (data) => {
             console.dir(data)
             window.location.href = "/board"
         });
     }
-
-
 }
 
 function appendFilesWithDelete(article) {
@@ -141,41 +138,34 @@ function main(article) {
         shouldSort: false
     });
     choice.setValue([
-        {value: '0', label: '잡담'},
-        {value: '1', label: '정보'},
-        {value: '2', label: '스터디'},
-        {value: '3', label: '알고리즘'},
-        {value: '4', label: 'AI'},
-        {value: '5', label: '개발지식'}
+        {value: '잡담', label: '잡담'},
+        {value: '정보', label: '정보'},
+        {value: '스터디', label: '스터디'},
+        {value: '알고리즘', label: '알고리즘'},
+        {value: 'AI', label: 'AI'},
+        {value: '개발지식', label: '개발지식'}
     ]);
-    let boardId = 0;
+    let boardType = "잡담";
     let title = "";
     let content = "";
     let id;
     if (article != null) {
         id = article.id;
-        boardId = article.board_id;
+        boardType = article.boardType;
         title = article.subject;
         content = article.content;
         appendFilesWithDelete(article);
     }
-    choice.setChoiceByValue(boardId.toString());
+    choice.setChoiceByValue(boardType.toString());
 
     document.getElementById("writingTitle").value = title;
     document.getElementById("writing").value = content;
 
-
     CKEDITOR.replace('writing');
-
 
     let dropzone = createDropzone();
 
     document.getElementById("submitWriting").addEventListener("click", function () {
         submitWriting(choice, dropzone, id)
     });
-    // if (article != null) {
-    //     window.onload = function () {
-    //         CKEDITOR.instances['writing'].insertHtml(article.content);
-    //     };
-    // }
 }

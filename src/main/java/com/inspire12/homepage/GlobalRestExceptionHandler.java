@@ -25,14 +25,14 @@ public class GlobalRestExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleException(Exception e) {
         System.err.println(e.getClass());
-
-        logger.error("[{}] from user {}", e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.error("{} [{}] from user {}", e, e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity handleNull(NullPointerException e) {
         System.err.println(e.getClass());
-        logger.error("[{}] from user {}", e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.error("{} [{}] from user {}", e, e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -40,7 +40,7 @@ public class GlobalRestExceptionHandler {
     public ResponseEntity handleNotFound(NotFoundException e) {
         System.err.println();
 
-        logger.error("[{}] from user {}", e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.error("{} [{}] from user {}", e, e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
@@ -48,7 +48,7 @@ public class GlobalRestExceptionHandler {
     public ResponseEntity handleNoSuchElement(NoSuchElementException e) {
         System.err.println();
 
-        logger.error("[{}] from user {}", e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.error("{} [{}] from user {}", e, e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         return ResponseEntity.status(httpStatus).body(ErrorMessage.of(ErrorCode.INTERNAL_SERVER_ERROR));
     }

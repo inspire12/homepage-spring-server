@@ -4,15 +4,13 @@ import com.inspire12.homepage.common.AuthType;
 import com.inspire12.homepage.domain.model.AppUser;
 import lombok.Value;
 
-import java.util.List;
-
 @Value
 public class AppUserInfo {
     Long userId;
     String username;
     String nickname;
 
-    List<AuthType> role;
+    AuthType role;
 
     public static AppUserInfo create(AppUser user) {
         return new AppUserInfo(user.getId(),

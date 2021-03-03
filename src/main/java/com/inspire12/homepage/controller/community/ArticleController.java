@@ -1,7 +1,9 @@
 package com.inspire12.homepage.controller.community;
 
 import com.inspire12.homepage.common.DefaultValue;
+import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.domain.model.Article;
+import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import com.inspire12.homepage.message.request.ArticleWriteRequest;
 import com.inspire12.homepage.message.response.ArticleInfo;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,8 +41,12 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/write")
-    public void writeArticle(@RequestBody ArticleWriteRequest articleRequest) {
-        articleService.saveArticle(1L, articleRequest);
+    public void writeArticle(HttpSession session, @RequestBody ArticleWriteRequest articleRequest) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if (Objects.isNull(user)) {
+            throw new CommonException();
+        }
+        articleService.saveArticle(user.getId(), articleRequest);
     }
 
     @PostMapping("/articles/modify")

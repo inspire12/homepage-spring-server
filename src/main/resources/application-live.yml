@@ -16,11 +16,11 @@ spring:
 
 logging:
   level:
-    web: trace
-    sql: trace
-    root: INFO
-    tomcat: INFO
-    org.hibernate.type: trace
+    web: WARN
+    sql: WARN
+    root: WARN
+    tomcat: WARN
+    org.hibernate.type: WARN
 
 social:
   kakao:

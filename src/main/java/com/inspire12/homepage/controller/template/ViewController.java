@@ -86,13 +86,13 @@ public class ViewController {
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @GetMapping("/board")
-    public ModelAndView getBoardView(HttpSession session, ModelAndView model, @RequestParam(defaultValue = "0") Integer type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum) {
+    public ModelAndView getBoardView(HttpSession session, ModelAndView model, @RequestParam(defaultValue = "잡담") String type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum) {
         // board 종류
         try {
             List<ArticleInfo> articles = articleService.showArticleMsgsWithCount(type, pageNum, articleCount);
             model.addObject("articles", articles);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("{}", e);
         }
         model.addObject("name", "board");
         model.setViewName("board");

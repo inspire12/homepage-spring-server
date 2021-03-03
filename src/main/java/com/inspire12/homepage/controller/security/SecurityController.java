@@ -11,8 +11,6 @@ import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.security.AuthProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,16 +18,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.InvalidKeyException;
@@ -39,7 +35,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-public class SecurityController implements ErrorController {
+public class SecurityController {
 
     private final AuthProvider authProvider;
 
@@ -54,7 +50,7 @@ public class SecurityController implements ErrorController {
     public ResponseEntity<String> registerUser(@Valid @RequestBody final EmailRequest requestBody, RedirectAttributes redirectAttributes) throws InvalidKeyException, NoSuchAlgorithmException {
         String email = requestBody.getEmail();
 //TODO
-        //        String token = emailService.getCertifyTokenByMail(email);
+        //String token = emailService.getCertifyTokenByMail(email);
         return ResponseEntity.ok().build();
     }
 
@@ -65,7 +61,7 @@ public class SecurityController implements ErrorController {
         String username = requestBody.getUsername();
         String password = requestBody.getPassword();
         String email = requestBody.getEmail();
-        Integer studentId = Integer.parseInt(requestBody.getStudentId());
+        int studentId = Integer.parseInt(requestBody.getStudentId());
         String realName = requestBody.getRealname();
 
         String encryptedPassword = authProvider.encrypt(username, password);
@@ -84,14 +80,14 @@ public class SecurityController implements ErrorController {
     }
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String getLoginView(Model model) {
         return "auth/login";
     }
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @PostMapping(value = "/login")
-    public String doLogin(HttpSession session, @RequestParam AuthenticationRequest authenticationRequest, RedirectAttributes redirectAttributes) {
+    public String doLogin(HttpSession session, @ModelAttribute AuthenticationRequest authenticationRequest, RedirectAttributes redirectAttributes) {
         String username = authenticationRequest.getUsername();
         String password = authenticationRequest.getPassword();
 
@@ -131,29 +127,29 @@ public class SecurityController implements ErrorController {
         return ResponseEntity.ok().build();
     }
 
-    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
-    @RequestMapping("/error")
-    public String handleError(HttpServletRequest request, Model model) {
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+//    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
+//    @RequestMapping("/error")
+//    public String handleError(HttpServletRequest request, Model model) {
+//        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+//
+//        HttpStatus httpStatus = HttpStatus.valueOf(Integer.parseInt(status.toString()));
+//        model.addAttribute("code", status.toString());
+//
+//        if (status.toString().equals("401")) {
+//            model.addAttribute("msg", "회원을 위한 공간입니다. 가입한 후 사용해주세요~");
+//        } else {
+//            model.addAttribute("msg", httpStatus.getReasonPhrase());
+//        }
+//        model.addAttribute("timestamp", LocalDateTime.now());
+//
+//        if (httpStatus.equals(HttpStatus.FORBIDDEN)) {
+//            return "auth/login";
+//        }
+//        return getErrorPath();
+//    }
 
-        HttpStatus httpStatus = HttpStatus.valueOf(Integer.parseInt(status.toString()));
-        model.addAttribute("code", status.toString());
-
-        if (status.toString().equals("401")) {
-            model.addAttribute("msg", "회원을 위한 공간입니다. 가입한 후 사용해주세요~");
-        } else {
-            model.addAttribute("msg", httpStatus.getReasonPhrase());
-        }
-        model.addAttribute("timestamp", LocalDateTime.now());
-
-        if (httpStatus.equals(HttpStatus.FORBIDDEN)) {
-            return "auth/login";
-        }
-        return getErrorPath();
-    }
-
-    @Override
-    public String getErrorPath() {
-        return "auth/error";
-    }
+//    @Override
+//    public String getErrorPath() {
+//        return "auth/error";
+//    }
 }

@@ -1,4 +1,10 @@
 console.log("hello home");
+const urlParams = new URLSearchParams(window.location.search);
+const isSignup = urlParams.get("signup")
+if (isSignup === 'true') {
+    swal("회원가입에 성공했습니다.", "로그인 해주세요", "success");
+}
+
 let code = ""
 document.onkeypress = function (event) {
     code +=event.key
@@ -6,12 +12,3 @@ document.onkeypress = function (event) {
         window.location.reload();
     }
 }
-class img {
-    constructor(name, tag, delay){
-        this.name = name;
-        this.tag = tag;
-        this.delay = delay;
-    }
-}
-
-

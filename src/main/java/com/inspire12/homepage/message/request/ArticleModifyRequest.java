@@ -1,12 +1,10 @@
 package com.inspire12.homepage.message.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.inspire12.homepage.aspect.TextContentAspect;
 import lombok.Value;
 
 @Value
 public class ArticleModifyRequest {
-    @JsonProperty("id")
     Long id;
 
     @TextContentAspect
@@ -14,7 +12,7 @@ public class ArticleModifyRequest {
 
     String content;
 
-    Integer boardId;
+    String boardType;
 
     Long parentId;
 }

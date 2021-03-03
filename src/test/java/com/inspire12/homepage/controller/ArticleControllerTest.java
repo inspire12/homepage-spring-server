@@ -1,18 +1,15 @@
 package com.inspire12.homepage.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inspire12.homepage.base.ArticleBase;
 import com.inspire12.homepage.base.UserBuilder;
 import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.domain.service.ArticleDomainService;
 import com.inspire12.homepage.domain.service.UserDomainService;
 import com.inspire12.homepage.message.request.ArticleWriteRequest;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.inspire12.homepage.service.board.ArticleService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,9 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,9 +25,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,13 +68,13 @@ public class ArticleControllerTest extends SpringTestSupport {
     public void writeArticleTest() throws Exception {
         String url = "/articles/write";
         Long userId = 1L;
-        ArticleWriteRequest articleRequest = new ArticleWriteRequest(1, UserBuilder.userInfo(),
+        ArticleWriteRequest articleRequest = new ArticleWriteRequest("잡담",
                 "타이틀", "<html></html>", new ArrayList<>(), new ArrayList<>());
         Article article = Article.of(0, 0,
                 articleRequest.getTitle(),
                 articleRequest.getContent(),
                 userId,
-                articleRequest.getBoardId(),
+                articleRequest.getBoardType(),
                 new ArrayList<>());
 
         given(articleDomainService.saveArticle(any()))

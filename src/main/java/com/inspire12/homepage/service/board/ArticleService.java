@@ -35,7 +35,8 @@ public class ArticleService {
         return ArticleInfo.create(article, articleLike);
     }
 
-    public List<ArticleInfo> showArticleMsgsWithCount(int type, int pageNum, int articleCount) {
+    @Transactional(readOnly = true)
+    public List<ArticleInfo> showArticleMsgsWithCount(String type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles = articleDomainService.getArticlesByType(type, start, articleCount);
         List<Long> userIds = new ArrayList<>(articleCount);
@@ -81,12 +82,13 @@ public class ArticleService {
         return false;
     }
 
+    @Transactional
     public ArticleInfo saveArticle(Long userId, ArticleWriteRequest articleRequest) {
         Article article = Article.of(0, 0,
                 articleRequest.getTitle(),
                 articleRequest.getContent(),
                 userId,
-                articleRequest.getBoardId(),
+                articleRequest.getBoardType(),
                 new ArrayList<>());
         return ArticleInfo.create(articleDomainService.saveArticle(article));
     }

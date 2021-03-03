@@ -35,7 +35,7 @@ public class Article {
 
     private Long authorId;
 
-    private Integer boardId;
+    private String boardType;
 
     @Convert(converter = StringToListConverter.class)
     private List<String> tags;
@@ -59,10 +59,10 @@ public class Article {
     private Long version;
 
     public static Article of(Integer grpNo, Integer grpOrder,
-                             String title, String content, Long authorId, Integer boardId,
+                             String title, String content, Long authorId, String boardType,
                              List<String> tags) {
         return new Article(null, grpNo, grpOrder, title, content, authorId,
-                boardId, tags, 0, 0, false, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 0L);
+                boardType, tags, 0, 0, false, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 0L);
     }
 
 }

@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface MethodAllow {
     enum UserRole {
-        USER, GUEST, SHARE
+        USER, GUEST, SHARE, STAFF
     }
 
     UserRole allow() default UserRole.USER;

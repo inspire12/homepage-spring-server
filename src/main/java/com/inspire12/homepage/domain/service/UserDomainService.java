@@ -53,6 +53,6 @@ public class UserDomainService {
     }
 
     public AppUserInfo getSecedeUser() {
-        return new AppUserInfo(0L, "탈퇴한 유저", "탈퇴한 유저", new ArrayList<>());
+        return new AppUserInfo(0L, "탈퇴한 유저", "탈퇴한 유저", null);
     }
 }

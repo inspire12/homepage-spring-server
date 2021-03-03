@@ -1,7 +1,6 @@
 package com.inspire12.homepage.domain.model;
 
 import com.inspire12.homepage.common.AuthType;
-import com.inspire12.homepage.domain.converter.StringToListConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,16 +9,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
 
 @Entity
 @Data
@@ -44,8 +42,8 @@ public class AppUser {
     @Length(min = 5, message = "Password must have at least 5 characters")
     String password;
 
-    @Convert(converter = StringToListConverter.class)
-    List<AuthType> role;
+    @Enumerated(EnumType.STRING)
+    AuthType role;
 
     String profile;
 
@@ -67,7 +65,7 @@ public class AppUser {
         user.setNickname(username);
         user.setEmail(email);
         user.setPassword(password);
-        user.setRole(Collections.singletonList(AuthType.USER));
+        user.setRole(AuthType.USER);
         return user;
     }
 
