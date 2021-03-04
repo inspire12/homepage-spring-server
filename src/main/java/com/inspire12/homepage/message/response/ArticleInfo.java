@@ -47,15 +47,16 @@ public class ArticleInfo {
     boolean myLike;
     boolean deleted;
 
-    public static ArticleInfo create(Article article, boolean isMyLike){
-        ArticleInfo articleInfo = create(article);
+    public static ArticleInfo create(Article article, AppUserInfo userInfo, boolean isMyLike){
+        ArticleInfo articleInfo = create(article, userInfo);
         articleInfo.setMyLike(isMyLike);
         return articleInfo;
     }
 
-    public static ArticleInfo create(Article article){
+    public static ArticleInfo create(Article article, AppUserInfo appUserInfo){
         ArticleInfo articleInfo = new ArticleInfo();
         articleInfo.setId(article.getId());
+        articleInfo.setAuthor(appUserInfo);
         articleInfo.setNo(article.getGrpNo());
         articleInfo.setCategory(article.getBoardType());
         articleInfo.setSubject(article.getTitle());
@@ -73,15 +74,9 @@ public class ArticleInfo {
         return articleInfo;
     }
 
-    public static ArticleInfo createWithUser(Article article, AppUserInfo user) {
-        ArticleInfo articleInfo = ArticleInfo.create(article);
-        articleInfo.setAuthor(user);
-        return articleInfo;
-    }
-
     public static ArticleInfo createWithComments(Article article, AppUser user, List<CommentInfo> commentRespons) {
 
-        ArticleInfo articleInfo = createWithUser(article, AppUserInfo.create(user));
+        ArticleInfo articleInfo = create(article, AppUserInfo.create(user));
         articleInfo.setComments(commentRespons);
         return articleInfo;
     }

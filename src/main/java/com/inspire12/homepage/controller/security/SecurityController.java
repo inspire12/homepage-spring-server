@@ -2,14 +2,14 @@ package com.inspire12.homepage.controller.security;
 
 
 import com.inspire12.homepage.aspect.MethodAllow;
-import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
-import com.inspire12.homepage.domain.service.UserDomainService;
+import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.AuthenticationRequest;
 import com.inspire12.homepage.message.request.EmailRequest;
 import com.inspire12.homepage.message.request.SignupRequest;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.security.AuthProvider;
+import com.inspire12.homepage.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,7 +40,7 @@ public class SecurityController {
 
     private final AuthProvider authProvider;
 
-    private final UserDomainService userDomainService;
+    private final UserService userService;
 //    private final EmailService emailService;
 
 //    private final RedisTemplate<String, String> redisTemplate; // TODO
@@ -69,10 +70,10 @@ public class SecurityController {
 
         try {
             // 중복 체크 추가
-            if (userDomainService.isExistUser(user)) {
+            if (userService.isExistUser(user)) {
                 return ResponseEntity.unprocessableEntity().body(new CommonResponse<>(2, "중복 체크"));
             }
-            userDomainService.saveUser(user);
+            userService.saveUser(user);
             return ResponseEntity.ok().body(new CommonResponse<>(1, "성공"));
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body(new CommonResponse<>(3, "실패"));
@@ -97,9 +98,9 @@ public class SecurityController {
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext());
 
-        AppUser user = userDomainService.findByUsername(username).orElseGet(DefaultValue::defaultUser);
+        AppUser user = userService.getUserByName(username).orElseThrow(CommonException::new);
         user.setLastAccessAt(LocalDateTime.now());
-        userDomainService.saveUser(user);
+        userService.saveUser(user);
 
         session.setAttribute("user", user);
         redirectAttributes.addFlashAttribute("name", "index");
@@ -108,6 +109,7 @@ public class SecurityController {
         return "redirect:/index";
     }
 
+    @Transactional
     @PostMapping("/password")
     public ResponseEntity<CommonResponse<String>> setPassword(HttpSession session, RedirectAttributes redirectAttributes,
                                       @RequestParam Map<String, String> authenticationRequest) throws Exception {
@@ -123,7 +125,7 @@ public class SecurityController {
         }
         String encryptedPassword = authProvider.encrypt(username, newPassword);
 
-        userDomainService.setNewPassword(username, encryptedPassword);
+        userService.setNewPassword(username, encryptedPassword);
         return ResponseEntity.ok().build();
     }
 

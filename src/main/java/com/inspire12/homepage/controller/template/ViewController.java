@@ -1,16 +1,14 @@
 package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.aspect.MethodAllow;
-import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
-import com.inspire12.homepage.message.response.ArticleInfo;
 import com.inspire12.homepage.exception.NotAuthException;
+import com.inspire12.homepage.message.response.ArticleInfo;
 import com.inspire12.homepage.service.board.ArticleService;
 import com.inspire12.homepage.service.outline.HeaderService;
 import com.inspire12.homepage.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -67,9 +66,9 @@ public class ViewController {
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @GetMapping("/about")
-    public String getAboutView(HttpSession session, ModelAndView model) {
+    public ModelAndView getAboutView(HttpSession session, ModelAndView model) {
         model.addObject("adminUsers", userService.getAdminUsers());
-        return "about";
+        return model;
     }
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
@@ -106,21 +105,23 @@ public class ViewController {
     }
 
     @GetMapping("/article")
-    public String getSingleBlogView(HttpSession session, ModelAndView model,
+    public ModelAndView getSingleBlogView(HttpSession session, ModelAndView model,
                                     @RequestParam(defaultValue = "1") Long id) {
         ArticleInfo article;
         try {
-            article = articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
-            if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
-
+            AppUser user = (AppUser) session.getAttribute("user");
+            if (Objects.isNull(user)) {
+                article = articleService.showArticleMsgById(id, 0L);
+            } else {
+                article = articleService.showArticleMsgById(id, user.getId());
             }
         } catch (Exception e) {
             article = new ArticleInfo();
-            e.printStackTrace();
+            log.warn("article error: {}", e);
         }
         model.addObject("article", article);
         model.addObject("name", "article");
-        return "article";
+        return model;
     }
 
     @MethodAllow(allow = MethodAllow.UserRole.USER)
@@ -128,7 +129,9 @@ public class ViewController {
     public ModelAndView getWriteView(HttpSession session, ModelAndView model,
                                @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthException {
         if (id != 0){
-            ArticleInfo articleInfo = articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
+            AppUser user = (AppUser) session.getAttribute("user");
+
+            ArticleInfo articleInfo = articleService.showArticleMsgById(id, user.getId());
 //            if (! SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(articleMsg.getAuthor().getUsername())){
 //                throw new NotAuthException("작성자만 글을 수정할 수 있습니다.");
 //            }

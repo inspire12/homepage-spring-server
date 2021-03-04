@@ -5,9 +5,9 @@ import com.inspire12.homepage.base.ArticleBase;
 import com.inspire12.homepage.base.UserBuilder;
 import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.domain.service.ArticleDomainService;
-import com.inspire12.homepage.domain.service.UserDomainService;
 import com.inspire12.homepage.message.request.ArticleWriteRequest;
 import com.inspire12.homepage.service.board.ArticleService;
+import com.inspire12.homepage.service.user.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class ArticleControllerTest extends SpringTestSupport {
     @MockBean
     private ArticleDomainService articleDomainService;
     @MockBean
-    private UserDomainService userDomainService;
+    private UserService userService;
 
     @Autowired
     protected MockMvc mockMvc;
@@ -56,7 +56,7 @@ public class ArticleControllerTest extends SpringTestSupport {
         given(articleDomainService.getArticleList(pageRequest))
             .willReturn(Arrays.asList(ArticleBase.createDefaultArticle()));
 
-        given(userDomainService.getUserInfoMap(userIds))
+        given(userService.getUserInfoMap(userIds))
                 .willReturn(UserBuilder.userInfoMap());
 
         mockMvc.perform(get(url))

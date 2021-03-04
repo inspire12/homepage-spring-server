@@ -14,7 +14,6 @@ import java.io.IOException;
 public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
     }
 
     @Override

@@ -27,7 +27,7 @@ public class ArticleLikeController {
             throw new NotAuthException();
         }
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        articleLikeService.increaseArticleLike(postId, userService.getUser(username).orElseThrow(CommonException::new).getId());
+        articleLikeService.increaseArticleLike(postId, userService.getUserByName(username).orElseThrow(CommonException::new).getId());
         return ResponseEntity.ok(new CommonResponse<>(Constant.SUCCESS, true));
     }
 
@@ -37,7 +37,7 @@ public class ArticleLikeController {
             throw new NotAuthException();
         }
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        articleLikeService.decreaseArticleLike(postId, userService.getUser(username).orElseThrow(CommonException::new).getId());
+        articleLikeService.decreaseArticleLike(postId, userService.getUserByName(username).orElseThrow(CommonException::new).getId());
         return ResponseEntity.ok(new CommonResponse<>(Constant.SUCCESS, true));
     }
 }

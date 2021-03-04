@@ -1,8 +1,6 @@
 package com.inspire12.homepage.controller.community;
 
-import com.inspire12.homepage.common.DefaultValue;
 import com.inspire12.homepage.domain.model.AppUser;
-import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import com.inspire12.homepage.message.request.ArticleWriteRequest;
@@ -36,8 +34,13 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}")
-    public ArticleInfo showArticleList(@PathVariable Long id) {
-        return articleService.showArticleMsgById(id, DefaultValue.defaultUser().getId());
+    public ArticleInfo showArticleList(HttpSession session, @PathVariable Long id) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        Long userId = 0L;
+        if (!Objects.isNull(user)) {
+            userId = user.getId();
+        }
+        return articleService.showArticleMsgById(id, userId);
     }
 
     @PostMapping("/articles/write")
@@ -56,9 +59,8 @@ public class ArticleController {
 
     @PutMapping("/articles/replies")
     public void insertArticleReply(@RequestBody ArticleModifyRequest requestBody) {
-        Article article = new Article();
         long parentId = requestBody.getParentId();
-        articleService.saveArticleReply(parentId, article);
+        articleService.saveArticleReply(parentId);
     }
 
     @DeleteMapping("/articles")
