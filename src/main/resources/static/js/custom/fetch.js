@@ -24,10 +24,7 @@ function postRequestWithHeader(url, header, body, func) {
         console.dir(response);
         let status = response.status;
         swalStatusMessage(status);
-        if (response.bodyUsed === true) {
-            return response.body;
-        }
-        return {};
+        return response.json();
 
     }).then(body => {
         console.dir(body);
@@ -77,7 +74,11 @@ function deleteRequest(url, func) {
 
 
 function swalStatusMessage(status) {
-    if (status !== 200) {
+    if (status === 401 || status === 403) {
+        swal("권한이 없습니다.", "가입 후 로그인 해주세요.", "warning")
+    } else if (status === 404) {
+        swal("페이지가 없습니다.", "요청을 확인해주세요.", "warning")
+    } else if (status !== 200) {
         swal("문제가 발생했습니다.", "임원진들에게 알려주세요.", "warning")
     }
 }

@@ -3,8 +3,8 @@ package com.inspire12.homepage.message.response;
 import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.domain.model.FileMeta;
 import com.inspire12.homepage.dto.article.CommentInfo;
-import com.inspire12.homepage.dto.article.RecommendInfo;
 import com.inspire12.homepage.dto.user.AppUserInfo;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,29 +17,27 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class ArticleInfo {
 
     Long id;
     int no;
     int depth;
-    String category;
-    String subject;
+    String title;
     String content;
     String url;
     Integer likes;
     AppUserInfo author;
     List<CommentInfo> comments = new ArrayList<>();
-
+    Integer commentsCount;
     List<FileMeta> files = new ArrayList<>();
 
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     String boardType;
     List<String> tags;
-    Integer hit;
-
-    List<RecommendInfo> like;
+    Integer hits;
 
     boolean myLike;
     boolean deleted;
@@ -51,23 +49,26 @@ public class ArticleInfo {
     }
 
     public static ArticleInfo create(Article article, AppUserInfo appUserInfo){
-        ArticleInfo articleInfo = new ArticleInfo();
-        articleInfo.setId(article.getId());
-        articleInfo.setAuthor(appUserInfo);
-        articleInfo.setNo(article.getGrpNo());
-        articleInfo.setCategory(article.getBoardType());
-        articleInfo.setSubject(article.getTitle());
-        articleInfo.setContent(article.getContent());
-        articleInfo.setCreatedAt((article.getCreatedAt()));
-        articleInfo.setUpdatedAt((article.getUpdatedAt()));
-        articleInfo.setBoardType(article.getBoardType());
-        articleInfo.setTags(article.getTags());
-
-        articleInfo.setHit(article.getHits());
-        articleInfo.setDeleted(article.isDeleted());
-        List<CommentInfo> commentResponse = new ArrayList<>();
-        articleInfo.setComments(commentResponse);
-        articleInfo.setLike(new ArrayList<>());
+        ArticleInfo articleInfo = new ArticleInfo(
+                article.getId(),
+                article.getGrpNo(),
+                0, // TODO
+                article.getTitle(),
+                article.getContent(),
+                "", // TODO
+                article.getLikes(),
+                appUserInfo,
+                new ArrayList<>(),
+                article.getCommentCount(),
+                new ArrayList<>(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                article.getBoardType(),
+                new ArrayList<>(), // tag
+                article.getHits(),
+                false,
+                false
+        );
         return articleInfo;
     }
 

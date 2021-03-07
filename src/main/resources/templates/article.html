@@ -141,7 +141,8 @@
 <script th:inline="javascript">
 
     let article = /*[[${article}]]*/ '';
-    let user = /*[[${user}]]*/ '';
+    let user = /*[[${session.user}]]*/ '';
+
     main(article, user);
 
 </script>

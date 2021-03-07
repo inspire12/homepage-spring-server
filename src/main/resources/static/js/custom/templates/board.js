@@ -11,12 +11,12 @@ function createArticleRows(article) {
     for (let i = 0; i < article['depth']; i++) {
         depth += "<i class=\"fa fa-share fa-flip-vertical re mr-1\"></i>"
     }
-    let trStr = '<tr><td>' + article['category'] + '</td>\n' +
-        '<td> <a href=/article?id=' + article['id'] + '>' + depth + article['subject'] + '</a><a>[' + article['comments'].length + ']</a></td>\n' +
+    let trStr = '<tr><td>' + article['boardType'] + '</td>\n' +
+        '<td> <a href=/article?id=' + article['id'] + '>' + depth + article['title'] + '</a><a>[' + article['commentsCount'] + ']</a></td>\n' +
         '<td>' + article['author']['nickname'] + '</td>\n' +
         '<td>' + showDateFrom(article['updatedAt']) + '</td>\n' +
-        '<td>' + article['hit'] + '</td>\n' +
-        '<td>' + article['like'].length + '</td>\n' +
+        '<td>' + article['hits'] + '</td>\n' +
+        '<td>' + article['likes'] + '</td>\n' +
         '</tr>';
     return createTrFromStr(trStr);
 }

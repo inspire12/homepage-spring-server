@@ -1,6 +1,8 @@
 package com.inspire12.homepage.service.board;
 
 import com.inspire12.homepage.domain.model.AppUser;
+import com.inspire12.homepage.domain.model.Article;
+import com.inspire12.homepage.domain.service.ArticleDomainService;
 import com.inspire12.homepage.domain.service.CommentDomainService;
 import com.inspire12.homepage.domain.service.UserDomainService;
 import com.inspire12.homepage.dto.article.CommentInfo;
@@ -9,6 +11,7 @@ import com.inspire12.homepage.exception.DataNotFoundException;
 import com.inspire12.homepage.message.request.CommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class CommentService {
 
     private final CommentDomainService commentDomainService;
+    private final ArticleDomainService articleDomainService;
     private final UserDomainService userDomainService;
 
     public List<CommentInfo> getComments(Long articleId, Integer count) {
@@ -27,7 +31,10 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void saveComment(AppUser appUser, CommentRequest request) {
+        Article article = articleDomainService.getArticleById(request.getArticleId());
+        article.setCommentCount(article.getCommentCount() + 1);
         commentDomainService.saveByRequest(appUser, request);
     }
 }

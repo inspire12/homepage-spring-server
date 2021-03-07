@@ -11,6 +11,7 @@ import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import com.inspire12.homepage.util.ObjectsUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class ArticleDomainService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> showArticleListWithCount(String type, int pageNum, int articleCount) {
+    public List<Article> getArticleListWithCount(String type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles;
         if (type == null) {
@@ -73,11 +74,11 @@ public class ArticleDomainService {
                 .map(UserLike::isLiked).orElse(false);
     }
 
-    public List<Article> getArticlesByType(String type, int start, int articleCount) {
-        if (type == null) {
-            return articleRepository.findByDeletedIsFalse(PageRequest.of(start, articleCount)).getContent();
+    public List<Article> getArticlesByType(String type, Pageable pageRequest) {
+        if (type == null || "ALL".equals(type)) {
+            return articleRepository.findByDeletedIsFalse(pageRequest).getContent();
         } else {
-            return articleRepository.findByBoardTypeAndDeleted(type, false, PageRequest.of(start, articleCount)).getContent();
+            return articleRepository.findByBoardTypeAndDeleted(type, false, pageRequest).getContent();
         }
     }
 

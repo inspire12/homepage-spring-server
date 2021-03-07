@@ -1,4 +1,5 @@
-create table if not exists AppUser
+drop table if exists AppUser;
+create table AppUser
 (
     id           bigint(20)   not null primary key,
     email        varchar(255) null,
@@ -12,39 +13,46 @@ create table if not exists AppUser
     createdAt    datetime     null,
     lastAccessAt datetime     null,
     version      bigint       null,
-    constraint UK_atqgqm46rh7b0lrgl80ryd5tp
+    constraint idx_AppUser_username
         unique (username)
 );
 
-create table if not exists Article
+drop table if exists Article;
+create table Article
 (
-    id        bigint auto_increment primary key,
-    boardId   int          null,
-    content   varchar(255) null,
-    createdAt datetime     null,
-    depth     int          null,
+    id           bigint auto_increment primary key,
+    boardType    varchar(20)  null,
+    content      varchar(255) null,
+    depth        int          null,
     grpNo        int          null,
-    grpOrd    int          null,
-    hit       int          null,
-    isDeleted bit          null,
-    subject   varchar(255) null,
-    tags      varchar(255) null,
-    updatedAt datetime     null,
-    userId    bigint       null,
-    username  varchar(255) null
+    grpOrder     int          null,
+    hits         int          null,
+    likes        int          null,
+    commentCount int          null,
+    deleted      bit          null,
+    title        varchar(255) null,
+    tags         varchar(255) null,
+    authorId     bigint       null,
+    version      bigint       not null,
+    modifiedAt   datetime     null,
+    createdAt    datetime     null
 );
 
-create table if not exists ArticleLike
+create index idx_Article_boardType on Article(boardType);
+
+drop table if exists ArticleLike;
+create table ArticleLike
 (
-    postId    bigint       not null,
-    username  varchar(255) not null,
+    articleId bigint       not null,
+    userId    varchar(255) not null,
     createdAt datetime     null,
     updatedAt datetime     null,
     version   bigint       null,
-    primary key (postId, username)
+    primary key (articleId, userId)
 );
 
-create table if not exists Board
+drop table if exists Board;
+create table Board
 (
     id        bigint       not null primary key,
     name      varchar(255) null,
@@ -54,7 +62,7 @@ create table if not exists Board
     version   bigint       null
 );
 
-drop table Comment;
+drop table if exists Comment;
 create table Comment
 (
     id        bigint auto_increment primary key,
@@ -64,13 +72,13 @@ create table Comment
     grpNo     int          null,
     grpOrd    int          null,
     likeCount int          null,
-    username  bigint(20)   not null,
+    userId    bigint(20)   null,
     version   bigint(20)   null,
     createdAt datetime     null,
     updatedAt datetime     null
 );
-
-create table if not exists FileMeta
+drop table if exists FileMeta;
+create table FileMeta
 (
     id        bigint auto_increment primary key,
     articleId bigint       null,
@@ -79,14 +87,16 @@ create table if not exists FileMeta
     fileUrl   varchar(255) null,
     filename  varchar(255) null,
     updatedAt datetime     null,
-    username  varchar(255) null,
-    version   bigint       null
+    userId    bigint(20)   null
+        version bigint null
 );
 
-create table if not exists Recommend
+drop table if exists Recommend;
+create table Recommend
 (
-    id        int          not null primary key,
-    targetId  bigint       null,
-    username  varchar(255) null
+    id         int        not null primary key,
+    targetId   bigint     null,
+    targetType varchar(20),
+    userId     bigint(20) null
 );
 

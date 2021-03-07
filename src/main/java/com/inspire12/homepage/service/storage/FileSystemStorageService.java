@@ -16,7 +16,6 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 @Service
@@ -52,8 +51,8 @@ public class FileSystemStorageService {
                     i++;
                     path = this.rootLocation.resolve(replaceFilename);
                 }
-                Files.copy(inputStream, path,
-                        StandardCopyOption.REPLACE_EXISTING);
+
+                Files.copy(inputStream, path);
                 return path.getFileName().toString();
             }
         } catch (IOException e) {

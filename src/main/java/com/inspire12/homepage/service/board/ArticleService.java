@@ -15,6 +15,7 @@ import com.inspire12.homepage.message.viewmodel.ArticleSaveResponse;
 import com.inspire12.homepage.service.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,22 +33,22 @@ public class ArticleService {
     private final UserService userService;
 
     @Transactional
-    public ArticleInfo showArticleMsgById(Long postId, Long userId) {
-        Article article = articleDomainService.getArticleById(postId);
+    public ArticleInfo getArticleMsgById(Long articleId, Long userId) {
+        Article article = articleDomainService.getArticleById(articleId);
         article.setHits(article.getHits() + 1);
         AppUserInfo appUserInfo = AppUserInfo.create(userService.getUserById(article.getAuthorId())
                 .orElseThrow(DataNotFoundException::new));
-        List<CommentInfo> comments = commentService.getComments(postId, 100);
+        List<CommentInfo> comments = commentService.getComments(articleId, 100);
         return ArticleInfo.createWithComments(article,
                 appUserInfo,
                 comments);
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleInfo> showArticleMsgsWithCount(String type, int pageNum, int articleCount) {
-        int start = (pageNum - 1) * articleCount;
-        List<Article> articles = articleDomainService.getArticlesByType(type, start, articleCount);
-        List<Long> userIds = new ArrayList<>(articleCount);
+    public List<ArticleInfo> getArticleMsgsWithCount(String type, Pageable pageRequest) {
+        List<Article> articles = articleDomainService.getArticlesByType(type, pageRequest);
+
+        List<Long> userIds = new ArrayList<>(pageRequest.getPageSize());
         for (Article article : articles) {
             userIds.add(article.getAuthorId());
         }
@@ -66,9 +67,9 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleInfo> showArticleMsgs(int size) {
-        List<Article> articles = articleDomainService.getArticleList(PageRequest.of(0, size));
-        List<Long> userIds = new ArrayList<>(size);
+    public List<ArticleInfo> getArticleMsgs(PageRequest pageRequest) {
+        List<Article> articles = articleDomainService.getArticleList(pageRequest);
+        List<Long> userIds = new ArrayList<>(pageRequest.getPageSize());
         for (Article article : articles) {
             userIds.add(article.getAuthorId());
         }

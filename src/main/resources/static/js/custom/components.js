@@ -34,12 +34,12 @@ function createBreadcrumbSection(article) {
         '            <div class="row h-100 align-items-center">\n' +
         '                <div class="col-12">\n' +
         '                    <div class="breadcrumb-content text-center">\n' +
-        '                        <a href="#" class="btn post-catagory">' + article['category'] + '</a>\n' +
-        '                        <h2 class="page-title">' + article['subject'] + '</h2>\n' +
+        '                        <a href="#" class="btn post-catagory">' + article['boardType'] + '</a>\n' +
+        '                        <h2 class="page-title">' + article['title'] + '</h2>\n' +
         '                        <div class="post-meta">\n' +
         '                            <a href="#" class="post-author"> By&nbsp;' + article['author']['nickname'] + '</a>\n' +
         '                            <a href="#" class="post-date">' + article['createdAt'] + '</a>\n' +
-        '                            <a href="#" class="post-comments" id="postComments">'+ article['comments'].length+ ' Comments</a>\n' +
+        '                            <a href="#" class="post-comments" id="postComments">'+ article['commentsCount'] + ' Comments</a>\n' +
         '                        </div>\n' +
         '                    </div>\n' +
         '                </div>\n' +

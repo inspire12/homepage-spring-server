@@ -19,13 +19,13 @@ function main(article, user) {
     // let recommendElement = createRecommendElement(article);
     // document.getElementById("related-news-id").append(recommendElement);
 
-    let comments = article['comments'];
+    let commentList = article['comments'];
     let commentSection = document.getElementById("comment-area-id");
     let commentTitle = commentSection.firstElementChild;
     let commentsArea = commentSection.children[1];
-    let commentSize = comments.length;
+    let commentSize = commentList.length;
     commentTitle.textContent = commentSize + " Comments";
-    appendComments(comments, commentsArea);
+    appendComments(commentList, commentsArea);
 
     let btnLike = document.getElementById("btnLike");
     btnLike.addEventListener("click", function(){
@@ -39,8 +39,8 @@ function main(article, user) {
             turnBtn(response.status, btnLike, btnDisLike)
         })
     });
-    btnLike.innerText("Like " + article.likes);
-    btnDisLike.innerText("DisLike " + article.likes);
+    btnLike.innerText = "Like " + article.likes;
+    btnDisLike.innerTex = "DisLike " + article.likes;
     turnBtn(!article.myLike, btnLike, btnDisLike);
 }
 let toggle = function (elem) {
@@ -110,12 +110,13 @@ function submitComment(message) {
     };
     postRequest(url, body, (data) => {
         console.dir(data);
+        window.location.reload();
         // comment dom 삭제 후 다시 갱신 (전체를 다 받아서 리턴하도록 해야겠네)
-        let comments = data['comments'];
-        let commentSection = document.getElementById("comment-area-id");
+        // let comments = data['comments'];
+        // let commentSection = document.getElementById("comment-area-id");
 
-        refreshComments(comments, commentSection);
-        appendComments(comments, commentSection.children[1]);
+        // refreshComments(comments, commentSection);
+        // appendComments(comments, commentSection.children[1]);
     })
 }
 
@@ -180,11 +181,11 @@ function convertDate(date) {
 }
 
 function createRecommendElement(article) {
-    let subject = article.subject;
-    let category = article.category;
+    let title = article.title;
+    let boardType = article.boardType;
     let updatedAt = convertDate(article['updated_at']);
 
-    let commentSize = article['comments'].length;
+    let commentSize = article['commentsCount'];
     if (commentSize === 0) {
         commentSize = "No"
     }
@@ -194,14 +195,14 @@ function createRecommendElement(article) {
         '                    <!-- Post Thumbnail -->\n' +
         '                    <a href="#" class="post-thumbnail"><img src="img/bg-img/52.jpg" alt=""></a>\n' +
         '                    <!-- Post Catagory -->\n' +
-        '                    <a href="#" class="btn post-catagory">' + category + '</a>\n' +
+        '                    <a href="#" class="btn post-catagory">' + boardType + '</a>\n' +
         '                    <!-- Post Conetent -->\n' +
         '                    <div class="post-content">\n' +
         '                        <div class="post-meta">\n' +
         '                            <a href="#">' + updatedAt + '</a>\n' +
         '                            <a href="#">' + commentSize + ' Comment</a>\n' +
         '                        </div>\n' +
-        '                        <a href="' + url + '" class="post-title">' + subject + '</a>\n' +
+        '                        <a href="' + url + '" class="post-title">' + boardType + '</a>\n' +
         '                    </div>\n' +
         '                </div>\n' +
         '            </div>';

@@ -15,7 +15,7 @@ public enum ErrorCode {
     DATA_NOT_FOUND(404, "Data not Found"),
 
     // Login
-    NOT_AUTHORIZE(401, "NOT AUTH"),
+    NOT_AUTHORIZE(401, "NOT AUTH", HttpStatus.UNAUTHORIZED),
 
     // Signup Login
     EMAIL_DUPLICATION(200, "Email is Duplication"),

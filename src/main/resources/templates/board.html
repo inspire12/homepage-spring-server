@@ -81,6 +81,7 @@
 <!-- CUSTOM -->
 <script th:inline="javascript">
     let articles = /*[[${articles}]]*/ [];
+    let user = /*[[${session.user}]]*/ '';
 
     function main(articles) {
         let tbody = document.getElementsByTagName("tbody")[0];

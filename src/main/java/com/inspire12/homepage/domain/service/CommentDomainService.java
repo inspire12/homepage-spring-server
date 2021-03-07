@@ -21,6 +21,7 @@ public class CommentDomainService {
 
     private final CommentRepository commentRepository;
 
+    @Transactional(readOnly = true)
     public List<Comment> getComments(Long articleId, int count) {
         return commentRepository.findByArticleId(articleId, PageRequest.of(0, count, Sort.by("id").descending())).getContent();
     }

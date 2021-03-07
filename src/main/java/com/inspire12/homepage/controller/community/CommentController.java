@@ -9,10 +9,10 @@ import com.inspire12.homepage.message.response.CommentListResponse;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.service.board.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -26,10 +26,24 @@ public class CommentController {
     private final CommentService commentService;
 
     @MethodAllow(allow = MethodAllow.UserRole.USER)
-    @PostMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/comments")
+    @ResponseBody
     public CommonResponse<CommentListResponse> saveComment(HttpSession httpSession,
                                                                            @RequestBody CommentRequest commentRequest,
                                                                            @RequestParam(defaultValue = "10") @Max(30) Integer count) {
+        AppUser user = (AppUser) httpSession.getAttribute("user");
+
+        commentService.saveComment(user, commentRequest);
+        List<CommentInfo> comments = commentService.getComments(commentRequest.getArticleId(), count);
+        return new CommonResponse<>(Constant.SUCCESS, new CommentListResponse(comments));
+    }
+
+    @MethodAllow(allow = MethodAllow.UserRole.USER)
+    @PostMapping(value = "/comments/modify")
+    @ResponseBody
+    public CommonResponse<CommentListResponse> modifyComment(HttpSession httpSession,
+                                                           @RequestBody CommentRequest commentRequest,
+                                                           @RequestParam(defaultValue = "10") @Max(30) Integer count) {
         AppUser user = (AppUser) httpSession.getAttribute("user");
 
         commentService.saveComment(user, commentRequest);

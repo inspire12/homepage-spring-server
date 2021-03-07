@@ -107,7 +107,7 @@ function submitWriting(choice, myDropzone, id) {
         postRequest("/articles/modify", body, (data) => {
             console.dir(data)
             if (data.hasOwnProperty("boardType")) {
-                window.location.href = "/board?=" + data.boardType;
+                window.location.href = "/board?type=" + data.boardType;
             } else {
                 window.location.href = "/board"
             }
@@ -117,7 +117,7 @@ function submitWriting(choice, myDropzone, id) {
         postRequest("/articles/write", body, (data) => {
             console.dir(data)
             if (data.hasOwnProperty("boardType")) {
-                window.location.href = "/board?=" + data.boardType;
+                window.location.href = "/board?type=" + data.boardType;
             } else {
                 window.location.href = "/board"
             }

@@ -5,9 +5,13 @@ import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.exception.NotAuthorizeException;
 import com.inspire12.homepage.message.response.ArticleInfo;
 import com.inspire12.homepage.service.board.ArticleService;
+import com.inspire12.homepage.service.board.CommentService;
 import com.inspire12.homepage.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +28,7 @@ public class ViewController {
 
     private final ArticleService articleService;
     private final UserService userService;
+    private final CommentService commentService;
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @GetMapping({"/", "/index"})
@@ -83,10 +88,12 @@ public class ViewController {
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @GetMapping("/board")
-    public ModelAndView getBoardView(HttpSession session, ModelAndView model, @RequestParam(defaultValue = "잡담") String type, @RequestParam(defaultValue = "30") int articleCount, @RequestParam(defaultValue = "1") int pageNum) {
+    public ModelAndView getBoardView(HttpSession session, ModelAndView model,
+                                     @RequestParam(defaultValue = "ALL") String type,
+                                     @PageableDefault(page = 0, size = 30, sort = "id", direction = Sort.Direction.DESC) Pageable pageRequest) {
         // board 종류
         try {
-            List<ArticleInfo> articles = articleService.showArticleMsgsWithCount(type, pageNum, articleCount);
+            List<ArticleInfo> articles = articleService.getArticleMsgsWithCount(type, pageRequest);
             model.addObject("articles", articles);
         } catch (Exception e) {
             log.warn("board error: ", e);
@@ -108,9 +115,9 @@ public class ViewController {
         try {
             AppUser user = (AppUser) session.getAttribute("user");
             if (Objects.isNull(user)) {
-                article = articleService.showArticleMsgById(id, 0L);
+                article = articleService.getArticleMsgById(id, 0L);
             } else {
-                article = articleService.showArticleMsgById(id, user.getId());
+                article = articleService.getArticleMsgById(id, user.getId());
             }
         } catch (Exception e) {
             article = new ArticleInfo();
@@ -121,14 +128,29 @@ public class ViewController {
         return model;
     }
 
+//    @MethodAllow(allow = MethodAllow.UserRole.USER)
+//    @PostMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ModelAndView saveComment(HttpSession session, ModelAndView model,
+//                                    @RequestBody CommentRequest commentRequest,
+//                                    @RequestParam(defaultValue = "10") @Max(30) Integer count) {
+//        AppUser user = (AppUser) session.getAttribute("user");
+//
+//        commentService.saveComment(user, commentRequest);
+//        model.setViewName("redirect:/article?id=" + commentRequest.getArticleId());
+//        return model;
+//    }
+
     @MethodAllow(allow = MethodAllow.UserRole.USER)
     @GetMapping("/writing")
     public ModelAndView getWriteView(HttpSession session, ModelAndView model,
                                      @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthorizeException {
-        if (id != 0) {
-            AppUser user = (AppUser) session.getAttribute("user");
+        AppUser user = (AppUser) session.getAttribute("user");
+        if (Objects.isNull(user)) {
+            throw new NotAuthorizeException();
+        }
 
-            ArticleInfo articleInfo = articleService.showArticleMsgById(id, user.getId());
+        if (id != 0) {
+            ArticleInfo articleInfo = articleService.getArticleMsgById(id, user.getId());
 //            if (! SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals(articleMsg.getAuthor().getUsername())){
 //                throw new NotAuthException("작성자만 글을 수정할 수 있습니다.");
 //            }

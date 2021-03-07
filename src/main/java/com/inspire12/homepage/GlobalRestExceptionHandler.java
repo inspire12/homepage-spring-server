@@ -2,6 +2,7 @@ package com.inspire12.homepage;
 
 import com.inspire12.homepage.exception.ErrorCode;
 import com.inspire12.homepage.exception.ErrorMessage;
+import com.inspire12.homepage.exception.NotAuthorizeException;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,12 @@ public class GlobalRestExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @ExceptionHandler(NotAuthorizeException.class)
+    public ResponseEntity handleNotAuthorize(NotAuthorizeException e) {
+        log.error("unauthorize from user {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity handleNull(NullPointerException e) {
         log.error("exception from user {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e);
@@ -38,7 +45,7 @@ public class GlobalRestExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity handleNotFound(NotFoundException e) {
         log.error("exception from user {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @ExceptionHandler(NoSuchElementException.class)
@@ -52,7 +59,7 @@ public class GlobalRestExceptionHandler {
     protected ResponseEntity handleException(ConstraintViolationException e) {
 //        exception.getConstraintViolations().iterator();
         log.error("exception from user {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal(), e);
-        return ResponseEntity.status(400).body(ErrorMessage.of(ErrorCode.INTERNAL_SERVER_ERROR));
+        return ResponseEntity.status(400).body(ErrorMessage.of(ErrorCode.INVALID_INPUT_VALUE));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

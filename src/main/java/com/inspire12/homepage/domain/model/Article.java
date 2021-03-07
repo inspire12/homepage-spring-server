@@ -37,23 +37,21 @@ public class Article {
 
     private String boardType;
 
-    @Convert(converter = StringToListConverter.class)
+    @Convert(converter = StringToListConverter.class) // TODO
     private List<String> tags;
 
     private Integer hits;
 
     private Integer likes;
+    private Integer commentCount;
 
     private boolean deleted;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime modifiedAt;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 
     @Version
     private Long version;
@@ -62,7 +60,7 @@ public class Article {
                              String title, String content, Long authorId, String boardType,
                              List<String> tags) {
         return new Article(null, grpNo, grpOrder, title, content, authorId,
-                boardType, tags, 0, 0, false, LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), 0L);
+                boardType, tags, 0, 0, 0, false, LocalDateTime.now(), LocalDateTime.now(), 0L);
     }
 
 }
