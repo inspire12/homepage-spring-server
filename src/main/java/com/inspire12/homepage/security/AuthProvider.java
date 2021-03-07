@@ -57,7 +57,7 @@ public class AuthProvider implements AuthenticationProvider {
 
             return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), grantedAuthorities);
         } catch (Exception e) {
-            log.error("auth exception: {} , {}", e.getClass().getSimpleName(), e.getMessage());
+            log.error("auth exception: ", e);
             return null;
         }
     }

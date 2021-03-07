@@ -52,6 +52,7 @@ public class ViewController {
     @GetMapping("/profile")
     public ModelAndView getProfile(HttpSession session, ModelAndView model) {
         model.addObject("name", "profiles");
+        model.setViewName("profiles");
         return model;
     }
 

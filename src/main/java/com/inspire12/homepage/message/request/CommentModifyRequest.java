@@ -1,7 +1,12 @@
 package com.inspire12.homepage.message.request;
 
-import lombok.Value;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Value
+//@Value
+@Data
+@Getter
+@NoArgsConstructor
 public class CommentModifyRequest {
 }
