@@ -35,8 +35,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE')
 
     // aop
-    annotationProcessor('org.projectlombok:lombok:1.18.8')
-    implementation('org.projectlombok:lombok:1.18.8')
+    annotationProcessor('org.projectlombok:lombok:1.16.18')
+    implementation('org.projectlombok:lombok:1.16.18')
     implementation('org.springframework.boot:spring-boot-starter-aop')
 
     // db

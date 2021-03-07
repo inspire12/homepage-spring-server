@@ -1,7 +1,7 @@
 package com.inspire12.homepage.controller.community;
 
 import com.inspire12.homepage.exception.CommonException;
-import com.inspire12.homepage.exception.NotAuthException;
+import com.inspire12.homepage.exception.NotAuthorizeException;
 import com.inspire12.homepage.message.response.CommonResponse;
 import com.inspire12.homepage.dto.Constant;
 import com.inspire12.homepage.service.board.ArticleLikeService;
@@ -22,9 +22,9 @@ public class ArticleLikeController {
     private final UserService userService;
 
     @PostMapping("/likes/{postId}")
-    public ResponseEntity<CommonResponse<Boolean>> incArticleLike(@PathVariable(name = "postId") Long postId) throws NotAuthException {
+    public ResponseEntity<CommonResponse<Boolean>> incArticleLike(@PathVariable(name = "postId") Long postId) throws NotAuthorizeException {
         if (!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
-            throw new NotAuthException();
+            throw new NotAuthorizeException();
         }
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         articleLikeService.increaseArticleLike(postId, userService.getUserByName(username).orElseThrow(CommonException::new).getId());
@@ -32,9 +32,9 @@ public class ArticleLikeController {
     }
 
     @DeleteMapping("/likes/{postId}")
-    public ResponseEntity<CommonResponse<Boolean>> decArticleLike(@PathVariable(name = "postId") Long postId) throws NotAuthException {
+    public ResponseEntity<CommonResponse<Boolean>> decArticleLike(@PathVariable(name = "postId") Long postId) throws NotAuthorizeException {
         if (!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
-            throw new NotAuthException();
+            throw new NotAuthorizeException();
         }
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         articleLikeService.decreaseArticleLike(postId, userService.getUserByName(username).orElseThrow(CommonException::new).getId());

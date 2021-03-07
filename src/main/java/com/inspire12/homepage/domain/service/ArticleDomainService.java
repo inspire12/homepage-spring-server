@@ -8,6 +8,7 @@ import com.inspire12.homepage.domain.repository.ArticleRepository;
 import com.inspire12.homepage.domain.repository.UserLikeRepository;
 import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.ArticleModifyRequest;
+import com.inspire12.homepage.util.ObjectsUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,12 @@ public class ArticleDomainService {
     private final ArticleRepository articleRepository;
     private final UserLikeRepository userLikeRepository;
 
+    @Transactional(readOnly = true)
     public Article getArticleById(Long articleId) {
         return articleRepository.findById(articleId).orElseThrow(CommonException::new);
     }
 
+    @Transactional(readOnly = true)
     public List<Article> showArticleListWithCount(String type, int pageNum, int articleCount) {
         int start = (pageNum - 1) * articleCount;
         List<Article> articles;
@@ -56,13 +59,13 @@ public class ArticleDomainService {
         return true;
     }
 
-    public boolean deleteArticle(Long articleId, Long userId) {
+    @Transactional
+    public Article deleteArticle(Long articleId, Long userId) {
         Article article = getArticleById(articleId);
         if (userId.equals(article.getAuthorId())) {
             article.setDeleted(true);
-            return true;
         }
-        return false;
+        return article;
     }
 
     public Boolean getArticleLike(Long postId, Long userId) {
@@ -78,11 +81,20 @@ public class ArticleDomainService {
         }
     }
 
+    @Transactional
     public Article saveArticleById(long id, ArticleModifyRequest articleModifyRequest) {
         Article article = getArticleById(id);
         article.setTitle(articleModifyRequest.getTitle());
         article.setContent(articleModifyRequest.getContent());
-        article.setBoardType(articleModifyRequest.getBoardType());
+
+        if (ObjectsUtil.isNotNull(articleModifyRequest.getBoardType())) {
+            article.setBoardType(articleModifyRequest.getBoardType());
+        }
+
+        if (ObjectsUtil.isEmpty(articleModifyRequest.getFiles())) {
+
+        }
+
         return article;
     }
 

@@ -1,6 +1,8 @@
 package com.inspire12.homepage.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +24,7 @@ public class Comment {
 
     private Long articleId;
 
-    private String username;
+    private Long userId;
     private Integer grpNo;
     private Integer grpOrd;
     private Integer depth;
@@ -36,12 +40,4 @@ public class Comment {
 
     @Version
     private Long version;
-
-    public static Comment create(String username, Long articleId, String content) {
-        Comment comment = new Comment();
-        comment.setArticleId(articleId);
-        comment.setUsername(username);
-        comment.setContent(content);
-        return comment;
-    }
 }

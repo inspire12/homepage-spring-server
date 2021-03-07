@@ -106,13 +106,21 @@ function submitWriting(choice, myDropzone, id) {
 
         postRequest("/articles/modify", body, (data) => {
             console.dir(data)
-            window.location.href = "/board"
+            if (data.hasOwnProperty("boardType")) {
+                window.location.href = "/board?=" + data.boardType;
+            } else {
+                window.location.href = "/board"
+            }
         });
     } else {
         // 글 쓰기인 경우
         postRequest("/articles/write", body, (data) => {
             console.dir(data)
-            window.location.href = "/board"
+            if (data.hasOwnProperty("boardType")) {
+                window.location.href = "/board?=" + data.boardType;
+            } else {
+                window.location.href = "/board"
+            }
         });
     }
 }

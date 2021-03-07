@@ -2,10 +2,9 @@ package com.inspire12.homepage.controller.template;
 
 import com.inspire12.homepage.aspect.MethodAllow;
 import com.inspire12.homepage.domain.model.AppUser;
-import com.inspire12.homepage.exception.NotAuthException;
+import com.inspire12.homepage.exception.NotAuthorizeException;
 import com.inspire12.homepage.message.response.ArticleInfo;
 import com.inspire12.homepage.service.board.ArticleService;
-import com.inspire12.homepage.service.outline.HeaderService;
 import com.inspire12.homepage.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ViewController {
 
-    private final HeaderService headerService;
     private final ArticleService articleService;
     private final UserService userService;
 
@@ -52,11 +50,11 @@ public class ViewController {
         return model;
     }
 
-    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
-    @GetMapping("/introduce")
-    public String getIntroduceView(HttpSession session, ModelAndView model) {
-        return "introduce";
-    }
+//    @MethodAllow(allow = MethodAllow.UserRole.GUEST)
+//    @GetMapping("/introduce")
+//    public String getIntroduceView(HttpSession session, ModelAndView model) {
+//        return "introduce";
+//    }
 
     @MethodAllow(allow = MethodAllow.UserRole.GUEST)
     @GetMapping("/contact")
@@ -91,13 +89,12 @@ public class ViewController {
             List<ArticleInfo> articles = articleService.showArticleMsgsWithCount(type, pageNum, articleCount);
             model.addObject("articles", articles);
         } catch (Exception e) {
-            log.warn("{}", e);
+            log.warn("board error: ", e);
         }
         model.addObject("name", "board");
         model.setViewName("board");
         return model;
     }
-
 
     @GetMapping("/privatepolicy")
     public String getPrivatePolicy(HttpSession session, ModelAndView model) {
@@ -106,7 +103,7 @@ public class ViewController {
 
     @GetMapping("/article")
     public ModelAndView getSingleBlogView(HttpSession session, ModelAndView model,
-                                    @RequestParam(defaultValue = "1") Long id) {
+                                          @RequestParam(defaultValue = "1") Long id) {
         ArticleInfo article;
         try {
             AppUser user = (AppUser) session.getAttribute("user");
@@ -117,7 +114,7 @@ public class ViewController {
             }
         } catch (Exception e) {
             article = new ArticleInfo();
-            log.warn("article error: {}", e);
+            log.warn("article error: ", e);
         }
         model.addObject("article", article);
         model.addObject("name", "article");
@@ -127,8 +124,8 @@ public class ViewController {
     @MethodAllow(allow = MethodAllow.UserRole.USER)
     @GetMapping("/writing")
     public ModelAndView getWriteView(HttpSession session, ModelAndView model,
-                               @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthException {
-        if (id != 0){
+                                     @RequestParam(name = "id", defaultValue = "0") Long id) throws NotAuthorizeException {
+        if (id != 0) {
             AppUser user = (AppUser) session.getAttribute("user");
 
             ArticleInfo articleInfo = articleService.showArticleMsgById(id, user.getId());

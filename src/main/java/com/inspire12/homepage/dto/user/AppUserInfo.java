@@ -9,13 +9,14 @@ public class AppUserInfo {
     Long userId;
     String username;
     String nickname;
-
     AuthType role;
+    String profileImg;
 
     public static AppUserInfo create(AppUser user) {
         return new AppUserInfo(user.getId(),
                 user.getUsername(),
                 user.getNickname(),
-                user.getRole() != null ? user.getRole() : null);
+                user.getRole() != null ? user.getRole() : null,
+                user.getProfile());
     }
 }

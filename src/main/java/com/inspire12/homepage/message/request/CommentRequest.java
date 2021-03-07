@@ -4,8 +4,7 @@ import lombok.Value;
 
 @Value
 public class CommentRequest {
-    private String username;
-    private Long articleId;
-    private String content;
-    private Long parentId;
+    Long articleId;
+    String content;
+    Long parentId;
 }

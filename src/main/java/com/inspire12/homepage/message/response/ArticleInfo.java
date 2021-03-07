@@ -1,7 +1,5 @@
 package com.inspire12.homepage.message.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.inspire12.homepage.domain.model.AppUser;
 import com.inspire12.homepage.domain.model.Article;
 import com.inspire12.homepage.domain.model.FileMeta;
 import com.inspire12.homepage.dto.article.CommentInfo;
@@ -29,11 +27,10 @@ public class ArticleInfo {
     String subject;
     String content;
     String url;
-
+    Integer likes;
     AppUserInfo author;
-    List<CommentInfo> comments;
+    List<CommentInfo> comments = new ArrayList<>();
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     List<FileMeta> files = new ArrayList<>();
 
     LocalDateTime createdAt;
@@ -74,10 +71,10 @@ public class ArticleInfo {
         return articleInfo;
     }
 
-    public static ArticleInfo createWithComments(Article article, AppUser user, List<CommentInfo> commentRespons) {
+    public static ArticleInfo createWithComments(Article article, AppUserInfo user, List<CommentInfo> commentResponse) {
 
-        ArticleInfo articleInfo = create(article, AppUserInfo.create(user));
-        articleInfo.setComments(commentRespons);
+        ArticleInfo articleInfo = create(article, user);
+        articleInfo.setComments(commentResponse);
         return articleInfo;
     }
 }

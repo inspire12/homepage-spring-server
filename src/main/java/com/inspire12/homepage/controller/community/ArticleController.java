@@ -5,14 +5,16 @@ import com.inspire12.homepage.exception.CommonException;
 import com.inspire12.homepage.message.request.ArticleModifyRequest;
 import com.inspire12.homepage.message.request.ArticleWriteRequest;
 import com.inspire12.homepage.message.response.ArticleInfo;
+import com.inspire12.homepage.message.viewmodel.ArticleSaveResponse;
 import com.inspire12.homepage.service.board.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,12 +31,12 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("/boards")
-    public List<ArticleInfo> showArticle(@RequestParam(value = "size", required = true) int size) {
-        return articleService.showArticleMsgs(size);
+    public List<ArticleInfo> showArticleList(@PageableDefault PageRequest pageRequest) {
+        return articleService.showArticleMsgs(pageRequest.getPageSize());
     }
 
     @GetMapping("/articles/{id}")
-    public ArticleInfo showArticleList(HttpSession session, @PathVariable Long id) {
+    public ArticleInfo showArticle(HttpSession session, @PathVariable Long id) {
         AppUser user = (AppUser) session.getAttribute("user");
         Long userId = 0L;
         if (!Objects.isNull(user)) {
@@ -53,18 +55,12 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/modify")
-    public void modifyArticle(@RequestBody ArticleModifyRequest articleModifyRequest) {
-        articleService.updateArticle(articleModifyRequest);
-    }
-
-    @PutMapping("/articles/replies")
-    public void insertArticleReply(@RequestBody ArticleModifyRequest requestBody) {
-        long parentId = requestBody.getParentId();
-        articleService.saveArticleReply(parentId);
+    public ArticleSaveResponse modifyArticle(HttpSession session, @RequestBody ArticleModifyRequest articleModifyRequest) {
+        return articleService.updateArticle(articleModifyRequest);
     }
 
     @DeleteMapping("/articles")
-    public boolean deleteArticle(@RequestParam Long id, @RequestHeader HttpHeaders headers) {
+    public ArticleSaveResponse deleteArticle(@RequestParam Long id, @RequestHeader HttpHeaders headers) {
         return articleService.deleteArticle(id);
     }
 }

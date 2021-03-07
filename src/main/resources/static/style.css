@@ -1308,7 +1308,8 @@ input:required {
 }
 
 .breadcrumb-area.blog {
-    height: 550px;
+    /*height: 550px;*/
+    height: 350px;
 }
 
 .breadcrumb-area.blog .breadcrumb-content .post-catagory {

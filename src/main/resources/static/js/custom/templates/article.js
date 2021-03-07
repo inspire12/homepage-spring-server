@@ -39,18 +39,19 @@ function main(article, user) {
             turnBtn(response.status, btnLike, btnDisLike)
         })
     });
-
-    turnBtn(! article.is_my_like, btnLike, btnDisLike);
+    btnLike.innerText("Like " + article.likes);
+    btnDisLike.innerText("DisLike " + article.likes);
+    turnBtn(!article.myLike, btnLike, btnDisLike);
 }
 let toggle = function (elem) {
     elem.classList.toggle('is-visible');
-};
+}
 
 function turnBtn(is_my_like, btnLike, btnDislike) {
     if (is_my_like) {
-        toggle(btnLike);
         toggle(btnDislike);
     } else {
+        toggle(btnLike);
         // 에러
     }
 }
@@ -104,11 +105,10 @@ function submitComment(message) {
 
     let url = "/comments";
     let body = {
-        "article_id": article['id'],
-        "username": user,
+        "articleId": article['id'],
         "content": message.value
     };
-    putRequest(url, body, (data) => {
+    postRequest(url, body, (data) => {
         console.dir(data);
         // comment dom 삭제 후 다시 갱신 (전체를 다 받아서 리턴하도록 해야겠네)
         let comments = data['comments'];
@@ -147,7 +147,6 @@ function appendComments(comments, commentArea) {
     }
 }
 
-
 function createCommentElement(comment) {
 
     let commentStr = '<li class="single_comment_area">\n' +
@@ -156,8 +155,8 @@ function createCommentElement(comment) {
         commentStr += '                                <div class="comment-author"></div>\n';
     }
     let profile = comment.author.profile;
-    if (profile === null || profile === "null") {
-        profile = "img/bg-img/52.jpg"
+    if (profile === null || profile === "null" || profile === undefined) {
+        profile = "img/user-img/common-user.jpg"
     }
     commentStr +=
         '                                <div class="comment-author">\n' +

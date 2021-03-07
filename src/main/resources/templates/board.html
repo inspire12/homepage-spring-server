@@ -82,14 +82,14 @@
 <script th:inline="javascript">
     let articles = /*[[${articles}]]*/ [];
 
-    function main() {
+    function main(articles) {
         let tbody = document.getElementsByTagName("tbody")[0];
         for (let i = 0; articles !== null && i < articles.length; i++) {
             tbody.append(createArticleRows(articles[i]))
         }
     }
 
-    main()
+    main(articles)
 
 </script>
 

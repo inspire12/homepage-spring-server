@@ -24,7 +24,11 @@ function postRequestWithHeader(url, header, body, func) {
         console.dir(response);
         let status = response.status;
         swalStatusMessage(status);
-        return response.json();
+        if (response.bodyUsed === true) {
+            return response.body;
+        }
+        return {};
+
     }).then(body => {
         console.dir(body);
         func(body)
@@ -53,9 +57,7 @@ function putRequest(url, body, func) {
     })
 }
 
-
 function deleteRequest(url, func) {
-
     return fetch(url, {
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
         headers: {

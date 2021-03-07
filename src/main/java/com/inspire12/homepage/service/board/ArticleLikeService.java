@@ -7,6 +7,7 @@ import com.inspire12.homepage.domain.model.UserLikeId;
 import com.inspire12.homepage.domain.repository.UserLikeRepository;
 import com.inspire12.homepage.domain.repository.ArticleRepository;
 import com.inspire12.homepage.exception.CommonException;
+import com.inspire12.homepage.exception.NotAuthorizeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +17,16 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class ArticleLikeService {
-    UserLikeRepository userLikeRepository;
-    ArticleRepository articleRepository;
+    private final UserLikeRepository userLikeRepository;
+    private final ArticleRepository articleRepository;
 //   TODO  ArticleDomainService articleDomainService;
 
     @Transactional
     public boolean increaseArticleLike(Long postId, Long userId) {
-        UserLike articleLike = userLikeRepository.findById(new UserLikeId(postId, userId, LikeType.ARTICLE))
+        UserLike articleLike = (UserLike) userLikeRepository.findById(new UserLikeId(postId, userId, LikeType.ARTICLE))
+                .map(userLike -> {
+                    throw new NotAuthorizeException();
+                })
                 .orElseGet(() -> new UserLike(postId, userId, LikeType.ARTICLE, true, LocalDateTime.now(), LocalDateTime.now(), 0L));
         articleLike.setLiked(true);
 

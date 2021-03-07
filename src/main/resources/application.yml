@@ -26,6 +26,10 @@ spring:
     username: manager
     password: 1q2w3e4r!@
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+      web:
+        pageable:
+          one-indexed-parameters: true
 
 servlet:
   multipart:

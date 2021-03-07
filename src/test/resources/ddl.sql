@@ -54,19 +54,20 @@ create table if not exists Board
     version   bigint       null
 );
 
-create table if not exists Comment
+drop table Comment;
+create table Comment
 (
     id        bigint auto_increment primary key,
     articleId bigint       null,
     content   varchar(255) null,
-    createdAt datetime     null,
     depth     int          null,
     grpNo     int          null,
     grpOrd    int          null,
     likeCount int          null,
-    updatedAt datetime     null,
-    username  varchar(255) null,
-    version   bigint       null
+    username  bigint(20)   not null,
+    version   bigint(20)   null,
+    createdAt datetime     null,
+    updatedAt datetime     null
 );
 
 create table if not exists FileMeta

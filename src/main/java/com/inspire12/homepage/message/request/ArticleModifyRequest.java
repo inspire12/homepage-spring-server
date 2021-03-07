@@ -1,18 +1,15 @@
 package com.inspire12.homepage.message.request;
 
-import com.inspire12.homepage.aspect.TextContentAspect;
 import lombok.Value;
+
+import java.util.List;
 
 @Value
 public class ArticleModifyRequest {
     Long id;
-
-    @TextContentAspect
-    String title;
-
-    String content;
-
     String boardType;
-
-    Long parentId;
+    String title;
+    String content;
+    List<String> tag;
+    List<Object> files;
 }
